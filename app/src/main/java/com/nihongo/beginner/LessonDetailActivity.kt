@@ -1,6 +1,5 @@
 package com.nihongo.beginner
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -69,55 +68,6 @@ class LessonDetailActivity : AppCompatActivity() {
             binding.rvExamples.adapter = ExampleAdapter(lesson.examples)
         }
 
-        // Games section visibility and state
-        binding.tvGamesHeader.visibility = View.VISIBLE
-
-        // Quiz — always available
-        binding.btnQuiz.setOnClickListener {
-            startActivity(Intent(this, QuizActivity::class.java).apply {
-                putExtra(EXTRA_LESSON_ID, lesson.id)
-            })
-        }
-
-        // Flashcards — enabled only when vocabulary is non-empty
-        binding.btnFlashcards.isEnabled = lesson.vocabulary.isNotEmpty()
-        binding.btnFlashcards.setOnClickListener {
-            startActivity(Intent(this, FlashcardActivity::class.java).apply {
-                putExtra(EXTRA_LESSON_ID, lesson.id)
-            })
-        }
-
-        // Matching — enabled only when vocabulary has at least 4 items
-        binding.btnMatching.isEnabled = lesson.vocabulary.size >= 4
-        binding.btnMatching.setOnClickListener {
-            startActivity(Intent(this, MatchingGameActivity::class.java).apply {
-                putExtra(EXTRA_LESSON_ID, lesson.id)
-            })
-        }
-
-        // Number Game — visible only for lesson 8
-        if (lesson.id == 8) {
-            binding.btnNumberGame.visibility = View.VISIBLE
-            binding.btnNumberGame.setOnClickListener {
-                startActivity(Intent(this, NumberGameActivity::class.java).apply {
-                    putExtra(EXTRA_LESSON_ID, lesson.id)
-                })
-            }
-        } else {
-            binding.btnNumberGame.visibility = View.GONE
-        }
-
-        // Sentence Builder — visible only for lessons 11–16
-        if (lesson.id in 11..16) {
-            binding.btnSentenceBuilder.visibility = View.VISIBLE
-            binding.btnSentenceBuilder.setOnClickListener {
-                startActivity(Intent(this, SentenceBuilderActivity::class.java).apply {
-                    putExtra(EXTRA_LESSON_ID, lesson.id)
-                })
-            }
-        } else {
-            binding.btnSentenceBuilder.visibility = View.GONE
-        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

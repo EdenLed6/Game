@@ -114,57 +114,6 @@
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false" />
 
-            <TextView
-                android:id="@+id/tvGamesHeader"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="משחקים"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp" />
-
-            <Button
-                android:id="@+id/btnQuiz"
-                style="@style/Widget.MaterialComponents.Button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="חידון שאלות" />
-
-            <Button
-                android:id="@+id/btnFlashcards"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="כרטיסיות לימוד" />
-
-            <Button
-                android:id="@+id/btnMatching"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="משחק התאמה" />
-
-            <Button
-                android:id="@+id/btnNumberGame"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="משחק מספרים"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/btnSentenceBuilder"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="בניית משפטים"
-                android:visibility="gone" />
 
         </LinearLayout>
 

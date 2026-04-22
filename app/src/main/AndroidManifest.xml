@@ -24,31 +24,6 @@
             android:exported="false"
             android:parentActivityName=".MainActivity" />
 
-        <activity
-            android:name=".QuizActivity"
-            android:exported="false"
-            android:parentActivityName=".LessonDetailActivity" />
-
-        <activity
-            android:name=".FlashcardActivity"
-            android:exported="false"
-            android:parentActivityName=".LessonDetailActivity" />
-
-        <activity
-            android:name=".MatchingGameActivity"
-            android:exported="false"
-            android:parentActivityName=".LessonDetailActivity" />
-
-        <activity
-            android:name=".NumberGameActivity"
-            android:exported="false"
-            android:parentActivityName=".LessonDetailActivity" />
-
-        <activity
-            android:name=".SentenceBuilderActivity"
-            android:exported="false"
-            android:parentActivityName=".LessonDetailActivity" />
-
     </application>
 
 </manifest>
