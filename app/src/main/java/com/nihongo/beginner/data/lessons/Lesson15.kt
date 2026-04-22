@@ -1,0 +1,100 @@
+package com.nihongo.beginner.data.lessons
+
+import com.nihongo.beginner.data.*
+
+object Lesson15 {
+    val lesson = Lesson(
+        id = 15,
+        number = "שיעור 14",
+        title = "מילית הכיוון: NI",
+        subtitle = "NI Direction (に)",
+        emoji = "➡️",
+        grammarPoints = listOf(
+            GrammarPoint(
+                title = "ni (に) - כיוון / יעד",
+                content = "ni (に) = 'ל-' / 'אל' - מציינת יעד / כיוון.\nמשמשת עם פעלי תנועה: iku (ללכת), kuru (לבוא), kaeru (לחזור).",
+                pattern = "[נושא] wa [יעד] ni [פועל תנועה]"
+            ),
+            GrammarPoint(
+                title = "de vs. ni - ההבדל",
+                content = "de = מקום שבו הפעולה מתרחשת\nni = יעד שאליו הולכים\nדוגמה:\n• Jimu de yoga wo shimasu = עושה יוגה בחדר כושר (de)\n• Jimu ni ikimasu = הולך/ת לחדר כושר (ni)"
+            ),
+            GrammarPoint(
+                title = "soshite (そして) - חיבור משפטים",
+                content = "soshite = 'ו-' / 'ואז' - מחבר בין שני משפטים.\nדוגמה: Jimu ni ikimashita. Soshite, yoga wo shimashita."
+            ),
+            GrammarPoint(
+                title = "kinou (きのう) - אתמול",
+                content = "kinou = אתמול. זמן יחסי → ללא ni!\nדוגמה: Kinou eiga wo mimashita. (ללא ni אחרי kinou)"
+            )
+        ),
+        vocabulary = listOf(
+            VocabItem(japanese = "きのう", romaji = "Kinou", hebrew = "אתמול", emoji = "📅"),
+            VocabItem(japanese = "そして", romaji = "Soshite", hebrew = "ואז / ו- (חיבור)", emoji = "🔗"),
+            VocabItem(japanese = "うみ", romaji = "Umi", hebrew = "ים", emoji = "🌊"),
+            VocabItem(japanese = "しょっぴんぐもーる", romaji = "Shoppingu mo-ru", hebrew = "קניון", emoji = "🛍️"),
+            VocabItem(japanese = "とうきょう", romaji = "Tokyou", hebrew = "טוקיו", emoji = "🗼"),
+            VocabItem(japanese = "うち / いえ", romaji = "Uchi / Ie", hebrew = "הבית", emoji = "🏠"),
+            VocabItem(japanese = "ジム", romaji = "Jimu", hebrew = "חדר כושר", emoji = "💪")
+        ),
+        examples = listOf(
+            Example(
+                romaji = "Watashi wa Tokyou ni ikimasu.",
+                japanese = "わたしはとうきょうにいきます。",
+                hebrew = "אני הולך/ת לטוקיו."
+            ),
+            Example(
+                romaji = "Watashi wa 6 ji ni Tokyou ni ikimasu.",
+                japanese = "わたしは6じにとうきょうにいきます。",
+                hebrew = "אני הולך/ת לטוקיו בשש."
+            ),
+            Example(
+                romaji = "Watashi wa kuruma de Tokyou ni ikimasu.",
+                japanese = "わたしはくるまでとうきょうにいきます。",
+                hebrew = "אני הולך/ת לטוקיו במכונית."
+            ),
+            Example(
+                romaji = "Watashi wa kinou 6 ji ni okimashita. Uchi de asagohan wo tabemashita. Soshite, jimu ni ikimashita. Jimu de yoga wo shimashita.",
+                japanese = "わたしはきのう6じにおきました。うちであさごはんをたべました。そして、ジムにいきました。ジムでヨガをしました。",
+                hebrew = "אתמול קמתי בשש. אכלתי ארוחת בוקר בבית. ואז הלכתי לחדר כושר. עשיתי יוגה בחדר כושר."
+            )
+        ),
+        exercises = listOf(
+            QuizQuestion(
+                question = "מה ההבדל בין 'de' ל-'ni' לגבי מקום?",
+                options = listOf("שניהם זהים", "de=מקום הפעולה, ni=יעד תנועה", "ni=מקום הפעולה, de=יעד", "de=זמן, ni=מקום"),
+                correctIndex = 1
+            ),
+            QuizQuestion(
+                question = "'Umi ni ikimasu' פירושו:",
+                options = listOf("שוחה בים", "הולך/ת לים", "שוחה מהים", "גר/ה ליד הים"),
+                correctIndex = 1
+            ),
+            QuizQuestion(
+                question = "'Jimu de yoga wo shimasu' - 'de' מציין:",
+                options = listOf("יעד - לחדר כושר", "מקום הפעולה - בחדר כושר", "אמצעי", "זמן"),
+                correctIndex = 1
+            ),
+            QuizQuestion(
+                question = "מה פירוש 'soshite'?",
+                options = listOf("אבל", "כי", "ואז / ו-", "אם"),
+                correctIndex = 2
+            ),
+            QuizQuestion(
+                question = "'Kinou' (אתמול) - האם מוסיפים 'ni'?",
+                options = listOf("כן, תמיד", "לא, זמן יחסי", "כן, אם יש שעה", "לפעמים"),
+                correctIndex = 1
+            ),
+            QuizQuestion(
+                question = "'Watashi wa shoppingu mo-ru ni kaerimasu' פירושו:",
+                options = listOf("הולך/ת לקניון", "חוזר/ת לקניון", "קונה בקניון", "גר/ה בקניון"),
+                correctIndex = 1
+            ),
+            QuizQuestion(
+                question = "'Watashi wa kuruma de Tokyou ni ikimasu' - כמה מיליות?",
+                options = listOf("אחת (de)", "אחת (ni)", "שתיים (de + ni)", "שלוש"),
+                correctIndex = 2
+            )
+        )
+    )
+}

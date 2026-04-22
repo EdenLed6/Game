@@ -1,0 +1,106 @@
+package com.nihongo.beginner.data.lessons
+
+import com.nihongo.beginner.data.*
+
+object Lesson02 {
+    val lesson = Lesson(
+        id = 2,
+        number = "שיעור 2",
+        title = "מילות ברכה",
+        subtitle = "Greetings",
+        emoji = "🙏",
+        grammarPoints = listOf(
+            GrammarPoint(
+                title = "ברכות ביפנית",
+                content = "תמיד מברכים יחד עם קידה קלה. ביפנית יש שפה פורמלית ולא פורמלית. מקובל לפנות בצורה פורמלית. חשוב מאוד לא להשתמש בצורה הלא פורמלית עם אנשים שאינם קרובים."
+            ),
+            GrammarPoint(
+                title = "פורמלי vs. לא פורמלי",
+                content = "הצורה הפורמלית: Ohayougozaimasu, Arigatougozaimasu, Oyasuminasai\nהצורה הלא פורמלית (*): Ohayou, Arigatou, Oyasumi\n* לשימוש עם חברים קרובים/משפחה בלבד"
+            )
+        ),
+        vocabulary = listOf(
+            VocabItem(japanese = "おはよう", romaji = "Ohayou", hebrew = "בוקר טוב (לא פורמלי)", emoji = "😊"),
+            VocabItem(japanese = "おはようございます", romaji = "Ohayougozaimasu", hebrew = "בוקר טוב (פורמלי)", emoji = "🌅"),
+            VocabItem(japanese = "こんにちは", romaji = "Konnichiwa", hebrew = "שלום / צהריים טובים", emoji = "👋"),
+            VocabItem(japanese = "ありがとう", romaji = "Arigatou", hebrew = "תודה (לא פורמלי)", emoji = "❤️"),
+            VocabItem(japanese = "ありがとうございます", romaji = "Arigatougozaimasu", hebrew = "תודה (פורמלי)", emoji = "🙏"),
+            VocabItem(japanese = "すいません", romaji = "Suimasen", hebrew = "סליחה / התנצלות", emoji = "🙇"),
+            VocabItem(japanese = "こんばんは", romaji = "Konbanwa", hebrew = "ערב טוב", emoji = "🌙"),
+            VocabItem(japanese = "おやすみ", romaji = "Oyasumi", hebrew = "לילה טוב (לא פורמלי)", emoji = "😴"),
+            VocabItem(japanese = "おやすみなさい", romaji = "Oyasuminasai", hebrew = "לילה טוב (פורמלי)", emoji = "🌟"),
+            VocabItem(japanese = "いただきます", romaji = "Itadakimasu", hebrew = "ברכה לפני האוכל", emoji = "🍱"),
+            VocabItem(japanese = "ごちそうさまでした", romaji = "Gochisou sama deshita", hebrew = "ברכה אחרי האוכל", emoji = "🍽️"),
+            VocabItem(japanese = "おつかれさま", romaji = "Otsukare sama", hebrew = "כל הכבוד / אחרי עבודה", emoji = "💪"),
+            VocabItem(japanese = "はじめまして", romaji = "Hajimemashite", hebrew = "נעים להכיר", emoji = "🤝"),
+            VocabItem(japanese = "よろしくおねがいします", romaji = "Yoroshiku onegai shimasu", hebrew = "שמחה לשמור קשר", emoji = "🤗"),
+            VocabItem(japanese = "さようなら", romaji = "Sayounara", hebrew = "להתראות", emoji = "👋"),
+            VocabItem(japanese = "いってきます", romaji = "Ittekimasu", hebrew = "אני הולך/ת (יוצא/ת מהבית)", emoji = "🚶"),
+            VocabItem(japanese = "いってらっしゃい", romaji = "Itterasshai", hebrew = "לך/כי בשלום (תגובה)", emoji = "🏠")
+        ),
+        examples = listOf(
+            Example(
+                romaji = "Ohayougozaimasu!",
+                japanese = "おはようございます！",
+                hebrew = "בוקר טוב! (בבוקר)"
+            ),
+            Example(
+                romaji = "A: Itadakimasu! / B: Gochisou sama deshita.",
+                japanese = "いただきます！/ ごちそうさまでした。",
+                hebrew = "לפני האוכל / אחרי האוכל"
+            ),
+            Example(
+                romaji = "A: Hajimemashite. Watashi wa Yamada desu. Yoroshiku onegaishimasu.",
+                japanese = "はじめまして。わたしはやまだです。よろしくおねがいします。",
+                hebrew = "פגישה ראשונה: נעים להכיר, אני יאמדה, שמחה להכיר."
+            ),
+            Example(
+                romaji = "A: Ittekimasu! / B: Itterasshai!",
+                japanese = "いってきます！/ いってらっしゃい！",
+                hebrew = "יוצא/ת מהבית / תגובה: לך בשלום"
+            )
+        ),
+        exercises = listOf(
+            QuizQuestion(
+                question = "איך אומרים 'בוקר טוב' בצורה פורמלית?",
+                options = listOf("Ohayou", "Ohayougozaimasu", "Konnichiwa", "Konbanwa"),
+                correctIndex = 1
+            ),
+            QuizQuestion(
+                question = "מה אומרים לפני האוכל?",
+                options = listOf("Sayounara", "Itadakimasu", "Otsukare sama", "Suimasen"),
+                correctIndex = 1
+            ),
+            QuizQuestion(
+                question = "מה פירוש Suimasen?",
+                options = listOf("תודה", "שלום", "סליחה", "להתראות"),
+                correctIndex = 2
+            ),
+            QuizQuestion(
+                question = "איך אומרים 'ערב טוב'?",
+                options = listOf("Ohayou", "Konnichiwa", "Konbanwa", "Oyasumi"),
+                correctIndex = 2
+            ),
+            QuizQuestion(
+                question = "מה פירוש Hajimemashite?",
+                options = listOf("להתראות", "בוקר טוב", "נעים להכיר", "תודה רבה"),
+                correctIndex = 2
+            ),
+            QuizQuestion(
+                question = "מה עונים כשמישהו אומר Ittekimasu?",
+                options = listOf("Sayounara", "Itterasshai", "Oyasumi", "Otsukare sama"),
+                correctIndex = 1
+            ),
+            QuizQuestion(
+                question = "איזו ברכה משתמשים אחרי אוכל?",
+                options = listOf("Itadakimasu", "Konnichiwa", "Gochisou sama deshita", "Hajimemashite"),
+                correctIndex = 2
+            ),
+            QuizQuestion(
+                question = "מה אומרים אחרי עבודה קשה?",
+                options = listOf("Arigatou", "Suimasen", "Otsukare sama", "Konbanwa"),
+                correctIndex = 2
+            )
+        )
+    )
+}

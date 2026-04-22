@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@color/colorPrimary"/>
+    <foreground>
+        <inset xmlns:android="http://schemas.android.com/apk/res/android"
+            android:insetLeft="14%"
+            android:insetRight="14%"
+            android:insetTop="14%"
+            android:insetBottom="14%">
+            <shape android:shape="rectangle">
+                <solid android:color="@android:color/transparent"/>
+            </shape>
+        </inset>
+    </foreground>
+</adaptive-icon>
