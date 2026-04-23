@@ -18,18 +18,26 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Debug environment
+        run: |
+          echo "=== Gradle ===" && (gradle --version 2>/dev/null || echo "no gradle")
+          echo "=== ANDROID_HOME ===" && echo "$ANDROID_HOME"
+          echo "=== SDK contents ===" && ls "$ANDROID_HOME" 2>/dev/null || echo "empty"
+          echo "=== Java ===" && java -version
+
       - name: Generate correct gradle-wrapper.jar
         run: |
           mkdir -p /tmp/wp
           echo '' > /tmp/wp/build.gradle
           echo 'rootProject.name = "tmp"' > /tmp/wp/settings.gradle
-          cd /tmp/wp && gradle wrapper --gradle-version 8.2
+          cd /tmp/wp && gradle wrapper --gradle-version 8.2 --stacktrace
           cp /tmp/wp/gradle/wrapper/gradle-wrapper.jar $GITHUB_WORKSPACE/gradle/wrapper/
+          echo "wrapper jar size: $(wc -c < $GITHUB_WORKSPACE/gradle/wrapper/gradle-wrapper.jar) bytes"
 
       - name: Build debug APK
         run: |
           chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon
+          ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tail -60
 
       - name: Upload APK
         if: success()
