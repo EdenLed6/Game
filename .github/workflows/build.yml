@@ -18,22 +18,18 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Install Android SDK platform 34
+      - name: Generate correct gradle-wrapper.jar
         run: |
-          yes | sudo ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager \
-            "platforms;android-34" \
-            "build-tools;34.0.0" 2>/dev/null || true
-
-      - name: Setup Gradle 8.2
-        uses: gradle/actions/setup-gradle@v3
-        with:
-          gradle-version: "8.2"
-          cache-disabled: true
+          mkdir -p /tmp/wp
+          echo '' > /tmp/wp/build.gradle
+          echo 'rootProject.name = "tmp"' > /tmp/wp/settings.gradle
+          cd /tmp/wp && gradle wrapper --gradle-version 8.2
+          cp /tmp/wp/gradle/wrapper/gradle-wrapper.jar $GITHUB_WORKSPACE/gradle/wrapper/
 
       - name: Build debug APK
-        run: gradle assembleDebug --no-daemon --stacktrace
-        env:
-          ANDROID_HOME: ${{ env.ANDROID_HOME }}
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon
 
       - name: Upload APK
         if: success()
