@@ -49,6 +49,11 @@
             android:exported="false"
             android:parentActivityName=".LessonDetailActivity" />
 
+        <activity
+            android:name=".GameChallengeActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
     </application>
 
 </manifest>

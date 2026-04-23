@@ -25,6 +25,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.rvLessons.layoutManager = LinearLayoutManager(this)
 
+        binding.btnChallenge.setOnClickListener {
+            startActivity(Intent(this, GameChallengeActivity::class.java))
+        }
+
         adapter = LessonAdapter(
             lessons = lessons,
             completedIds = emptySet(),
