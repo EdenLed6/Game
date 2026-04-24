@@ -1,73 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/surface"
+    android:background="@color/background"
     android:orientation="vertical">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="@color/white"
-        app:navigationIconTint="@color/colorPrimary"
-        app:titleTextColor="@color/colorPrimary" />
-
+    <!-- Gradient header -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_gradient_hero"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="44dp"
+        android:paddingBottom="16dp">
 
-        <TextView
-            android:id="@+id/tvMatchScore"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginBottom="4dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:layout_height="?actionBarSize"
+            android:background="@color/transparent"
+            app:navigationIconTint="#FFFFFF"
+            app:titleTextColor="#FFFFFF" />
 
-        <TextView
-            android:id="@+id/tvMatchInstructions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginBottom="12dp"
-            android:textColor="@color/onSurfaceMuted"
-            android:textSize="13sp" />
-
+        <!-- Score + instructions row -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvMatchLeft"
+            <TextView
+                android:id="@+id/tvMatchScore"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_score_badge"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textColor="#1A0800"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="10dp" />
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/dividerSoft" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvMatchRight"
+            <TextView
+                android:id="@+id/tvMatchInstructions"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:textColor="#FFFFFF"
+                android:alpha="0.85"
+                android:textSize="12sp" />
 
         </LinearLayout>
 
     </LinearLayout>
 
+    <!-- Matching columns -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMatchLeft"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginEnd="6dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMatchRight"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginStart="6dp" />
+
+    </LinearLayout>
+
+    <!-- Complete screen -->
     <LinearLayout
         android:id="@+id/layoutMatchComplete"
         android:layout_width="match_parent"
@@ -75,31 +91,43 @@
         android:gravity="center"
         android:orientation="vertical"
         android:padding="32dp"
+        android:background="@color/background"
         android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginBottom="12dp"
+            android:text="🎉"
+            android:textSize="72sp" />
 
         <TextView
             android:id="@+id/tvMatchResult"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginBottom="16dp"
-            android:textSize="20sp" />
+            android:layout_marginBottom="8dp"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/onSurface" />
 
         <TextView
             android:id="@+id/tvMatchTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="32dp"
             android:textColor="@color/onSurfaceMuted"
             android:textSize="16sp" />
 
         <Button
             android:id="@+id/btnMatchAgain"
+            style="@style/App.Button.Gold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="שחק שוב" />
+            android:layout_marginBottom="12dp"
+            android:text="🔄  שחק שוב" />
 
         <Button
             android:id="@+id/btnMatchBack"

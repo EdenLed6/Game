@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import com.nihongo.beginner.audio.PronunciationSpeaker
 import com.nihongo.beginner.data.LessonData
 import com.nihongo.beginner.data.ProgressManager
 import com.nihongo.beginner.data.QuizQuestion
@@ -18,6 +19,7 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityQuizBinding
+    private lateinit var speaker: PronunciationSpeaker
     private var lessonId: Int = -1
     private var currentIndex = 0
     private var score = 0
@@ -41,6 +43,8 @@ class QuizActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.toolbar.setNavigationOnClickListener { finish() }
+
+        speaker = PronunciationSpeaker(this)
 
         questions = lesson.exercises
         val total = questions.size
@@ -73,6 +77,7 @@ class QuizActivity : AppCompatActivity() {
             binding.tvQuestionCounter.text = "שאלה ${currentIndex + 1} מתוך $total"
             binding.progressBarQuiz.progress = currentIndex * 100 / total
             binding.tvQuestion.text = question.question
+            binding.btnSpeakQuestion.visibility = View.VISIBLE
             val options = question.options
             optionButtons().forEachIndexed { i, btn ->
                 btn.text = if (i < options.size) options[i] else ""
@@ -81,7 +86,8 @@ class QuizActivity : AppCompatActivity() {
             }
             resetButtonColors()
             binding.tvFeedback.text = ""
-            binding.tvFeedback.visibility = View.INVISIBLE
+            binding.tvFeedback.visibility = View.GONE
+            binding.cardFeedback.visibility = View.GONE
             binding.btnSubmit.visibility = View.VISIBLE
             binding.btnSubmit.isEnabled = false
             binding.btnNext.visibility = View.GONE
@@ -93,6 +99,7 @@ class QuizActivity : AppCompatActivity() {
             binding.tvQuestion.visibility = View.GONE
             optionButtons().forEach { it.visibility = View.GONE }
             binding.tvFeedback.visibility = View.GONE
+            binding.cardFeedback.visibility = View.GONE
             binding.btnSubmit.visibility = View.GONE
             binding.btnNext.visibility = View.GONE
             binding.layoutResults.visibility = View.VISIBLE
@@ -135,6 +142,7 @@ class QuizActivity : AppCompatActivity() {
                 if (selected == correctIndex) "Correct." else "Review the lesson notes and try the next one."
             }
             binding.tvFeedback.visibility = View.VISIBLE
+            binding.cardFeedback.visibility = View.VISIBLE
             binding.btnSubmit.visibility = View.GONE
             binding.btnNext.visibility = View.VISIBLE
         }
@@ -144,6 +152,7 @@ class QuizActivity : AppCompatActivity() {
         binding.btnOption2.setOnClickListener { setOptionSelected(2) }
         binding.btnOption3.setOnClickListener { setOptionSelected(3) }
         binding.btnSubmit.setOnClickListener { submitAnswer() }
+        binding.btnSpeakQuestion.setOnClickListener { speaker.speak(questions[currentIndex].question) }
 
         binding.btnNext.setOnClickListener {
             currentIndex++
@@ -179,6 +188,11 @@ class QuizActivity : AppCompatActivity() {
         binding.btnOption2,
         binding.btnOption3
     )
+
+    override fun onDestroy() {
+        speaker.shutdown()
+        super.onDestroy()
+    }
 
     override fun finish() {
         super.finish()

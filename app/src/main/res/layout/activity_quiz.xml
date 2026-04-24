@@ -1,116 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/surface"
+    android:background="@color/background"
     android:orientation="vertical">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="@color/white"
-        app:navigationIconTint="@color/colorPrimary"
-        app:titleTextColor="@color/colorPrimary" />
-
+    <!-- Gradient header -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_margin="16dp"
-        android:background="@drawable/bg_white_round"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_gradient_hero"
         android:orientation="vertical"
-        android:padding="18dp">
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="44dp"
+        android:paddingBottom="20dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/transparent"
+            app:navigationIconTint="#FFFFFF"
+            app:titleTextColor="#FFFFFF" />
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/progressBarQuiz"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="6dp"
             android:max="100"
-            app:indicatorColor="@color/colorPrimary"
-            app:trackColor="@color/surfaceSoft"
+            app:indicatorColor="#F59E0B"
+            app:trackColor="#4A1A16"
             app:trackCornerRadius="4dp" />
 
         <TextView
             android:id="@+id/tvQuestionCounter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:layout_marginBottom="8dp"
-            android:textColor="@color/onSurfaceMuted"
+            android:gravity="center"
+            android:textColor="#FFFFFF"
+            android:alpha="0.8"
             android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/tvQuestion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:minLines="2"
-            android:textColor="@color/onSurface"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btnOption0"
-            style="@style/App.Button.Outlined"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp" />
-
-        <Button
-            android:id="@+id/btnOption1"
-            style="@style/App.Button.Outlined"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp" />
-
-        <Button
-            android:id="@+id/btnOption2"
-            style="@style/App.Button.Outlined"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp" />
-
-        <Button
-            android:id="@+id/btnOption3"
-            style="@style/App.Button.Outlined"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp" />
-
-        <TextView
-            android:id="@+id/tvFeedback"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/onSurfaceMuted"
-            android:textSize="14sp"
-            android:visibility="gone" />
-
-        <Button
-            android:id="@+id/btnSubmit"
-            style="@style/App.Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:enabled="false"
-            android:text="בדיקת תשובה"
-            android:visibility="visible" />
-
-        <Button
-            android:id="@+id/btnNext"
-            style="@style/App.Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="הבא"
-            android:visibility="gone" />
 
     </LinearLayout>
 
+    <!-- Quiz content card -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- Question card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:cardBackgroundColor="@color/surface"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp"
+                app:strokeColor="@color/cardStroke"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/tvQuestion"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="12dp"
+                        android:minLines="2"
+                        android:textColor="@color/onSurface"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <!-- AUDIO BUTTON: tap to hear the question text spoken -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSpeakQuestion"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:padding="0dp"
+                        app:cornerRadius="24dp"
+                        app:strokeColor="@color/colorPrimary"
+                        app:strokeWidth="2dp"
+                        app:icon="@drawable/ic_volume"
+                        app:iconGravity="textStart"
+                        app:iconSize="24dp"
+                        app:iconPadding="0dp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        app:backgroundTint="@color/white" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Answer options — styled as option cards -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnOption0"
+                style="@style/App.Button.Option"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnOption1"
+                style="@style/App.Button.Option"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnOption2"
+                style="@style/App.Button.Option"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnOption3"
+                style="@style/App.Button.Option"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Feedback card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardFeedback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/surface"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/dividerSoft"
+                app:strokeWidth="1dp">
+
+                <TextView
+                    android:id="@+id/tvFeedback"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:textColor="@color/onSurfaceMuted"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <Button
+                android:id="@+id/btnSubmit"
+                style="@style/App.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:enabled="false"
+                android:text="בדיקת תשובה"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/btnNext"
+                style="@style/App.Button.Outlined"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="השאלה הבאה ▶"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Results screen -->
     <LinearLayout
         android:id="@+id/layoutResults"
         android:layout_width="match_parent"
@@ -118,6 +195,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:padding="32dp"
+        android:background="@color/background"
         android:visibility="gone">
 
         <TextView
@@ -125,8 +203,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginBottom="16dp"
-            android:textSize="64sp" />
+            android:layout_marginBottom="12dp"
+            android:textSize="72sp" />
 
         <TextView
             android:id="@+id/tvFinalScore"
@@ -135,7 +213,7 @@
             android:gravity="center"
             android:layout_marginBottom="8dp"
             android:textColor="@color/colorPrimary"
-            android:textSize="32sp"
+            android:textSize="52sp"
             android:textStyle="bold" />
 
         <TextView
@@ -143,8 +221,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginBottom="24dp"
-            android:textSize="16sp" />
+            android:layout_marginBottom="8dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/onSurface" />
 
         <TextView
             android:id="@+id/tvResultSummary"
@@ -160,8 +240,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginBottom="24dp"
-            android:textColor="@color/colorPrimary"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/bg_achievement_pill"
+            android:padding="12dp"
+            android:textColor="@color/accentGold"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -170,7 +252,7 @@
             style="@style/App.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="12dp"
             android:text="שחק שוב" />
 
         <Button

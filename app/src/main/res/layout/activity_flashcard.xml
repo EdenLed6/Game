@@ -1,20 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/surface"
+    android:background="@color/background"
     android:orientation="vertical">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
+    <!-- Gradient header -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="@color/white"
-        app:navigationIconTint="@color/colorPrimary"
-        app:titleTextColor="@color/colorPrimary" />
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_gradient_hero"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="44dp"
+        android:paddingBottom="16dp">
 
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/transparent"
+            app:navigationIconTint="#FFFFFF"
+            app:titleTextColor="#FFFFFF" />
+
+        <!-- Card counter chip -->
+        <TextView
+            android:id="@+id/tvCardCounter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_stats_chip"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- Flashcard area -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -23,28 +51,22 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <TextView
-            android:id="@+id/tvCardCounter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginBottom="16dp"
-            android:textColor="@color/onSurfaceMuted"
-            android:textSize="14sp" />
-
+        <!-- The card itself — tall and prominent -->
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="220dp">
+            android:layout_height="260dp"
+            android:layout_marginBottom="24dp">
 
+            <!-- Front: white card with Japanese text -->
             <LinearLayout
                 android:id="@+id/cardFront"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/bg_flashcard_front"
-                android:elevation="8dp"
+                android:elevation="6dp"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="24dp">
+                android:padding="28dp">
 
                 <TextView
                     android:id="@+id/tvFrontJapanese"
@@ -52,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:textColor="@color/onSurface"
-                    android:textSize="32sp"
+                    android:textSize="52sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -69,30 +91,44 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:layout_marginTop="16dp"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_lesson_number_chip"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="12sp" />
 
             </LinearLayout>
 
+            <!-- Back: dark red gradient card -->
             <LinearLayout
                 android:id="@+id/cardBack"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/bg_flashcard_back"
-                android:elevation="8dp"
+                android:elevation="6dp"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="24dp"
+                android:padding="28dp"
                 android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tvBackEmoji"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginBottom="8dp"
+                    android:textSize="44sp" />
 
                 <TextView
                     android:id="@+id/tvBackHebrew"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textColor="@android:color/white"
-                    android:textSize="28sp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="30sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -101,7 +137,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_marginTop="8dp"
-                    android:textColor="@android:color/white"
+                    android:textColor="#FFFFFF"
+                    android:alpha="0.85"
                     android:textSize="18sp" />
 
                 <TextView
@@ -109,60 +146,58 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/tvBackEmoji"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_marginTop="8dp"
-                    android:textSize="32sp" />
+                    android:layout_marginTop="4dp"
+                    android:textColor="#FFFFFF"
+                    android:alpha="0.65"
+                    android:textSize="13sp" />
 
             </LinearLayout>
 
         </FrameLayout>
 
+        <!-- Navigation row -->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginTop="24dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
 
             <Button
                 android:id="@+id/btnPrev"
-                style="@style/App.Button.Outlined"
-                android:layout_width="wrap_content"
+                style="@style/App.Button.Small.Outlined"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_marginEnd="8dp"
-                android:text="◀ הקודם" />
+                android:text="◀  הקודם" />
 
             <Button
                 android:id="@+id/btnFlip"
                 style="@style/App.Button"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1.4"
                 android:layout_marginEnd="8dp"
-                android:text="הפוך" />
+                android:text="הפוך כרטיס" />
 
             <Button
                 android:id="@+id/btnNext"
-                style="@style/App.Button.Outlined"
-                android:layout_width="wrap_content"
+                style="@style/App.Button.Small.Outlined"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="הבא ▶" />
+                android:layout_weight="1"
+                android:text="הבא  ▶" />
 
         </LinearLayout>
 
+        <!-- Audio button -->
         <Button
             android:id="@+id/btnSpeakCard"
             style="@style/App.Button.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:text="שמע הגייה" />
+            android:text="🔊  שמע הגייה" />
 
     </LinearLayout>
 
