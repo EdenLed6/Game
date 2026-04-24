@@ -2,6 +2,7 @@ package com.nihongo.beginner
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.nihongo.beginner.audio.PronunciationSpeaker
 import com.nihongo.beginner.data.LessonData
 import com.nihongo.beginner.data.VocabItem
 import com.nihongo.beginner.databinding.ActivityFlashcardBinding
@@ -14,6 +15,7 @@ class FlashcardActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityFlashcardBinding
+    private lateinit var speaker: PronunciationSpeaker
     private lateinit var vocab: List<VocabItem>
     private var currentIndex = 0
     private var showingFront = true
@@ -22,6 +24,7 @@ class FlashcardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityFlashcardBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        speaker = PronunciationSpeaker(this)
 
         val lessonId = intent.getIntExtra(EXTRA_LESSON_ID, -1)
         val lesson = LessonData.getLessonById(lessonId)
@@ -42,6 +45,7 @@ class FlashcardActivity : AppCompatActivity() {
         binding.cardFront.setOnClickListener { toggleCard() }
         binding.cardBack.setOnClickListener { toggleCard() }
         binding.btnFlip.setOnClickListener { toggleCard() }
+        binding.btnSpeakCard.setOnClickListener { speaker.speak(vocab[currentIndex].japanese) }
 
         binding.btnPrev.setOnClickListener {
             if (currentIndex > 0) {
@@ -94,5 +98,10 @@ class FlashcardActivity : AppCompatActivity() {
             binding.cardFront.visibility = View.GONE
             binding.cardBack.visibility = View.VISIBLE
         }
+    }
+
+    override fun onDestroy() {
+        speaker.shutdown()
+        super.onDestroy()
     }
 }

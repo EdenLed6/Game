@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/surface">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -28,14 +29,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+        android:padding="18dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/bg_white_round"
                 android:gravity="center"
                 android:layout_marginBottom="16dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="18dp">
 
                 <TextView
                     android:id="@+id/tvHeaderEmoji"
@@ -53,7 +56,7 @@
                         android:id="@+id/tvHeaderTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/onSurface"
                         android:textSize="22sp"
                         android:textStyle="bold" />
 
@@ -61,7 +64,7 @@
                         android:id="@+id/tvHeaderSubtitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@android:color/darker_gray"
+                        android:textColor="@color/onSurfaceMuted"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -126,7 +129,7 @@
 
             <Button
                 android:id="@+id/btnQuiz"
-                style="@style/Widget.MaterialComponents.Button"
+                style="@style/App.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -134,7 +137,7 @@
 
             <Button
                 android:id="@+id/btnFlashcards"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                style="@style/App.Button.Outlined"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -142,7 +145,7 @@
 
             <Button
                 android:id="@+id/btnMatching"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                style="@style/App.Button.Outlined"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -150,7 +153,7 @@
 
             <Button
                 android:id="@+id/btnNumberGame"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                style="@style/App.Button.Outlined"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -159,7 +162,7 @@
 
             <Button
                 android:id="@+id/btnSentenceBuilder"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                style="@style/App.Button.Outlined"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"

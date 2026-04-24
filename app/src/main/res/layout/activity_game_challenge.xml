@@ -21,8 +21,8 @@
         android:layout_weight="1"
         android:layout_margin="16dp"
         app:cardBackgroundColor="@color/surfaceAlt"
-        app:cardCornerRadius="18dp"
-        app:cardElevation="1dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="0dp"
         app:strokeColor="@color/dividerSoft"
         app:strokeWidth="1dp">
 
@@ -78,8 +78,8 @@
             android:layout_marginBottom="16dp"
             android:gravity="center"
             android:minLines="3"
-            android:textColor="@color/colorPrimary"
-            android:textSize="21sp"
+            android:textColor="@color/onSurface"
+            android:textSize="23sp"
             android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
@@ -164,7 +164,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="24dp"
             android:gravity="center"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@color/onSurfaceMuted"
             android:textSize="16sp" />
 
         <Button

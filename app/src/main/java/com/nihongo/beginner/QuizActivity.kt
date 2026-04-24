@@ -1,5 +1,6 @@
 package com.nihongo.beginner
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -39,7 +40,10 @@ class QuizActivity : AppCompatActivity() {
 
         fun resetButtonColors() {
             val buttons = listOf(binding.btnOption0, binding.btnOption1, binding.btnOption2, binding.btnOption3)
-            buttons.forEach { it.setBackgroundColor(Color.parseColor("#C62828")) }
+            buttons.forEach {
+                it.backgroundTintList = ColorStateList.valueOf(getColor(R.color.white))
+                it.setTextColor(getColor(R.color.onSurface))
+            }
         }
 
         fun showQuestion() {
@@ -88,9 +92,11 @@ class QuizActivity : AppCompatActivity() {
             optionButtons.forEach { it.isEnabled = false }
 
             val correctIndex = question.correctIndex
-            optionButtons[correctIndex].setBackgroundColor(Color.parseColor("#4CAF50"))
+            optionButtons[correctIndex].backgroundTintList = ColorStateList.valueOf(getColor(R.color.correct_green))
+            optionButtons[correctIndex].setTextColor(Color.WHITE)
             if (selectedIndex != correctIndex) {
-                optionButtons[selectedIndex].setBackgroundColor(Color.parseColor("#F44336"))
+                optionButtons[selectedIndex].backgroundTintList = ColorStateList.valueOf(getColor(R.color.wrong_red))
+                optionButtons[selectedIndex].setTextColor(Color.WHITE)
             } else {
                 score++
             }

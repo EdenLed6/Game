@@ -18,8 +18,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_white_round"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="18dp">
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/progressBarQuiz"
@@ -27,6 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:max="100"
+            app:indicatorColor="@color/colorPrimary"
+            app:trackColor="@color/surfaceSoft"
             app:trackCornerRadius="4dp" />
 
         <TextView
@@ -35,7 +39,7 @@
             android:layout_height="wrap_content"
             android:gravity="end"
             android:layout_marginBottom="8dp"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@color/onSurfaceMuted"
             android:textSize="12sp" />
 
         <TextView
@@ -44,34 +48,34 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:minLines="2"
-            android:textColor="@color/colorPrimary"
-            android:textSize="18sp"
+            android:textColor="@color/onSurface"
+            android:textSize="22sp"
             android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnOption0"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/App.Button.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp" />
 
         <Button
             android:id="@+id/btnOption1"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/App.Button.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp" />
 
         <Button
             android:id="@+id/btnOption2"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/App.Button.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp" />
 
         <Button
             android:id="@+id/btnOption3"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/App.Button.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp" />
@@ -81,7 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@color/onSurfaceMuted"
             android:textSize="14sp"
             android:visibility="gone" />
 
@@ -139,7 +143,7 @@
 
         <Button
             android:id="@+id/btnBackToLesson"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/App.Button.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="חזור לשיעור" />

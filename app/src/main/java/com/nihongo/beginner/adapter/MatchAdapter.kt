@@ -1,9 +1,9 @@
 package com.nihongo.beginner.adapter
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.nihongo.beginner.R
 import com.nihongo.beginner.databinding.ItemMatchWordBinding
 
 class MatchAdapter(
@@ -22,24 +22,25 @@ class MatchAdapter(
 
         fun bind(word: String, state: State, position: Int) {
             binding.tvMatchWord.text = word
+            val context = binding.root.context
             when (state) {
                 State.NORMAL -> {
-                    binding.cardWord.setCardBackgroundColor(Color.WHITE)
+                    binding.cardWord.setCardBackgroundColor(context.getColor(R.color.white))
                     binding.cardWord.isClickable = true
                     binding.cardWord.setOnClickListener { onItemClick(position) }
                 }
                 State.SELECTED -> {
-                    binding.cardWord.setCardBackgroundColor(Color.parseColor("#FFF176"))
+                    binding.cardWord.setCardBackgroundColor(context.getColor(R.color.selected_yellow))
                     binding.cardWord.isClickable = true
                     binding.cardWord.setOnClickListener { onItemClick(position) }
                 }
                 State.MATCHED -> {
-                    binding.cardWord.setCardBackgroundColor(Color.parseColor("#A5D6A7"))
+                    binding.cardWord.setCardBackgroundColor(context.getColor(R.color.matched_green))
                     binding.cardWord.isClickable = false
                     binding.cardWord.setOnClickListener(null)
                 }
                 State.WRONG -> {
-                    binding.cardWord.setCardBackgroundColor(Color.parseColor("#EF9A9A"))
+                    binding.cardWord.setCardBackgroundColor(context.getColor(R.color.wrong_light_red))
                     binding.cardWord.isClickable = true
                     binding.cardWord.setOnClickListener { onItemClick(position) }
                 }

@@ -8,7 +8,8 @@ import com.nihongo.beginner.data.Example
 import com.nihongo.beginner.databinding.ItemExampleBinding
 
 class ExampleAdapter(
-    private val items: List<Example>
+    private val items: List<Example>,
+    private val onSpeak: (String) -> Unit = {}
 ) : RecyclerView.Adapter<ExampleAdapter.ExampleViewHolder>() {
 
     inner class ExampleViewHolder(private val binding: ItemExampleBinding) :
@@ -19,6 +20,8 @@ class ExampleAdapter(
             binding.tvExJapanese.text = item.japanese
             binding.tvExJapanese.visibility = if (item.japanese.isNotEmpty()) View.VISIBLE else View.GONE
             binding.tvExHebrew.text = item.hebrew
+            binding.btnSpeakExample.visibility = if (item.japanese.isNotEmpty()) View.VISIBLE else View.GONE
+            binding.btnSpeakExample.setOnClickListener { onSpeak(item.japanese) }
         }
     }
 

@@ -20,7 +20,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="20dp">
 
         <TextView
             android:id="@+id/tvCardCounter"
@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginBottom="16dp"
+            android:textColor="@color/onSurfaceMuted"
             android:textSize="14sp" />
 
         <FrameLayout
@@ -38,7 +39,7 @@
                 android:id="@+id/cardFront"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#FFFFFF"
+                android:background="@drawable/bg_flashcard_front"
                 android:elevation="8dp"
                 android:gravity="center"
                 android:orientation="vertical"
@@ -49,6 +50,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:textColor="@color/onSurface"
                     android:textSize="32sp"
                     android:textStyle="bold" />
 
@@ -58,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_marginTop="8dp"
-                    android:textColor="@android:color/darker_gray"
+                    android:textColor="@color/onSurfaceMuted"
                     android:textSize="18sp" />
 
                 <TextView
@@ -67,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_marginTop="16dp"
-                    android:textColor="@android:color/darker_gray"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="12sp" />
 
             </LinearLayout>
@@ -76,7 +78,7 @@
                 android:id="@+id/cardBack"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/bg_flashcard_back"
                 android:elevation="8dp"
                 android:gravity="center"
                 android:orientation="vertical"
@@ -130,7 +132,7 @@
 
             <Button
                 android:id="@+id/btnPrev"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                style="@style/App.Button.Outlined"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -138,6 +140,7 @@
 
             <Button
                 android:id="@+id/btnFlip"
+                style="@style/App.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -145,12 +148,20 @@
 
             <Button
                 android:id="@+id/btnNext"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                style="@style/App.Button.Outlined"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="הבא ▶" />
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btnSpeakCard"
+            style="@style/App.Button.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="שמע הגייה" />
 
     </LinearLayout>
 

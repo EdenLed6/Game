@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginBottom="4dp"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginBottom="8dp"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@color/onSurfaceMuted"
             android:textSize="13sp" />
 
         <TextView
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/onSurface"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="48dp"
-            android:background="#E3F2FD"
+            android:background="@drawable/bg_white_round"
             android:padding="12dp"
             android:layout_marginBottom="12dp"
             android:textSize="16sp" />
@@ -120,7 +120,7 @@
 
         <Button
             android:id="@+id/btnSbBack"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/App.Button.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="חזור לשיעור" />

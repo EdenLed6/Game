@@ -16,18 +16,23 @@
     </style>
 
     <style name="App.Button" parent="Widget.MaterialComponents.Button">
-        <item name="cornerRadius">16dp</item>
+        <item name="cornerRadius">18dp</item>
         <item name="android:minHeight">52dp</item>
         <item name="android:textAllCaps">false</item>
-        <item name="backgroundTint">@color/colorSecondary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="backgroundTint">@color/colorPrimary</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="App.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="cornerRadius">16dp</item>
+        <item name="cornerRadius">18dp</item>
         <item name="android:minHeight">52dp</item>
         <item name="android:textAllCaps">false</item>
-        <item name="strokeColor">@color/colorPrimary</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="strokeColor">@color/dividerSoft</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:textColor">@color/onSurface</item>
     </style>
 
     <style name="Theme.NihongoBeginner.NoActionBar">

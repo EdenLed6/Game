@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.nihongo.beginner.adapter.ExampleAdapter
 import com.nihongo.beginner.adapter.GrammarAdapter
 import com.nihongo.beginner.adapter.VocabAdapter
+import com.nihongo.beginner.audio.PronunciationSpeaker
 import com.nihongo.beginner.data.LessonData
 import com.nihongo.beginner.databinding.ActivityLessonDetailBinding
 
@@ -19,11 +20,13 @@ class LessonDetailActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityLessonDetailBinding
+    private lateinit var speaker: PronunciationSpeaker
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLessonDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        speaker = PronunciationSpeaker(this)
 
         val lessonId = intent.getIntExtra(EXTRA_LESSON_ID, 1)
         val lesson = LessonData.getLessonById(lessonId)
@@ -55,7 +58,7 @@ class LessonDetailActivity : AppCompatActivity() {
             binding.tvVocabHeader.visibility = View.VISIBLE
             binding.rvVocab.visibility = View.VISIBLE
             binding.rvVocab.layoutManager = LinearLayoutManager(this)
-            binding.rvVocab.adapter = VocabAdapter(lesson.vocabulary)
+            binding.rvVocab.adapter = VocabAdapter(lesson.vocabulary) { speaker.speak(it) }
         }
 
         // Examples section
@@ -66,7 +69,7 @@ class LessonDetailActivity : AppCompatActivity() {
             binding.tvExamplesHeader.visibility = View.VISIBLE
             binding.rvExamples.visibility = View.VISIBLE
             binding.rvExamples.layoutManager = LinearLayoutManager(this)
-            binding.rvExamples.adapter = ExampleAdapter(lesson.examples)
+            binding.rvExamples.adapter = ExampleAdapter(lesson.examples) { speaker.speak(it) }
         }
 
         // Games section visibility and state
@@ -126,5 +129,10 @@ class LessonDetailActivity : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onDestroy() {
+        speaker.shutdown()
+        super.onDestroy()
     }
 }

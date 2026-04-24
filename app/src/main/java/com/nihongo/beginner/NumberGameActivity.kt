@@ -1,5 +1,6 @@
 package com.nihongo.beginner
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -117,7 +118,8 @@ class NumberGameActivity : AppCompatActivity() {
         )
         optionButtons.forEach {
             it.isEnabled = true
-            it.setBackgroundColor(Color.parseColor("#C62828"))
+            it.backgroundTintList = ColorStateList.valueOf(getColor(R.color.white))
+            it.setTextColor(getColor(R.color.onSurface))
         }
         binding.tvNumFeedback.visibility = View.INVISIBLE
 
@@ -162,9 +164,11 @@ class NumberGameActivity : AppCompatActivity() {
         )
         optionButtons.forEach { it.isEnabled = false }
 
-        optionButtons[correctIndex].setBackgroundColor(Color.parseColor("#4CAF50"))
+        optionButtons[correctIndex].backgroundTintList = ColorStateList.valueOf(getColor(R.color.correct_green))
+        optionButtons[correctIndex].setTextColor(Color.WHITE)
         if (selectedIndex != correctIndex) {
-            optionButtons[selectedIndex].setBackgroundColor(Color.parseColor("#F44336"))
+            optionButtons[selectedIndex].backgroundTintList = ColorStateList.valueOf(getColor(R.color.wrong_red))
+            optionButtons[selectedIndex].setTextColor(Color.WHITE)
             binding.tvNumFeedback.text = "לא נכון! התשובה הנכונה מודגשת בירוק"
         } else {
             score++

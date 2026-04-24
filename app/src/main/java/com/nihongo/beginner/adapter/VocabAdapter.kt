@@ -7,7 +7,8 @@ import com.nihongo.beginner.data.VocabItem
 import com.nihongo.beginner.databinding.ItemVocabBinding
 
 class VocabAdapter(
-    private val items: List<VocabItem>
+    private val items: List<VocabItem>,
+    private val onSpeak: (String) -> Unit = {}
 ) : RecyclerView.Adapter<VocabAdapter.VocabViewHolder>() {
 
     inner class VocabViewHolder(private val binding: ItemVocabBinding) :
@@ -18,6 +19,7 @@ class VocabAdapter(
             binding.tvJapanese.text = item.japanese
             binding.tvRomaji.text = item.romaji
             binding.tvHebrew.text = item.hebrew
+            binding.btnSpeakVocab.setOnClickListener { onSpeak(item.japanese) }
         }
     }
 

@@ -18,8 +18,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_white_round"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="18dp">
 
         <TextView
             android:id="@+id/tvNumScore"
@@ -27,7 +29,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginBottom="8dp"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -37,6 +39,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginBottom="8dp"
+            android:textColor="@color/onSurfaceMuted"
             android:textSize="16sp" />
 
         <TextView
@@ -45,34 +48,34 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginBottom="16dp"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/onSurface"
             android:textSize="48sp"
             android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnNumOpt0"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/App.Button.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp" />
 
         <Button
             android:id="@+id/btnNumOpt1"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/App.Button.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp" />
 
         <Button
             android:id="@+id/btnNumOpt2"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/App.Button.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp" />
 
         <Button
             android:id="@+id/btnNumOpt3"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/App.Button.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp" />
@@ -116,7 +119,7 @@
 
         <Button
             android:id="@+id/btnNumBack"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/App.Button.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="חזור לשיעור" />
