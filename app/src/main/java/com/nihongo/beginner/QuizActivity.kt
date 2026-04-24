@@ -3,9 +3,12 @@ package com.nihongo.beginner
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import com.nihongo.beginner.data.LessonData
 import com.nihongo.beginner.data.ProgressManager
+import com.nihongo.beginner.data.QuizQuestion
 import com.nihongo.beginner.databinding.ActivityQuizBinding
 
 class QuizActivity : AppCompatActivity() {
@@ -18,6 +21,10 @@ class QuizActivity : AppCompatActivity() {
     private var lessonId: Int = -1
     private var currentIndex = 0
     private var score = 0
+    private var selectedIndex: Int? = null
+    private var submitted = false
+    private var lessonCompletedThisRun = false
+    private lateinit var questions: List<QuizQuestion>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +42,7 @@ class QuizActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.toolbar.setNavigationOnClickListener { finish() }
 
-        val questions = lesson.exercises
+        questions = lesson.exercises
         val total = questions.size
 
         fun resetButtonColors() {
@@ -46,70 +53,97 @@ class QuizActivity : AppCompatActivity() {
             }
         }
 
+        fun setOptionSelected(index: Int) {
+            if (submitted) return
+            selectedIndex = index
+            resetButtonColors()
+            optionButtons().forEachIndexed { i, button ->
+                if (i == index) {
+                    button.backgroundTintList = ColorStateList.valueOf(getColor(R.color.selected_yellow))
+                    button.setTextColor(getColor(R.color.onSurface))
+                }
+            }
+            binding.btnSubmit.isEnabled = true
+        }
+
         fun showQuestion() {
             val question = questions[currentIndex]
+            selectedIndex = null
+            submitted = false
             binding.tvQuestionCounter.text = "שאלה ${currentIndex + 1} מתוך $total"
             binding.progressBarQuiz.progress = currentIndex * 100 / total
             binding.tvQuestion.text = question.question
             val options = question.options
-            val optionButtons = listOf(binding.btnOption0, binding.btnOption1, binding.btnOption2, binding.btnOption3)
-            optionButtons.forEachIndexed { i, btn ->
+            optionButtons().forEachIndexed { i, btn ->
                 btn.text = if (i < options.size) options[i] else ""
-                btn.isEnabled = true
+                btn.visibility = if (i < options.size) View.VISIBLE else View.GONE
+                btn.isEnabled = i < options.size
             }
             resetButtonColors()
             binding.tvFeedback.text = ""
-            binding.tvFeedback.visibility = android.view.View.INVISIBLE
-            binding.btnNext.visibility = android.view.View.GONE
+            binding.tvFeedback.visibility = View.INVISIBLE
+            binding.btnSubmit.visibility = View.VISIBLE
+            binding.btnSubmit.isEnabled = false
+            binding.btnNext.visibility = View.GONE
         }
 
         fun showResults() {
-            binding.tvQuestionCounter.visibility = android.view.View.GONE
-            binding.progressBarQuiz.visibility = android.view.View.GONE
-            binding.tvQuestion.visibility = android.view.View.GONE
-            binding.btnOption0.visibility = android.view.View.GONE
-            binding.btnOption1.visibility = android.view.View.GONE
-            binding.btnOption2.visibility = android.view.View.GONE
-            binding.btnOption3.visibility = android.view.View.GONE
-            binding.tvFeedback.visibility = android.view.View.GONE
-            binding.btnNext.visibility = android.view.View.GONE
-            binding.layoutResults.visibility = android.view.View.VISIBLE
+            binding.tvQuestionCounter.visibility = View.GONE
+            binding.progressBarQuiz.visibility = View.GONE
+            binding.tvQuestion.visibility = View.GONE
+            optionButtons().forEach { it.visibility = View.GONE }
+            binding.tvFeedback.visibility = View.GONE
+            binding.btnSubmit.visibility = View.GONE
+            binding.btnNext.visibility = View.GONE
+            binding.layoutResults.visibility = View.VISIBLE
 
             binding.tvFinalScore.text = "$score / $total"
-            if (score * 100 / total >= 70) {
+            val percent = score * 100 / total
+            binding.tvResultSummary.text = "דיוק: $percent% · נדרש 70% כדי להשלים את השיעור"
+            if (percent >= 70) {
                 binding.tvResultEmoji.text = "🎉"
                 binding.tvResultMessage.text = "כל הכבוד! עברת את השיעור!"
+                binding.tvResultAchievement.text = "השיעור סומן כהושלם. ההתקדמות שלך נשמרה במכשיר."
                 ProgressManager.markLessonCompleted(this, lessonId)
+                lessonCompletedThisRun = true
+                Snackbar.make(binding.root, "Achievement unlocked: lesson completed", Snackbar.LENGTH_LONG).show()
             } else {
                 binding.tvResultEmoji.text = "📚"
                 binding.tvResultMessage.text = "נסה שוב כדי לעבור את השיעור (70% נדרש)"
+                binding.tvResultAchievement.text = "אפשר לחזור על החידון. הניקוד מתאפס רק כשלוחצים שחק שוב."
             }
         }
 
-        fun onOptionSelected(selectedIndex: Int) {
+        fun submitAnswer() {
+            if (submitted) return
+            val selected = selectedIndex ?: return
+            submitted = true
             val question = questions[currentIndex]
-            val optionButtons = listOf(binding.btnOption0, binding.btnOption1, binding.btnOption2, binding.btnOption3)
-            optionButtons.forEach { it.isEnabled = false }
+            optionButtons().forEach { it.isEnabled = false }
 
             val correctIndex = question.correctIndex
-            optionButtons[correctIndex].backgroundTintList = ColorStateList.valueOf(getColor(R.color.correct_green))
-            optionButtons[correctIndex].setTextColor(Color.WHITE)
-            if (selectedIndex != correctIndex) {
-                optionButtons[selectedIndex].backgroundTintList = ColorStateList.valueOf(getColor(R.color.wrong_red))
-                optionButtons[selectedIndex].setTextColor(Color.WHITE)
+            optionButtons()[correctIndex].backgroundTintList = ColorStateList.valueOf(getColor(R.color.correct_green))
+            optionButtons()[correctIndex].setTextColor(Color.WHITE)
+            if (selected != correctIndex) {
+                optionButtons()[selected].backgroundTintList = ColorStateList.valueOf(getColor(R.color.wrong_red))
+                optionButtons()[selected].setTextColor(Color.WHITE)
             } else {
                 score++
             }
 
-            binding.tvFeedback.text = question.explanation
-            binding.tvFeedback.visibility = android.view.View.VISIBLE
-            binding.btnNext.visibility = android.view.View.VISIBLE
+            binding.tvFeedback.text = question.explanation.ifBlank {
+                if (selected == correctIndex) "Correct." else "Review the lesson notes and try the next one."
+            }
+            binding.tvFeedback.visibility = View.VISIBLE
+            binding.btnSubmit.visibility = View.GONE
+            binding.btnNext.visibility = View.VISIBLE
         }
 
-        binding.btnOption0.setOnClickListener { onOptionSelected(0) }
-        binding.btnOption1.setOnClickListener { onOptionSelected(1) }
-        binding.btnOption2.setOnClickListener { onOptionSelected(2) }
-        binding.btnOption3.setOnClickListener { onOptionSelected(3) }
+        binding.btnOption0.setOnClickListener { setOptionSelected(0) }
+        binding.btnOption1.setOnClickListener { setOptionSelected(1) }
+        binding.btnOption2.setOnClickListener { setOptionSelected(2) }
+        binding.btnOption3.setOnClickListener { setOptionSelected(3) }
+        binding.btnSubmit.setOnClickListener { submitAnswer() }
 
         binding.btnNext.setOnClickListener {
             currentIndex++
@@ -123,19 +157,31 @@ class QuizActivity : AppCompatActivity() {
         binding.btnReplay.setOnClickListener {
             currentIndex = 0
             score = 0
-            binding.layoutResults.visibility = android.view.View.GONE
-            binding.tvQuestionCounter.visibility = android.view.View.VISIBLE
-            binding.progressBarQuiz.visibility = android.view.View.VISIBLE
-            binding.tvQuestion.visibility = android.view.View.VISIBLE
-            binding.btnOption0.visibility = android.view.View.VISIBLE
-            binding.btnOption1.visibility = android.view.View.VISIBLE
-            binding.btnOption2.visibility = android.view.View.VISIBLE
-            binding.btnOption3.visibility = android.view.View.VISIBLE
+            selectedIndex = null
+            submitted = false
+            lessonCompletedThisRun = false
+            binding.layoutResults.visibility = View.GONE
+            binding.tvQuestionCounter.visibility = View.VISIBLE
+            binding.progressBarQuiz.visibility = View.VISIBLE
+            binding.tvQuestion.visibility = View.VISIBLE
+            optionButtons().forEach { it.visibility = View.VISIBLE }
             showQuestion()
         }
 
         binding.btnBackToLesson.setOnClickListener { finish() }
 
         showQuestion()
+    }
+
+    private fun optionButtons() = listOf(
+        binding.btnOption0,
+        binding.btnOption1,
+        binding.btnOption2,
+        binding.btnOption3
+    )
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 }

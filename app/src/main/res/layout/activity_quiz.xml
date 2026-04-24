@@ -91,7 +91,18 @@
             android:visibility="gone" />
 
         <Button
+            android:id="@+id/btnSubmit"
+            style="@style/App.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:enabled="false"
+            android:text="בדיקת תשובה"
+            android:visibility="visible" />
+
+        <Button
             android:id="@+id/btnNext"
+            style="@style/App.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -135,8 +146,28 @@
             android:layout_marginBottom="24dp"
             android:textSize="16sp" />
 
+        <TextView
+            android:id="@+id/tvResultSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/onSurfaceMuted"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvResultAchievement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginBottom="24dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
         <Button
             android:id="@+id/btnReplay"
+            style="@style/App.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"

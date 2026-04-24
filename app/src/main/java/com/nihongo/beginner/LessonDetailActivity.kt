@@ -76,14 +76,14 @@ class LessonDetailActivity : AppCompatActivity() {
         binding.tvGamesHeader.visibility = View.VISIBLE
 
         binding.btnWorkbook.setOnClickListener {
-            startActivity(Intent(this, WorkbookActivity::class.java).apply {
+            launchWithTransition(Intent(this, WorkbookActivity::class.java).apply {
                 putExtra(WorkbookActivity.EXTRA_LESSON_ID, lesson.id)
             })
         }
 
         // Quiz — always available
         binding.btnQuiz.setOnClickListener {
-            startActivity(Intent(this, QuizActivity::class.java).apply {
+            launchWithTransition(Intent(this, QuizActivity::class.java).apply {
                 putExtra(EXTRA_LESSON_ID, lesson.id)
             })
         }
@@ -91,7 +91,7 @@ class LessonDetailActivity : AppCompatActivity() {
         // Flashcards — enabled only when vocabulary is non-empty
         binding.btnFlashcards.isEnabled = lesson.vocabulary.isNotEmpty()
         binding.btnFlashcards.setOnClickListener {
-            startActivity(Intent(this, FlashcardActivity::class.java).apply {
+            launchWithTransition(Intent(this, FlashcardActivity::class.java).apply {
                 putExtra(EXTRA_LESSON_ID, lesson.id)
             })
         }
@@ -99,7 +99,7 @@ class LessonDetailActivity : AppCompatActivity() {
         // Matching — enabled only when vocabulary has at least 4 items
         binding.btnMatching.isEnabled = lesson.vocabulary.size >= 4
         binding.btnMatching.setOnClickListener {
-            startActivity(Intent(this, MatchingGameActivity::class.java).apply {
+            launchWithTransition(Intent(this, MatchingGameActivity::class.java).apply {
                 putExtra(EXTRA_LESSON_ID, lesson.id)
             })
         }
@@ -108,7 +108,7 @@ class LessonDetailActivity : AppCompatActivity() {
         if (lesson.id == 8) {
             binding.btnNumberGame.visibility = View.VISIBLE
             binding.btnNumberGame.setOnClickListener {
-                startActivity(Intent(this, NumberGameActivity::class.java).apply {
+                launchWithTransition(Intent(this, NumberGameActivity::class.java).apply {
                     putExtra(EXTRA_LESSON_ID, lesson.id)
                 })
             }
@@ -120,7 +120,7 @@ class LessonDetailActivity : AppCompatActivity() {
         if (lesson.id in 11..16) {
             binding.btnSentenceBuilder.visibility = View.VISIBLE
             binding.btnSentenceBuilder.setOnClickListener {
-                startActivity(Intent(this, SentenceBuilderActivity::class.java).apply {
+                launchWithTransition(Intent(this, SentenceBuilderActivity::class.java).apply {
                     putExtra(EXTRA_LESSON_ID, lesson.id)
                 })
             }
@@ -140,5 +140,15 @@ class LessonDetailActivity : AppCompatActivity() {
     override fun onDestroy() {
         speaker.shutdown()
         super.onDestroy()
+    }
+
+    private fun launchWithTransition(intent: Intent) {
+        startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 }

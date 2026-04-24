@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardLesson"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="6dp"
@@ -58,15 +59,31 @@
                 android:textColor="@color/onSurfaceMuted"
                 android:textSize="13sp" />
 
+            <TextView
+                android:id="@+id/tvCompletionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/bg_icon_bubble"
+                android:paddingStart="8dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="4dp"
+                android:text="הושלם"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
         </LinearLayout>
 
         <ImageView
             android:id="@+id/ivCompleted"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@android:drawable/checkbox_on_background"
-            android:visibility="gone"
-            app:tint="@color/accentTeal" />
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="Completed"
+            android:src="@drawable/ic_completed_badge"
+            android:visibility="gone" />
 
     </LinearLayout>
 

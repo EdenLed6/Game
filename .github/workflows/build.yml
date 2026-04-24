@@ -1,9 +1,16 @@
-name: Build APK
+name: Building APK
 
 on:
   push:
-    branches: [ "claude/japanese-learning-app-4p1tP", "main" ]
+    branches:
+      - main
+      - work
+      - "claude/**"
   workflow_dispatch:
+
+concurrency:
+  group: build-apk-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -17,31 +24,38 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+          cache: gradle
 
-      - name: Debug environment
-        run: |
-          echo "=== Gradle ===" && (gradle --version 2>/dev/null || echo "no gradle")
-          echo "=== ANDROID_HOME ===" && echo "$ANDROID_HOME"
-          echo "=== SDK contents ===" && ls "$ANDROID_HOME" 2>/dev/null || echo "empty"
-          echo "=== Java ===" && java -version
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
 
-      - name: Generate correct gradle-wrapper.jar
+      - name: Ensure Gradle wrapper is executable
         run: |
-          mkdir -p /tmp/wp
-          echo '' > /tmp/wp/build.gradle
-          echo 'rootProject.name = "tmp"' > /tmp/wp/settings.gradle
-          cd /tmp/wp && gradle wrapper --gradle-version 8.2 --stacktrace
-          cp /tmp/wp/gradle/wrapper/gradle-wrapper.jar $GITHUB_WORKSPACE/gradle/wrapper/
-          echo "wrapper jar size: $(wc -c < $GITHUB_WORKSPACE/gradle/wrapper/gradle-wrapper.jar) bytes"
+          chmod +x ./gradlew
+          ./gradlew --version
 
       - name: Build debug APK
         run: |
-          chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon --stacktrace 2>&1 | tail -60
+          ./gradlew --no-daemon clean :app:assembleDebug :app:packageDebug --stacktrace
+
+      - name: Inspect APK outputs
+        if: always()
+        run: |
+          echo "=== app/build/outputs ==="
+          ls -la app/build/outputs || true
+          echo "=== APK files ==="
+          find app/build -type f -name "*.apk" -print -exec ls -lh {} \; || true
 
       - name: Upload APK
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: nihongo-beginner-debug
+          name: app-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Upload app build directory
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-build-dir
+          path: app/build
