@@ -4,16 +4,22 @@
     android:id="@+id/cardWord"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="2dp">
+    android:layout_margin="5dp"
+    app:cardBackgroundColor="@color/surface"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:strokeColor="@color/optionStroke"
+    app:strokeWidth="1.5dp"
+    app:rippleColor="@color/surfaceSoft">
 
     <TextView
         android:id="@+id/tvMatchWord"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="12dp"
-        android:textSize="16sp" />
+        android:padding="14dp"
+        android:textColor="@color/onSurface"
+        android:textSize="15sp"
+        android:textStyle="bold" />
 
 </com.google.android.material.card.MaterialCardView>

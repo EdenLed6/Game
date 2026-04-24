@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
+import com.nihongo.beginner.audio.PronunciationSpeaker
 import com.nihongo.beginner.data.LessonData
 import com.nihongo.beginner.data.ProgressManager
 import com.nihongo.beginner.databinding.ActivityGameChallengeBinding
@@ -20,6 +21,7 @@ class GameChallengeActivity : AppCompatActivity() {
     )
 
     private lateinit var binding: ActivityGameChallengeBinding
+    private lateinit var speaker: PronunciationSpeaker
     private lateinit var questions: List<ChallengeQuestion>
     private var currentIndex = 0
     private var score = 0
@@ -36,6 +38,7 @@ class GameChallengeActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.toolbar.setNavigationOnClickListener { finish() }
 
+        speaker = PronunciationSpeaker(this)
         highScore = ProgressManager.getChallengeHighScore(this)
         binding.btnChallengeReplay.setOnClickListener { restartGame() }
         binding.btnChallengeBack.setOnClickListener { finish() }
@@ -72,6 +75,8 @@ class GameChallengeActivity : AppCompatActivity() {
         binding.tvChallengeStats.text = "ניקוד: $score   חיים: ${"♥".repeat(lives)}   רצף: $streak"
         binding.tvChallengePrompt.text = question.prompt
         binding.tvChallengeFeedback.visibility = View.INVISIBLE
+
+        binding.btnSpeakChallenge.setOnClickListener { speaker.speak(questions[currentIndex].prompt) }
 
         optionButtons().forEachIndexed { index, button ->
             button.isEnabled = true
@@ -180,4 +185,9 @@ class GameChallengeActivity : AppCompatActivity() {
         binding.btnChallengeOption2,
         binding.btnChallengeOption3
     )
+
+    override fun onDestroy() {
+        speaker.shutdown()
+        super.onDestroy()
+    }
 }

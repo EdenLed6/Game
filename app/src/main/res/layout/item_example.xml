@@ -5,18 +5,18 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="6dp"
     android:layout_marginBottom="6dp"
-    app:cardBackgroundColor="@color/white"
+    app:cardBackgroundColor="@color/surface"
     app:cardCornerRadius="20dp"
-    app:cardElevation="0dp"
-    app:strokeColor="@color/dividerSoft"
-    app:strokeWidth="2dp">
+    app:cardElevation="1dp"
+    app:strokeColor="@color/cardStroke"
+    app:strokeWidth="1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="14dp">
+        android:padding="16dp">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -30,35 +30,52 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/onSurface"
                 android:textSize="15sp"
-                android:textStyle="italic" />
+                android:textStyle="bold|italic" />
 
             <TextView
                 android:id="@+id/tvExJapanese"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="3dp"
                 android:textColor="@color/onSurfaceMuted"
-                android:textSize="14sp" />
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/tvExHebrew"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="14sp"
+                android:background="@drawable/bg_lesson_number_chip"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
 
-        <Button
+        <!-- Audio button -->
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSpeakExample"
-            style="@style/App.Button.Outlined"
-            android:layout_width="72dp"
-            android:layout_height="48dp"
-            android:minHeight="48dp"
-            android:text="שמע"
-            android:textSize="13sp" />
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:padding="0dp"
+            android:layout_marginStart="12dp"
+            app:cornerRadius="22dp"
+            app:strokeColor="@color/colorPrimary"
+            app:strokeWidth="1.5dp"
+            app:icon="@drawable/ic_volume"
+            app:iconGravity="textStart"
+            app:iconSize="20dp"
+            app:iconPadding="0dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            app:backgroundTint="@color/white" />
 
     </LinearLayout>
 

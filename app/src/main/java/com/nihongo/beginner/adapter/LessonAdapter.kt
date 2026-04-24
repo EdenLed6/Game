@@ -70,8 +70,8 @@ class LessonAdapter(
     }
 
     private fun MaterialCardView.applyCompletedStyle(completed: Boolean) {
-        val color = if (completed) R.color.colorPrimary else R.color.black
-        strokeWidth = if (completed) 3 else 1
+        val color = if (completed) R.color.correct_green else R.color.cardStroke
+        strokeWidth = if (completed) 2 else 1
         strokeColor = ContextCompat.getColor(context, color)
     }
 

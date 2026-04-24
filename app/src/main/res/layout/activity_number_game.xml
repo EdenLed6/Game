@@ -1,97 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/surface"
+    android:background="@color/background"
     android:orientation="vertical">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="@color/white"
-        app:navigationIconTint="@color/colorPrimary"
-        app:titleTextColor="@color/colorPrimary" />
-
+    <!-- Gradient header -->
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_gradient_hero"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="44dp"
+        android:paddingBottom="16dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/transparent"
+            app:navigationIconTint="#FFFFFF"
+            app:titleTextColor="#FFFFFF" />
+
+        <!-- Score chip -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvNumScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_score_badge"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:textColor="@color/onSurface"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Game card -->
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_margin="16dp"
-        android:background="@drawable/bg_white_round"
-        android:orientation="vertical"
-        android:padding="18dp">
+        app:cardBackgroundColor="@color/surface"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="3dp"
+        app:strokeColor="@color/cardStroke"
+        app:strokeWidth="1dp">
 
-        <TextView
-            android:id="@+id/tvNumScore"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginBottom="8dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp">
 
-        <TextView
-            android:id="@+id/tvNumQuestion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginBottom="8dp"
-            android:textColor="@color/onSurfaceMuted"
-            android:textSize="16sp" />
+            <TextView
+                android:id="@+id/tvNumQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/onSurfaceMuted"
+                android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/tvNumDisplay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginBottom="16dp"
-            android:textColor="@color/onSurface"
-            android:textSize="48sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvNumDisplay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginBottom="24dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="64sp"
+                android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btnNumOpt0"
-            style="@style/App.Button.Outlined"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnNumOpt0"
+                style="@style/App.Button.Option"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp" />
 
-        <Button
-            android:id="@+id/btnNumOpt1"
-            style="@style/App.Button.Outlined"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnNumOpt1"
+                style="@style/App.Button.Option"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp" />
 
-        <Button
-            android:id="@+id/btnNumOpt2"
-            style="@style/App.Button.Outlined"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnNumOpt2"
+                style="@style/App.Button.Option"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp" />
 
-        <Button
-            android:id="@+id/btnNumOpt3"
-            style="@style/App.Button.Outlined"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnNumOpt3"
+                style="@style/App.Button.Option"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp" />
 
-        <TextView
-            android:id="@+id/tvNumFeedback"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="8dp"
-            android:textSize="14sp"
-            android:visibility="gone" />
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardNumFeedback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/surfaceSoft"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp">
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/tvNumFeedback"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
 
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Result screen -->
     <LinearLayout
         android:id="@+id/layoutNumResult"
         android:layout_width="match_parent"
@@ -99,24 +147,34 @@
         android:gravity="center"
         android:orientation="vertical"
         android:padding="32dp"
+        android:background="@color/background"
         android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginBottom="16dp"
+            android:text="🎯"
+            android:textSize="72sp" />
 
         <TextView
             android:id="@+id/tvNumFinalScore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="32dp"
             android:textColor="@color/colorPrimary"
-            android:textSize="32sp"
+            android:textSize="48sp"
             android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnNumReplay"
+            style="@style/App.Button.Gold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="שחק שוב" />
+            android:layout_marginBottom="12dp"
+            android:text="🔄  שחק שוב" />
 
         <Button
             android:id="@+id/btnNumBack"

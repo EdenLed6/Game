@@ -1,22 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/surface">
+    android:background="@color/background">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_gradient_hero"
+        app:elevation="0dp">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:background="@color/white"
-            app:navigationIconTint="@color/colorPrimary"
-            app:titleTextColor="@color/colorPrimary" />
+            android:background="@color/transparent"
+            android:paddingTop="28dp"
+            app:navigationIconTint="#FFFFFF"
+            app:titleTextColor="#FFFFFF" />
+
+        <!-- Lesson header card inside appbar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="24dp">
+
+            <TextView
+                android:id="@+id/tvHeaderEmoji"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:background="@drawable/bg_progress_hero"
+                android:gravity="center"
+                android:textSize="40sp"
+                android:layout_marginEnd="16dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvHeaderTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvHeaderSubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="#FFFFFF"
+                    android:alpha="0.75"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -30,152 +79,198 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-        android:padding="18dp">
+            android:padding="20dp">
 
+            <!-- Grammar section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_white_round"
-                android:gravity="center"
-                android:layout_marginBottom="16dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:padding="18dp">
+                android:layout_marginBottom="10dp">
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="22dp"
+                    android:background="@color/colorPrimary"
+                    android:layout_marginEnd="10dp" />
 
                 <TextView
-                    android:id="@+id/tvHeaderEmoji"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="48sp" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tvHeaderTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/onSurface"
-                        android:textSize="22sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvHeaderSubtitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/onSurfaceMuted"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
+                    android:text="דקדוק"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/onSurface" />
 
             </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="נקודות דקדוק"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvGrammar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:nestedScrollingEnabled="false" />
 
-            <TextView
-                android:id="@+id/tvVocabHeader"
+            <!-- Vocabulary section -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="אוצר מילים"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="22dp"
+                    android:background="@color/colorSecondary"
+                    android:layout_marginEnd="10dp" />
+
+                <TextView
+                    android:id="@+id/tvVocabHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="אוצר מילים"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/onSurface" />
+
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvVocab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:nestedScrollingEnabled="false" />
 
-            <TextView
-                android:id="@+id/tvExamplesHeader"
+            <!-- Examples section -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="דוגמאות"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="22dp"
+                    android:background="@color/accentTeal"
+                    android:layout_marginEnd="10dp" />
+
+                <TextView
+                    android:id="@+id/tvExamplesHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="דוגמאות"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/onSurface" />
+
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvExamples"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
                 android:nestedScrollingEnabled="false" />
 
-            <TextView
-                android:id="@+id/tvGamesHeader"
+            <!-- Activities header -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="תרגול וחוברת"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginBottom="14dp">
 
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="22dp"
+                    android:background="@color/accentPurple"
+                    android:layout_marginEnd="10dp" />
+
+                <TextView
+                    android:id="@+id/tvGamesHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="תרגול ומשחקים"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/onSurface" />
+
+            </LinearLayout>
+
+            <!-- Workbook CTA — full width, gold -->
             <Button
                 android:id="@+id/btnWorkbook"
-                style="@style/App.Button"
+                style="@style/App.Button.Gold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="חוברת עבודה אינטראקטיבית" />
+                android:layout_marginBottom="12dp"
+                android:text="📖  חוברת עבודה אינטראקטיבית" />
 
-            <Button
-                android:id="@+id/btnQuiz"
-                style="@style/App.Button.Outlined"
+            <!-- 2-column grid of activity buttons -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="חידון שאלות" />
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
 
-            <Button
-                android:id="@+id/btnFlashcards"
-                style="@style/App.Button.Outlined"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="כרטיסיות לימוד" />
+                <Button
+                    android:id="@+id/btnQuiz"
+                    style="@style/App.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:text="📝  חידון" />
 
-            <Button
-                android:id="@+id/btnMatching"
-                style="@style/App.Button.Outlined"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="משחק התאמה" />
+                <Button
+                    android:id="@+id/btnFlashcards"
+                    style="@style/App.Button.Outlined"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    android:text="🃏  כרטיסיות" />
 
-            <Button
-                android:id="@+id/btnNumberGame"
-                style="@style/App.Button.Outlined"
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="משחק מספרים"
-                android:visibility="gone" />
+                android:orientation="horizontal"
+                android:layout_marginBottom="24dp">
+
+                <Button
+                    android:id="@+id/btnMatching"
+                    style="@style/App.Button.Outlined"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:text="🔗  התאמה" />
+
+                <Button
+                    android:id="@+id/btnNumberGame"
+                    style="@style/App.Button.Outlined"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    android:text="🔢  מספרים"
+                    android:visibility="gone" />
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btnSentenceBuilder"
                 style="@style/App.Button.Outlined"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="בניית משפטים"
+                android:layout_marginBottom="24dp"
+                android:text="🧩  בניית משפטים"
                 android:visibility="gone" />
 
         </LinearLayout>

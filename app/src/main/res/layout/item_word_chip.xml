@@ -4,18 +4,24 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="2dp">
+    app:cardBackgroundColor="@color/surface"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="2dp"
+    app:strokeColor="@color/optionStroke"
+    app:strokeWidth="1.5dp"
+    app:rippleColor="@color/surfaceSoft">
 
     <TextView
         android:id="@+id/tvChipWord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:textSize="14sp" />
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textColor="@color/onSurface"
+        android:textSize="14sp"
+        android:textStyle="bold" />
 
 </com.google.android.material.card.MaterialCardView>

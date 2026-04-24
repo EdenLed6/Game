@@ -3,121 +3,155 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/surface"
+    android:background="@color/background"
     android:orientation="vertical">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="@color/white"
-        app:titleTextColor="@color/colorPrimary" />
-
+    <!-- Hero Section: full width, no margin -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:background="@drawable/bg_hero_green"
+        android:background="@drawable/bg_gradient_hero"
         android:orientation="vertical"
-        android:padding="18dp">
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="48dp"
+        android:paddingBottom="24dp">
 
+        <!-- App title bar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:background="@color/transparent"
+                app:titleTextColor="#FFFFFF"
+                app:titleTextAppearance="@style/App.TextAppearance.Display" />
+
+        </LinearLayout>
+
+        <!-- Logo -->
         <ImageView
             android:id="@+id/imgKimuraLogo"
-            android:layout_width="150dp"
-            android:layout_height="126dp"
+            android:layout_width="130dp"
+            android:layout_height="90dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="20dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/app_name"
             android:scaleType="fitCenter"
             android:src="@drawable/kimura_logo_red" />
 
-        <TextView
-            android:id="@+id/tvCourseTitle"
+        <!-- Progress box -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="יפנית למתחילים"
-            android:textColor="@color/colorPrimary"
-            android:textSize="28sp"
-            android:textStyle="bold" />
+            android:background="@drawable/bg_progress_hero"
+            android:orientation="vertical"
+            android:padding="18dp"
+            android:layout_marginBottom="20dp">
 
-        <TextView
-            android:id="@+id/tvCourseSubtitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="木村オンライン日本語学校"
-            android:textColor="@color/onSurface"
-            android:textSize="14sp"
-            android:alpha="0.92"
-            android:layout_marginBottom="16dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
 
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/progressBarMain"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            app:indicatorColor="@color/colorPrimary"
-            app:trackColor="@color/surfaceSoft"
-            app:trackCornerRadius="4dp"
-            android:max="100" />
+                <TextView
+                    android:id="@+id/tvProgressPercent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFF"
+                    android:textSize="36sp"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tvProgressPercent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="@color/colorPrimary"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/tvCourseTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="יפנית"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp"
+                    android:alpha="0.7" />
 
-        <TextView
-            android:id="@+id/tvProgressText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="@color/onSurface"
-            android:alpha="0.95"
-            android:textSize="12sp"
-            android:layout_marginBottom="16dp" />
+            </LinearLayout>
 
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progressBarMain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                app:indicatorColor="#F59E0B"
+                app:trackColor="#4A1A16"
+                app:trackCornerRadius="4dp"
+                android:max="100" />
+
+            <TextView
+                android:id="@+id/tvProgressText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"
+                android:alpha="0.75"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <!-- Gold Challenge Button -->
         <Button
             android:id="@+id/btnChallenge"
-            style="@style/Widget.MaterialComponents.Button"
+            style="@style/App.Button.Gold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimary"
-            android:minHeight="52dp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:text="התחל אתגר משחק" />
+            android:text="🥋  התחל אתגר נינג'ה" />
 
     </LinearLayout>
 
+    <!-- Achievement Banner -->
     <TextView
         android:id="@+id/tvAchievementBanner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/bg_white_round"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/bg_achievement_pill"
         android:gravity="center"
         android:padding="12dp"
-        android:textColor="@color/colorPrimary"
-        android:textSize="14sp"
+        android:textColor="@color/colorSecondaryDark"
+        android:textSize="13sp"
         android:textStyle="bold"
         android:visibility="gone" />
 
+    <!-- Lessons title -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="📚  השיעורים שלי"
+        android:textColor="@color/onSurface"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Lessons RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvLessons"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:clipToPadding="false"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:paddingBottom="16dp" />
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="20dp" />
 
 </LinearLayout>
