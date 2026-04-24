@@ -2,7 +2,6 @@ package com.nihongo.beginner
 
 import android.graphics.Color
 import android.os.Bundle
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.nihongo.beginner.data.LessonData
 import com.nihongo.beginner.data.ProgressManager
@@ -15,7 +14,7 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityQuizBinding
-    private var lessonId: String = ""
+    private var lessonId: Int = -1
     private var currentIndex = 0
     private var score = 0
 
@@ -24,7 +23,7 @@ class QuizActivity : AppCompatActivity() {
         binding = ActivityQuizBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        lessonId = intent.getStringExtra(EXTRA_LESSON_ID) ?: ""
+        lessonId = intent.getIntExtra(EXTRA_LESSON_ID, -1)
         val lesson = LessonData.getLessonById(lessonId)
         if (lesson == null) {
             finish()
@@ -88,7 +87,7 @@ class QuizActivity : AppCompatActivity() {
             val optionButtons = listOf(binding.btnOption0, binding.btnOption1, binding.btnOption2, binding.btnOption3)
             optionButtons.forEach { it.isEnabled = false }
 
-            val correctIndex = question.correctAnswerIndex
+            val correctIndex = question.correctIndex
             optionButtons[correctIndex].setBackgroundColor(Color.parseColor("#4CAF50"))
             if (selectedIndex != correctIndex) {
                 optionButtons[selectedIndex].setBackgroundColor(Color.parseColor("#F44336"))
