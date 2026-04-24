@@ -10,8 +10,8 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@color/colorPrimary"
-        app:titleTextColor="@android:color/white" />
+        android:background="@color/white"
+        app:titleTextColor="@color/colorPrimary" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +19,18 @@
         android:layout_margin="16dp"
         android:background="@drawable/bg_hero_green"
         android:orientation="vertical"
-        android:padding="22dp">
+        android:padding="18dp">
+
+        <ImageView
+            android:id="@+id/imgKimuraLogo"
+            android:layout_width="150dp"
+            android:layout_height="126dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitCenter"
+            android:src="@drawable/kimura_logo_red" />
 
         <TextView
             android:id="@+id/tvCourseTitle"
@@ -27,7 +38,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="יפנית למתחילים"
-            android:textColor="@color/white"
+            android:textColor="@color/colorPrimary"
             android:textSize="28sp"
             android:textStyle="bold" />
 
@@ -36,8 +47,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="קורס שלם ל-17 שיעורים"
-            android:textColor="@color/white"
+            android:text="木村オンライン日本語学校"
+            android:textColor="@color/onSurface"
             android:textSize="14sp"
             android:alpha="0.92"
             android:layout_marginBottom="16dp" />
@@ -47,8 +58,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            app:indicatorColor="@color/white"
-            app:trackColor="@color/matched_green"
+            app:indicatorColor="@color/colorPrimary"
+            app:trackColor="@color/surfaceSoft"
             app:trackCornerRadius="4dp"
             android:max="100" />
 
@@ -57,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textColor="@color/white"
+            android:textColor="@color/onSurface"
             android:alpha="0.95"
             android:textSize="12sp"
             android:layout_marginBottom="16dp" />
@@ -67,9 +78,9 @@
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/colorPrimary"
             android:minHeight="52dp"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:text="התחל אתגר משחק" />
 

@@ -8,10 +8,10 @@
     android:layout_marginEnd="6dp"
     android:layout_marginBottom="8dp"
     app:cardBackgroundColor="@color/surfaceAlt"
-    app:cardCornerRadius="22dp"
+    app:cardCornerRadius="5dp"
     app:cardElevation="1dp"
     app:rippleColor="@color/surfaceSoft"
-    app:strokeColor="@color/dividerSoft"
+    app:strokeColor="@color/black"
     app:strokeWidth="1dp">
 
     <LinearLayout

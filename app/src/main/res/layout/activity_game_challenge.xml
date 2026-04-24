@@ -10,9 +10,10 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@color/colorPrimary"
+        android:background="@color/white"
         app:title="אתגר נינג׳ה יפנית"
-        app:titleTextColor="@android:color/white" />
+        app:navigationIconTint="@color/colorPrimary"
+        app:titleTextColor="@color/colorPrimary" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/layoutChallengeGame"
@@ -21,7 +22,7 @@
         android:layout_weight="1"
         android:layout_margin="16dp"
         app:cardBackgroundColor="@color/surfaceAlt"
-        app:cardCornerRadius="24dp"
+        app:cardCornerRadius="5dp"
         app:cardElevation="0dp"
         app:strokeColor="@color/dividerSoft"
         app:strokeWidth="1dp">

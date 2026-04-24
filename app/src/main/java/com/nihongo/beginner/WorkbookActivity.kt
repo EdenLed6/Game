@@ -68,8 +68,9 @@ class WorkbookActivity : AppCompatActivity() {
         }
 
         toolbar = MaterialToolbar(this).apply {
-            setBackgroundColor(color(R.color.colorPrimary))
-            setTitleTextColor(color(android.R.color.white))
+            setBackgroundColor(color(R.color.white))
+            setTitleTextColor(color(R.color.colorPrimary))
+            navigationIcon?.setTint(color(R.color.colorPrimary))
         }
         root.addView(toolbar, LinearLayout.LayoutParams(match, dp(56)))
 
@@ -275,9 +276,11 @@ class WorkbookActivity : AppCompatActivity() {
             block()
         }
         return MaterialCardView(this).apply {
-            radius = dp(8).toFloat()
+            radius = dp(5).toFloat()
             cardElevation = dp(1).toFloat()
             setCardBackgroundColor(color(R.color.surfaceAlt))
+            strokeWidth = dp(1)
+            strokeColor = color(R.color.black)
             addView(inner)
             layoutParams = LinearLayout.LayoutParams(match, wrap).apply {
                 bottomMargin = dp(14)
