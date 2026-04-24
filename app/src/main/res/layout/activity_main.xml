@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/surface"
@@ -14,11 +13,21 @@
         android:background="@color/colorPrimary"
         app:titleTextColor="@android:color/white" />
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="@color/surfaceAlt"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="1dp"
+        app:strokeColor="@color/dividerSoft"
+        app:strokeWidth="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="18dp">
 
         <TextView
             android:id="@+id/tvCourseTitle"
@@ -27,7 +36,7 @@
             android:gravity="center"
             android:text="יפנית למתחילים"
             android:textColor="@color/colorPrimary"
-            android:textSize="24sp"
+            android:textSize="26sp"
             android:textStyle="bold" />
 
         <TextView
@@ -36,15 +45,17 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="קורס שלם ל-17 שיעורים"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@color/onSurfaceMuted"
             android:textSize="14sp"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="14dp" />
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/progressBarMain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
+            app:indicatorColor="@color/accentTeal"
+            app:trackColor="@color/surfaceSoft"
             app:trackCornerRadius="4dp"
             android:max="100" />
 
@@ -53,9 +64,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@color/onSurfaceMuted"
             android:textSize="12sp"
-            android:layout_marginBottom="12dp" />
+            android:layout_marginBottom="14dp" />
 
         <Button
             android:id="@+id/btnChallenge"
@@ -65,13 +76,18 @@
             android:minHeight="52dp"
             android:text="התחל אתגר משחק" />
 
-    </LinearLayout>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvLessons"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:padding="8dp" />
+        android:clipToPadding="false"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="16dp" />
 
 </LinearLayout>

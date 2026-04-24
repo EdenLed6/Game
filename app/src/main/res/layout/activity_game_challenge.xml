@@ -14,13 +14,23 @@
         app:title="אתגר נינג׳ה יפנית"
         app:titleTextColor="@android:color/white" />
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/layoutChallengeGame"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="@color/surfaceAlt"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="1dp"
+        app:strokeColor="@color/dividerSoft"
+        app:strokeWidth="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="18dp">
 
         <TextView
             android:id="@+id/tvChallengeHighScore"
@@ -38,6 +48,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:max="100"
+            app:indicatorColor="@color/accentTeal"
+            app:trackColor="@color/surfaceSoft"
             app:trackCornerRadius="4dp" />
 
         <TextView
@@ -45,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@color/onSurfaceMuted"
             android:textSize="12sp" />
 
         <TextView
@@ -67,12 +79,12 @@
             android:gravity="center"
             android:minLines="3"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp"
+            android:textSize="21sp"
             android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnChallengeOption0"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/App.Button.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -80,7 +92,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnChallengeOption1"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/App.Button.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -88,7 +100,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnChallengeOption2"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/App.Button.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -96,7 +108,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnChallengeOption3"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/App.Button.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="54dp" />
@@ -108,11 +120,13 @@
             android:layout_marginTop="16dp"
             android:gravity="center"
             android:minLines="2"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@color/onSurfaceMuted"
             android:textSize="14sp"
             android:visibility="invisible" />
 
-    </LinearLayout>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
     <LinearLayout
         android:id="@+id/layoutChallengeResult"
@@ -121,6 +135,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:padding="32dp"
+        android:background="@color/surface"
         android:visibility="gone">
 
         <TextView
@@ -161,7 +176,7 @@
 
         <Button
             android:id="@+id/btnChallengeBack"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/App.Button.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="חזור למסך הראשי" />
