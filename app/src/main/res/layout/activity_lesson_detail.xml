@@ -121,15 +121,23 @@
                 android:id="@+id/tvGamesHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="משחקים"
+                android:text="תרגול וחוברת"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp" />
 
             <Button
-                android:id="@+id/btnQuiz"
+                android:id="@+id/btnWorkbook"
                 style="@style/App.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="חוברת עבודה אינטראקטיבית" />
+
+            <Button
+                android:id="@+id/btnQuiz"
+                style="@style/App.Button.Outlined"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"

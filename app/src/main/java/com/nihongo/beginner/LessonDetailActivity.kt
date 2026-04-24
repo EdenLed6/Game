@@ -75,6 +75,12 @@ class LessonDetailActivity : AppCompatActivity() {
         // Games section visibility and state
         binding.tvGamesHeader.visibility = View.VISIBLE
 
+        binding.btnWorkbook.setOnClickListener {
+            startActivity(Intent(this, WorkbookActivity::class.java).apply {
+                putExtra(WorkbookActivity.EXTRA_LESSON_ID, lesson.id)
+            })
+        }
+
         // Quiz — always available
         binding.btnQuiz.setOnClickListener {
             startActivity(Intent(this, QuizActivity::class.java).apply {
