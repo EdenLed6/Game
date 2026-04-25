@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_learn -> { showFragment(LearnFragment()); true }
+                R.id.nav_media -> { showFragment(MediaFragment()); true }
                 R.id.nav_profile -> { showFragment(ProfileFragment()); true }
                 else -> false
             }
