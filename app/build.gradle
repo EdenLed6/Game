@@ -5,17 +5,30 @@ android {
     namespace 'com.nihongo.beginner'
     compileSdk 34
 
+    signingConfigs {
+        kimura {
+            storeFile file('kimura_release.keystore')
+            storePassword 'kimura123'
+            keyAlias 'kimurakey'
+            keyPassword 'kimura123'
+        }
+    }
+
     defaultConfig {
         applicationId "com.nihongo.beginner"
         minSdk 24
         targetSdk 34
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
+        debug {
+            signingConfig signingConfigs.kimura
+        }
         release {
+            signingConfig signingConfigs.kimura
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
