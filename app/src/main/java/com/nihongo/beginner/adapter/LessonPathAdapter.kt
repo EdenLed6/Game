@@ -47,14 +47,16 @@ class LessonPathAdapter(
             Triple("פתיחה", "🌸", 1..4),
             Triple("דקדוק בסיסי", "📖", 5..8),
             Triple("פעלים", "✍️", 9..13),
-            Triple("מתקדם", "🏆", 14..17)
+            Triple("מתקדם", "🏆", 14..17),
+            Triple("למטיילים", "🗾", 18..23)
         )
 
         private val UNIT_COLORS = listOf(
             0xFFC0362A.toInt(),
             0xFF0EA5E9.toInt(),
             0xFFF59E0B.toInt(),
-            0xFF8B5CF6.toInt()
+            0xFF8B5CF6.toInt(),
+            0xFF16A34A.toInt()
         )
 
         fun buildPathItems(lessons: List<Lesson>, completedIds: Set<Int>): List<PathItem> {
