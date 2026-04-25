@@ -14,10 +14,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (savedInstanceState == null) {
-            showFragment(LearnFragment())
-        }
-
         binding.bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_learn -> { showFragment(LearnFragment()); true }
@@ -25,6 +21,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_profile -> { showFragment(ProfileFragment()); true }
                 else -> false
             }
+        }
+
+        if (savedInstanceState == null) {
+            binding.bottomNav.selectedItemId = R.id.nav_learn
         }
     }
 
