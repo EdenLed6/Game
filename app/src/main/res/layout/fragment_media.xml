@@ -251,11 +251,11 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/videoList"
+                    <!-- Embedded Vimeo showcase — all course videos playable in-app -->
+                    <WebView
+                        android:id="@+id/webViewShowcase"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"/>
+                        android:layout_height="560dp"/>
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
