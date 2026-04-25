@@ -101,6 +101,7 @@ object Lesson10 {
                 correctIndex = 2,
                 explanation = "kuru הוא הפועל הלא-סדיר השני — צורת ה-masu שלו לא נגזרת באופן קבוע"
             )
-        )
+        ),
+        videoUrl = "https://player.vimeo.com/video/1033568073"
     )
 }

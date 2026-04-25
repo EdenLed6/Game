@@ -104,6 +104,7 @@ object Lesson12 {
                 correctIndex = 1,
                 explanation = "ongaku = מוסיקה, kikimasu = להקשיב"
             )
-        )
+        ),
+        videoUrl = "https://player.vimeo.com/video/1033572121"
     )
 }

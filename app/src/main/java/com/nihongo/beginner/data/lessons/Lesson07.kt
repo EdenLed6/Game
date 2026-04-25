@@ -100,6 +100,7 @@ object Lesson07 {
                 correctIndex = 0,
                 explanation = "are = רחוק משניהם, ne = חיפוש אישור"
             )
-        )
+        ),
+        videoUrl = "https://player.vimeo.com/video/1033567027"
     )
 }

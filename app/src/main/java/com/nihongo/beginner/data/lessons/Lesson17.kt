@@ -118,6 +118,7 @@ object Lesson17 {
                 correctIndex = 3,
                 explanation = "de = מקום הפעולה, ? = כיוון/יעד"
             )
-        )
+        ),
+        videoUrl = "https://player.vimeo.com/video/1033587388"
     )
 }

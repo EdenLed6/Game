@@ -100,6 +100,7 @@ object Lesson06 {
                 correctIndex = 2,
                 explanation = "no מציין שייכות — ניתן לחבר אחריו הן חיוב והן שלילה"
             )
-        )
+        ),
+        videoUrl = "https://player.vimeo.com/video/1032830077"
     )
 }

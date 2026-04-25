@@ -140,6 +140,7 @@ object Lesson08 {
                 correctIndex = 0,
                 explanation = "hachi=8, juu=10, kyuu=9 — 8×10+9=?"
             )
-        )
+        ),
+        videoUrl = "https://player.vimeo.com/video/1033567224"
     )
 }

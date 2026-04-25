@@ -138,6 +138,7 @@ object Lesson11 {
                 correctIndex = 1,
                 explanation = "kaeru = RU verb: מסירים -ru, מוסיפים -masu"
             )
-        )
+        ),
+        videoUrl = "https://player.vimeo.com/video/1033824712"
     )
 }

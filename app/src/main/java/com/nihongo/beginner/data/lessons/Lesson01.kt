@@ -100,6 +100,7 @@ object Lesson01 {
                 correctIndex = 2,
                 explanation = "Ci מחליפים בדומה ל-Si → Shi — מה הצליל המקביל?"
             )
-        )
+        ),
+        videoUrl = "https://player.vimeo.com/video/1032805127"
     )
 }

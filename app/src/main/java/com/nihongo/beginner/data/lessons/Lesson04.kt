@@ -125,6 +125,7 @@ object Lesson04 {
                 correctIndex = 2,
                 explanation = "Mane-ja = Manager, desu = הצהרה חיובית הווה"
             )
-        )
+        ),
+        videoUrl = "https://player.vimeo.com/video/1032827425"
     )
 }

@@ -102,6 +102,7 @@ object Lesson15 {
                 correctIndex = 2,
                 explanation = "de = אמצעי, ni = יעד — שתי מיליות שונות"
             )
-        )
+        ),
+        videoUrl = "https://player.vimeo.com/video/1033593749"
     )
 }

@@ -77,6 +77,7 @@ object Lesson03 {
                 correctIndex = 2,
                 explanation = "San אינו שם, אינו מקצוע — הוא תמיד מגיע אחרי שמו של אדם"
             )
-        )
+        ),
+        videoUrl = "https://player.vimeo.com/video/1032806172"
     )
 }

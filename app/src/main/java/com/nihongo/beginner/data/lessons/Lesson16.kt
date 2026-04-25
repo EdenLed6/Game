@@ -138,6 +138,7 @@ object Lesson16 {
                 correctIndex = 0,
                 explanation = "masu → mashita — hanashi+mashita"
             )
-        )
+        ),
+        videoUrl = "https://player.vimeo.com/video/1033587473"
     )
 }

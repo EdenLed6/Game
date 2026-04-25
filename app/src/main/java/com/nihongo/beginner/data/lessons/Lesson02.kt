@@ -109,6 +109,7 @@ object Lesson02 {
                 correctIndex = 2,
                 explanation = "Otsukare = עייפות/מאמץ — מה אומרים כשמכירים במאמץ של מישהו?"
             )
-        )
+        ),
+        videoUrl = "https://player.vimeo.com/video/1032825918"
     )
 }

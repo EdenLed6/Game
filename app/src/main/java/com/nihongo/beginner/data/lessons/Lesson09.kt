@@ -101,6 +101,7 @@ object Lesson09 {
                 correctIndex = 1,
                 explanation = "ni=2, sen=1000, nana=7, hyaku=100"
             )
-        )
+        ),
+        videoUrl = "https://player.vimeo.com/video/1034247067"
     )
 }

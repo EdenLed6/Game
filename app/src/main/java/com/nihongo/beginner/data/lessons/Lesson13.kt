@@ -122,6 +122,7 @@ object Lesson13 {
                 correctIndex = 1,
                 explanation = "mainichi = כל יום — האם זה זמן עם מספר ספציפי?"
             )
-        )
+        ),
+        videoUrl = "https://player.vimeo.com/video/1033579936"
     )
 }

@@ -138,6 +138,7 @@ object Lesson05 {
                 correctIndex = 1,
                 explanation = "הסדר ביפנית יציב — רק הסיומת משתנה"
             )
-        )
+        ),
+        videoUrl = "https://player.vimeo.com/video/1032829563"
     )
 }

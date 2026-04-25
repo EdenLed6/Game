@@ -113,6 +113,7 @@ object Lesson14 {
                 correctIndex = 1,
                 explanation = "de בא ישר אחרי שם המקום או האמצעי"
             )
-        )
+        ),
+        videoUrl = "https://player.vimeo.com/video/1033585539"
     )
 }
