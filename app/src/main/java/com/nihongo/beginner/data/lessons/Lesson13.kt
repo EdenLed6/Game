@@ -77,27 +77,32 @@ object Lesson13 {
             QuizQuestion(
                 question = "מתי משתמשים ב-'ni' לציון זמן?",
                 options = listOf("תמיד עם זמן", "רק עם זמן יחסי (עכשיו, אתמול)", "רק עם שעות ותאריכים ספציפיים", "אחרי כל שם עצם"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "ni בא עם שעות ותאריכים ספציפיים — לא עם מילים יחסיות כמו 'עכשיו' או 'מחר'"
             ),
             QuizQuestion(
                 question = "'7 ji ni okimasu' פירושו:",
                 options = listOf("אני קם/ה בשש", "אני קם/ה בשבע", "אני ישן/ה בשבע", "בשבע אוכל/ת"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "ji = שעה, okimasu = לקום — 7 ji = שעה 7"
             ),
             QuizQuestion(
                 question = "מה פירוש 'ji han'?",
                 options = listOf("שעה מדויקת", "וחצי (half past)", "שעה ורבע", "חצות"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "han = חצי — ji han = שעה וחצי"
             ),
             QuizQuestion(
                 question = "'Ima tabemasu' - למה אין 'ni' אחרי 'ima'?",
                 options = listOf("שגיאה", "ima הוא זמן יחסי, לא ספציפי", "ima = שם עצם", "ni לא בא עם אוכל"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "ima = עכשיו — האם 'עכשיו' הוא זמן עם מספר ספציפי?"
             ),
             QuizQuestion(
                 question = "איך אומרים '19:30'?",
                 options = listOf("juu kyuu ji", "juu kyuu ji han", "kyuu juu ji han", "juu kyuu han ji"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "juu kyuu = 19, ji = שעה, han = וחצי"
             ),
             QuizQuestion(
                 question = "'Bangohan wo tabemasu' עם שעה 8 = ?",

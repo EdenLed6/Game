@@ -83,42 +83,50 @@ object Lesson08 {
             QuizQuestion(
                 question = "מה קוראים למספר 7?",
                 options = listOf("roku", "nana", "hachi", "kyuu"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "ל-7 יש שתי דרכי קריאה ביפנית: shichi ו-nana"
             ),
             QuizQuestion(
                 question = "כיצד אומרים 17?",
                 options = listOf("nana juu", "juu nana", "juu shichi", "nana ichi"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "עשרות = juu, אחר כך היחידות — juu + ?"
             ),
             QuizQuestion(
                 question = "איך אומרים 300?",
                 options = listOf("san hyaku", "sanbyaku", "san byaku", "son byaku"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "sanbyaku — ה-hyaku משתנה בצירוף מסוים"
             ),
             QuizQuestion(
                 question = "מה הצורה הלא סדירה של 600?",
                 options = listOf("roku hyaku", "roppyaku", "rokku hyaku", "roku pyaku"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "600, 300 ו-800 הן צורות מיוחדות — לא 'roku hyaku' הרגיל"
             ),
             QuizQuestion(
                 question = "איך אומרים 8000?",
                 options = listOf("hachi sen", "hassen", "hatchi sen", "hassenn"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "hassen — לא 'hachi sen' — זו צורה לא סדירה"
             ),
             QuizQuestion(
                 question = "'go juu roku' שווה למספר:",
                 options = listOf("56", "65", "506", "560"),
-                correctIndex = 0
+                correctIndex = 0,
+                explanation = "go=5, juu=10, roku=6 — 5×10+6=?"
             ),
             QuizQuestion(
                 question = "איך אומרים 1995?",
                 options = listOf("ichi kyuu kyuu go", "sen kyuu hyaku kyuu juu go", "sen kyuu juu go", "kyuu hyaku kyuu juu go"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "sen=1000, kyuu hyaku=900, kyuu juu=90, go=5"
             ),
             QuizQuestion(
                 question = "מה קוראים ל-4?",
                 options = listOf("shi בלבד", "yon בלבד", "yon או shi", "ichi"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "ל-4 יש שתי קריאות — אחת יפנית-מקורית ואחת סינית-יפנית"
             ),
             QuizQuestion(
                 question = "איך אומרים 3000?",

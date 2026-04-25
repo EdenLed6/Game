@@ -64,42 +64,50 @@ object Lesson02 {
             QuizQuestion(
                 question = "איך אומרים 'בוקר טוב' בצורה פורמלית?",
                 options = listOf("Ohayou", "Ohayougozaimasu", "Konnichiwa", "Konbanwa"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "יש קיצור יומיומי ויש גרסה ארוכה ופורמלית של אותה ברכה"
             ),
             QuizQuestion(
                 question = "מה אומרים לפני האוכל?",
                 options = listOf("Sayounara", "Itadakimasu", "Otsukare sama", "Suimasen"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "ביפנית יש ביטוי מיוחד לפני שמתחילים לאכול — כמו 'בתיאבון' אבל שונה"
             ),
             QuizQuestion(
                 question = "מה פירוש Suimasen?",
                 options = listOf("תודה", "שלום", "סליחה", "להתראות"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "Suimasen נשמע כ-'sorry/excuse me' — מה ביטוי כזה מביע?"
             ),
             QuizQuestion(
                 question = "איך אומרים 'ערב טוב'?",
                 options = listOf("Ohayou", "Konnichiwa", "Konbanwa", "Oyasumi"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "Konban = ערב, Konnichiwa = שלום (בשעות הצהריים)"
             ),
             QuizQuestion(
                 question = "מה פירוש Hajimemashite?",
                 options = listOf("להתראות", "בוקר טוב", "נעים להכיר", "תודה רבה"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "Hajime = התחלה ביפנית — ואמנם הביטוי אומרים בהיכרות ראשונה"
             ),
             QuizQuestion(
                 question = "מה עונים כשמישהו אומר Ittekimasu?",
                 options = listOf("Sayounara", "Itterasshai", "Oyasumi", "Otsukare sama"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "Ittekimasu = 'אני הולך' — מה מנחים מישהו שיוצא ויחזור?"
             ),
             QuizQuestion(
                 question = "איזו ברכה משתמשים אחרי אוכל?",
                 options = listOf("Itadakimasu", "Konnichiwa", "Gochisou sama deshita", "Hajimemashite"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "יש ברכה לפני האוכל ויש ברכה מקבילה אחרי — מה שמה?"
             ),
             QuizQuestion(
                 question = "מה אומרים אחרי עבודה קשה?",
                 options = listOf("Arigatou", "Suimasen", "Otsukare sama", "Konbanwa"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "Otsukare = עייפות/מאמץ — מה אומרים כשמכירים במאמץ של מישהו?"
             )
         )
     )

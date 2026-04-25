@@ -44,32 +44,38 @@ object Lesson03 {
             QuizQuestion(
                 question = "מה השלב הראשון בהצגה עצמית?",
                 options = listOf("Hajimemashite", "Konnichiwa", "Desu", "Yoroshiku"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "ההצגה פותחת בפנייה לשומע — לא בשם עצמך"
             ),
             QuizQuestion(
                 question = "מה פירוש 'Desu' בהצגה עצמית?",
                 options = listOf("תודה", "שלום", "סיומת פורמלית (הוא/היא/אני)", "נעים להכיר"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "Desu היא סיומת הצהרה רשמית — לא פועל עצמאי"
             ),
             QuizQuestion(
                 question = "מה פירוש 'Hajimemashite'?",
                 options = listOf("שלום", "תודה", "נעים להכיר", "להתראות"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "Hajime = התחלה ביפנית — זה ביטוי שאומרים רק בפגישה ראשונה"
             ),
             QuizQuestion(
                 question = "איך אומרים 'אני מהנדס'?",
                 options = listOf("Sensei desu", "Enjinia desu", "Gakusei desu", "Watashi desu"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "Engineer ביפנית = Enjinia (Japanglish) — מוסיפים desu בסוף"
             ),
             QuizQuestion(
                 question = "מה האחרון בהצגה עצמית?",
                 options = listOf("Konnichiwa", "Hajimemashite", "Desu", "Yoroshiku onegaishimasu"),
-                correctIndex = 3
+                correctIndex = 3,
+                explanation = "Yoroshiku onegaishimasu = 'נא להתייחס אליי בחביבות' — זה המסיים המסורתי"
             ),
             QuizQuestion(
                 question = "מה פירוש 'San' כשמוסיפים לשם?",
                 options = listOf("חבר", "מורה", "תואר כבוד (אדוני/גברת)", "תלמיד"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "San אינו שם, אינו מקצוע — הוא תמיד מגיע אחרי שמו של אדם"
             )
         )
     )

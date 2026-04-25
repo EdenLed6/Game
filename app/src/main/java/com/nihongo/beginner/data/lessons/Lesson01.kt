@@ -55,42 +55,50 @@ object Lesson01 {
             QuizQuestion(
                 question = "איך תיכתב המילה 'Vintage' ביפנית (Japanglish)?",
                 options = listOf("Winteeji", "Binteji", "Vinteeji", "Finteeji"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "V אינו קיים ביפנית — חשוב באיזה צליל מחליפים V"
             ),
             QuizQuestion(
                 question = "איזה צליל אינו קיים ביפנית?",
                 options = listOf("K", "V", "M", "N"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "ביפנית K, M, N קיימים — V הוא צליל אנגלי שאין לו מקבילה ביפנית"
             ),
             QuizQuestion(
                 question = "איך תיכתב 'Israel' ביפנית?",
                 options = listOf("Isurael", "Izraeru", "Isuraeru", "Iserael"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "L הופך ל-R יפני, ומוסיפים תנועה בין עיצורים סמוכים"
             ),
             QuizQuestion(
                 question = "הצליל 'Si' מוחלף ביפנית ב...?",
                 options = listOf("Zi", "Se", "Shi", "Chi"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "Si הופך לצליל ש+i — חשוב על צליל ה-SH"
             ),
             QuizQuestion(
                 question = "איך תיכתב 'Ziva' ביפנית?",
                 options = listOf("Ziba", "Jiba", "Shiva", "Ziva"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "Z → J ו-V → B — שני כללי Japanglish גם יחד"
             ),
             QuizQuestion(
                 question = "במה מסתיימות כל המילים ביפנית?",
                 options = listOf("עיצור", "תנועה או n", "תנועה בלבד", "n בלבד"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "יש יוצא מן הכלל: עיצור אחד ספציפי מותר בסוף מילה"
             ),
             QuizQuestion(
                 question = "איך תיכתב 'Love' ביפנית?",
                 options = listOf("Lobu", "Rabu", "Ravu", "Lobu"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "L → R ו-V → B — שתי החלפות ביחד"
             ),
             QuizQuestion(
                 question = "איך תיכתב 'Cinema' ביפנית?",
                 options = listOf("Sinema", "Chinema", "Shinema", "Kinema"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "Ci מחליפים בדומה ל-Si → Shi — מה הצליל המקביל?"
             )
         )
     )
