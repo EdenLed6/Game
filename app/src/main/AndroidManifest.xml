@@ -67,6 +67,11 @@
             android:exported="false"
             android:parentActivityName=".LessonDetailActivity" />
 
+        <activity
+            android:name=".VideoPlayerActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
     </application>
 
 </manifest>
