@@ -7,11 +7,21 @@
     android:background="@android:color/transparent">
 
     <!-- Top progress / header section -->
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/bg_gradient_hero">
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/bg_header"
+            android:scaleType="centerCrop"
+            android:contentDescription="@null"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/progressJourney"
@@ -63,6 +73,8 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    </FrameLayout>
 
     <!-- Main content area -->
     <FrameLayout

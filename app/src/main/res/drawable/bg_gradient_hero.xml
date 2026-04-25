@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
-    android:src="@drawable/bg_header"
-    android:gravity="fill_horizontal|top"
-    android:tileMode="disabled" />
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:startColor="#C0362A"
+        android:centerColor="#9E2A20"
+        android:endColor="#6A1410"
+        android:angle="135"
+        android:type="linear" />
+    <corners android:radius="0dp" />
+</shape>
