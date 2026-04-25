@@ -73,42 +73,50 @@ object Lesson17 {
             QuizQuestion(
                 question = "מה העבר החיובי של 'desu'?",
                 options = listOf("deshita", "janaidesu", "janakatta desu", "mashita"),
-                correctIndex = 0
+                correctIndex = 0,
+                explanation = "desu = הווה חיובי — הסיומת משתנה לעבר"
             ),
             QuizQuestion(
                 question = "'Suzuki san wa sensei deshita' פירושו:",
                 options = listOf("סוזוקי הוא מורה", "סוזוקי לא היה/תה מורה", "סוזוקי היה/תה מורה", "האם סוזוקי מורה?"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "deshita = עבר חיובי של desu"
             ),
             QuizQuestion(
                 question = "מה העבר השלילי של 'janaidesu'?",
                 options = listOf("masendeshita", "deshita", "janakatta desu", "janaidesu deshita"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "janaidesu = הווה שלילי — בעבר הסיומת משתנה"
             ),
             QuizQuestion(
                 question = "'Kore wa watashi no hon janakatta desu' פירושו:",
                 options = listOf("זה הספר שלי", "זה לא הספר שלי (עכשיו)", "זה לא היה הספר שלי", "הספר שלי"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "janakatta desu = לא היה/הייתה — עבר שלילי"
             ),
             QuizQuestion(
                 question = "מה עושה 'wo' במשפט?",
                 options = listOf("מציינת נושא", "מציינת שייכות", "מציינת מושא", "מציינת זמן"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "wo (を) = חלקיק המושא הישיר"
             ),
             QuizQuestion(
                 question = "מה עושה 'no' במשפט?",
                 options = listOf("מציינת נושא", "מציינת שייכות (של)", "מציינת מושא", "מציינת כיוון"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "no (の) = חלקיק השייכות — 'של'"
             ),
             QuizQuestion(
                 question = "'wa' vs 'ga' - מה עושה 'wa'?",
                 options = listOf("מציינת מושא", "מציינת שייכות", "מציינת נושא המשפט", "מציינת מקום"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "wa = נושא המשפט הכללי; ga = נושא חדש/מודגש"
             ),
             QuizQuestion(
                 question = "איזו מילית משמשת עם פעלי תנועה לציון יעד?",
                 options = listOf("de", "wo", "no", "ni"),
-                correctIndex = 3
+                correctIndex = 3,
+                explanation = "de = מקום הפעולה, ? = כיוון/יעד"
             )
         )
     )
