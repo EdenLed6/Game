@@ -44,9 +44,9 @@
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
-        </com.nihongo.beginner.HeaderLinearLayout>
+        </LinearLayout>
 
-    </LinearLayout>
+    </com.nihongo.beginner.HeaderLinearLayout>
 
     <!-- Builder card -->
     <com.google.android.material.card.MaterialCardView

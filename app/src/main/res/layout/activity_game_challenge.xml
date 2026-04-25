@@ -59,7 +59,7 @@
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
-            </com.nihongo.beginner.HeaderLinearLayout>
+            </LinearLayout>
 
             <!-- Current score / streak / lives -->
             <LinearLayout
@@ -105,7 +105,7 @@
             android:alpha="0.75"
             android:textSize="11sp" />
 
-    </LinearLayout>
+    </com.nihongo.beginner.HeaderLinearLayout>
 
     <!-- Game card -->
     <com.google.android.material.card.MaterialCardView

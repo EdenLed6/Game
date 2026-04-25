@@ -55,9 +55,9 @@
                 android:alpha="0.85"
                 android:textSize="12sp" />
 
-        </com.nihongo.beginner.HeaderLinearLayout>
+        </LinearLayout>
 
-    </LinearLayout>
+    </com.nihongo.beginner.HeaderLinearLayout>
 
     <!-- Matching columns -->
     <LinearLayout
