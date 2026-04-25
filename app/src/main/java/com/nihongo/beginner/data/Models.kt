@@ -22,7 +22,8 @@ data class VocabItem(
     val japanese: String,
     val romaji: String,
     val hebrew: String,
-    val emoji: String = ""
+    val emoji: String = "",
+    val imageRes: Int = 0
 )
 
 data class Example(
