@@ -6,7 +6,7 @@
         android:gravity="fill">
         <bitmap
             android:src="@drawable/bg_header"
-            android:gravity="fill"
+            android:gravity="fill_horizontal|center_vertical"
             android:tileMode="disabled"/>
     </item>
 </layer-list>

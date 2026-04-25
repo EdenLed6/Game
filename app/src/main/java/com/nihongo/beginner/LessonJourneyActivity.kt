@@ -318,12 +318,8 @@ class LessonJourneyActivity : AppCompatActivity() {
                 loadWithOverviewMode = true
                 useWideViewPort = true
             }
-            webViewClient = object : WebViewClient() {
-                override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-                    return true
-                }
-            }
+            webViewClient = WebViewClient()
+            webChromeClient = android.webkit.WebChromeClient()
             loadUrl("$videoUrl?autoplay=0&title=0&byline=0&portrait=0")
         }
         lessonWebView = webView
