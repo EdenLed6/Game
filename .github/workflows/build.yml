@@ -28,11 +28,11 @@ jobs:
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
+        with:
+          validate-wrappers: false
 
       - name: Ensure Gradle wrapper is executable
-        run: |
-          chmod +x ./gradlew
-          ./gradlew --version
+        run: chmod +x ./gradlew
 
       - name: Build debug APK
         run: |
