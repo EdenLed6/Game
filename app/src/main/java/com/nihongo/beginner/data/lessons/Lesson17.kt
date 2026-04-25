@@ -30,12 +30,12 @@ object Lesson17 {
             )
         ),
         vocabulary = listOf(
-            VocabItem(japanese = "おかあさん", romaji = "Okaasan", hebrew = "אמא", emoji = "👩"),
-            VocabItem(japanese = "ともだち", romaji = "Tomodachi", hebrew = "חבר/ה", emoji = "👫"),
-            VocabItem(japanese = "サラダ", romaji = "Sarada", hebrew = "סלט", emoji = "🥗"),
-            VocabItem(japanese = "ここ", romaji = "Koko", hebrew = "כאן", emoji = "📍"),
-            VocabItem(japanese = "そこ", romaji = "Soko", hebrew = "שם (קרוב)", emoji = "📍"),
-            VocabItem(japanese = "あそこ", romaji = "Asoko", hebrew = "שם (רחוק)", emoji = "🗺️")
+            VocabItem(japanese = "おかあさん", romaji = "Okaasan", hebrew = "אמא", emoji = "👩", imageKeyword = "mother child embrace love warm"),
+            VocabItem(japanese = "ともだち", romaji = "Tomodachi", hebrew = "חבר/ה", emoji = "👫", imageKeyword = "friends laughing happy together"),
+            VocabItem(japanese = "サラダ", romaji = "Sarada", hebrew = "סלט", emoji = "🥗", imageKeyword = "salad fresh colorful bowl vegetables"),
+            VocabItem(japanese = "ここ", romaji = "Koko", hebrew = "כאן", emoji = "📍", imageKeyword = "location pin map close"),
+            VocabItem(japanese = "そこ", romaji = "Soko", hebrew = "שם (קרוב)", emoji = "📍", imageKeyword = "location marker nearby map pin"),
+            VocabItem(japanese = "あそこ", romaji = "Asoko", hebrew = "שם (רחוק)", emoji = "🗺️", imageKeyword = "pointing distance horizon landmark")
         ),
         examples = listOf(
             Example(

@@ -20,19 +20,19 @@ object Lesson10 {
             )
         ),
         vocabulary = listOf(
-            VocabItem(japanese = "たべる", romaji = "Taberu", hebrew = "לאכול", emoji = "🍽️"),
-            VocabItem(japanese = "みる", romaji = "Miru", hebrew = "לראות / לצפות", emoji = "👀"),
-            VocabItem(japanese = "おきる", romaji = "Okiru", hebrew = "לקום", emoji = "🛏️"),
-            VocabItem(japanese = "ねる", romaji = "Neru", hebrew = "לישון", emoji = "😴"),
-            VocabItem(japanese = "はなす", romaji = "Hanasu", hebrew = "לדבר", emoji = "💬"),
-            VocabItem(japanese = "きく", romaji = "Kiku", hebrew = "לשמוע / להקשיב", emoji = "👂"),
-            VocabItem(japanese = "いく", romaji = "Iku", hebrew = "ללכת / לנסוע", emoji = "🚶"),
-            VocabItem(japanese = "よむ", romaji = "Yomu", hebrew = "לקרוא", emoji = "📖"),
-            VocabItem(japanese = "のむ", romaji = "Nomu", hebrew = "לשתות", emoji = "🥤"),
-            VocabItem(japanese = "かえる", romaji = "Kaeru", hebrew = "לחזור", emoji = "🏠"),
-            VocabItem(japanese = "する", romaji = "Suru", hebrew = "לעשות (לא סדיר)", emoji = "✅"),
-            VocabItem(japanese = "くる", romaji = "Kuru", hebrew = "לבוא (לא סדיר)", emoji = "🚶"),
-            VocabItem(japanese = "べんきょうする", romaji = "Benkyou suru", hebrew = "ללמוד", emoji = "📚")
+            VocabItem(japanese = "たべる", romaji = "Taberu", hebrew = "לאכול", emoji = "🍽️", imageKeyword = "eating chopsticks japanese food"),
+            VocabItem(japanese = "みる", romaji = "Miru", hebrew = "לראות / לצפות", emoji = "👀", imageKeyword = "watching television screen"),
+            VocabItem(japanese = "おきる", romaji = "Okiru", hebrew = "לקום", emoji = "🛏️", imageKeyword = "waking up morning bed sunrise"),
+            VocabItem(japanese = "ねる", romaji = "Neru", hebrew = "לישון", emoji = "😴", imageKeyword = "sleeping bed peaceful night"),
+            VocabItem(japanese = "はなす", romaji = "Hanasu", hebrew = "לדבר", emoji = "💬", imageKeyword = "talking conversation friends"),
+            VocabItem(japanese = "きく", romaji = "Kiku", hebrew = "לשמוע / להקשיב", emoji = "👂", imageKeyword = "listening headphones music"),
+            VocabItem(japanese = "いく", romaji = "Iku", hebrew = "ללכת / לנסוע", emoji = "🚶", imageKeyword = "walking path outdoor backpack"),
+            VocabItem(japanese = "よむ", romaji = "Yomu", hebrew = "לקרוא", emoji = "📖", imageKeyword = "reading book person relax"),
+            VocabItem(japanese = "のむ", romaji = "Nomu", hebrew = "לשתות", emoji = "🥤", imageKeyword = "drinking water glass refreshing"),
+            VocabItem(japanese = "かえる", romaji = "Kaeru", hebrew = "לחזור", emoji = "🏠", imageKeyword = "returning home front door house"),
+            VocabItem(japanese = "する", romaji = "Suru", hebrew = "לעשות (לא סדיר)", emoji = "✅", imageKeyword = "working hands creating activity"),
+            VocabItem(japanese = "くる", romaji = "Kuru", hebrew = "לבוא (לא סדיר)", emoji = "🚶", imageKeyword = "person walking approaching street"),
+            VocabItem(japanese = "べんきょうする", romaji = "Benkyou suru", hebrew = "ללמוד", emoji = "📚", imageKeyword = "studying desk books lamp student")
         ),
         examples = listOf(
             Example(

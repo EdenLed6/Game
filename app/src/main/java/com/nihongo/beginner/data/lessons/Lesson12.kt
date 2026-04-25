@@ -21,17 +21,17 @@ object Lesson12 {
             )
         ),
         vocabulary = listOf(
-            VocabItem(japanese = "さかな", romaji = "Sakana", hebrew = "דג", emoji = "🐟"),
-            VocabItem(japanese = "ベジタリアン", romaji = "Bejitarian", hebrew = "צמחוני/ת", emoji = "🥗"),
-            VocabItem(japanese = "ビール", romaji = "Bi-ru", hebrew = "בירה", emoji = "🍺"),
-            VocabItem(japanese = "ワイン", romaji = "Wain", hebrew = "יין", emoji = "🍷"),
+            VocabItem(japanese = "さかな", romaji = "Sakana", hebrew = "דג", emoji = "🐟", imageKeyword = "fresh fish seafood market"),
+            VocabItem(japanese = "ベジタリアン", romaji = "Bejitarian", hebrew = "צמחוני/ת", emoji = "🥗", imageKeyword = "vegetables salad colorful healthy"),
+            VocabItem(japanese = "ビール", romaji = "Bi-ru", hebrew = "בירה", emoji = "🍺", imageKeyword = "beer mug cold foam"),
+            VocabItem(japanese = "ワイン", romaji = "Wain", hebrew = "יין", emoji = "🍷", imageKeyword = "wine glass red grapes"),
             VocabItem(japanese = "ちょっと", romaji = "Chotto", hebrew = "קצת", emoji = "🤏"),
-            VocabItem(japanese = "えいが", romaji = "Eiga", hebrew = "סרט", emoji = "🎬"),
-            VocabItem(japanese = "にほんご", romaji = "Nihongo", hebrew = "יפנית (שפה)", emoji = "🇯🇵"),
-            VocabItem(japanese = "フランス語", romaji = "Furansugo", hebrew = "צרפתית (שפה)", emoji = "🇫🇷"),
-            VocabItem(japanese = "ハンバーガー", romaji = "Hamba-ga-", hebrew = "המבורגר", emoji = "🍔"),
-            VocabItem(japanese = "おんがく", romaji = "Ongaku", hebrew = "מוסיקה", emoji = "🎵"),
-            VocabItem(japanese = "テレビ", romaji = "Terebi", hebrew = "טלוויזיה", emoji = "📺")
+            VocabItem(japanese = "えいが", romaji = "Eiga", hebrew = "סרט", emoji = "🎬", imageKeyword = "cinema film clapper movie"),
+            VocabItem(japanese = "にほんご", romaji = "Nihongo", hebrew = "יפנית (שפה)", emoji = "🇯🇵", imageKeyword = "japanese calligraphy brush kanji"),
+            VocabItem(japanese = "フランス語", romaji = "Furansugo", hebrew = "צרפתית (שפה)", emoji = "🇫🇷", imageKeyword = "paris france eiffel tower language"),
+            VocabItem(japanese = "ハンバーガー", romaji = "Hamba-ga-", hebrew = "המבורגר", emoji = "🍔", imageKeyword = "hamburger tall bun fresh"),
+            VocabItem(japanese = "おんがく", romaji = "Ongaku", hebrew = "מוסיקה", emoji = "🎵", imageKeyword = "music headphones notes colorful"),
+            VocabItem(japanese = "テレビ", romaji = "Terebi", hebrew = "טלוויזיה", emoji = "📺", imageKeyword = "television flatscreen modern")
         ),
         examples = listOf(
             Example(

@@ -22,14 +22,14 @@ object Lesson09 {
         ),
         vocabulary = listOf(
             VocabItem(japanese = "スマホ", romaji = "Sumaho", hebrew = "טלפון חכם", emoji = "📱"),
-            VocabItem(japanese = "カード", romaji = "Kaado", hebrew = "כרטיס אשראי", emoji = "💳"),
+            VocabItem(japanese = "カード", romaji = "Kaado", hebrew = "כרטיס אשראי", emoji = "💳", imageKeyword = "credit card payment wallet"),
             VocabItem(japanese = "とけい", romaji = "Tokei", hebrew = "שעון", emoji = "⌚"),
-            VocabItem(japanese = "かさ", romaji = "Kasa", hebrew = "מטריה", emoji = "☂️"),
-            VocabItem(japanese = "さいふ", romaji = "Saifu", hebrew = "ארנק", emoji = "👛"),
+            VocabItem(japanese = "かさ", romaji = "Kasa", hebrew = "מטריה", emoji = "☂️", imageKeyword = "umbrella rain colorful"),
+            VocabItem(japanese = "さいふ", romaji = "Saifu", hebrew = "ארנק", emoji = "👛", imageKeyword = "leather wallet open cards"),
             VocabItem(japanese = "かばん", romaji = "Kaban", hebrew = "תיק", emoji = "👜"),
-            VocabItem(japanese = "くつ", romaji = "Kutsu", hebrew = "נעליים", emoji = "👟"),
-            VocabItem(japanese = "ぼうし", romaji = "Boushi", hebrew = "כובע", emoji = "🎩"),
-            VocabItem(japanese = "えん", romaji = "En", hebrew = "ין (מטבע יפני)", emoji = "💴")
+            VocabItem(japanese = "くつ", romaji = "Kutsu", hebrew = "נעליים", emoji = "👟", imageKeyword = "sneakers shoes clean white"),
+            VocabItem(japanese = "ぼうし", romaji = "Boushi", hebrew = "כובע", emoji = "🎩", imageKeyword = "stylish hat fashion"),
+            VocabItem(japanese = "えん", romaji = "En", hebrew = "ין (מטבע יפני)", emoji = "💴", imageKeyword = "japanese yen coins currency")
         ),
         examples = listOf(
             Example(

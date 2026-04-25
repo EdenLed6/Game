@@ -36,19 +36,19 @@ object Lesson11 {
             )
         ),
         vocabulary = listOf(
-            VocabItem(japanese = "たべる (Taberu)", romaji = "Tabemasu / Tabemasen", hebrew = "לאכול", emoji = "🍽️"),
-            VocabItem(japanese = "みる (Miru)", romaji = "Mimasu / Mimasen", hebrew = "לראות", emoji = "👀"),
-            VocabItem(japanese = "おきる (Okiru)", romaji = "Okimasu / Okimasen", hebrew = "לקום", emoji = "🛏️"),
-            VocabItem(japanese = "ねる (Neru)", romaji = "Nemasu / Nemasen", hebrew = "לישון", emoji = "😴"),
-            VocabItem(japanese = "はなす (Hanasu)", romaji = "Hanashimasu / Hanashimasen", hebrew = "לדבר", emoji = "💬"),
-            VocabItem(japanese = "きく (Kiku)", romaji = "Kikimasu / Kikimasen", hebrew = "לשמוע", emoji = "👂"),
-            VocabItem(japanese = "いく (Iku)", romaji = "Ikimasu / Ikimasen", hebrew = "ללכת", emoji = "🚶"),
-            VocabItem(japanese = "よむ (Yomu)", romaji = "Yomimasu / Yomimasen", hebrew = "לקרוא", emoji = "📖"),
-            VocabItem(japanese = "のむ (Nomu)", romaji = "Nomimasu / Nomimasen", hebrew = "לשתות", emoji = "🥤"),
-            VocabItem(japanese = "かえる (Kaeru)", romaji = "Kaerimasu / Kaerimasen", hebrew = "לחזור", emoji = "🏠"),
-            VocabItem(japanese = "する (Suru)", romaji = "Shimasu / Shimasen", hebrew = "לעשות (לא סדיר)", emoji = "✅"),
-            VocabItem(japanese = "くる (Kuru)", romaji = "Kimasu / Kimasen", hebrew = "לבוא (לא סדיר)", emoji = "🚶"),
-            VocabItem(japanese = "べんきょうする", romaji = "Benkyou shimasu / Benkyou shimasen", hebrew = "ללמוד", emoji = "📚")
+            VocabItem(japanese = "たべる (Taberu)", romaji = "Tabemasu / Tabemasen", hebrew = "לאכול", emoji = "🍽️", imageKeyword = "eating chopsticks japanese food"),
+            VocabItem(japanese = "みる (Miru)", romaji = "Mimasu / Mimasen", hebrew = "לראות", emoji = "👀", imageKeyword = "watching television screen"),
+            VocabItem(japanese = "おきる (Okiru)", romaji = "Okimasu / Okimasen", hebrew = "לקום", emoji = "🛏️", imageKeyword = "waking up morning bed sunrise"),
+            VocabItem(japanese = "ねる (Neru)", romaji = "Nemasu / Nemasen", hebrew = "לישון", emoji = "😴", imageKeyword = "sleeping bed peaceful night"),
+            VocabItem(japanese = "はなす (Hanasu)", romaji = "Hanashimasu / Hanashimasen", hebrew = "לדבר", emoji = "💬", imageKeyword = "talking conversation friends"),
+            VocabItem(japanese = "きく (Kiku)", romaji = "Kikimasu / Kikimasen", hebrew = "לשמוע", emoji = "👂", imageKeyword = "listening headphones music"),
+            VocabItem(japanese = "いく (Iku)", romaji = "Ikimasu / Ikimasen", hebrew = "ללכת", emoji = "🚶", imageKeyword = "walking path outdoor backpack"),
+            VocabItem(japanese = "よむ (Yomu)", romaji = "Yomimasu / Yomimasen", hebrew = "לקרוא", emoji = "📖", imageKeyword = "reading book person relax"),
+            VocabItem(japanese = "のむ (Nomu)", romaji = "Nomimasu / Nomimasen", hebrew = "לשתות", emoji = "🥤", imageKeyword = "drinking water glass refreshing"),
+            VocabItem(japanese = "かえる (Kaeru)", romaji = "Kaerimasu / Kaerimasen", hebrew = "לחזור", emoji = "🏠", imageKeyword = "returning home front door house"),
+            VocabItem(japanese = "する (Suru)", romaji = "Shimasu / Shimasen", hebrew = "לעשות (לא סדיר)", emoji = "✅", imageKeyword = "working hands creating activity"),
+            VocabItem(japanese = "くる (Kuru)", romaji = "Kimasu / Kimasen", hebrew = "לבוא (לא סדיר)", emoji = "🚶", imageKeyword = "person walking approaching street"),
+            VocabItem(japanese = "べんきょうする", romaji = "Benkyou shimasu / Benkyou shimasen", hebrew = "ללמוד", emoji = "📚", imageKeyword = "studying desk books lamp student")
         ),
         examples = listOf(
             Example(

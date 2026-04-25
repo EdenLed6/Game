@@ -21,14 +21,14 @@ object Lesson06 {
             )
         ),
         vocabulary = listOf(
-            VocabItem(japanese = "ペン", romaji = "Pen", hebrew = "עט", emoji = "✏️"),
-            VocabItem(japanese = "コーヒー", romaji = "Ko-hi-", hebrew = "קפה", emoji = "☕"),
-            VocabItem(japanese = "ほん", romaji = "Hon", hebrew = "ספר", emoji = "📖"),
-            VocabItem(japanese = "スマホ", romaji = "Sumaho", hebrew = "טלפון חכם", emoji = "📱"),
-            VocabItem(japanese = "ノート", romaji = "No-to", hebrew = "מחברת", emoji = "📓"),
-            VocabItem(japanese = "とけい", romaji = "Tokei", hebrew = "שעון", emoji = "⌚"),
-            VocabItem(japanese = "かばん", romaji = "Kaban", hebrew = "תיק", emoji = "👜"),
-            VocabItem(japanese = "シャツ", romaji = "Shatsu", hebrew = "חולצה", emoji = "👕")
+            VocabItem(japanese = "ペン", romaji = "Pen", hebrew = "עט", emoji = "✏️", imageKeyword = "pen writing stationery"),
+            VocabItem(japanese = "コーヒー", romaji = "Ko-hi-", hebrew = "קפה", emoji = "☕", imageKeyword = "coffee cup cafe latte"),
+            VocabItem(japanese = "ほん", romaji = "Hon", hebrew = "ספר", emoji = "📖", imageKeyword = "open book reading library"),
+            VocabItem(japanese = "スマホ", romaji = "Sumaho", hebrew = "טלפון חכם", emoji = "📱", imageKeyword = "smartphone screen modern"),
+            VocabItem(japanese = "ノート", romaji = "No-to", hebrew = "מחברת", emoji = "📓", imageKeyword = "notebook spiral blank page"),
+            VocabItem(japanese = "とけい", romaji = "Tokei", hebrew = "שעון", emoji = "⌚", imageKeyword = "wristwatch elegant time"),
+            VocabItem(japanese = "かばん", romaji = "Kaban", hebrew = "תיק", emoji = "👜", imageKeyword = "leather shoulder bag"),
+            VocabItem(japanese = "シャツ", romaji = "Shatsu", hebrew = "חולצה", emoji = "👕", imageKeyword = "shirt clothing folded")
         ),
         examples = listOf(
             Example(

@@ -26,16 +26,16 @@ object Lesson14 {
             )
         ),
         vocabulary = listOf(
-            VocabItem(japanese = "キッチン", romaji = "Kicchin", hebrew = "מטבח", emoji = "🍳"),
-            VocabItem(japanese = "ホテル", romaji = "Hoteru", hebrew = "מלון", emoji = "🏨"),
-            VocabItem(japanese = "リビングルーム", romaji = "Ribingu rumu", hebrew = "סלון", emoji = "🛋️"),
-            VocabItem(japanese = "オフィス", romaji = "Ofisu", hebrew = "משרד", emoji = "🏢"),
-            VocabItem(japanese = "ジム", romaji = "Jimu", hebrew = "חדר כושר", emoji = "💪"),
-            VocabItem(japanese = "レストラン", romaji = "Resutoran", hebrew = "מסעדה", emoji = "🍴"),
-            VocabItem(japanese = "パブ", romaji = "Pabu", hebrew = "בר / פאב", emoji = "🍻"),
-            VocabItem(japanese = "うち / いえ", romaji = "Uchi / Ie", hebrew = "בית", emoji = "🏠"),
-            VocabItem(japanese = "くるま", romaji = "Kuruma", hebrew = "מכונית", emoji = "🚗"),
-            VocabItem(japanese = "バス", romaji = "Basu", hebrew = "אוטובוס", emoji = "🚌")
+            VocabItem(japanese = "キッチン", romaji = "Kicchin", hebrew = "מטבח", emoji = "🍳", imageKeyword = "modern kitchen cooking utensils"),
+            VocabItem(japanese = "ホテル", romaji = "Hoteru", hebrew = "מלון", emoji = "🏨", imageKeyword = "hotel lobby luxury chandelier"),
+            VocabItem(japanese = "リビングルーム", romaji = "Ribingu rumu", hebrew = "סלון", emoji = "🛋️", imageKeyword = "living room cozy sofa plants"),
+            VocabItem(japanese = "オフィス", romaji = "Ofisu", hebrew = "משרד", emoji = "🏢", imageKeyword = "open office modern desks"),
+            VocabItem(japanese = "ジム", romaji = "Jimu", hebrew = "חדר כושר", emoji = "💪", imageKeyword = "gym weights fitness equipment"),
+            VocabItem(japanese = "レストラン", romaji = "Resutoran", hebrew = "מסעדה", emoji = "🍴", imageKeyword = "restaurant interior cozy candles"),
+            VocabItem(japanese = "パブ", romaji = "Pabu", hebrew = "בר / פאב", emoji = "🍻", imageKeyword = "pub bar interior drinks"),
+            VocabItem(japanese = "うち / いえ", romaji = "Uchi / Ie", hebrew = "בית", emoji = "🏠", imageKeyword = "house exterior cozy garden"),
+            VocabItem(japanese = "くるま", romaji = "Kuruma", hebrew = "מכונית", emoji = "🚗", imageKeyword = "car modern sleek vehicle"),
+            VocabItem(japanese = "バス", romaji = "Basu", hebrew = "אוטובוס", emoji = "🚌", imageKeyword = "city bus stop urban street")
         ),
         examples = listOf(
             Example(

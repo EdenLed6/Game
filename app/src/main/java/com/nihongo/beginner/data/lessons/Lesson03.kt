@@ -24,9 +24,9 @@ object Lesson03 {
             VocabItem(japanese = "わたし", romaji = "Watashi", hebrew = "אני", emoji = "👤"),
             VocabItem(japanese = "です", romaji = "Desu", hebrew = "הוא/היא/אני (סיומת פורמלית)", emoji = "💬"),
             VocabItem(japanese = "さん", romaji = "San", hebrew = "אדוני/גברת (תואר כבוד)", emoji = "🎩"),
-            VocabItem(japanese = "えんじにあ", romaji = "Enjinia", hebrew = "מהנדס", emoji = "🔧"),
-            VocabItem(japanese = "せんせい", romaji = "Sensei", hebrew = "מורה", emoji = "📚"),
-            VocabItem(japanese = "がくせい", romaji = "Gakusei", hebrew = "תלמיד/סטודנט", emoji = "🎓")
+            VocabItem(japanese = "えんじにあ", romaji = "Enjinia", hebrew = "מהנדס", emoji = "🔧", imageKeyword = "engineer blueprint hard hat construction"),
+            VocabItem(japanese = "せんせい", romaji = "Sensei", hebrew = "מורה", emoji = "📚", imageKeyword = "teacher classroom blackboard"),
+            VocabItem(japanese = "がくせい", romaji = "Gakusei", hebrew = "תלמיד/סטודנט", emoji = "🎓", imageKeyword = "student studying desk books")
         ),
         examples = listOf(
             Example(

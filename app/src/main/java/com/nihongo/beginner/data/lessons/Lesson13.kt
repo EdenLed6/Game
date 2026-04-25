@@ -26,15 +26,15 @@ object Lesson13 {
             )
         ),
         vocabulary = listOf(
-            VocabItem(japanese = "ごはん", romaji = "Gohan", hebrew = "אוכל / אורז מבושל", emoji = "🍚"),
-            VocabItem(japanese = "あさごはん", romaji = "Asagohan", hebrew = "ארוחת בוקר", emoji = "🌅"),
-            VocabItem(japanese = "ひるごはん", romaji = "Hirugohan", hebrew = "ארוחת צהריים", emoji = "☀️"),
-            VocabItem(japanese = "ばんごはん", romaji = "Bangohan", hebrew = "ארוחת ערב", emoji = "🌙"),
-            VocabItem(japanese = "しごと", romaji = "Shigoto", hebrew = "עבודה", emoji = "💼"),
-            VocabItem(japanese = "じ", romaji = "Ji", hebrew = "שעה (o'clock)", emoji = "⏰"),
+            VocabItem(japanese = "ごはん", romaji = "Gohan", hebrew = "אוכל / אורז מבושל", emoji = "🍚", imageKeyword = "rice bowl japanese steaming"),
+            VocabItem(japanese = "あさごはん", romaji = "Asagohan", hebrew = "ארוחת בוקר", emoji = "🌅", imageKeyword = "breakfast morning japanese miso soup"),
+            VocabItem(japanese = "ひるごはん", romaji = "Hirugohan", hebrew = "ארוחת צהריים", emoji = "☀️", imageKeyword = "lunch bento box japanese"),
+            VocabItem(japanese = "ばんごはん", romaji = "Bangohan", hebrew = "ארוחת ערב", emoji = "🌙", imageKeyword = "dinner family table warm food"),
+            VocabItem(japanese = "しごと", romaji = "Shigoto", hebrew = "עבודה", emoji = "💼", imageKeyword = "work desk laptop office"),
+            VocabItem(japanese = "じ", romaji = "Ji", hebrew = "שעה (o'clock)", emoji = "⏰", imageKeyword = "analog clock time face"),
             VocabItem(japanese = "じはん", romaji = "Ji han", hebrew = "וחצי (half past)", emoji = "🕧"),
             VocabItem(japanese = "いま", romaji = "Ima", hebrew = "עכשיו (ללא ni!)", emoji = "⚡"),
-            VocabItem(japanese = "まいにち", romaji = "Mainichi", hebrew = "כל יום (ללא ni!)", emoji = "📅")
+            VocabItem(japanese = "まいにち", romaji = "Mainichi", hebrew = "כל יום (ללא ni!)", emoji = "📅", imageKeyword = "calendar daily routine schedule")
         ),
         examples = listOf(
             Example(

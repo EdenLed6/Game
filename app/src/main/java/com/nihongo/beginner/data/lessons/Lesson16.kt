@@ -36,19 +36,19 @@ object Lesson16 {
             )
         ),
         vocabulary = listOf(
-            VocabItem(japanese = "たべる (Taberu)", romaji = "Tabemashita / Tabemasendeshita", hebrew = "אכל/ה / לא אכל/ה", emoji = "🍽️"),
-            VocabItem(japanese = "みる (Miru)", romaji = "Mimashita / Mimasendeshita", hebrew = "ראה/ראתה / לא ראה/ה", emoji = "👀"),
-            VocabItem(japanese = "おきる (Okiru)", romaji = "Okimashita / Okimasendeshita", hebrew = "קם/ה / לא קם/ה", emoji = "🛏️"),
-            VocabItem(japanese = "ねる (Neru)", romaji = "Nemashita / Nemasendeshita", hebrew = "ישן/ה / לא ישן/ה", emoji = "😴"),
-            VocabItem(japanese = "はなす (Hanasu)", romaji = "Hanashimashita / Hanashimasendeshita", hebrew = "דיבר/ה / לא דיבר/ה", emoji = "💬"),
-            VocabItem(japanese = "きく (Kiku)", romaji = "Kikimashita / Kikimasendeshita", hebrew = "שמע/ה / לא שמע/ה", emoji = "👂"),
-            VocabItem(japanese = "いく (Iku)", romaji = "Ikimashita / Ikimasendeshita", hebrew = "הלך/ה / לא הלך/ה", emoji = "🚶"),
-            VocabItem(japanese = "よむ (Yomu)", romaji = "Yomimashita / Yomimasendeshita", hebrew = "קרא/ה / לא קרא/ה", emoji = "📖"),
-            VocabItem(japanese = "のむ (Nomu)", romaji = "Nomimashita / Nomimasendeshita", hebrew = "שתה/ה / לא שתה/ה", emoji = "🥤"),
-            VocabItem(japanese = "かえる (Kaeru)", romaji = "Kaerimashita / Kaerimasendeshita", hebrew = "חזר/ה / לא חזר/ה", emoji = "🏠"),
-            VocabItem(japanese = "する (Suru)", romaji = "Shimashita / Shimasendeshita", hebrew = "עשה/ה / לא עשה/ה", emoji = "✅"),
-            VocabItem(japanese = "くる (Kuru)", romaji = "Kimashita / Kimasendeshita", hebrew = "בא/ה / לא בא/ה", emoji = "🚶"),
-            VocabItem(japanese = "べんきょうする", romaji = "Benkyou shimashita / Benkyou shimasendeshita", hebrew = "למד/ה / לא למד/ה", emoji = "📚")
+            VocabItem(japanese = "たべる (Taberu)", romaji = "Tabemashita / Tabemasendeshita", hebrew = "אכל/ה / לא אכל/ה", emoji = "🍽️", imageKeyword = "eating chopsticks japanese food"),
+            VocabItem(japanese = "みる (Miru)", romaji = "Mimashita / Mimasendeshita", hebrew = "ראה/ראתה / לא ראה/ה", emoji = "👀", imageKeyword = "watching television screen"),
+            VocabItem(japanese = "おきる (Okiru)", romaji = "Okimashita / Okimasendeshita", hebrew = "קם/ה / לא קם/ה", emoji = "🛏️", imageKeyword = "waking up morning bed sunrise"),
+            VocabItem(japanese = "ねる (Neru)", romaji = "Nemashita / Nemasendeshita", hebrew = "ישן/ה / לא ישן/ה", emoji = "😴", imageKeyword = "sleeping bed peaceful night"),
+            VocabItem(japanese = "はなす (Hanasu)", romaji = "Hanashimashita / Hanashimasendeshita", hebrew = "דיבר/ה / לא דיבר/ה", emoji = "💬", imageKeyword = "talking conversation friends"),
+            VocabItem(japanese = "きく (Kiku)", romaji = "Kikimashita / Kikimasendeshita", hebrew = "שמע/ה / לא שמע/ה", emoji = "👂", imageKeyword = "listening headphones music"),
+            VocabItem(japanese = "いく (Iku)", romaji = "Ikimashita / Ikimasendeshita", hebrew = "הלך/ה / לא הלך/ה", emoji = "🚶", imageKeyword = "walking path outdoor backpack"),
+            VocabItem(japanese = "よむ (Yomu)", romaji = "Yomimashita / Yomimasendeshita", hebrew = "קרא/ה / לא קרא/ה", emoji = "📖", imageKeyword = "reading book person relax"),
+            VocabItem(japanese = "のむ (Nomu)", romaji = "Nomimashita / Nomimasendeshita", hebrew = "שתה/ה / לא שתה/ה", emoji = "🥤", imageKeyword = "drinking water glass refreshing"),
+            VocabItem(japanese = "かえる (Kaeru)", romaji = "Kaerimashita / Kaerimasendeshita", hebrew = "חזר/ה / לא חזר/ה", emoji = "🏠", imageKeyword = "returning home front door house"),
+            VocabItem(japanese = "する (Suru)", romaji = "Shimashita / Shimasendeshita", hebrew = "עשה/ה / לא עשה/ה", emoji = "✅", imageKeyword = "working hands creating activity"),
+            VocabItem(japanese = "くる (Kuru)", romaji = "Kimashita / Kimasendeshita", hebrew = "בא/ה / לא בא/ה", emoji = "🚶", imageKeyword = "person walking approaching street"),
+            VocabItem(japanese = "べんきょうする", romaji = "Benkyou shimashita / Benkyou shimasendeshita", hebrew = "למד/ה / לא למד/ה", emoji = "📚", imageKeyword = "studying desk books lamp student")
         ),
         examples = listOf(
             Example(

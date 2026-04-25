@@ -26,16 +26,16 @@ object Lesson05 {
             )
         ),
         vocabulary = listOf(
-            VocabItem(japanese = "いいえ", romaji = "Iie", hebrew = "לא", emoji = "❌"),
-            VocabItem(japanese = "はい", romaji = "Hai", hebrew = "כן", emoji = "✅"),
+            VocabItem(japanese = "いいえ", romaji = "Iie", hebrew = "לא", emoji = "❌", imageKeyword = "no wrong red x sign"),
+            VocabItem(japanese = "はい", romaji = "Hai", hebrew = "כן", emoji = "✅", imageKeyword = "yes correct green check"),
             VocabItem(japanese = "わたし", romaji = "Watashi", hebrew = "אני", emoji = "👤"),
             VocabItem(japanese = "あなた", romaji = "Anata", hebrew = "אתה/את", emoji = "👉"),
             VocabItem(japanese = "さん", romaji = "San", hebrew = "אדוני/גברת (תואר כבוד)", emoji = "🎩"),
             VocabItem(japanese = "せんせい", romaji = "Sensei", hebrew = "מורה", emoji = "📚"),
             VocabItem(japanese = "えんじにあ", romaji = "Enjinia", hebrew = "מהנדס", emoji = "🔧"),
-            VocabItem(japanese = "にほんじん", romaji = "Nihonjin", hebrew = "יפני/ת", emoji = "🇯🇵"),
-            VocabItem(japanese = "かんこくじん", romaji = "Kankokujin", hebrew = "קוריאני/ת", emoji = "🇰🇷"),
-            VocabItem(japanese = "ちゅうごくじん", romaji = "Chugokujin", hebrew = "סיני/ת", emoji = "🇨🇳")
+            VocabItem(japanese = "にほんじん", romaji = "Nihonjin", hebrew = "יפני/ת", emoji = "🇯🇵", imageKeyword = "japan traditional yukata festival"),
+            VocabItem(japanese = "かんこくじん", romaji = "Kankokujin", hebrew = "קוריאני/ת", emoji = "🇰🇷", imageKeyword = "korea hanbok traditional dress"),
+            VocabItem(japanese = "ちゅうごくじん", romaji = "Chugokujin", hebrew = "סיני/ת", emoji = "🇨🇳", imageKeyword = "china traditional dress qipao")
         ),
         examples = listOf(
             Example(

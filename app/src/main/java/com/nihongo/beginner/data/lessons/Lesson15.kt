@@ -31,9 +31,9 @@ object Lesson15 {
         vocabulary = listOf(
             VocabItem(japanese = "きのう", romaji = "Kinou", hebrew = "אתמול", emoji = "📅"),
             VocabItem(japanese = "そして", romaji = "Soshite", hebrew = "ואז / ו- (חיבור)", emoji = "🔗"),
-            VocabItem(japanese = "うみ", romaji = "Umi", hebrew = "ים", emoji = "🌊"),
-            VocabItem(japanese = "しょっぴんぐもーる", romaji = "Shoppingu mo-ru", hebrew = "קניון", emoji = "🛍️"),
-            VocabItem(japanese = "とうきょう", romaji = "Tokyou", hebrew = "טוקיו", emoji = "🗼"),
+            VocabItem(japanese = "うみ", romaji = "Umi", hebrew = "ים", emoji = "🌊", imageKeyword = "ocean sea waves blue beach"),
+            VocabItem(japanese = "しょっぴんぐもーる", romaji = "Shoppingu mo-ru", hebrew = "קניון", emoji = "🛍️", imageKeyword = "shopping mall interior stores"),
+            VocabItem(japanese = "とうきょう", romaji = "Tokyou", hebrew = "טוקיו", emoji = "🗼", imageKeyword = "tokyo tower night city lights"),
             VocabItem(japanese = "うち / いえ", romaji = "Uchi / Ie", hebrew = "הבית", emoji = "🏠"),
             VocabItem(japanese = "ジム", romaji = "Jimu", hebrew = "חדר כושר", emoji = "💪")
         ),

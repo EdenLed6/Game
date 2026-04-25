@@ -36,7 +36,7 @@ object Lesson02 {
             VocabItem(japanese = "よろしくおねがいします", romaji = "Yoroshiku onegai shimasu", hebrew = "שמחה לשמור קשר", emoji = "🤗"),
             VocabItem(japanese = "さようなら", romaji = "Sayounara", hebrew = "להתראות", emoji = "👋", imageKeyword = "goodbye farewell waving"),
             VocabItem(japanese = "いってきます", romaji = "Ittekimasu", hebrew = "אני הולך/ת (יוצא/ת מהבית)", emoji = "🚶", imageKeyword = "leaving home door bag"),
-            VocabItem(japanese = "いってらっしゃい", romaji = "Itterasshai", hebrew = "לך/כי בשלום (תגובה)", emoji = "🏠")
+            VocabItem(japanese = "いってらっしゃい", romaji = "Itterasshai", hebrew = "לך/כי בשלום (תגובה)", emoji = "🏠", imageKeyword = "waving doorway home departure")
         ),
         examples = listOf(
             Example(
