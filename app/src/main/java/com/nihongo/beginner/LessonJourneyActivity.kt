@@ -763,7 +763,40 @@ class LessonJourneyActivity : AppCompatActivity() {
         }
         container.addView(feedbackLabel)
 
-        // Option buttons
+        // Hint card — shown on wrong answer, stays visible while user retries
+        val hintCard = MaterialCardView(this).apply {
+            radius = dp(12).toFloat()
+            strokeWidth = 0
+            cardElevation = 0f
+            setCardBackgroundColor(0xFFE8F4FD.toInt())
+            visibility = View.GONE
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).also { it.bottomMargin = dp(12) }
+        }
+        val hintInner = LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
+            gravity = Gravity.CENTER_VERTICAL
+            setPadding(dp(14), dp(12), dp(14), dp(12))
+        }
+        hintInner.addView(TextView(this).apply {
+            text = "💡"
+            textSize = 18f
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).also { it.marginEnd = dp(10) }
+        })
+        val hintText = TextView(this).apply {
+            textSize = 14f
+            setTextColor(0xFF1565C0.toInt())
+            isSingleLine = false
+            layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+        }
+        hintInner.addView(hintText)
+        hintCard.addView(hintInner)
+        container.addView(hintCard)
         val optionButtons = mutableListOf<MaterialButton>()
 
         question.options.forEachIndexed { index, optionText ->
@@ -815,12 +848,18 @@ class LessonJourneyActivity : AppCompatActivity() {
                     feedbackLabel.visibility = View.VISIBLE
                     quizWrongCount++
 
+                    // Show hint if explanation exists — stays visible while user retries
+                    if (question.explanation.isNotBlank()) {
+                        hintText.text = question.explanation
+                        hintCard.visibility = View.VISIBLE
+                    }
+
                     handler.postDelayed({
-                        // Re-enable all buttons except the wrong one; reset wrong button colour
                         btn.backgroundTintList = ColorStateList.valueOf(colorInt(R.color.white))
                         btn.setTextColor(colorInt(R.color.onSurface))
                         btn.strokeColor = ColorStateList.valueOf(colorInt(R.color.optionStroke))
                         feedbackLabel.visibility = View.INVISIBLE
+                        // hintCard stays visible so user can read it while retrying
                         optionButtons.forEach { it.isEnabled = true }
                     }, 1000)
                 }
