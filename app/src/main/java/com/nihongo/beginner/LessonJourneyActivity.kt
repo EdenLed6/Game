@@ -3,7 +3,9 @@ package com.nihongo.beginner
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
+import coil.load
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -438,14 +440,19 @@ class LessonJourneyActivity : AppCompatActivity() {
             setBackgroundColor(colorInt(R.color.surfaceSoft))
         }
 
-        if (vocab.imageRes != 0) {
+        if (vocab.imageKeyword.isNotBlank()) {
             imageZone.addView(ImageView(this).apply {
-                setImageResource(vocab.imageRes)
                 scaleType = ImageView.ScaleType.CENTER_CROP
                 layoutParams = FrameLayout.LayoutParams(
                     FrameLayout.LayoutParams.MATCH_PARENT,
                     FrameLayout.LayoutParams.MATCH_PARENT
                 )
+                val url = "https://source.unsplash.com/400x400/?${vocab.imageKeyword.replace(" ", ",")}"
+                load(url) {
+                    crossfade(true)
+                    placeholder(ColorDrawable(colorInt(R.color.surfaceSoft)))
+                    error(ColorDrawable(colorInt(R.color.surfaceSoft)))
+                }
             })
         } else {
             imageZone.addView(TextView(this).apply {

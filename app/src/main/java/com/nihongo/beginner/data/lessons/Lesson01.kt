@@ -20,14 +20,14 @@ object Lesson01 {
             )
         ),
         vocabulary = listOf(
-            VocabItem(japanese = "ビンテージ", romaji = "Binteji", hebrew = "Vintage", emoji = "👗"),
-            VocabItem(japanese = "ロボット", romaji = "Roboto", hebrew = "Robot", emoji = "🤖"),
-            VocabItem(japanese = "イスラエル", romaji = "Isuraeru", hebrew = "ישראל", emoji = "🇮🇱"),
-            VocabItem(japanese = "シネマ", romaji = "Shinema", hebrew = "Cinema", emoji = "🎬"),
-            VocabItem(japanese = "ミルク", romaji = "Miruku", hebrew = "Milk", emoji = "🥛"),
-            VocabItem(japanese = "インスタグラム", romaji = "Insutagurama", hebrew = "Instagram", emoji = "📸"),
-            VocabItem(japanese = "ラブ", romaji = "Rabu", hebrew = "Love", emoji = "❤️"),
-            VocabItem(japanese = "コンビニ", romaji = "Konbini", hebrew = "Convenience Store", emoji = "🏪")
+            VocabItem(japanese = "ビンテージ", romaji = "Binteji", hebrew = "Vintage", emoji = "👗", imageKeyword = "vintage clothing fashion"),
+            VocabItem(japanese = "ロボット", romaji = "Roboto", hebrew = "Robot", emoji = "🤖", imageKeyword = "cute robot technology"),
+            VocabItem(japanese = "イスラエル", romaji = "Isuraeru", hebrew = "ישראל", emoji = "🇮🇱", imageKeyword = "israel tel aviv"),
+            VocabItem(japanese = "シネマ", romaji = "Shinema", hebrew = "Cinema", emoji = "🎬", imageKeyword = "cinema movie theater"),
+            VocabItem(japanese = "ミルク", romaji = "Miruku", hebrew = "Milk", emoji = "🥛", imageKeyword = "milk glass fresh"),
+            VocabItem(japanese = "インスタグラム", romaji = "Insutagurama", hebrew = "Instagram", emoji = "📸", imageKeyword = "smartphone social media"),
+            VocabItem(japanese = "ラブ", romaji = "Rabu", hebrew = "Love", emoji = "❤️", imageKeyword = "love heart romantic"),
+            VocabItem(japanese = "コンビニ", romaji = "Konbini", hebrew = "Convenience Store", emoji = "🏪", imageKeyword = "japan convenience store night")
         ),
         examples = listOf(
             Example(
