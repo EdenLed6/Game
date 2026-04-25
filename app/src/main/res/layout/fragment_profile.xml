@@ -11,24 +11,14 @@
         android:orientation="vertical">
 
         <!-- Header gradient -->
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/bg_header"
-                android:scaleType="centerCrop"
-                android:contentDescription="@null"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:paddingTop="56dp"
-                android:paddingBottom="32dp">
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_gradient_hero"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingTop="56dp"
+            android:paddingBottom="32dp">
 
             <!-- Avatar circle with initials -->
             <FrameLayout
@@ -66,8 +56,6 @@
                 android:layout_marginTop="4dp"/>
 
         </LinearLayout>
-
-        </FrameLayout>
 
         <!-- Stats row -->
         <LinearLayout

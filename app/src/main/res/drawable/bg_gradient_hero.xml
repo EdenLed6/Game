@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <gradient
-        android:startColor="#C0362A"
-        android:centerColor="#9E2A20"
-        android:endColor="#6A1410"
-        android:angle="135"
-        android:type="linear" />
-    <corners android:radius="0dp" />
-</shape>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:width="1dp"
+        android:height="1dp"
+        android:gravity="fill">
+        <bitmap
+            android:src="@drawable/bg_header"
+            android:gravity="fill"
+            android:tileMode="disabled"/>
+    </item>
+</layer-list>
