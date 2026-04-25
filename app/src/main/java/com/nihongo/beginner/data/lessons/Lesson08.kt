@@ -131,12 +131,14 @@ object Lesson08 {
             QuizQuestion(
                 question = "איך אומרים 3000?",
                 options = listOf("san sen", "sanzen", "san zen", "sensen"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "sanzen — גם 3000 היא צורה לא סדירה"
             ),
             QuizQuestion(
                 question = "'hachi juu kyuu' שווה למספר:",
                 options = listOf("89", "98", "809", "980"),
-                correctIndex = 0
+                correctIndex = 0,
+                explanation = "hachi=8, juu=10, kyuu=9 — 8×10+9=?"
             )
         )
     )

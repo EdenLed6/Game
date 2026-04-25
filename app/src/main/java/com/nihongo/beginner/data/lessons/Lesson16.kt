@@ -81,37 +81,44 @@ object Lesson16 {
             QuizQuestion(
                 question = "מה צורת העבר של 'Tabemasu'?",
                 options = listOf("Taberimashita", "Tabemashita", "Tabemasendeshita", "Tabeshimashita"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "masu → mashita לעבר חיובי"
             ),
             QuizQuestion(
                 question = "מה צורת העבר השלילית של 'Nomimasu'?",
                 options = listOf("Nomimasen", "Nomimashita", "Nomimasendeshita", "Nominasen"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "masen → masen deshita לעבר שלילי"
             ),
             QuizQuestion(
                 question = "'Ikimashita' פירושו:",
                 options = listOf("הולך/ת", "הלך/ה", "לא הלך/ה", "ילך/ת"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "mashita = עבר חיובי — iki+mashita"
             ),
             QuizQuestion(
                 question = "מה צורת העבר של 'Shimasu'?",
                 options = listOf("Shirimashita", "Shimashita", "Shishimashita", "Shisumashita"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "shimasu = הווה של suru הלא-סדיר — עבר = ?"
             ),
             QuizQuestion(
                 question = "'Kikimasendeshita' פירושו:",
                 options = listOf("הקשיב/ה", "לא הקשיב/ה", "יקשיב/ה", "האם הקשיב/ה?"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "masen deshita = שלילת עבר"
             ),
             QuizQuestion(
                 question = "מה צורת העבר של 'Kimasu' (לבוא)?",
                 options = listOf("Kimashita", "Kurumashita", "Kirimashita", "Kumashita"),
-                correctIndex = 0
+                correctIndex = 0,
+                explanation = "kimasu = הווה של kuru הלא-סדיר — עבר = ?"
             ),
             QuizQuestion(
                 question = "'Watashi wa nemasendeshita' פירושו:",
                 options = listOf("ישנתי", "לא ישנתי", "אישן", "האם ישנת?"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "neru = לישון, masen deshita = שלילת עבר"
             ),
             QuizQuestion(
                 question = "מה ההבדל בין 'mashita' ל-'masen deshita'?",

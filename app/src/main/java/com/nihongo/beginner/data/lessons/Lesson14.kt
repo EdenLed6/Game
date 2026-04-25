@@ -68,42 +68,50 @@ object Lesson14 {
             QuizQuestion(
                 question = "מה עושה 'de' במשפט?",
                 options = listOf("מציינת כיוון", "מציינת מקום הפעולה או אמצעי", "מציינת זמן", "מציינת נושא"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "de (で) = מקום שבו מתבצעת הפעולה, או האמצעי בו משתמשים"
             ),
             QuizQuestion(
                 question = "'Jimu de yoga wo shimasu' פירושו:",
                 options = listOf("הולך/ת לחדר כושר", "עושה יוגה בחדר כושר", "חדר כושר טוב", "יוגה בחדר"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "jimu = חדר כושר, de = מציין מקום הפעולה"
             ),
             QuizQuestion(
                 question = "'Basu de ikimasu' - 'basu de' מציין:",
                 options = listOf("יעד", "מקום הפעולה", "אמצעי תחבורה", "זמן"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "basu = אוטובוס — de כאמצעי תחבורה"
             ),
             QuizQuestion(
                 question = "מה הסדר הנכון?",
                 options = listOf("זמן + de → מקום + ni → מושא", "זמן + ni → מקום + de → מושא + wo", "מקום + de → זמן + ni → מושא", "מושא + wo → מקום + de → זמן"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "הסדר: זמן + ni → מקום + de → מושא + wo → פועל"
             ),
             QuizQuestion(
                 question = "'Watashi wa ofisu de shigoto wo shimasu' פירושו:",
                 options = listOf("אני הולך/ת למשרד", "אני עובד/ת במשרד", "אני גר/ה במשרד", "המשרד שלי"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "ofisu = משרד, de = מקום, shimasu = לעשות"
             ),
             QuizQuestion(
                 question = "מה פירוש 'Kicchin'?",
                 options = listOf("סלון", "משרד", "מטבח", "מסעדה"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "Kicchin = מילה יפנית מ-Japanglish — מה מתחרז עם 'chicken'?"
             ),
             QuizQuestion(
                 question = "'Kuruma de ikimasu' פירושו:",
                 options = listOf("הולך/ת לרכב", "הולך/ת ברכב (במכונית)", "נוהג/ת רכב", "רכב נוסע"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "kuruma = רכב — de כאן = אמצעי תנועה"
             ),
             QuizQuestion(
                 question = "איפה מגיעה 'de' במשפט?",
                 options = listOf("אחרי הנושא", "אחרי הזמן, לפני המושא", "לפני הנושא", "בסוף המשפט"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "de בא ישר אחרי שם המקום או האמצעי"
             )
         )
     )

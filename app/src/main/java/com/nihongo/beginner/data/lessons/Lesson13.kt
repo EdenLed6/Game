@@ -107,17 +107,20 @@ object Lesson13 {
             QuizQuestion(
                 question = "'Bangohan wo tabemasu' עם שעה 8 = ?",
                 options = listOf("8 ji bangohan wo tabemasu", "8 ji ni bangohan wo tabemasu", "Bangohan 8 ji ni tabemasu", "8 ni ji bangohan tabemasu"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "הסדר: זמן + ni → מושא + wo → פועל"
             ),
             QuizQuestion(
                 question = "מה פירוש 'Asagohan'?",
                 options = listOf("ארוחת ערב", "ארוחת צהריים", "ארוחת בוקר", "אורז"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "asa = בוקר, gohan = אוכל"
             ),
             QuizQuestion(
                 question = "'Mainichi shigoto wo shimasu' - למה אין 'ni'?",
                 options = listOf("שגיאה", "mainichi = זמן יחסי", "mainichi = שם עצם", "ni בא אחרי shigoto"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "mainichi = כל יום — האם זה זמן עם מספר ספציפי?"
             )
         )
     )

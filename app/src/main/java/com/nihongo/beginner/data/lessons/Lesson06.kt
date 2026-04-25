@@ -61,37 +61,44 @@ object Lesson06 {
             QuizQuestion(
                 question = "מה פירוש 'no' ביפנית?",
                 options = listOf("לא", "של (שייכות)", "זה", "ה-"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "no (の) מקביל ל-'של' בעברית — אבל הסדר במשפט שונה"
             ),
             QuizQuestion(
                 question = "איך אומרים 'עט של סוזוקי'?",
                 options = listOf("pen no Suzuki san", "Suzuki san no pen", "Suzuki san pen no", "no pen Suzuki san"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "ביפנית הבעלים בא לפני החפץ (הפוך מעברית)"
             ),
             QuizQuestion(
                 question = "מה הסדר הנכון?",
                 options = listOf("חפץ + no + בעלים", "בעלים + no + חפץ", "no + בעלים + חפץ", "חפץ + בעלים + no"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "חשוב על 'pen of Suzuki' באנגלית — זה הסדר ביפנית"
             ),
             QuizQuestion(
                 question = "'Kore wa watashi no sumaho desu' פירושו:",
                 options = listOf("זה לא הטלפון שלי", "זה הטלפון שלך", "זה הטלפון שלי", "השאלה: האם זה הטלפון שלי?"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "kore = זה (קרוב לדובר), watashi no = שלי"
             ),
             QuizQuestion(
                 question = "איך אומרים 'מחברת של הונדה'?",
                 options = listOf("no-to no Honda san", "Honda san no no-to", "Honda no-to san", "no Honda san to"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "no-to = מחברת, Honda san = הבעלים — מה הסדר?"
             ),
             QuizQuestion(
                 question = "'Sore wa Tanaka san no tokei janaidesu' פירושו:",
                 options = listOf("זה השעון של טאנקה", "זה לא השעון של טאנקה", "האם זה השעון של טאנקה?", "השעון של טאנקה שם"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "tokei = שעון, sore = זה (קרוב לשומע), janaidesu = שלילה"
             ),
             QuizQuestion(
                 question = "מה ניתן לשלב אחרי '[בעלים] no [חפץ]'?",
                 options = listOf("רק desu", "רק janaidesu", "גם desu וגם janaidesu", "שאלה בלבד"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "no מציין שייכות — ניתן לחבר אחריו הן חיוב והן שלילה"
             )
         )
     )

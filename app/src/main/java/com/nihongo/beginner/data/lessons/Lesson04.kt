@@ -80,42 +80,50 @@ object Lesson04 {
             QuizQuestion(
                 question = "מה עושה המילית 'wa' במשפט?",
                 options = listOf("מציינת פועל", "מציינת נושא", "מציינת מושא", "מציינת זמן"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "wa (は) היא חלקיק שמתייג את הנושא — על מי/מה אנחנו מדברים"
             ),
             QuizQuestion(
                 question = "איך אומרים 'אני מורה'?",
                 options = listOf("Watashi wa sensei ka", "Watashi wa sensei desu", "Anata wa sensei desu", "Sensei wa watashi desu"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "הסדר: אני + wa + מורה + desu"
             ),
             QuizQuestion(
                 question = "איך הופכים משפט לשאלה?",
                 options = listOf("מוסיפים 'ne' בסוף", "מוסיפים 'ka' בסוף", "מוסיפים 'wa' בתחילה", "משנים את הסדר"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "ביפנית לא צריך לשנות סדר מילים לשאלה — מספיק להוסיף מילה אחת בסוף"
             ),
             QuizQuestion(
                 question = "מה פירוש 'Nihonjin'?",
                 options = listOf("ספר יפני", "שפה יפנית", "יפני/ת (אדם ממוצא יפן)", "מנהל יפני"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "Nihon = יפן, jin = אדם ממוצא/לאום"
             ),
             QuizQuestion(
                 question = "איך אומרים 'האם אתה מתכנת?'",
                 options = listOf("Watashi wa purogurema- desu", "Anata wa purogurema- desu ka", "Anata wa purogurema- ka", "Purogurema- wa anata desu"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "Purogurema = Programmer, anata = אתה, שאלה = ka בסוף"
             ),
             QuizQuestion(
                 question = "ביפנית 'desu' משמש עבור...",
                 options = listOf("עבר בלבד", "עתיד בלבד", "הווה ועתיד, זכר ונקבה, יחיד ורבים", "זכר בלבד"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "ביפנית desu לא משתנה לפי מין, מספר או זמן — זו אחת מהפשטויות שלה"
             ),
             QuizQuestion(
                 question = "איך אומרים 'ישראלי/ת'?",
                 options = listOf("Isuraeru go", "Isuraeru jin", "Isuraeru san", "Isuraeru no"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "Isuraeru = ישראל — מה הסיומת שמציינת לאום?"
             ),
             QuizQuestion(
                 question = "'Kimura san wa mane-ja- desu' פירושו:",
                 options = listOf("האם קימורה מנהל?", "קימורה הוא/היא לא מנהל/ת", "קימורה הוא/היא מנהל/ת", "אני מנהל"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "Mane-ja = Manager, desu = הצהרה חיובית הווה"
             )
         )
     )

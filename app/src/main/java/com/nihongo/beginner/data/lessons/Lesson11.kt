@@ -81,52 +81,62 @@ object Lesson11 {
             QuizQuestion(
                 question = "מה צורת ה-masu של 'Taberu'?",
                 options = listOf("Taberimasu", "Tabemasu", "Taberumasu", "Tabimasu"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "RU verb: מסירים -ru, מוסיפים -masu"
             ),
             QuizQuestion(
                 question = "מה צורת ה-masu של 'Kiku'?",
                 options = listOf("Kikumasu", "Kikimasu", "Kikusmasu", "Kiimasu"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "U verb: תנועת הסיומת הופכת ל-i, מוסיפים -masu — ki+masu"
             ),
             QuizQuestion(
                 question = "מה צורת השלילה של 'Tabemasu'?",
                 options = listOf("Tabejanai", "Tabemasen", "Tabenai", "Tabemasuka"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "שלילה של masu = -masen (לא -janai)"
             ),
             QuizQuestion(
                 question = "מה צורת ה-masu של 'Suru' (לא סדיר)?",
                 options = listOf("Surumasu", "Simasu", "Shimasu", "Surimasu"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "suru לא סדיר — צורת ה-masu שלו ייחודית ואינה נגזרת מהרגיל"
             ),
             QuizQuestion(
                 question = "'Watashi wa nemasu' פירושו:",
                 options = listOf("אני ישן/ה", "אני קם/ה", "אני אוכל/ת", "אני שותה"),
-                correctIndex = 0
+                correctIndex = 0,
+                explanation = "neru = לישון (RU verb), masu = הווה חיובי"
             ),
             QuizQuestion(
                 question = "מה צורת ה-masu של 'Hanasu'?",
                 options = listOf("Hanamasu", "Hanasumasu", "Hanashimasu", "Hanasimasu"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "hanasu: su → shi + masu — שינוי פונטי ייחודי"
             ),
             QuizQuestion(
                 question = "'Kikimasen' פירושו:",
                 options = listOf("מקשיב/ה", "לא מקשיב/ה", "אשמע", "האם תשמע?"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "masen = שלילת masu — kiki+masen"
             ),
             QuizQuestion(
                 question = "מה צורת ה-masu של 'Kuru' (לא סדיר)?",
                 options = listOf("Kurumasu", "Kimasu", "Kumasu", "Kirumasu"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "kuru לא סדיר — התוצאה אינה kurumasu"
             ),
             QuizQuestion(
                 question = "'Honda san wa nomimasu ka?' = ?",
                 options = listOf("הונדה שותה", "האם הונדה שותה?", "הונדה לא שותה", "מה הונדה שותה?"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "ka בסוף הופך כל משפט לשאלה"
             ),
             QuizQuestion(
                 question = "מה צורת ה-masu של 'Kaeru'?",
                 options = listOf("Kaemasu", "Kaerimasu", "Kaerumasu", "Kaemasu"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "kaeru = RU verb: מסירים -ru, מוסיפים -masu"
             )
         )
     )

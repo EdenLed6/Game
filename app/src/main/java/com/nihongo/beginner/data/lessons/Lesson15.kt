@@ -63,37 +63,44 @@ object Lesson15 {
             QuizQuestion(
                 question = "מה ההבדל בין 'de' ל-'ni' לגבי מקום?",
                 options = listOf("שניהם זהים", "de=מקום הפעולה, ni=יעד תנועה", "ni=מקום הפעולה, de=יעד", "de=זמן, ni=מקום"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "de = היכן הפעולה מתרחשת, ni = לאן הולכים"
             ),
             QuizQuestion(
                 question = "'Umi ni ikimasu' פירושו:",
                 options = listOf("שוחה בים", "הולך/ת לים", "שוחה מהים", "גר/ה ליד הים"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "umi = ים, ikimasu = ללכת — ni = כיוון/יעד"
             ),
             QuizQuestion(
                 question = "'Jimu de yoga wo shimasu' - 'de' מציין:",
                 options = listOf("יעד - לחדר כושר", "מקום הפעולה - בחדר כושר", "אמצעי", "זמן"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "הפעולה (yoga) מתרחשת בחדר הכושר — de = מקום פעולה"
             ),
             QuizQuestion(
                 question = "מה פירוש 'soshite'?",
                 options = listOf("אבל", "כי", "ואז / ו-", "אם"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "soshite מחבר שני אירועים או פעולות"
             ),
             QuizQuestion(
                 question = "'Kinou' (אתמול) - האם מוסיפים 'ni'?",
                 options = listOf("כן, תמיד", "לא, זמן יחסי", "כן, אם יש שעה", "לפעמים"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "kinou = אתמול — האם זה זמן עם מספר ספציפי?"
             ),
             QuizQuestion(
                 question = "'Watashi wa shoppingu mo-ru ni kaerimasu' פירושו:",
                 options = listOf("הולך/ת לקניון", "חוזר/ת לקניון", "קונה בקניון", "גר/ה בקניון"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "kaeru = לחזור, ni = יעד"
             ),
             QuizQuestion(
                 question = "'Watashi wa kuruma de Tokyou ni ikimasu' - כמה מיליות?",
                 options = listOf("אחת (de)", "אחת (ni)", "שתיים (de + ni)", "שלוש"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "de = אמצעי, ni = יעד — שתי מיליות שונות"
             )
         )
     )

@@ -68,12 +68,14 @@ object Lesson05 {
                     "Watashi wa sensei ka",
                     "Sensei wa watashi janaidesu"
                 ),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "שלילה = מחליפים את desu בסיומת השלילה"
             ),
             QuizQuestion(
                 question = "מה פירוש 'Iie'?",
                 options = listOf("כן", "אולי", "לא", "בסדר"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "הפוך מ-Hai"
             ),
             QuizQuestion(
                 question = "'Kim san wa Chugoku jin janaidesu' פירושו:",
@@ -83,7 +85,8 @@ object Lesson05 {
                     "קים אינו/ה סיני/ת",
                     "אני לא סיני"
                 ),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "Chugoku = סין, jin = לאום, janaidesu = שלילה"
             ),
             QuizQuestion(
                 question = "מה ההבדל בין desu ל-janaidesu?",
@@ -93,7 +96,8 @@ object Lesson05 {
                     "desu=שאלה, janaidesu=תשובה",
                     "אין הבדל"
                 ),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "desu = הצהרה חיובית — janaidesu מבטל ומהפך אותה"
             ),
             QuizQuestion(
                 question = "איך שואלים 'האם סוזוקי לא יפני?'",
@@ -103,12 +107,14 @@ object Lesson05 {
                     "Suzuki san wa Nihon janaidesu",
                     "Iie Suzuki san"
                 ),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "שאלה = מוסיפים ka — גם לשלילה"
             ),
             QuizQuestion(
                 question = "מה התשובה ל-'Hai'?",
                 options = listOf("כן", "לא", "אולי", "סליחה"),
-                correctIndex = 0
+                correctIndex = 0,
+                explanation = "Hai ו-Iie הם שני הקטבים"
             ),
             QuizQuestion(
                 question = "איך אומרים 'ואן לא סינייה'?",
@@ -118,7 +124,8 @@ object Lesson05 {
                     "Wan san wa Kankoku jin desu",
                     "Iie Wan san"
                 ),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "Chugoku = סין, Wan san = שם, janaidesu = שלילה"
             ),
             QuizQuestion(
                 question = "סדר המשפט בשלילה הוא...",
@@ -128,7 +135,8 @@ object Lesson05 {
                     "הפוך מחיוב",
                     "תלוי בנושא"
                 ),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "הסדר ביפנית יציב — רק הסיומת משתנה"
             )
         )
     )

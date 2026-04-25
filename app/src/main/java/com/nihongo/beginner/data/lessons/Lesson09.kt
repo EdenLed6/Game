@@ -62,37 +62,44 @@ object Lesson09 {
             QuizQuestion(
                 question = "מה ההבדל בין 'kore' ל-'kono'?",
                 options = listOf("אין הבדל", "kono חייב לבוא לפני שם עצם, kore לא", "kore חייב לבוא לפני שם עצם, kono לא", "kono=קרוב, kore=רחוק"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "kore עומד לבד, kono חייב להיות לפני שם עצם"
             ),
             QuizQuestion(
                 question = "'Kono tokei wa...' פירושו:",
                 options = listOf("השעון שם...", "השעון ההוא...", "השעון הזה...", "איזה שעון?"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "kono = 'זה' כתואר — חייב שם עצם אחריו"
             ),
             QuizQuestion(
                 question = "איך אומרים 'המטריה ההיא' (קרוב לשומע)?",
                 options = listOf("kono kasa", "sono kasa", "ano kasa", "are kasa"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "sono = קרוב לשומע, kono = קרוב לדובר, ano = רחוק"
             ),
             QuizQuestion(
                 question = "מה פירוש 'En'?",
                 options = listOf("ין יפני", "שעון", "כרטיס אשראי", "ארנק"),
-                correctIndex = 0
+                correctIndex = 0,
+                explanation = "En (円) = המטבע הרשמי של יפן"
             ),
             QuizQuestion(
                 question = "'Ano saifu wa hassen en desu' פירושו:",
                 options = listOf("הארנק הזה 8,000 ין", "הארנק ההוא (רחוק) 8,000 ין", "הארנק שלי 8,000 ין", "האם הארנק 8,000 ין?"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "saifu = ארנק, hassen = 8000, ano = רחוק משניהם"
             ),
             QuizQuestion(
                 question = "מתי משתמשים ב-'sono'?",
                 options = listOf("קרוב לדובר", "רחוק משניהם", "קרוב לשומע", "כשאין שם עצם"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "sono = 'זה' שקרוב ל-? — לא לדובר ולא רחוק"
             ),
             QuizQuestion(
                 question = "'Kono kaban wa ni sen nana hyaku en desu' = כמה ין?",
                 options = listOf("1,700", "2,700", "2,070", "27,000"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "ni=2, sen=1000, nana=7, hyaku=100"
             )
         )
     )

@@ -56,42 +56,50 @@ object Lesson10 {
             QuizQuestion(
                 question = "'Taberu' שייך לאיזו קבוצה?",
                 options = listOf("U verb", "RU verb", "לא סדיר", "Group 3"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "RU verbs מסתיימים ב-iru/eru בצורת המילון"
             ),
             QuizQuestion(
                 question = "מה פירוש 'Nomu'?",
                 options = listOf("לאכול", "לשתות", "לישון", "לקרוא"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "nomu = שתייה — לא אוכל, לא שינה"
             ),
             QuizQuestion(
                 question = "'Suru' הוא...",
                 options = listOf("RU verb", "U verb", "פועל לא סדיר", "Group 1"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "יש רק שני פעלים לא סדירים ביפנית — suru הוא אחד מהם"
             ),
             QuizQuestion(
                 question = "מה פירוש 'Kaeru'?",
                 options = listOf("לבוא", "ללכת", "לחזור", "לקום"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "kaeru נשמע כמו RU verb אבל ה-e שייך לשורש — לכן הוא U verb"
             ),
             QuizQuestion(
                 question = "'Kiku' שייך לאיזו קבוצה?",
                 options = listOf("RU verb", "U verb", "לא סדיר", "אף אחד"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "kiku מסתיים ב-ku — לא iru/eru אלא סיומת U verb"
             ),
             QuizQuestion(
                 question = "מה פירוש 'Okiru'?",
                 options = listOf("לישון", "לקום", "לדבר", "לקרוא"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "okiru מסתיים ב-iru — RU verb"
             ),
             QuizQuestion(
                 question = "'Miru' = ?",
                 options = listOf("לשמוע", "לדבר", "לראות/לצפות", "לקרוא"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "miru = mi + ru, מסתיים ב-iru"
             ),
             QuizQuestion(
                 question = "'Kuru' הוא פועל לא סדיר. מה צורת ה-masu שלו?",
                 options = listOf("Kurumasu", "Shimasu", "Kimasu", "Kurimas"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "kuru הוא הפועל הלא-סדיר השני — צורת ה-masu שלו לא נגזרת באופן קבוע"
             )
         )
     )

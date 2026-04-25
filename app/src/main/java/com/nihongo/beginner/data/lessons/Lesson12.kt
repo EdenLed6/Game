@@ -59,42 +59,50 @@ object Lesson12 {
             QuizQuestion(
                 question = "מה עושה המילית 'wo' במשפט?",
                 options = listOf("מציינת נושא", "מציינת מושא", "מציינת זמן", "מציינת מקום"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "wo (を) מגיע אחרי המושא הישיר — הדבר שעליו מתבצעת הפעולה"
             ),
             QuizQuestion(
                 question = "'Watashi wa eiga wo mimasu' פירושו:",
                 options = listOf("אני שומע/ת סרט", "אני צופה בסרט", "אני עושה סרט", "אני קורא/ת סרט"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "mimasu = לצפות, eiga = סרט — wo מגיע אחרי המושא"
             ),
             QuizQuestion(
                 question = "איפה מגיעה 'wo' במשפט?",
                 options = listOf("אחרי הנושא", "אחרי הפועל", "אחרי המושא לפני הפועל", "בתחילת המשפט"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "הסדר: נושא + wa + מושא + wo + פועל"
             ),
             QuizQuestion(
                 question = "איך אומרים 'אני שותה בירה'?",
                 options = listOf("Watashi wa bi-ru wo nomimasu", "Watashi wo bi-ru wa nomimasu", "Bi-ru wo watashi wa nomimasu", "Watashi wa nomimasu bi-ru wo"),
-                correctIndex = 0
+                correctIndex = 0,
+                explanation = "bi-ru = בירה — wo מגיע ישר אחרי המושא"
             ),
             QuizQuestion(
                 question = "מה פירוש 'Chotto'?",
                 options = listOf("הרבה", "קצת", "בסדר", "לא"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "chotto = כמות קטנה"
             ),
             QuizQuestion(
                 question = "'Nihongo wo hanashimasu' פירושו:",
                 options = listOf("לומד/ת יפנית", "כותב/ת יפנית", "מדבר/ת יפנית", "קורא/ת יפנית"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "hanashimasu = לדבר, Nihongo = שפה יפנית"
             ),
             QuizQuestion(
                 question = "מה הגייה נכונה של 'を'?",
                 options = listOf("wo", "o", "we", "wi"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "を נכתב 'wo' אבל מבוטא כ-'o' בדיבור יומיומי"
             ),
             QuizQuestion(
                 question = "'Ongaku wo kikimasu' פירושו:",
                 options = listOf("עושה מוסיקה", "מקשיב/ה למוסיקה", "כותב/ת מוסיקה", "רואה מוסיקה"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "ongaku = מוסיקה, kikimasu = להקשיב"
             )
         )
     )
