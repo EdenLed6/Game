@@ -288,9 +288,10 @@ class LessonJourneyActivity : AppCompatActivity() {
 
     private fun showTeachPage() {
         teachAllItems.clear()
-        teachAllItems.addAll(lesson.vocabulary)
+        // Order: grammar explanation first → examples → vocabulary words
         teachAllItems.addAll(lesson.grammarPoints)
         teachAllItems.addAll(lesson.examples)
+        teachAllItems.addAll(lesson.vocabulary)
         teachRevealIndex = 0
 
         teachScrollView = ScrollView(this).apply {
@@ -329,8 +330,9 @@ class LessonJourneyActivity : AppCompatActivity() {
                 teachPageLayout.addView(sectionLabel("דוגמאות 💬"))
         }
 
+        val vocabIndex = teachAllItems.take(teachRevealIndex + 1).count { it is VocabItem } - 1
         val view: View = when (item) {
-            is VocabItem -> buildVocabRow(item, emojiColors[teachRevealIndex % emojiColors.size])
+            is VocabItem -> buildVocabRow(item, emojiColors[vocabIndex.coerceAtLeast(0) % emojiColors.size])
             is GrammarPoint -> buildGrammarBlock(item)
             is Example -> buildExampleRow(item)
             else -> return
