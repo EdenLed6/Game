@@ -122,85 +122,12 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Podcast Card -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardPodcast"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="@color/surface">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="12dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="🎙️"
-                            android:textSize="28sp"
-                            android:layout_marginEnd="12dp"/>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="יפן ב-15 דקות"
-                                android:textSize="17sp"
-                                android:textStyle="bold"
-                                android:textColor="@color/onSurface"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="פודקאסט ביפנית לרמת מתחילים"
-                                android:textSize="13sp"
-                                android:textColor="@color/onSurfaceMuted"
-                                android:layout_marginTop="2dp"/>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <!-- Spotify WebView embed -->
-                    <WebView
-                        android:id="@+id/webViewSpotify"
-                        android:layout_width="match_parent"
-                        android:layout_height="152dp"
-                        android:layout_marginBottom="12dp"/>
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnOpenSpotify"
-                        style="@style/App.Button.Outlined"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="פתח ב-Spotify"/>
-
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
             <!-- PDFs Card -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardPdfs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="16dp"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
                 app:cardBackgroundColor="@color/surface">
@@ -265,6 +192,79 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="✈️  קורס יפנית למטיילים"/>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Podcast Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardPodcast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/surface">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🎙️"
+                            android:textSize="28sp"
+                            android:layout_marginEnd="12dp"/>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="יפן ב-15 דקות"
+                                android:textSize="17sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/onSurface"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="פודקאסט ביפנית לרמת מתחילים"
+                                android:textSize="13sp"
+                                android:textColor="@color/onSurfaceMuted"
+                                android:layout_marginTop="2dp"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- Spotify WebView embed -->
+                    <WebView
+                        android:id="@+id/webViewSpotify"
+                        android:layout_width="match_parent"
+                        android:layout_height="152dp"
+                        android:layout_marginBottom="12dp"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnOpenSpotify"
+                        style="@style/App.Button.Outlined"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="פתח ב-Spotify"/>
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

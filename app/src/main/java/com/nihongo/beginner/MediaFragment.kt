@@ -37,8 +37,8 @@ class MediaFragment : Fragment() {
         binding.btnOpenSchooler.setOnClickListener { openUrl(schoolerUrl) }
         binding.cardSchooler.setOnClickListener { openUrl(schoolerUrl) }
         binding.btnOpenSpotify.setOnClickListener { openUrl(spotifyShowUrl) }
-        binding.btnOpenPdfMain.setOnClickListener { openPdf("course_main.pdf") }
-        binding.btnOpenPdfTravelers.setOnClickListener { openPdf("course_travelers.pdf") }
+        binding.btnOpenPdfMain.setOnClickListener { openPdf("course_travelers.pdf") }
+        binding.btnOpenPdfTravelers.setOnClickListener { openPdf("course_main.pdf") }
 
         setupWebView(binding.webViewSpotify, spotifyEmbedUrl)
     }
