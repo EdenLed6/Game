@@ -123,17 +123,20 @@ object Lesson16 {
             QuizQuestion(
                 question = "מה ההבדל בין 'mashita' ל-'masen deshita'?",
                 options = listOf("אין הבדל", "mashita=חיוב, masen deshita=שלילה", "mashita=שלילה, masen deshita=חיוב", "שניהם שלילה"),
-                correctIndex = 1
+                correctIndex = 1,
+                explanation = "שניהם עבר — אחד חיובי ואחד שלילי"
             ),
             QuizQuestion(
                 question = "'Benkyou shimashita' פירושו:",
                 options = listOf("לומד/ת", "ילמד/תלמד", "למד/ה", "לא למד/ה"),
-                correctIndex = 2
+                correctIndex = 2,
+                explanation = "benkyou shimasu = ללמוד, shimashita = עבר חיובי"
             ),
             QuizQuestion(
                 question = "מה צורת העבר של 'Hanashimasu'?",
                 options = listOf("Hanashimashita", "Hanarimashita", "Hanashita", "Hanasumashita"),
-                correctIndex = 0
+                correctIndex = 0,
+                explanation = "masu → mashita — hanashi+mashita"
             )
         )
     )
