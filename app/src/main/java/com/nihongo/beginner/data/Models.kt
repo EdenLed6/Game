@@ -9,7 +9,8 @@ data class Lesson(
     val grammarPoints: List<GrammarPoint>,
     val vocabulary: List<VocabItem>,
     val examples: List<Example>,
-    val exercises: List<QuizQuestion>
+    val exercises: List<QuizQuestion>,
+    val videoUrl: String = ""
 )
 
 data class GrammarPoint(

@@ -1,14 +1,19 @@
 package com.nihongo.beginner
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.Gravity
 import android.view.View
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -36,6 +41,8 @@ class LessonJourneyActivity : AppCompatActivity() {
     private var practiceIndex = 0
     private var quizIndex = 0
     private var quizWrongCount = 0
+
+    private var lessonWebView: WebView? = null
 
     // Progressive reveal for teach page
     private val teachAllItems = mutableListOf<Any>()
@@ -70,6 +77,8 @@ class LessonJourneyActivity : AppCompatActivity() {
         super.onDestroy()
         handler.removeCallbacksAndMessages(null)
         speaker.shutdown()
+        lessonWebView?.destroy()
+        lessonWebView = null
     }
 
     override fun finish() {
@@ -224,6 +233,14 @@ class LessonJourneyActivity : AppCompatActivity() {
             ).also { it.topMargin = dp(8) }
         })
 
+        // Video card — shown only if the lesson has a Vimeo URL
+        if (lesson.videoUrl.isNotEmpty()) {
+            container.addView(View(this).apply {
+                layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp(20))
+            })
+            container.addView(buildVideoCard(lesson.videoUrl))
+        }
+
         // Spacer
         container.addView(View(this).apply {
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp(24))
@@ -275,6 +292,43 @@ class LessonJourneyActivity : AppCompatActivity() {
         container.addView(card)
         scrollView.addView(container)
         setContent(scrollView)
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    private fun buildVideoCard(videoUrl: String): MaterialCardView {
+        val card = MaterialCardView(this).apply {
+            radius = dp(16).toFloat()
+            strokeWidth = 0
+            cardElevation = 4f
+            setCardBackgroundColor(0xFF111111.toInt())
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+        }
+
+        val webView = WebView(this).apply {
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, dp(210)
+            )
+            with(settings) {
+                javaScriptEnabled = true
+                domStorageEnabled = true
+                mediaPlaybackRequiresUserGesture = false
+                loadWithOverviewMode = true
+                useWideViewPort = true
+            }
+            webViewClient = object : WebViewClient() {
+                override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                    return true
+                }
+            }
+            loadUrl("$videoUrl?autoplay=0&title=0&byline=0&portrait=0")
+        }
+        lessonWebView = webView
+        card.addView(webView)
+        return card
     }
 
     // ─────────────────────────────────────────────────────────────
