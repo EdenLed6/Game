@@ -3,7 +3,7 @@ package com.nihongo.beginner
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Typeface
-import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,7 +12,6 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import coil.load
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.nihongo.beginner.audio.PronunciationSpeaker
@@ -108,7 +107,7 @@ class LessonJourneyActivity : AppCompatActivity() {
         }
         when (step) {
             Step.INTRO -> showIntro()
-            Step.TEACH -> { teachIndex = 0; showTeachCard() }
+            Step.TEACH -> showTeachPage()
             Step.PRACTICE -> { practiceIndex = 0; showPracticeCard() }
             Step.QUIZ -> { quizIndex = 0; showQuizQuestion() }
             Step.COMPLETE -> showComplete()
@@ -118,14 +117,7 @@ class LessonJourneyActivity : AppCompatActivity() {
     private fun onContinue() {
         when (currentStep) {
             Step.INTRO -> showStep(Step.TEACH)
-            Step.TEACH -> {
-                if (teachIndex < teachCards.size - 1) {
-                    teachIndex++
-                    showTeachCard()
-                } else {
-                    showStep(Step.PRACTICE)
-                }
-            }
+            Step.TEACH -> showStep(Step.PRACTICE)
             Step.PRACTICE -> {
                 val maxCards = minOf(lesson.vocabulary.size, 4)
                 if (practiceIndex < maxCards - 1) {
@@ -274,12 +266,16 @@ class LessonJourneyActivity : AppCompatActivity() {
     }
 
     // ─────────────────────────────────────────────────────────────
-    // TEACH
+    // TEACH — single scrollable page with all content
     // ─────────────────────────────────────────────────────────────
 
-    private fun showTeachCard() {
-        val isLast = teachIndex >= teachCards.size - 1
-        binding.btnContinue.text = if (isLast) "לתרגול →" else "${teachIndex + 1} / ${teachCards.size} →"
+    private val emojiColors = listOf(
+        0xFFFFE4E1.toInt(), 0xFFE3F2FD.toInt(), 0xFFFFF9C4.toInt(),
+        0xFFE8F5E9.toInt(), 0xFFF3E5F5.toInt(), 0xFFFFECB3.toInt()
+    )
+
+    private fun showTeachPage() {
+        binding.btnContinue.text = "לתרגול →"
         binding.btnContinue.isEnabled = true
 
         val scrollView = ScrollView(this).apply {
@@ -289,206 +285,227 @@ class LessonJourneyActivity : AppCompatActivity() {
             )
         }
 
-        val outerPad = LinearLayout(this).apply {
+        val page = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
-            setPadding(dp(20), dp(20), dp(20), dp(20))
+            setPadding(dp(16), dp(12), dp(16), dp(24))
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
         }
 
+        // ── Vocabulary section ──────────────────────────────────
+        if (lesson.vocabulary.isNotEmpty()) {
+            page.addView(sectionLabel("מילים חדשות 📝"))
+            lesson.vocabulary.forEachIndexed { i, vocab ->
+                page.addView(buildVocabRow(vocab, emojiColors[i % emojiColors.size]))
+            }
+        }
+
+        // ── Grammar section ─────────────────────────────────────
+        if (lesson.grammarPoints.isNotEmpty()) {
+            page.addView(sectionLabel("דקדוק 📖"))
+            lesson.grammarPoints.forEach { grammar ->
+                page.addView(buildGrammarBlock(grammar))
+            }
+        }
+
+        // ── Examples section ────────────────────────────────────
+        if (lesson.examples.isNotEmpty()) {
+            page.addView(sectionLabel("דוגמאות 💬"))
+            lesson.examples.forEach { example ->
+                page.addView(buildExampleRow(example))
+            }
+        }
+
+        scrollView.addView(page)
+        setContent(scrollView)
+    }
+
+    private fun sectionLabel(text: String): TextView = TextView(this).apply {
+        this.text = text
+        textSize = 13f
+        setTypeface(null, Typeface.BOLD)
+        setTextColor(colorInt(R.color.onSurfaceMuted))
+        layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        ).also { it.topMargin = dp(12); it.bottomMargin = dp(8) }
+    }
+
+    private fun buildVocabRow(vocab: VocabItem, bgColor: Int): MaterialCardView {
         val card = MaterialCardView(this).apply {
-            radius = dp(20).toFloat()
+            radius = dp(16).toFloat()
             strokeWidth = dp(1)
             strokeColor = colorInt(R.color.cardStroke)
-            cardElevation = dp(2).toFloat()
+            cardElevation = dp(1).toFloat()
             setCardBackgroundColor(colorInt(R.color.surface))
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
+            ).also { it.bottomMargin = dp(10) }
+        }
+
+        val row = LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
+            gravity = Gravity.CENTER_VERTICAL
+            setPadding(dp(12), dp(12), dp(8), dp(12))
+        }
+
+        // Emoji box
+        val emojiBox = FrameLayout(this).apply {
+            layoutParams = LinearLayout.LayoutParams(dp(64), dp(64)).also {
+                it.marginEnd = dp(14)
+            }
+            background = GradientDrawable().apply {
+                shape = GradientDrawable.RECTANGLE
+                cornerRadius = dp(14).toFloat()
+                setColor(bgColor)
+            }
+        }
+        emojiBox.addView(TextView(this).apply {
+            text = if (vocab.emoji.isNotBlank()) vocab.emoji else "🇯🇵"
+            textSize = 30f
+            gravity = Gravity.CENTER
+            layoutParams = FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
             )
-        }
+        })
+        row.addView(emojiBox)
 
-        val cardContent = LinearLayout(this).apply {
+        // Text block
+        val textBlock = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
-            setPadding(dp(20), dp(20), dp(20), dp(20))
+            layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
         }
+        textBlock.addView(TextView(this).apply {
+            text = vocab.japanese
+            textSize = 22f
+            setTypeface(null, Typeface.BOLD)
+            setTextColor(colorInt(R.color.onSurface))
+        })
+        textBlock.addView(TextView(this).apply {
+            text = vocab.romaji
+            textSize = 12f
+            setTextColor(colorInt(R.color.onSurfaceMuted))
+        })
+        textBlock.addView(TextView(this).apply {
+            text = vocab.hebrew
+            textSize = 14f
+            setTypeface(null, Typeface.BOLD)
+            setTextColor(colorInt(R.color.colorPrimary))
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).also { it.topMargin = dp(2) }
+        })
+        row.addView(textBlock)
 
-        when (val item = teachCards[teachIndex]) {
-            is GrammarPoint -> buildGrammarCard(cardContent, item)
-            is VocabItem -> buildVocabCard(cardContent, item)
-            is Example -> buildExampleCard(cardContent, item)
-        }
+        // Speak button
+        row.addView(MaterialButton(this, null, com.google.android.material.R.attr.materialButtonOutlinedStyle).apply {
+            text = "🔊"
+            textSize = 16f
+            layoutParams = LinearLayout.LayoutParams(dp(44), dp(44)).also {
+                it.marginStart = dp(8)
+            }
+            setPadding(0, 0, 0, 0)
+            strokeColor = ColorStateList.valueOf(colorInt(R.color.colorPrimary))
+            strokeWidth = dp(1)
+            setTextColor(colorInt(R.color.colorPrimary))
+            backgroundTintList = ColorStateList.valueOf(Color.TRANSPARENT)
+            setOnClickListener { speaker.speak(vocab.japanese) }
+        })
 
-        card.addView(cardContent)
-        outerPad.addView(card)
-        scrollView.addView(outerPad)
-        setContent(scrollView)
+        card.addView(row)
+        return card
     }
 
-    private fun buildGrammarCard(parent: LinearLayout, grammar: GrammarPoint) {
-        parent.addView(TextView(this).apply {
+    private fun buildGrammarBlock(grammar: GrammarPoint): MaterialCardView {
+        val card = MaterialCardView(this).apply {
+            radius = dp(16).toFloat()
+            strokeWidth = dp(1)
+            strokeColor = colorInt(R.color.cardStroke)
+            cardElevation = dp(1).toFloat()
+            setCardBackgroundColor(colorInt(R.color.surface))
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).also { it.bottomMargin = dp(10) }
+        }
+        val inner = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(dp(16), dp(14), dp(16), dp(14))
+        }
+        inner.addView(TextView(this).apply {
             text = grammar.title
-            textSize = 18f
+            textSize = 15f
             setTypeface(null, Typeface.BOLD)
             setTextColor(colorInt(R.color.colorPrimary))
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
-            ).also { it.bottomMargin = dp(12) }
+            ).also { it.bottomMargin = dp(8) }
         })
-        parent.addView(TextView(this).apply {
+        inner.addView(TextView(this).apply {
             text = grammar.content
             textSize = 14f
             setTextColor(colorInt(R.color.onSurface))
             isSingleLine = false
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
         })
         if (!grammar.pattern.isNullOrBlank()) {
-            parent.addView(TextView(this).apply {
+            inner.addView(TextView(this).apply {
                 text = grammar.pattern
                 textSize = 13f
                 setTextColor(colorInt(R.color.onSurfaceMuted))
-                setPadding(dp(12), dp(12), dp(12), dp(12))
-                setBackgroundColor(colorInt(R.color.surfaceSoft))
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                ).also { it.topMargin = dp(12) }
-            })
-        }
-    }
-
-    private fun buildVocabCard(parent: LinearLayout, vocab: VocabItem) {
-        if (vocab.imageKeyword.isNotBlank()) {
-            parent.addView(ImageView(this).apply {
-                scaleType = ImageView.ScaleType.CENTER_CROP
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    dp(140)
-                ).also { it.bottomMargin = dp(8) }
-                load("https://source.unsplash.com/400x400/?${vocab.imageKeyword.replace(" ", ",")}") {
-                    crossfade(true)
-                    placeholder(ColorDrawable(colorInt(R.color.surfaceSoft)))
-                    error(ColorDrawable(colorInt(R.color.surfaceSoft)))
+                setPadding(dp(12), dp(10), dp(12), dp(10))
+                background = GradientDrawable().apply {
+                    shape = GradientDrawable.RECTANGLE
+                    cornerRadius = dp(8).toFloat()
+                    setColor(colorInt(R.color.surfaceSoft))
                 }
-            })
-        } else if (vocab.emoji.isNotBlank()) {
-            parent.addView(TextView(this).apply {
-                text = vocab.emoji
-                textSize = 48f
-                gravity = Gravity.CENTER
                 layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
-                ).also { it.bottomMargin = dp(8) }
+                ).also { it.topMargin = dp(10) }
             })
         }
-
-        // Japanese
-        parent.addView(TextView(this).apply {
-            text = vocab.japanese
-            textSize = 40f
-            setTypeface(null, Typeface.BOLD)
-            setTextColor(colorInt(R.color.onSurface))
-            gravity = Gravity.CENTER
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            ).also { it.bottomMargin = dp(8) }
-        })
-
-        // Romaji
-        parent.addView(TextView(this).apply {
-            text = vocab.romaji
-            textSize = 16f
-            setTextColor(colorInt(R.color.onSurfaceMuted))
-            gravity = Gravity.CENTER
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            ).also { it.bottomMargin = dp(8) }
-        })
-
-        // Hebrew
-        parent.addView(TextView(this).apply {
-            text = vocab.hebrew
-            textSize = 18f
-            setTextColor(colorInt(R.color.colorPrimary))
-            gravity = Gravity.CENTER
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            ).also { it.bottomMargin = dp(16) }
-        })
-
-        // Pronunciation button — centered
-        val btnRow = LinearLayout(this).apply {
-            orientation = LinearLayout.HORIZONTAL
-            gravity = Gravity.CENTER
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-        }
-
-        val speakBtn = MaterialButton(this, null, com.google.android.material.R.attr.materialButtonOutlinedStyle).apply {
-            text = "🔊"
-            textSize = 20f
-            layoutParams = LinearLayout.LayoutParams(dp(48), dp(48))
-            setPadding(0, 0, 0, 0)
-            strokeColor = ColorStateList.valueOf(colorInt(R.color.colorPrimary))
-            strokeWidth = dp(1)
-            iconPadding = 0
-            setTextColor(colorInt(R.color.colorPrimary))
-            backgroundTintList = ColorStateList.valueOf(Color.TRANSPARENT)
-            setOnClickListener { speaker.speak(vocab.japanese) }
-        }
-
-        btnRow.addView(speakBtn)
-        parent.addView(btnRow)
+        card.addView(inner)
+        return card
     }
 
-    private fun buildExampleCard(parent: LinearLayout, example: Example) {
-        // Romaji sentence
-        parent.addView(TextView(this).apply {
-            text = example.romaji
-            textSize = 18f
-            setTypeface(null, Typeface.BOLD)
-            setTextColor(colorInt(R.color.onSurface))
+    private fun buildExampleRow(example: Example): LinearLayout {
+        val row = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(dp(4), dp(4), dp(4), dp(4))
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
-            ).also { it.bottomMargin = dp(8) }
+            ).also { it.bottomMargin = dp(10) }
+        }
+        row.addView(TextView(this).apply {
+            text = "▸  ${example.romaji}"
+            textSize = 15f
+            setTypeface(null, Typeface.BOLD)
+            setTextColor(colorInt(R.color.onSurface))
         })
-
-        // Japanese (if present)
         if (example.japanese.isNotBlank()) {
-            parent.addView(TextView(this).apply {
-                text = example.japanese
-                textSize = 14f
+            row.addView(TextView(this).apply {
+                text = "    ${example.japanese}"
+                textSize = 13f
                 setTextColor(colorInt(R.color.onSurfaceMuted))
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                ).also { it.bottomMargin = dp(8) }
             })
         }
-
-        // Hebrew translation
-        parent.addView(TextView(this).apply {
-            text = example.hebrew
-            textSize = 16f
+        row.addView(TextView(this).apply {
+            text = "    ${example.hebrew}"
+            textSize = 14f
             setTextColor(colorInt(R.color.colorPrimary))
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
-            )
+            ).also { it.topMargin = dp(2) }
         })
+        return row
     }
 
     // ─────────────────────────────────────────────────────────────
