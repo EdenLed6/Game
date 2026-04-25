@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@android:color/transparent"
     android:orientation="vertical">
 
     <!-- Gradient header -->
@@ -165,7 +165,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:padding="32dp"
-        android:background="@color/background"
+        android:background="@android:color/transparent"
         android:visibility="gone">
 
         <TextView
