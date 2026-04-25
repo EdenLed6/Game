@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <!-- Gradient header -->
-    <LinearLayout
+    <com.nihongo.beginner.HeaderLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_gradient_hero"
@@ -44,7 +44,7 @@
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
-        </LinearLayout>
+        </com.nihongo.beginner.HeaderLinearLayout>
 
     </LinearLayout>
 

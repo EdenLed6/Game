@@ -7,7 +7,7 @@
     android:background="@android:color/transparent">
 
     <!-- Top progress / header section -->
-    <LinearLayout
+    <com.nihongo.beginner.HeaderLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -60,7 +60,7 @@
                 android:layout_width="44dp"
                 android:layout_height="44dp" />
 
-        </LinearLayout>
+        </com.nihongo.beginner.HeaderLinearLayout>
 
     </LinearLayout>
 

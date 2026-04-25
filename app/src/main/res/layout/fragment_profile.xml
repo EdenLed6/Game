@@ -11,7 +11,7 @@
         android:orientation="vertical">
 
         <!-- Header gradient -->
-        <LinearLayout
+        <com.nihongo.beginner.HeaderLinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_gradient_hero"
@@ -55,7 +55,7 @@
                 android:textSize="14sp"
                 android:layout_marginTop="4dp"/>
 
-        </LinearLayout>
+        </com.nihongo.beginner.HeaderLinearLayout>
 
         <!-- Stats row -->
         <LinearLayout
