@@ -3,155 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/background">
 
-    <!-- Hero Section: full width, no margin -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_gradient_hero"
-        android:orientation="vertical"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
-        android:paddingTop="48dp"
-        android:paddingBottom="24dp">
-
-        <!-- App title bar -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
-
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"
-                android:background="@color/transparent"
-                app:titleTextColor="#FFFFFF"
-                app:titleTextAppearance="@style/App.TextAppearance.Display" />
-
-        </LinearLayout>
-
-        <!-- Logo -->
-        <ImageView
-            android:id="@+id/imgKimuraLogo"
-            android:layout_width="130dp"
-            android:layout_height="90dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="20dp"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/app_name"
-            android:scaleType="fitCenter"
-            android:src="@drawable/kimura_logo_red" />
-
-        <!-- Progress box -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_progress_hero"
-            android:orientation="vertical"
-            android:padding="18dp"
-            android:layout_marginBottom="20dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_marginBottom="8dp">
-
-                <TextView
-                    android:id="@+id/tvProgressPercent"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="#FFFFFF"
-                    android:textSize="36sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvCourseTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="יפנית"
-                    android:textColor="#FFFFFF"
-                    android:textSize="13sp"
-                    android:alpha="0.7" />
-
-            </LinearLayout>
-
-            <com.google.android.material.progressindicator.LinearProgressIndicator
-                android:id="@+id/progressBarMain"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                app:indicatorColor="#F59E0B"
-                app:trackColor="#4A1A16"
-                app:trackCornerRadius="4dp"
-                android:max="100" />
-
-            <TextView
-                android:id="@+id/tvProgressText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#FFFFFF"
-                android:alpha="0.75"
-                android:textSize="12sp" />
-
-        </LinearLayout>
-
-        <!-- Gold Challenge Button -->
-        <Button
-            android:id="@+id/btnChallenge"
-            style="@style/App.Button.Gold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="🥋  התחל אתגר נינג'ה" />
-
-    </LinearLayout>
-
-    <!-- Achievement Banner -->
-    <TextView
-        android:id="@+id/tvAchievementBanner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/bg_achievement_pill"
-        android:gravity="center"
-        android:padding="12dp"
-        android:textColor="@color/colorSecondaryDark"
-        android:textSize="13sp"
-        android:textStyle="bold"
-        android:visibility="gone" />
-
-    <!-- Lessons title -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
-        android:text="📚  השיעורים שלי"
-        android:textColor="@color/onSurface"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <!-- Lessons RecyclerView -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvLessons"
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:clipToPadding="false"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:paddingBottom="20dp" />
+        android:layout_weight="1" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/surface"
+        app:itemIconTint="@color/bottom_nav_color"
+        app:itemTextColor="@color/bottom_nav_color"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav_menu" />
 
 </LinearLayout>

@@ -26,6 +26,11 @@
             android:parentActivityName=".MainActivity" />
 
         <activity
+            android:name=".LessonJourneyActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
             android:name=".QuizActivity"
             android:exported="false"
             android:parentActivityName=".LessonDetailActivity" />
