@@ -32,7 +32,7 @@
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="96dp"
-        android:background="@drawable/bg_bottom_nav"
+        android:background="@android:color/transparent"
         app:itemIconTint="@null"
         app:itemIconSize="64dp"
         app:itemTextColor="@color/bottom_nav_color"
