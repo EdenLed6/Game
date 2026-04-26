@@ -29,7 +29,7 @@ class LessonJourneyActivity : AppCompatActivity() {
         const val EXTRA_LESSON_ID = "lesson_id"
     }
 
-    private enum class Step { INTRO, TEACH, PRACTICE, QUIZ, COMPLETE }
+    private enum class Step { INTRO, TEACH, VOCAB, PRACTICE, QUIZ, COMPLETE }
 
     private lateinit var binding: ActivityLessonJourneyBinding
     private lateinit var lesson: Lesson
@@ -93,29 +93,28 @@ class LessonJourneyActivity : AppCompatActivity() {
     private fun buildTeachCards(): List<Any> {
         val cards = mutableListOf<Any>()
         cards.addAll(lesson.grammarPoints)
-        cards.addAll(lesson.vocabulary)
         cards.addAll(lesson.examples)
         return cards
     }
 
     private fun showStep(step: Step) {
         currentStep = step
-        // Ensure the bottom button is visible for all steps except QUIZ
-        // (QUIZ manages its own visibility since it handles flow inline)
         if (step != Step.QUIZ) {
             binding.btnContinue.visibility = View.VISIBLE
         }
         val progress = when (step) {
             Step.INTRO -> 0
-            Step.TEACH -> 20
-            Step.PRACTICE -> 55
-            Step.QUIZ -> 75
+            Step.TEACH -> 15
+            Step.VOCAB -> 40
+            Step.PRACTICE -> 60
+            Step.QUIZ -> 80
             Step.COMPLETE -> 100
         }
         binding.progressJourney.progress = progress
         binding.tvStepTitle.text = when (step) {
             Step.INTRO -> lesson.title
             Step.TEACH -> "למד"
+            Step.VOCAB -> "מילים חדשות"
             Step.PRACTICE -> "תרגל"
             Step.QUIZ -> "חידון"
             Step.COMPLETE -> "הושלם! 🎉"
@@ -123,6 +122,7 @@ class LessonJourneyActivity : AppCompatActivity() {
         when (step) {
             Step.INTRO -> showIntro()
             Step.TEACH -> showTeachPage()
+            Step.VOCAB -> showVocabPage()
             Step.PRACTICE -> { practiceIndex = 0; showPracticeCard() }
             Step.QUIZ -> { quizIndex = 0; showQuizQuestion() }
             Step.COMPLETE -> showComplete()
@@ -135,10 +135,13 @@ class LessonJourneyActivity : AppCompatActivity() {
             Step.TEACH -> {
                 if (teachRevealIndex < teachAllItems.size) {
                     appendTeachItem()
+                } else if (lesson.vocabulary.isNotEmpty()) {
+                    showStep(Step.VOCAB)
                 } else {
                     showStep(Step.PRACTICE)
                 }
             }
+            Step.VOCAB -> showStep(Step.PRACTICE)
             Step.PRACTICE -> {
                 val maxCards = minOf(lesson.vocabulary.size, 4)
                 if (practiceIndex < maxCards - 1) {
@@ -336,12 +339,36 @@ class LessonJourneyActivity : AppCompatActivity() {
         0xFFE8F5E9.toInt(), 0xFFF3E5F5.toInt(), 0xFFFFECB3.toInt()
     )
 
+    private fun showVocabPage() {
+        binding.btnContinue.text = "לתרגול →"
+        binding.btnContinue.isEnabled = true
+
+        val scrollView = ScrollView(this).apply {
+            layoutParams = FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
+            )
+        }
+        val container = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(dp(16), dp(12), dp(16), dp(24))
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+        }
+        container.addView(sectionLabel("מילים חדשות 📝"))
+        lesson.vocabulary.forEachIndexed { i, vocab ->
+            container.addView(buildVocabRow(vocab, emojiColors[i % emojiColors.size]))
+        }
+        scrollView.addView(container)
+        setContent(scrollView)
+    }
+
     private fun showTeachPage() {
         teachAllItems.clear()
-        // Order: grammar explanation first → examples → vocabulary words
         teachAllItems.addAll(lesson.grammarPoints)
         teachAllItems.addAll(lesson.examples)
-        teachAllItems.addAll(lesson.vocabulary)
         teachRevealIndex = 0
 
         teachScrollView = ScrollView(this).apply {
@@ -394,7 +421,12 @@ class LessonJourneyActivity : AppCompatActivity() {
         teachScrollView.post { teachScrollView.fullScroll(View.FOCUS_DOWN) }
 
         // Update button label
-        binding.btnContinue.text = if (teachRevealIndex >= teachAllItems.size) "לתרגול →" else "הבא ↓"
+        val allDone = teachRevealIndex >= teachAllItems.size
+        binding.btnContinue.text = when {
+            !allDone -> "הבא ↓"
+            lesson.vocabulary.isNotEmpty() -> "מילים חדשות →"
+            else -> "לתרגול →"
+        }
         binding.btnContinue.isEnabled = true
     }
 
@@ -473,16 +505,18 @@ class LessonJourneyActivity : AppCompatActivity() {
         })
         row.addView(textBlock)
 
-        // Speak button
-        row.addView(MaterialButton(this, null, com.google.android.material.R.attr.materialButtonOutlinedStyle).apply {
+        // Speak button — solid red, matches App.Button style
+        row.addView(MaterialButton(this, null, com.google.android.material.R.attr.materialButtonStyle).apply {
             text = "🔊"
             textSize = 17f
             layoutParams = LinearLayout.LayoutParams(dp(48), dp(48)).also { it.marginStart = dp(8) }
             setPadding(0, 0, 0, 0)
-            strokeColor = ColorStateList.valueOf(colorInt(R.color.colorPrimary))
-            strokeWidth = dp(1)
-            setTextColor(colorInt(R.color.colorPrimary))
-            backgroundTintList = ColorStateList.valueOf(Color.TRANSPARENT)
+            insetTop = 0; insetBottom = 0
+            cornerRadius = dp(24)
+            strokeColor = ColorStateList.valueOf(colorInt(R.color.colorPrimaryDark))
+            strokeWidth = dp(2)
+            backgroundTintList = ColorStateList.valueOf(colorInt(R.color.colorPrimary))
+            setTextColor(colorInt(R.color.white))
             setOnClickListener { speaker.speak(vocab.japanese) }
         })
 
