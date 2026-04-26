@@ -162,6 +162,48 @@ object Lesson17 {
                 answer = "Asagohan wa sarada janakatta desu.",
                 audioText = "Asagohan wa sarada janakatta desu",
                 inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לעבר שלילי:",
+                prompt = "Miru (לראות)",
+                answer = "Mimasendeshita",
+                audioText = "Mimasendeshita",
+                inputHint = "כתבו את צורת העבר השלילי..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לעבר שלילי:",
+                prompt = "Okiru (לקום)",
+                answer = "Okimasendeshita",
+                audioText = "Okimasendeshita",
+                inputHint = "כתבו את צורת העבר השלילי..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לעבר שלילי:",
+                prompt = "Neru (לישון)",
+                answer = "Nemasendeshita",
+                audioText = "Nemasendeshita",
+                inputHint = "כתבו את צורת העבר השלילי..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לעבר שלילי:",
+                prompt = "Hanasu (לדבר)",
+                answer = "Hanashimasendeshita",
+                audioText = "Hanashimasendeshita",
+                inputHint = "כתבו את צורת העבר השלילי..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לעבר שלילי:",
+                prompt = "Yomu (לקרוא)",
+                answer = "Yomimasendeshita",
+                audioText = "Yomimasendeshita",
+                inputHint = "כתבו את צורת העבר השלילי..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לעבר שלילי:",
+                prompt = "Kaeru (לחזור)",
+                answer = "Kaerimasendeshita",
+                audioText = "Kaerimasendeshita",
+                inputHint = "כתבו את צורת העבר השלילי..."
             )
         )
     )

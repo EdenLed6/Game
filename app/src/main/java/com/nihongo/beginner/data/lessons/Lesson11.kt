@@ -182,6 +182,48 @@ object Lesson11 {
                 answer = "Watashi wa kikimasu.",
                 audioText = "Watashi wa kikimasu",
                 inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו למאסו שלילי:",
+                prompt = "Miru (לראות)",
+                answer = "Mimasen",
+                audioText = "Mimasen",
+                inputHint = "כתבו את צורת השלילה..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו למאסו שלילי:",
+                prompt = "Okiru (לקום)",
+                answer = "Okimasen",
+                audioText = "Okimasen",
+                inputHint = "כתבו את צורת השלילה..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו למאסו שלילי:",
+                prompt = "Hanasu (לדבר)",
+                answer = "Hanashimasen",
+                audioText = "Hanashimasen",
+                inputHint = "כתבו את צורת השלילה..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו למאסו שלילי:",
+                prompt = "Yomu (לקרוא)",
+                answer = "Yomimasen",
+                audioText = "Yomimasen",
+                inputHint = "כתבו את צורת השלילה..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו למאסו שלילי:",
+                prompt = "Nomu (לשתות)",
+                answer = "Nomimasen",
+                audioText = "Nomimasen",
+                inputHint = "כתבו את צורת השלילה..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו למאסו שלילי:",
+                prompt = "Kiku (להקשיב)",
+                answer = "Kikimasen",
+                audioText = "Kikimasen",
+                inputHint = "כתבו את צורת השלילה..."
             )
         )
     )

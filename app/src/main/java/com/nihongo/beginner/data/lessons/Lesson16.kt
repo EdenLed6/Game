@@ -182,6 +182,48 @@ object Lesson16 {
                 answer = "Watashi wa 7 ji ni okimashita.",
                 audioText = "Watashi wa 7 ji ni okimashita",
                 inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לעבר חיובי:",
+                prompt = "Miru (לראות)",
+                answer = "Mimashita",
+                audioText = "Mimashita",
+                inputHint = "כתבו את צורת העבר..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לעבר חיובי:",
+                prompt = "Okiru (לקום)",
+                answer = "Okimashita",
+                audioText = "Okimashita",
+                inputHint = "כתבו את צורת העבר..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לעבר חיובי:",
+                prompt = "Neru (לישון)",
+                answer = "Nemashita",
+                audioText = "Nemashita",
+                inputHint = "כתבו את צורת העבר..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לעבר חיובי:",
+                prompt = "Hanasu (לדבר)",
+                answer = "Hanashimashita",
+                audioText = "Hanashimashita",
+                inputHint = "כתבו את צורת העבר..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לעבר חיובי:",
+                prompt = "Yomu (לקרוא)",
+                answer = "Yomimashita",
+                audioText = "Yomimashita",
+                inputHint = "כתבו את צורת העבר..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לעבר חיובי:",
+                prompt = "Kaeru (לחזור)",
+                answer = "Kaerimashita",
+                audioText = "Kaerimashita",
+                inputHint = "כתבו את צורת העבר..."
             )
         )
     )

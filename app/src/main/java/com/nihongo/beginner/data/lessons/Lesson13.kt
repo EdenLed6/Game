@@ -166,6 +166,48 @@ object Lesson13 {
                 answer = "Ima",
                 audioText = "Ima",
                 inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "07:00",
+                answer = "Shichi ji",
+                audioText = "Shichi ji",
+                inputHint = "כתבו את השעה בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "06:00",
+                answer = "Roku ji",
+                audioText = "Roku ji",
+                inputHint = "כתבו את השעה בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "04:30",
+                answer = "Yo ji han",
+                audioText = "Yo ji han",
+                inputHint = "כתבו את השעה בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "11:00",
+                answer = "Juu ichi ji",
+                audioText = "Juu ichi ji",
+                inputHint = "כתבו את השעה בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "12:00",
+                answer = "Juu ni ji",
+                audioText = "Juu ni ji",
+                inputHint = "כתבו את השעה בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "03:30",
+                answer = "San ji han",
+                audioText = "San ji han",
+                inputHint = "כתבו את השעה בתעתיק..."
             )
         )
     )

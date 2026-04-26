@@ -144,6 +144,48 @@ object Lesson06 {
                 answer = "Sore wa Rihi san no kaban janaidesu.",
                 audioText = "Sore wa Rihi san no kaban janaidesu",
                 inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "נעליים שלי",
+                answer = "Watashi no kutsu",
+                audioText = "Watashi no kutsu",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "חולצה של איש הודי",
+                answer = "Indo jin no shatsu",
+                audioText = "Indo jin no shatsu",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "מחברת יפנית",
+                answer = "Nihon no no-to",
+                audioText = "Nihon no no-to",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "ארנק סיני",
+                answer = "Chugoku no saifu",
+                audioText = "Chugoku no saifu",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "ספר צרפתי שלי",
+                answer = "Watashi no Furansu no hon",
+                audioText = "Watashi no Furansu no hon",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "מחברת יפנית של סוזוקי",
+                answer = "Suzuki san no nihon no no-to",
+                audioText = "Suzuki san no nihon no no-to",
+                inputHint = "כתבו את התעתיק היפני..."
             )
         )
     )
