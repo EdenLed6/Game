@@ -102,6 +102,50 @@ object Lesson09 {
                 explanation = "ni=2, sen=1000, nana=7, hyaku=100"
             )
         ),
-        videoUrl = "https://player.vimeo.com/video/1034247067"
+        videoUrl = "https://player.vimeo.com/video/1034247067",
+        practiceCards = listOf(
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "המחברת הזאת (קרוב לי)",
+                answer = "Kono no-to",
+                audioText = "Kono no-to",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "הסובה ההיא (קרוב לך)",
+                answer = "Sono osoba",
+                audioText = "Sono osoba",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אותו יפני (שם הרחק)",
+                answer = "Ano nihonjin",
+                audioText = "Ano nihonjin",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "המחברת הזאת עולה 100 ין.",
+                answer = "Kono no-to wa hyaku en desu.",
+                audioText = "Kono no-to wa hyaku en desu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "הכובע הזה עולה 1200 ין.",
+                answer = "Kono boushi wa sen ni hyaku en desu.",
+                audioText = "Kono boushi wa sen ni hyaku en desu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "מטריה",
+                answer = "Kasa",
+                audioText = "Kasa",
+                inputHint = "כתבו את התעתיק היפני..."
+            )
+        )
     )
 }

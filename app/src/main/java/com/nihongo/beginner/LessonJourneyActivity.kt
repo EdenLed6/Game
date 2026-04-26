@@ -155,12 +155,12 @@ class LessonJourneyActivity : AppCompatActivity() {
                 }
             }
             Step.PRACTICE -> {
-                val maxCards = minOf(lesson.vocabulary.size, 4)
-                if (practiceIndex < maxCards - 1) {
+                val maxCards = lesson.practiceCards.size
+                if (maxCards == 0 || practiceIndex >= maxCards - 1) {
+                    showStep(Step.QUIZ)
+                } else {
                     practiceIndex++
                     showPracticeCard()
-                } else {
-                    showStep(Step.QUIZ)
                 }
             }
             Step.COMPLETE -> finish()
@@ -680,38 +680,38 @@ class LessonJourneyActivity : AppCompatActivity() {
     }
 
     // ─────────────────────────────────────────────────────────────
-    // PRACTICE (flashcards)
+    // PRACTICE — write the answer, then check or peek
     // ─────────────────────────────────────────────────────────────
 
     private fun showPracticeCard() {
-        val maxCards = minOf(lesson.vocabulary.size, 4)
+        val cards = lesson.practiceCards
+        val maxCards = cards.size
+        if (maxCards == 0) { showStep(Step.QUIZ); return }
+
+        val card = cards[practiceIndex]
         val isLast = practiceIndex >= maxCards - 1
 
-        // Initially hide the continue button until card is flipped
         binding.btnContinue.isEnabled = false
         binding.btnContinue.text = if (isLast) "לחידון →" else "הבא"
 
-        val vocab = lesson.vocabulary[practiceIndex]
-
-        val root = FrameLayout(this).apply {
+        val scrollView = ScrollView(this).apply {
             layoutParams = FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT
             )
         }
 
-        val outerPad = LinearLayout(this).apply {
+        val container = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
-            gravity = Gravity.CENTER
-            setPadding(dp(20), dp(20), dp(20), dp(20))
-            layoutParams = FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.MATCH_PARENT
+            setPadding(dp(20), dp(16), dp(20), dp(24))
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
             )
         }
 
-        // Counter label
-        outerPad.addView(TextView(this).apply {
+        // Counter
+        container.addView(TextView(this).apply {
             text = "${practiceIndex + 1} / $maxCards"
             textSize = 13f
             setTextColor(colorInt(R.color.onSurfaceMuted))
@@ -719,122 +719,234 @@ class LessonJourneyActivity : AppCompatActivity() {
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
-            ).also { it.bottomMargin = dp(12) }
+            ).also { it.bottomMargin = dp(6) }
         })
 
-        // Tap hint label
-        val hintLabel = TextView(this).apply {
-            text = "הקש לגלות את התרגום"
-            textSize = 13f
+        // Instruction label
+        container.addView(TextView(this).apply {
+            text = card.promptLabel
+            textSize = 15f
+            setTypeface(null, Typeface.BOLD)
             setTextColor(colorInt(R.color.onSurfaceMuted))
             gravity = Gravity.CENTER
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
-            ).also { it.topMargin = dp(12) }
-        }
+            ).also { it.bottomMargin = dp(14) }
+        })
 
-        // Flashcard
-        val card = MaterialCardView(this).apply {
+        // Prompt card
+        val promptCard = MaterialCardView(this).apply {
             radius = dp(20).toFloat()
             strokeWidth = dp(1)
             strokeColor = colorInt(R.color.cardStroke)
-            cardElevation = dp(4).toFloat()
-            setCardBackgroundColor(colorInt(R.color.surface))
+            cardElevation = 0f
+            setCardBackgroundColor(colorInt(R.color.surfaceSoft))
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                dp(240)
-            )
-            isClickable = true
-            isFocusable = true
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).also { it.bottomMargin = dp(20) }
         }
-
-        val cardInner = LinearLayout(this).apply {
-            orientation = LinearLayout.VERTICAL
-            gravity = Gravity.CENTER
-            setPadding(dp(24), dp(24), dp(24), dp(24))
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT
-            )
-        }
-
-        // Front: Japanese
-        val tvJapanese = TextView(this).apply {
-            text = vocab.japanese
-            textSize = 48f
+        promptCard.addView(TextView(this).apply {
+            text = card.prompt
+            textSize = 26f
             setTypeface(null, Typeface.BOLD)
             setTextColor(colorInt(R.color.onSurface))
             gravity = Gravity.CENTER
+            isSingleLine = false
+            setPadding(dp(20), dp(24), dp(20), dp(24))
+        })
+        container.addView(promptCard)
+
+        // Input field
+        val editText = android.widget.EditText(this).apply {
+            hint = card.inputHint
+            textSize = 17f
+            setTextColor(colorInt(R.color.onSurface))
+            setHintTextColor(colorInt(R.color.onSurfaceMuted))
+            background = GradientDrawable().apply {
+                shape = GradientDrawable.RECTANGLE
+                cornerRadius = dp(12).toFloat()
+                setColor(colorInt(R.color.surface))
+                setStroke(dp(1), colorInt(R.color.cardStroke))
+            }
+            setPadding(dp(16), dp(14), dp(16), dp(14))
+            isSingleLine = false
+            maxLines = 3
+            imeOptions = android.view.inputmethod.EditorInfo.IME_ACTION_DONE
+            inputType = android.text.InputType.TYPE_CLASS_TEXT or
+                    android.text.InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).also { it.bottomMargin = dp(14) }
+        }
+        container.addView(editText)
+
+        // Feedback label (hidden)
+        val feedbackLabel = TextView(this).apply {
+            textSize = 15f
+            setTypeface(null, Typeface.BOLD)
+            gravity = Gravity.CENTER
+            visibility = View.GONE
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).also { it.bottomMargin = dp(10) }
+        }
+        container.addView(feedbackLabel)
+
+        // Answer reveal area (hidden)
+        val answerCard = MaterialCardView(this).apply {
+            radius = dp(16).toFloat()
+            strokeWidth = dp(1)
+            strokeColor = colorInt(R.color.cardStroke)
+            cardElevation = 0f
+            setCardBackgroundColor(colorInt(R.color.surface))
+            visibility = View.GONE
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).also { it.bottomMargin = dp(14) }
+        }
+        val answerInner = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            gravity = Gravity.CENTER
+            setPadding(dp(16), dp(16), dp(16), dp(16))
+        }
+        answerInner.addView(TextView(this).apply {
+            text = card.answer
+            textSize = 20f
+            setTypeface(null, Typeface.BOLD)
+            setTextColor(colorInt(R.color.colorPrimary))
+            gravity = Gravity.CENTER
+            isSingleLine = false
+        })
+        if (card.answerSub.isNotBlank()) {
+            answerInner.addView(TextView(this).apply {
+                text = card.answerSub
+                textSize = 14f
+                setTextColor(colorInt(R.color.onSurfaceMuted))
+                gravity = Gravity.CENTER
+                isSingleLine = false
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).also { it.topMargin = dp(6) }
+            })
+        }
+        if (card.audioText.isNotBlank()) {
+            answerInner.addView(MaterialButton(this, null, com.google.android.material.R.attr.materialButtonStyle).apply {
+                text = "🔊"
+                textSize = 17f
+                layoutParams = LinearLayout.LayoutParams(dp(48), dp(48)).also {
+                    it.topMargin = dp(10)
+                    it.gravity = Gravity.CENTER_HORIZONTAL
+                }
+                setPadding(0, 0, 0, 0)
+                insetTop = 0; insetBottom = 0
+                cornerRadius = dp(24)
+                strokeColor = ColorStateList.valueOf(colorInt(R.color.colorPrimaryDark))
+                strokeWidth = dp(2)
+                backgroundTintList = ColorStateList.valueOf(colorInt(R.color.colorPrimary))
+                setTextColor(colorInt(R.color.white))
+                setOnClickListener { speaker.speak(card.audioText) }
+            })
+        }
+        answerCard.addView(answerInner)
+        container.addView(answerCard)
+
+        fun revealAnswer(correct: Boolean?) {
+            answerCard.visibility = View.VISIBLE
+            binding.btnContinue.isEnabled = true
+            val imm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE)
+                    as android.view.inputmethod.InputMethodManager
+            imm.hideSoftInputFromWindow(editText.windowToken, 0)
+            when (correct) {
+                true -> {
+                    feedbackLabel.text = "✓ נכון!"
+                    feedbackLabel.setTextColor(colorInt(R.color.correct_green))
+                    feedbackLabel.visibility = View.VISIBLE
+                    answerCard.setCardBackgroundColor(0xFFE8F5E9.toInt())
+                    if (card.audioText.isNotBlank()) {
+                        binding.root.post { speaker.speak(card.audioText) }
+                    }
+                }
+                false -> {
+                    feedbackLabel.text = "✗ לא מדויק — התשובה הנכונה:"
+                    feedbackLabel.setTextColor(colorInt(R.color.wrong_red))
+                    feedbackLabel.visibility = View.VISIBLE
+                    answerCard.setCardBackgroundColor(0xFFFFF3E0.toInt())
+                }
+                null -> {
+                    feedbackLabel.visibility = View.GONE
+                    answerCard.setCardBackgroundColor(colorInt(R.color.surface))
+                }
+            }
+        }
+
+        // Buttons row
+        val btnRow = LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
         }
 
-        // Back: Hebrew + romaji (hidden initially)
-        val tvHebrew = TextView(this).apply {
-            text = vocab.hebrew
-            textSize = 24f
-            setTypeface(null, Typeface.BOLD)
-            setTextColor(colorInt(R.color.colorPrimary))
-            gravity = Gravity.CENTER
-            visibility = View.GONE
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            ).also { it.topMargin = dp(8) }
-        }
-
-        val tvRomaji = TextView(this).apply {
-            text = vocab.romaji
-            textSize = 14f
-            setTextColor(colorInt(R.color.onSurfaceMuted))
-            gravity = Gravity.CENTER
-            visibility = View.GONE
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            ).also { it.topMargin = dp(4) }
-        }
-
-        val btnSpeak = MaterialButton(this, null, com.google.android.material.R.attr.materialButtonStyle).apply {
-            text = "🔊"
-            textSize = 18f
-            layoutParams = LinearLayout.LayoutParams(dp(52), dp(52)).also {
-                it.topMargin = dp(10)
-                it.gravity = Gravity.CENTER_HORIZONTAL
+        val btnCheck = MaterialButton(this, null, com.google.android.material.R.attr.materialButtonStyle).apply {
+            text = "בדוק ✓"
+            isAllCaps = false
+            textSize = 15f
+            layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f).also {
+                it.marginEnd = dp(8)
             }
-            setPadding(0, 0, 0, 0)
-            insetTop = 0; insetBottom = 0
-            cornerRadius = dp(26)
+            backgroundTintList = ColorStateList.valueOf(colorInt(R.color.colorPrimary))
             strokeColor = ColorStateList.valueOf(colorInt(R.color.colorPrimaryDark))
             strokeWidth = dp(2)
-            setTextColor(colorInt(R.color.white))
-            backgroundTintList = ColorStateList.valueOf(colorInt(R.color.colorPrimary))
-            setOnClickListener { speaker.speak(vocab.japanese) }
+            cornerRadius = dp(14)
+            stateListAnimator = null
         }
 
-        cardInner.addView(tvJapanese)
-        cardInner.addView(btnSpeak)
-        cardInner.addView(tvHebrew)
-        cardInner.addView(tvRomaji)
-        card.addView(cardInner)
-
-        card.setOnClickListener {
-            tvHebrew.visibility = View.VISIBLE
-            tvRomaji.visibility = View.VISIBLE
-            hintLabel.visibility = View.GONE
-            card.setCardBackgroundColor(colorInt(R.color.surfaceSoft))
-            binding.btnContinue.isEnabled = true
+        val btnPeek = MaterialButton(this, null, com.google.android.material.R.attr.materialButtonOutlinedStyle).apply {
+            text = "גלה 👁"
+            isAllCaps = false
+            textSize = 15f
+            layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+            strokeColor = ColorStateList.valueOf(colorInt(R.color.colorPrimary))
+            strokeWidth = dp(1)
+            setTextColor(colorInt(R.color.colorPrimary))
+            backgroundTintList = ColorStateList.valueOf(android.graphics.Color.TRANSPARENT)
+            cornerRadius = dp(14)
+            stateListAnimator = null
         }
 
-        outerPad.addView(card)
-        outerPad.addView(hintLabel)
-        root.addView(outerPad)
-        setContent(root)
-        binding.root.post { speaker.speak(vocab.japanese) }
+        btnCheck.setOnClickListener {
+            val input = editText.text.toString()
+            val correct = normalizeAnswer(input) == normalizeAnswer(card.answer)
+            revealAnswer(correct)
+            btnCheck.isEnabled = false
+            btnPeek.isEnabled = false
+        }
+
+        btnPeek.setOnClickListener {
+            revealAnswer(null)
+            btnCheck.isEnabled = false
+            btnPeek.isEnabled = false
+        }
+
+        btnRow.addView(btnCheck)
+        btnRow.addView(btnPeek)
+        container.addView(btnRow)
+
+        scrollView.addView(container)
+        setContent(scrollView)
+
+        editText.post { editText.requestFocus() }
     }
+
+    private fun normalizeAnswer(s: String): String =
+        s.trim().lowercase().trimEnd('.', '?', '!', '。', '？').replace("\\s+".toRegex(), " ")
 
     // ─────────────────────────────────────────────────────────────
     // QUIZ

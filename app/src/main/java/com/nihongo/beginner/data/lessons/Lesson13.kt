@@ -123,6 +123,50 @@ object Lesson13 {
                 explanation = "mainichi = כל יום — האם זה זמן עם מספר ספציפי?"
             )
         ),
-        videoUrl = "https://player.vimeo.com/video/1033579936"
+        videoUrl = "https://player.vimeo.com/video/1033579936",
+        practiceCards = listOf(
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אני קם/ה בשבע.",
+                answer = "Watashi wa 7 ji ni okimasu.",
+                audioText = "Watashi wa 7 ji ni okimasu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "שמונה וחצי",
+                answer = "8 ji han",
+                audioText = "8 ji han",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "ארוחת בוקר",
+                answer = "Asagohan",
+                audioText = "Asagohan",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "ארוחת ערב",
+                answer = "Bangohan",
+                audioText = "Bangohan",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אני אוכל/ת ארוחת בוקר בשמונה.",
+                answer = "8 ji ni asagohan wo tabemasu.",
+                audioText = "8 ji ni asagohan wo tabemasu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "עכשיו (ללא ni!)",
+                answer = "Ima",
+                audioText = "Ima",
+                inputHint = "כתבו את התעתיק היפני..."
+            )
+        )
     )
 }

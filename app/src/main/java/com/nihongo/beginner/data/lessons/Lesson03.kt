@@ -78,6 +78,50 @@ object Lesson03 {
                 explanation = "San אינו שם, אינו מקצוע — הוא תמיד מגיע אחרי שמו של אדם"
             )
         ),
-        videoUrl = "https://player.vimeo.com/video/1032806172"
+        videoUrl = "https://player.vimeo.com/video/1032806172",
+        practiceCards = listOf(
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "נעים להכיר (פגישה ראשונה)",
+                answer = "Hajimemashite",
+                audioText = "Hajimemashite",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אני מהנדס.",
+                answer = "Watashi wa enjinia desu.",
+                audioText = "Watashi wa enjinia desu",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "אנא המשיכו לתמוך בי",
+                answer = "Yoroshiku onegaishimasu",
+                audioText = "Yoroshiku onegaishimasu",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "מורה",
+                answer = "Sensei",
+                audioText = "Sensei",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אני מורה.",
+                answer = "Watashi wa sensei desu.",
+                audioText = "Watashi wa sensei desu",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "תלמיד/סטודנט",
+                answer = "Gakusei",
+                audioText = "Gakusei",
+                inputHint = "כתבו את התעתיק היפני..."
+            )
+        )
     )
 }

@@ -119,6 +119,50 @@ object Lesson17 {
                 explanation = "de = מקום הפעולה, ? = כיוון/יעד"
             )
         ),
-        videoUrl = "https://player.vimeo.com/video/1033587388"
+        videoUrl = "https://player.vimeo.com/video/1033587388",
+        practiceCards = listOf(
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "סוזוקי היה/תה מורה.",
+                answer = "Suzuki san wa sensei deshita.",
+                audioText = "Suzuki san wa sensei deshita",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "זה לא היה הספר שלי.",
+                answer = "Kore wa watashi no hon janakatta desu.",
+                audioText = "Kore wa watashi no hon janakatta desu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "זה היה סרט יפני.",
+                answer = "Are wa nihon no eiga deshita.",
+                audioText = "Are wa nihon no eiga deshita",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לזמן עבר:",
+                prompt = "Watashi wa gakusei desu.",
+                answer = "Watashi wa gakusei deshita.",
+                audioText = "Watashi wa gakusei deshita",
+                inputHint = "כתבו את צורת העבר..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לעבר שלילי:",
+                prompt = "Kore wa watashi no kaban desu.",
+                answer = "Kore wa watashi no kaban janakatta desu.",
+                audioText = "Kore wa watashi no kaban janakatta desu",
+                inputHint = "כתבו את צורת העבר השלילי..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "ארוחת הבוקר לא הייתה סלט.",
+                answer = "Asagohan wa sarada janakatta desu.",
+                audioText = "Asagohan wa sarada janakatta desu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            )
+        )
     )
 }

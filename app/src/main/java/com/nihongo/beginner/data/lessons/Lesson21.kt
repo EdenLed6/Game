@@ -84,6 +84,50 @@ object Lesson21 {
                 explanation = "ぎゅう (gyuu) = פרה/בקר, ぶた (buta) = חזיר — חשוב למי שמגביל סוגי בשר"
             )
         ),
-        videoUrl = "https://player.vimeo.com/video/1012066739"
+        videoUrl = "https://player.vimeo.com/video/1012066739",
+        practiceCards = listOf(
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "יש לי אלרגיה לביצים.",
+                answer = "Tamago arerugii desu.",
+                audioText = "Tamago arerugii desu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אני לא יכול/ה לאכול בשר חזיר.",
+                answer = "Butaniku ga taberaremasen.",
+                audioText = "Butaniku ga taberaremasen",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "הראה לי את התפריט בבקשה.",
+                answer = "Menyu wo misete kudasai.",
+                audioText = "Menyu wo misete kudasai",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "האם יש שרימפס בזה?",
+                answer = "Ebi wa haitte imasu ka?",
+                audioText = "Ebi wa haitte imasu ka",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "לא יכול לאכול",
+                answer = "Taberaremasen",
+                audioText = "Taberaremasen",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אני לא יכול/ה לאכול דג.",
+                answer = "Sakana ga taberaremasen.",
+                audioText = "Sakana ga taberaremasen",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            )
+        )
     )
 }

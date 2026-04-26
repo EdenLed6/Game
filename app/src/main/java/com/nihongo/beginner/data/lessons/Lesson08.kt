@@ -141,6 +141,50 @@ object Lesson08 {
                 explanation = "hachi=8, juu=10, kyuu=9 — 8×10+9=?"
             )
         ),
-        videoUrl = "https://player.vimeo.com/video/1033567224"
+        videoUrl = "https://player.vimeo.com/video/1033567224",
+        practiceCards = listOf(
+            PracticeCard(
+                promptLabel = "כתבו את המספר ביפנית (רומאג'י):",
+                prompt = "3",
+                answer = "San",
+                audioText = "San",
+                inputHint = "כתבו את המספר ביפנית..."
+            ),
+            PracticeCard(
+                promptLabel = "כתבו את המספר ביפנית (רומאג'י):",
+                prompt = "7",
+                answer = "Nana",
+                audioText = "Nana",
+                inputHint = "כתבו את המספר ביפנית..."
+            ),
+            PracticeCard(
+                promptLabel = "כתבו את המספר ביפנית (רומאג'י):",
+                prompt = "15",
+                answer = "Juu go",
+                audioText = "Juu go",
+                inputHint = "כתבו את המספר ביפנית..."
+            ),
+            PracticeCard(
+                promptLabel = "כתבו את המספר ביפנית (רומאג'י):",
+                prompt = "23",
+                answer = "Ni juu san",
+                audioText = "Ni juu san",
+                inputHint = "כתבו את המספר ביפנית..."
+            ),
+            PracticeCard(
+                promptLabel = "כתבו את המספר ביפנית (רומאג'י):",
+                prompt = "56",
+                answer = "Go juu roku",
+                audioText = "Go juu roku",
+                inputHint = "כתבו את המספר ביפנית..."
+            ),
+            PracticeCard(
+                promptLabel = "כתבו את המספר ביפנית (רומאג'י):",
+                prompt = "100",
+                answer = "Hyaku",
+                audioText = "Hyaku",
+                inputHint = "כתבו את המספר ביפנית..."
+            )
+        )
     )
 }

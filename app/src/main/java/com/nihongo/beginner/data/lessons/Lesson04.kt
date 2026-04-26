@@ -126,6 +126,50 @@ object Lesson04 {
                 explanation = "Mane-ja = Manager, desu = הצהרה חיובית הווה"
             )
         ),
-        videoUrl = "https://player.vimeo.com/video/1032827425"
+        videoUrl = "https://player.vimeo.com/video/1032827425",
+        practiceCards = listOf(
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אני מורה.",
+                answer = "Watashi wa sensei desu.",
+                audioText = "Watashi wa sensei desu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "האם אתה מהנדס?",
+                answer = "Anata wa enjinia desu ka?",
+                audioText = "Anata wa enjinia desu ka",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אני ישראלי/ת.",
+                answer = "Watashi wa Isuraeru jin desu.",
+                audioText = "Watashi wa Isuraeru jin desu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "מר טאנקה הוא מורה.",
+                answer = "Tanaka san wa sensei desu.",
+                audioText = "Tanaka san wa sensei desu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "מריה היא צרפתייה.",
+                answer = "Maria san wa Furansu jin desu.",
+                audioText = "Maria san wa Furansu jin desu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "האם קימורה מנהל/ת?",
+                answer = "Kimura san wa mane-ja- desu ka?",
+                audioText = "Kimura san wa mane-ja- desu ka",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            )
+        )
     )
 }

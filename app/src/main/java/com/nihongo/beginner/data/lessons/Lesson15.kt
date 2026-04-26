@@ -103,6 +103,50 @@ object Lesson15 {
                 explanation = "de = אמצעי, ni = יעד — שתי מיליות שונות"
             )
         ),
-        videoUrl = "https://player.vimeo.com/video/1033593749"
+        videoUrl = "https://player.vimeo.com/video/1033593749",
+        practiceCards = listOf(
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אני הולך/ת לטוקיו.",
+                answer = "Watashi wa Tokyou ni ikimasu.",
+                audioText = "Watashi wa Tokyou ni ikimasu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אני הולך/ת לחדר כושר.",
+                answer = "Watashi wa jimu ni ikimasu.",
+                audioText = "Watashi wa jimu ni ikimasu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אני הולך/ת לטוקיו במכונית.",
+                answer = "Watashi wa kuruma de Tokyou ni ikimasu.",
+                audioText = "Watashi wa kuruma de Tokyou ni ikimasu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "ים",
+                answer = "Umi",
+                audioText = "Umi",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "קניון",
+                answer = "Shoppingu mo-ru",
+                audioText = "Shoppingu mo-ru",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אתמול הלכתי לחדר כושר.",
+                answer = "Kinou jimu ni ikimashita.",
+                audioText = "Kinou jimu ni ikimashita",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            )
+        )
     )
 }

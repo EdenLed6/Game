@@ -114,6 +114,50 @@ object Lesson14 {
                 explanation = "de בא ישר אחרי שם המקום או האמצעי"
             )
         ),
-        videoUrl = "https://player.vimeo.com/video/1033585539"
+        videoUrl = "https://player.vimeo.com/video/1033585539",
+        practiceCards = listOf(
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אני אוכל/ת במסעדה.",
+                answer = "Watashi wa resutoran de tabemasu.",
+                audioText = "Watashi wa resutoran de tabemasu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אני מדבר/ת יפנית במטבח.",
+                answer = "Watashi wa kicchin de nihongo wo hanashimasu.",
+                audioText = "Watashi wa kicchin de nihongo wo hanashimasu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אני הולך/ת לעבודה באוטובוס.",
+                answer = "Watashi wa basu de shigoto ni ikimasu.",
+                audioText = "Watashi wa basu de shigoto ni ikimasu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "מטבח",
+                answer = "Kicchin",
+                audioText = "Kicchin",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "מסעדה",
+                answer = "Resutoran",
+                audioText = "Resutoran",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "משרד",
+                answer = "Ofisu",
+                audioText = "Ofisu",
+                inputHint = "כתבו את התעתיק היפני..."
+            )
+        )
     )
 }

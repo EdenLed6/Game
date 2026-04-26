@@ -110,6 +110,56 @@ object Lesson02 {
                 explanation = "Otsukare = עייפות/מאמץ — מה אומרים כשמכירים במאמץ של מישהו?"
             )
         ),
-        videoUrl = "https://player.vimeo.com/video/1032825918"
+        videoUrl = "https://player.vimeo.com/video/1032825918",
+        practiceCards = listOf(
+            PracticeCard(
+                promptLabel = "מה תגידו?",
+                prompt = "בוקר טוב לשכן שלכם",
+                answer = "Ohayou",
+                answerSub = "おはよう",
+                audioText = "Ohayou",
+                inputHint = "כתבו את הברכה..."
+            ),
+            PracticeCard(
+                promptLabel = "מה תגידו?",
+                prompt = "פגישה עם חבר בצהריים",
+                answer = "Konnichiwa",
+                answerSub = "こんにちは",
+                audioText = "Konnichiwa",
+                inputHint = "כתבו את הברכה..."
+            ),
+            PracticeCard(
+                promptLabel = "מה תגידו?",
+                prompt = "ערב טוב לאנשים שפוגשים",
+                answer = "Konbanwa",
+                answerSub = "こんばんは",
+                audioText = "Konbanwa",
+                inputHint = "כתבו את הברכה..."
+            ),
+            PracticeCard(
+                promptLabel = "מה תגידו?",
+                prompt = "לפני ארוחה",
+                answer = "Itadakimasu",
+                answerSub = "いただきます",
+                audioText = "Itadakimasu",
+                inputHint = "כתבו את הביטוי..."
+            ),
+            PracticeCard(
+                promptLabel = "מה תגידו?",
+                prompt = "אחרי ארוחה: תודה על האוכל",
+                answer = "Gochisousama deshita",
+                answerSub = "ごちそうさまでした",
+                audioText = "Gochisousama deshita",
+                inputHint = "כתבו את הביטוי..."
+            ),
+            PracticeCard(
+                promptLabel = "מה תגידו?",
+                prompt = "סליחה / התנצלות",
+                answer = "Suimasen",
+                answerSub = "すいません",
+                audioText = "Suimasen",
+                inputHint = "כתבו את הביטוי..."
+            )
+        )
     )
 }

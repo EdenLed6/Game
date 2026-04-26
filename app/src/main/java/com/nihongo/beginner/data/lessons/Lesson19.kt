@@ -89,6 +89,50 @@ object Lesson19 {
                 explanation = "האותיות S/M/L נקראות ביפנית: エス/エム/エル — קריאה בסגנון אנגלי"
             )
         ),
-        videoUrl = "https://player.vimeo.com/video/1011931577"
+        videoUrl = "https://player.vimeo.com/video/1011931577",
+        practiceCards = listOf(
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "קפה חם בבקשה.",
+                answer = "Hotto koohii wo kudasai.",
+                audioText = "Hotto koohii wo kudasai",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "מידה M בבקשה.",
+                answer = "Emu saizu wo onegaishimasu.",
+                audioText = "Emu saizu wo onegaishimasu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "את החשבון בבקשה.",
+                answer = "Okaikei wo onegaishimasu.",
+                audioText = "Okaikei wo onegaishimasu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "מים בבקשה.",
+                answer = "Omizu wo kudasai.",
+                audioText = "Omizu wo kudasai",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "הראה לי את התפריט בבקשה.",
+                answer = "Menyu wo misete kudasai.",
+                audioText = "Menyu wo misete kudasai",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "יש לכם המלצה?",
+                answer = "Osusume wa arimasu ka?",
+                audioText = "Osusume wa arimasu ka",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            )
+        )
     )
 }

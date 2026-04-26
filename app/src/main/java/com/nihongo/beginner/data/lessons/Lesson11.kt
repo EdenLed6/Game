@@ -139,6 +139,50 @@ object Lesson11 {
                 explanation = "kaeru = RU verb: מסירים -ru, מוסיפים -masu"
             )
         ),
-        videoUrl = "https://player.vimeo.com/video/1033824712"
+        videoUrl = "https://player.vimeo.com/video/1033824712",
+        practiceCards = listOf(
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אני אוכל/ת.",
+                answer = "Watashi wa tabemasu.",
+                audioText = "Watashi wa tabemasu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אני לא שותה.",
+                answer = "Watashi wa nomimasen.",
+                audioText = "Watashi wa nomimasen",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "מר הונדה שותה.",
+                answer = "Honda san wa nomimasu.",
+                audioText = "Honda san wa nomimasu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אני לומד/ת.",
+                answer = "Watashi wa benkyou shimasu.",
+                audioText = "Watashi wa benkyou shimasu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אני לא חוזר/ת.",
+                answer = "Watashi wa kaerimasen.",
+                audioText = "Watashi wa kaerimasen",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אני מקשיב/ה.",
+                answer = "Watashi wa kikimasu.",
+                audioText = "Watashi wa kikimasu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            )
+        )
     )
 }

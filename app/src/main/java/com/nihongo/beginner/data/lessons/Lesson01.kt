@@ -101,6 +101,50 @@ object Lesson01 {
                 explanation = "Ci מחליפים בדומה ל-Si → Shi — מה הצליל המקביל?"
             )
         ),
-        videoUrl = "https://player.vimeo.com/video/1032805127"
+        videoUrl = "https://player.vimeo.com/video/1032805127",
+        practiceCards = listOf(
+            PracticeCard(
+                promptLabel = "כיצד זה ביפנית? (Japanglish)",
+                prompt = "Cinema",
+                answer = "Shinema",
+                audioText = "Shinema",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד זה ביפנית? (Japanglish)",
+                prompt = "Love",
+                answer = "Rabu",
+                audioText = "Rabu",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד זה ביפנית? (Japanglish)",
+                prompt = "Milk",
+                answer = "Miruku",
+                audioText = "Miruku",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד זה ביפנית? (Japanglish)",
+                prompt = "Taxi",
+                answer = "Takushii",
+                audioText = "Takushii",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד זה ביפנית? (Japanglish)",
+                prompt = "Israel",
+                answer = "Isuraeru",
+                audioText = "Isuraeru",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד זה ביפנית? (Japanglish)",
+                prompt = "Instagram",
+                answer = "Insutaguaramu",
+                audioText = "Insutaguaramu",
+                inputHint = "כתבו את התעתיק היפני..."
+            )
+        )
     )
 }

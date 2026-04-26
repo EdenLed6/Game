@@ -101,6 +101,50 @@ object Lesson07 {
                 explanation = "are = רחוק משניהם, ne = חיפוש אישור"
             )
         ),
-        videoUrl = "https://player.vimeo.com/video/1033567027"
+        videoUrl = "https://player.vimeo.com/video/1033567027",
+        practiceCards = listOf(
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "זה/זאת (קרוב לדובר)",
+                answer = "Kore",
+                audioText = "Kore",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "זה/זאת (קרוב לשומע)",
+                answer = "Sore",
+                audioText = "Sore",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "זה/זאת (רחוק משניהם)",
+                answer = "Are",
+                audioText = "Are",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "האם זה סובה?",
+                answer = "Kore wa osoba desu ka?",
+                audioText = "Kore wa osoba desu ka",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "לא, זה ראמן! (הדגש)",
+                answer = "Iie, sore wa ra-men desu yo.",
+                audioText = "Iie, sore wa ra-men desu yo",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "זה בשר, נכון?",
+                answer = "Kore wa oniku desu ne.",
+                audioText = "Kore wa oniku desu ne",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            )
+        )
     )
 }

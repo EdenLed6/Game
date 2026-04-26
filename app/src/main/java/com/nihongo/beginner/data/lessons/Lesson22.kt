@@ -86,6 +86,50 @@ object Lesson22 {
                 explanation = "i-adj: מסתיים ב-い ושלילה ב-くない. na-adj: מוסיף な לפני שם עצם ושלילה ב-じゃない"
             )
         ),
-        videoUrl = "https://player.vimeo.com/video/1011931837"
+        videoUrl = "https://player.vimeo.com/video/1011931837",
+        practiceCards = listOf(
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "טעים",
+                answer = "Oishii",
+                audioText = "Oishii",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "חמוד/מתוק (קאוואיי)",
+                answer = "Kawaii",
+                audioText = "Kawaii",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "גדול",
+                answer = "Ookii",
+                audioText = "Ookii",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לשלילה (תאר-i):",
+                prompt = "Oishii desu.",
+                answer = "Oishikunai desu.",
+                audioText = "Oishikunai desu",
+                inputHint = "כתבו את צורת השלילה..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "האוכל הזה טעים.",
+                answer = "Kono ryouri wa oishii desu.",
+                audioText = "Kono ryouri wa oishii desu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "היום חם, נכון?",
+                answer = "Kyou wa atsui desu ne.",
+                audioText = "Kyou wa atsui desu ne",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            )
+        )
     )
 }

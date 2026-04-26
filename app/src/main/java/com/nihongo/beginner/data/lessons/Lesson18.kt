@@ -86,6 +86,50 @@ object Lesson18 {
                 explanation = "ワイン (wain) בא מהמילה האנגלית wine — קטקנה משמשת למילות לואן"
             )
         ),
-        videoUrl = "https://player.vimeo.com/video/1011930627"
+        videoUrl = "https://player.vimeo.com/video/1011930627",
+        practiceCards = listOf(
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "תה ירוק",
+                answer = "Ocha",
+                audioText = "Ocha",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "קפה",
+                answer = "Koohii",
+                audioText = "Koohii",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "בירה",
+                answer = "Biiru",
+                audioText = "Biiru",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "תה ירוק בבקשה.",
+                answer = "Ocha wo kudasai.",
+                audioText = "Ocha wo kudasai",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "מקלות אכילה",
+                answer = "Ohashi",
+                audioText = "Ohashi",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "כמה עולה קפה?",
+                answer = "Koohii wa ikura desu ka?",
+                audioText = "Koohii wa ikura desu ka",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            )
+        )
     )
 }

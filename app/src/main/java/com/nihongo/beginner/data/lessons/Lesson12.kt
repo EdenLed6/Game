@@ -105,6 +105,50 @@ object Lesson12 {
                 explanation = "ongaku = מוסיקה, kikimasu = להקשיב"
             )
         ),
-        videoUrl = "https://player.vimeo.com/video/1033572121"
+        videoUrl = "https://player.vimeo.com/video/1033572121",
+        practiceCards = listOf(
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אני צופה בסרט.",
+                answer = "Watashi wa eiga wo mimasu.",
+                audioText = "Watashi wa eiga wo mimasu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אני מדבר/ת יפנית.",
+                answer = "Watashi wa nihongo wo hanashimasu.",
+                audioText = "Watashi wa nihongo wo hanashimasu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אני שותה בירה.",
+                answer = "Watashi wa bi-ru wo nomimasu.",
+                audioText = "Watashi wa bi-ru wo nomimasu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אני קורא/ת ספר.",
+                answer = "Watashi wa hon wo yomimasu.",
+                audioText = "Watashi wa hon wo yomimasu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אני שומע/ת מוסיקה.",
+                answer = "Watashi wa ongaku wo kikimasu.",
+                audioText = "Watashi wa ongaku wo kikimasu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אני אוכל/ת המבורגר.",
+                answer = "Watashi wa hamba-ga- wo tabemasu.",
+                audioText = "Watashi wa hamba-ga- wo tabemasu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            )
+        )
     )
 }

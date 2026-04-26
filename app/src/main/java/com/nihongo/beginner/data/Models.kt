@@ -10,7 +10,8 @@ data class Lesson(
     val vocabulary: List<VocabItem>,
     val examples: List<Example>,
     val exercises: List<QuizQuestion>,
-    val videoUrl: String = ""
+    val videoUrl: String = "",
+    val practiceCards: List<PracticeCard> = emptyList()
 )
 
 data class GrammarPoint(
@@ -38,4 +39,13 @@ data class QuizQuestion(
     val options: List<String>,
     val correctIndex: Int,
     val explanation: String = ""
+)
+
+data class PracticeCard(
+    val promptLabel: String,
+    val prompt: String,
+    val answer: String,
+    val answerSub: String = "",
+    val audioText: String = "",
+    val inputHint: String = "כתבו את התשובה..."
 )

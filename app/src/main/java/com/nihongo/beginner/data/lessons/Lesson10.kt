@@ -102,6 +102,50 @@ object Lesson10 {
                 explanation = "kuru הוא הפועל הלא-סדיר השני — צורת ה-masu שלו לא נגזרת באופן קבוע"
             )
         ),
-        videoUrl = "https://player.vimeo.com/video/1033568073"
+        videoUrl = "https://player.vimeo.com/video/1033568073",
+        practiceCards = listOf(
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית? (צורת מאסו)",
+                prompt = "לאכול",
+                answer = "Tabemasu",
+                audioText = "Tabemasu",
+                inputHint = "כתבו את צורת המאסו..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית? (צורת מאסו)",
+                prompt = "לשתות",
+                answer = "Nomimasu",
+                audioText = "Nomimasu",
+                inputHint = "כתבו את צורת המאסו..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית? (צורת מאסו)",
+                prompt = "לקרוא",
+                answer = "Yomimasu",
+                audioText = "Yomimasu",
+                inputHint = "כתבו את צורת המאסו..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית? (צורת מאסו)",
+                prompt = "לישון",
+                answer = "Nemasu",
+                audioText = "Nemasu",
+                inputHint = "כתבו את צורת המאסו..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית? (פועל לא סדיר)",
+                prompt = "לעשות",
+                answer = "Shimasu",
+                audioText = "Shimasu",
+                inputHint = "כתבו את צורת המאסו..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית? (פועל לא סדיר)",
+                prompt = "לבוא",
+                answer = "Kimasu",
+                audioText = "Kimasu",
+                inputHint = "כתבו את צורת המאסו..."
+            )
+        )
     )
 }

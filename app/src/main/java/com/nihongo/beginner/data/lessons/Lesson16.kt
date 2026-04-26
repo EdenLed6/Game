@@ -139,6 +139,50 @@ object Lesson16 {
                 explanation = "masu → mashita — hanashi+mashita"
             )
         ),
-        videoUrl = "https://player.vimeo.com/video/1033587473"
+        videoUrl = "https://player.vimeo.com/video/1033587473",
+        practiceCards = listOf(
+            PracticeCard(
+                promptLabel = "הפכו לזמן עבר:",
+                prompt = "Watashi wa nomimasu.",
+                answer = "Watashi wa nomimashita.",
+                audioText = "Watashi wa nomimashita",
+                inputHint = "כתבו את צורת העבר..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לעבר שלילי:",
+                prompt = "Watashi wa kikimasu.",
+                answer = "Watashi wa kikimasendeshita.",
+                audioText = "Watashi wa kikimasendeshita",
+                inputHint = "כתבו את צורת העבר השלילי..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "שתיתי יין בשש.",
+                answer = "Watashi wa 6 ji ni wain wo nomimashita.",
+                audioText = "Watashi wa 6 ji ni wain wo nomimashita",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אתמול צפיתי בסרט יפני.",
+                answer = "Watashi wa kinou nihon no eiga wo mimashita.",
+                audioText = "Watashi wa kinou nihon no eiga wo mimashita",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לזמן עבר:",
+                prompt = "Honda san wa hanashimasu.",
+                answer = "Honda san wa hanashimashita.",
+                audioText = "Honda san wa hanashimashita",
+                inputHint = "כתבו את צורת העבר..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "קמתי בשבע.",
+                answer = "Watashi wa 7 ji ni okimashita.",
+                audioText = "Watashi wa 7 ji ni okimashita",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            )
+        )
     )
 }

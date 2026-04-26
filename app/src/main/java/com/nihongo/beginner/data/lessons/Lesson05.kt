@@ -139,6 +139,50 @@ object Lesson05 {
                 explanation = "הסדר ביפנית יציב — רק הסיומת משתנה"
             )
         ),
-        videoUrl = "https://player.vimeo.com/video/1032829563"
+        videoUrl = "https://player.vimeo.com/video/1032829563",
+        practiceCards = listOf(
+            PracticeCard(
+                promptLabel = "הפכו לצורת שלילה:",
+                prompt = "Watashi wa sensei desu.",
+                answer = "Watashi wa sensei janaidesu.",
+                audioText = "Watashi wa sensei janaidesu",
+                inputHint = "כתבו את צורת השלילה..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לצורת שלילה:",
+                prompt = "Anata wa nihonjin desu.",
+                answer = "Anata wa nihonjin janaidesu.",
+                audioText = "Anata wa nihonjin janaidesu",
+                inputHint = "כתבו את צורת השלילה..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לצורת שלילה:",
+                prompt = "Kim san wa chugokujin desu.",
+                answer = "Kim san wa chugokujin janaidesu.",
+                audioText = "Kim san wa chugokujin janaidesu",
+                inputHint = "כתבו את צורת השלילה..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "כן",
+                answer = "Hai",
+                audioText = "Hai",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "לא",
+                answer = "Iie",
+                audioText = "Iie",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אני לא מורה.",
+                answer = "Watashi wa sensei janaidesu.",
+                audioText = "Watashi wa sensei janaidesu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            )
+        )
     )
 }

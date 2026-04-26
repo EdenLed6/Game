@@ -101,6 +101,50 @@ object Lesson06 {
                 explanation = "no מציין שייכות — ניתן לחבר אחריו הן חיוב והן שלילה"
             )
         ),
-        videoUrl = "https://player.vimeo.com/video/1032830077"
+        videoUrl = "https://player.vimeo.com/video/1032830077",
+        practiceCards = listOf(
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "עט של מר סוזוקי",
+                answer = "Suzuki san no pen",
+                audioText = "Suzuki san no pen",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "זה הקפה שלי.",
+                answer = "Kore wa watashi no ko-hi- desu.",
+                audioText = "Kore wa watashi no ko-hi- desu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "המחברת שלי",
+                answer = "Watashi no no-to",
+                audioText = "Watashi no no-to",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "הטלפון החכם שלך",
+                answer = "Anata no sumaho",
+                audioText = "Anata no sumaho",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "ספר של מר הונדה",
+                answer = "Honda san no hon",
+                audioText = "Honda san no hon",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "זה לא התיק של ריהי.",
+                answer = "Sore wa Rihi san no kaban janaidesu.",
+                audioText = "Sore wa Rihi san no kaban janaidesu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            )
+        )
     )
 }

@@ -86,6 +86,50 @@ object Lesson20 {
                 explanation = "くうこう (kuukou) = שדה תעופה. מורכב מ-空 (שמיים) + 港 (נמל)"
             )
         ),
-        videoUrl = "https://player.vimeo.com/video/1150067870"
+        videoUrl = "https://player.vimeo.com/video/1150067870",
+        practiceCards = listOf(
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "תחנת רכבת",
+                answer = "Eki",
+                audioText = "Eki",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "מלון",
+                answer = "Hoteru",
+                audioText = "Hoteru",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "שדה תעופה",
+                answer = "Kuukou",
+                audioText = "Kuukou",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "בנק",
+                answer = "Ginkou",
+                audioText = "Ginkou",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "איפה תחנת הרכבת?",
+                answer = "Eki wa doko desu ka?",
+                audioText = "Eki wa doko desu ka",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "אני הולך/ת למלון.",
+                answer = "Hoteru ni ikimasu.",
+                audioText = "Hoteru ni ikimasu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            )
+        )
     )
 }

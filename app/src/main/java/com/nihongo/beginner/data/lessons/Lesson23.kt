@@ -89,6 +89,50 @@ object Lesson23 {
                 explanation = "ありません = שלילה של あります (דברים). いません = שלילה של います (אנשים/חיות)"
             )
         ),
-        videoUrl = "https://player.vimeo.com/video/1011928545"
+        videoUrl = "https://player.vimeo.com/video/1011928545",
+        practiceCards = listOf(
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "איפה השירותים?",
+                answer = "Toire wa doko ni arimasu ka?",
+                audioText = "Toire wa doko ni arimasu ka",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "יש ילדים בגן.",
+                answer = "Kouen ni kodomo ga imasu.",
+                audioText = "Kouen ni kodomo ga imasu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "זה נמצא על השולחן.",
+                answer = "Teeburu no ue ni arimasu.",
+                audioText = "Teeburu no ue ni arimasu",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "על / למעלה",
+                answer = "Ue",
+                audioText = "Ue",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "תחת / למטה",
+                answer = "Shita",
+                audioText = "Shita",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "כאן לא נמצא שום דבר.",
+                answer = "Koko ni wa nani mo arimasen.",
+                audioText = "Koko ni wa nani mo arimasen",
+                inputHint = "כתבו את המשפט בתעתיק..."
+            )
+        )
     )
 }
