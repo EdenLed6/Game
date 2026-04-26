@@ -264,7 +264,7 @@
 
         <Button
             android:id="@+id/btnChallengeBack"
-            style="@style/App.Button.Outlined"
+            style="@style/App.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="חזור למסך הראשי" />

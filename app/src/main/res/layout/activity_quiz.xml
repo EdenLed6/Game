@@ -176,7 +176,7 @@
 
             <Button
                 android:id="@+id/btnNext"
-                style="@style/App.Button.Outlined"
+                style="@style/App.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -257,7 +257,7 @@
 
         <Button
             android:id="@+id/btnBackToLesson"
-            style="@style/App.Button.Outlined"
+            style="@style/App.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="חזור לשיעור" />
