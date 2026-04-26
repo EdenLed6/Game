@@ -1047,6 +1047,12 @@ class LessonJourneyActivity : AppCompatActivity() {
         questionRow.addView(questionTextView)
         if (!question.question.isHebrew()) questionRow.addView(speakQuestionBtn)
         questionCard.addView(questionRow)
+        val romajiInQuestion = question.question.extractRomaji()
+        if (romajiInQuestion.isNotBlank()) {
+            questionCard.isClickable = true
+            questionCard.isFocusable = true
+            questionCard.setOnClickListener { speaker.speak(romajiInQuestion) }
+        }
         container.addView(questionCard)
 
         // Feedback label (initially invisible)
@@ -1118,7 +1124,7 @@ class LessonJourneyActivity : AppCompatActivity() {
                 isAllCaps = false
                 setTextColor(colorInt(R.color.onSurface))
                 backgroundTintList = ColorStateList.valueOf(colorInt(R.color.white))
-                strokeColor = ColorStateList.valueOf(colorInt(R.color.optionStroke))
+                strokeColor = ColorStateList.valueOf(colorInt(R.color.colorPrimary))
                 strokeWidth = dp(2)
                 cornerRadius = dp(16)
                 setPadding(dp(20), 0, dp(20), 0)
@@ -1136,7 +1142,7 @@ class LessonJourneyActivity : AppCompatActivity() {
                         b.setTextColor(colorInt(R.color.onSurface))
                     } else {
                         b.backgroundTintList = ColorStateList.valueOf(colorInt(R.color.white))
-                        b.strokeColor = ColorStateList.valueOf(colorInt(R.color.optionStroke))
+                        b.strokeColor = ColorStateList.valueOf(colorInt(R.color.colorPrimary))
                         b.setTextColor(colorInt(R.color.onSurface))
                     }
                 }
@@ -1412,4 +1418,9 @@ class LessonJourneyActivity : AppCompatActivity() {
     }
 
     private fun String.isHebrew() = any { it in '֐'..'׿' }
+
+    private fun String.extractRomaji() =
+        split("\\s+".toRegex())
+            .filter { w -> w.isNotBlank() && w.none { it in '֐'..'׿' } }
+            .joinToString(" ").trim()
 }

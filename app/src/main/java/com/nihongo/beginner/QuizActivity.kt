@@ -77,8 +77,9 @@ class QuizActivity : AppCompatActivity() {
             binding.tvQuestionCounter.text = "שאלה ${currentIndex + 1} מתוך $total"
             binding.progressBarQuiz.progress = currentIndex * 100 / total
             binding.tvQuestion.text = question.question
+            val romajiInQuestion = question.question.extractRomaji()
             binding.btnSpeakQuestion.visibility =
-                if (question.question.isHebrew()) View.GONE else View.VISIBLE
+                if (romajiInQuestion.isNotBlank()) View.VISIBLE else View.GONE
             val options = question.options
             optionButtons().forEachIndexed { i, btn ->
                 btn.text = if (i < options.size) options[i] else ""
@@ -161,7 +162,10 @@ class QuizActivity : AppCompatActivity() {
         binding.btnSpeakOption2.setOnClickListener { if (questions[currentIndex].options.size > 2) speaker.speak(questions[currentIndex].options[2]) }
         binding.btnSpeakOption3.setOnClickListener { if (questions[currentIndex].options.size > 3) speaker.speak(questions[currentIndex].options[3]) }
         binding.btnSubmit.setOnClickListener { submitAnswer() }
-        binding.btnSpeakQuestion.setOnClickListener { speaker.speak(questions[currentIndex].question) }
+        binding.btnSpeakQuestion.setOnClickListener {
+            val romaji = questions[currentIndex].question.extractRomaji()
+            if (romaji.isNotBlank()) speaker.speak(romaji)
+        }
 
         binding.btnNext.setOnClickListener {
             currentIndex++
@@ -192,6 +196,11 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun String.isHebrew() = any { it in '֐'..'׿' }
+
+    private fun String.extractRomaji() =
+        split("\\s+".toRegex())
+            .filter { w -> w.isNotBlank() && w.none { it in '֐'..'׿' } }
+            .joinToString(" ").trim()
 
     private fun optionButtons() = listOf(
         binding.btnOption0,
