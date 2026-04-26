@@ -41,6 +41,7 @@ class LessonJourneyActivity : AppCompatActivity() {
     private var practiceIndex = 0
     private var quizIndex = 0
     private var quizWrongCount = 0
+    private var quizScore = 0
 
     private var lessonWebView: WebView? = null
 
@@ -130,7 +131,7 @@ class LessonJourneyActivity : AppCompatActivity() {
             Step.TEACH -> showTeachPage()
             Step.VOCAB -> showVocabPage()
             Step.PRACTICE -> { practiceIndex = 0; showPracticeCard() }
-            Step.QUIZ -> { quizIndex = 0; showQuizQuestion() }
+            Step.QUIZ -> { quizIndex = 0; quizScore = 0; showQuizQuestion() }
             Step.COMPLETE -> showComplete()
         }
     }
@@ -198,7 +199,7 @@ class LessonJourneyActivity : AppCompatActivity() {
                     while (teachRevealIndex < teachAllItems.size) appendTeachItem()
                 }
             }
-            Step.QUIZ -> { quizIndex = 0; showStep(Step.PRACTICE) }
+            Step.QUIZ -> { quizIndex = 0; quizScore = 0; showStep(Step.PRACTICE) }
             Step.COMPLETE -> finish()
         }
     }
@@ -958,9 +959,7 @@ class LessonJourneyActivity : AppCompatActivity() {
             return
         }
 
-        // Hide the bottom continue button — quiz manages its own flow
         binding.btnContinue.visibility = View.GONE
-
         val question = lesson.exercises[quizIndex]
 
         val scrollView = ScrollView(this).apply {
@@ -969,7 +968,6 @@ class LessonJourneyActivity : AppCompatActivity() {
                 FrameLayout.LayoutParams.MATCH_PARENT
             )
         }
-
         val container = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
             setPadding(dp(20), dp(20), dp(20), dp(20))
@@ -979,7 +977,7 @@ class LessonJourneyActivity : AppCompatActivity() {
             )
         }
 
-        // Progress indicator (e.g. "שאלה 1 / 8")
+        // Progress indicator
         container.addView(TextView(this).apply {
             text = "שאלה ${quizIndex + 1} / ${lesson.exercises.size}"
             textSize = 13f
@@ -991,7 +989,7 @@ class LessonJourneyActivity : AppCompatActivity() {
             ).also { it.bottomMargin = dp(16) }
         })
 
-        // Question card
+        // Question card with speak button
         val questionCard = MaterialCardView(this).apply {
             radius = dp(20).toFloat()
             strokeWidth = dp(1)
@@ -1003,20 +1001,38 @@ class LessonJourneyActivity : AppCompatActivity() {
                 LinearLayout.LayoutParams.WRAP_CONTENT
             ).also { it.bottomMargin = dp(20) }
         }
-
-        questionCard.addView(TextView(this).apply {
+        val questionRow = LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
+            gravity = Gravity.CENTER_VERTICAL
+            setPadding(dp(20), dp(24), dp(20), dp(24))
+        }
+        val questionTextView = TextView(this).apply {
             text = question.question
-            textSize = 20f
+            textSize = 18f
             setTypeface(null, Typeface.BOLD)
             setTextColor(colorInt(R.color.onSurface))
-            gravity = Gravity.CENTER
-            setPadding(dp(20), dp(24), dp(20), dp(24))
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-        })
-
+            isSingleLine = false
+            layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+                .also { it.marginEnd = dp(12) }
+        }
+        val speakQuestionBtn = MaterialButton(this, null, com.google.android.material.R.attr.materialButtonOutlinedStyle).apply {
+            layoutParams = LinearLayout.LayoutParams(dp(44), dp(44))
+            insetTop = 0; insetBottom = 0
+            minWidth = 0; minHeight = 0
+            cornerRadius = dp(22)
+            strokeColor = ColorStateList.valueOf(colorInt(R.color.colorPrimary))
+            strokeWidth = dp(2)
+            icon = ContextCompat.getDrawable(this@LessonJourneyActivity, R.drawable.ic_volume)
+            iconSize = dp(20)
+            iconPadding = 0
+            iconGravity = MaterialButton.ICON_GRAVITY_TEXT_START
+            backgroundTintList = ColorStateList.valueOf(colorInt(R.color.white))
+            stateListAnimator = null
+            setOnClickListener { speaker.speak(question.question) }
+        }
+        questionRow.addView(questionTextView)
+        questionRow.addView(speakQuestionBtn)
+        questionCard.addView(questionRow)
         container.addView(questionCard)
 
         // Feedback label (initially invisible)
@@ -1028,13 +1044,11 @@ class LessonJourneyActivity : AppCompatActivity() {
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
-            ).also {
-                it.bottomMargin = dp(12)
-            }
+            ).also { it.bottomMargin = dp(12) }
         }
         container.addView(feedbackLabel)
 
-        // Hint card — shown on wrong answer, stays visible while user retries
+        // Hint card (shown after wrong answer)
         val hintCard = MaterialCardView(this).apply {
             radius = dp(12).toFloat()
             strokeWidth = 0
@@ -1068,9 +1082,22 @@ class LessonJourneyActivity : AppCompatActivity() {
         hintInner.addView(hintText)
         hintCard.addView(hintInner)
         container.addView(hintCard)
+
+        // Option buttons + speak buttons
         val optionButtons = mutableListOf<MaterialButton>()
+        var selectedOptionIndex: Int? = null
+        var checkButton: MaterialButton? = null
+        var nextButton: MaterialButton? = null
 
         question.options.forEachIndexed { index, optionText ->
+            val row = LinearLayout(this).apply {
+                orientation = LinearLayout.HORIZONTAL
+                gravity = Gravity.CENTER_VERTICAL
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).also { it.bottomMargin = dp(10) }
+            }
             val btn = MaterialButton(this, null, com.google.android.material.R.attr.materialButtonOutlinedStyle).apply {
                 text = optionText
                 textSize = 15f
@@ -1084,71 +1111,194 @@ class LessonJourneyActivity : AppCompatActivity() {
                 minHeight = dp(58)
                 gravity = Gravity.START or Gravity.CENTER_VERTICAL
                 stateListAnimator = null
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                ).also { it.bottomMargin = dp(10) }
+                layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
             }
-
             btn.setOnClickListener {
-                // Disable all buttons while processing
-                optionButtons.forEach { it.isEnabled = false }
-
-                if (index == question.correctIndex) {
-                    // Correct answer
-                    btn.backgroundTintList = ColorStateList.valueOf(colorInt(R.color.correct_green))
-                    btn.setTextColor(colorInt(R.color.white))
-                    btn.strokeColor = ColorStateList.valueOf(colorInt(R.color.correct_green))
-                    feedbackLabel.text = "✓ נכון!"
-                    feedbackLabel.setTextColor(colorInt(R.color.correct_green))
-                    feedbackLabel.visibility = View.VISIBLE
-                    quizWrongCount = 0
-
-                    handler.postDelayed({
-                        quizIndex++
-                        binding.btnContinue.visibility = View.VISIBLE
-                        showQuizQuestion()
-                    }, 800)
-                } else {
-                    // Wrong answer
-                    btn.backgroundTintList = ColorStateList.valueOf(colorInt(R.color.wrong_red))
-                    btn.setTextColor(colorInt(R.color.white))
-                    btn.strokeColor = ColorStateList.valueOf(colorInt(R.color.wrong_red))
-                    feedbackLabel.text = "✗ נסה שוב"
-                    feedbackLabel.setTextColor(colorInt(R.color.wrong_red))
-                    feedbackLabel.visibility = View.VISIBLE
-                    quizWrongCount++
-
-                    // Show hint if explanation exists — stays visible while user retries
-                    if (question.explanation.isNotBlank()) {
-                        hintText.text = question.explanation
-                        hintCard.visibility = View.VISIBLE
+                selectedOptionIndex = index
+                optionButtons.forEachIndexed { i, b ->
+                    if (i == index) {
+                        b.backgroundTintList = ColorStateList.valueOf(colorInt(R.color.selected_yellow))
+                        b.strokeColor = ColorStateList.valueOf(colorInt(R.color.selected_yellow))
+                        b.setTextColor(colorInt(R.color.onSurface))
+                    } else {
+                        b.backgroundTintList = ColorStateList.valueOf(colorInt(R.color.white))
+                        b.strokeColor = ColorStateList.valueOf(colorInt(R.color.optionStroke))
+                        b.setTextColor(colorInt(R.color.onSurface))
                     }
+                }
+                checkButton?.isEnabled = true
+            }
+            val speakBtn = MaterialButton(this, null, com.google.android.material.R.attr.materialButtonOutlinedStyle).apply {
+                layoutParams = LinearLayout.LayoutParams(dp(44), dp(44)).also { it.marginStart = dp(8) }
+                insetTop = 0; insetBottom = 0
+                minWidth = 0; minHeight = 0
+                cornerRadius = dp(22)
+                strokeColor = ColorStateList.valueOf(colorInt(R.color.colorPrimary))
+                strokeWidth = dp(2)
+                icon = ContextCompat.getDrawable(this@LessonJourneyActivity, R.drawable.ic_volume)
+                iconSize = dp(20)
+                iconPadding = 0
+                iconGravity = MaterialButton.ICON_GRAVITY_TEXT_START
+                backgroundTintList = ColorStateList.valueOf(colorInt(R.color.white))
+                stateListAnimator = null
+                setOnClickListener { speaker.speak(optionText) }
+            }
+            optionButtons.add(btn)
+            row.addView(btn)
+            row.addView(speakBtn)
+            container.addView(row)
+        }
 
-                    handler.postDelayed({
-                        btn.backgroundTintList = ColorStateList.valueOf(colorInt(R.color.white))
-                        btn.setTextColor(colorInt(R.color.onSurface))
-                        btn.strokeColor = ColorStateList.valueOf(colorInt(R.color.optionStroke))
-                        feedbackLabel.visibility = View.INVISIBLE
-                        // hintCard stays visible so user can read it while retrying
-                        optionButtons.forEach { it.isEnabled = true }
-                    }, 1000)
+        // Check button (disabled until an option is selected)
+        checkButton = MaterialButton(this).apply {
+            text = "בדוק ✓"
+            isAllCaps = false
+            backgroundTintList = ColorStateList.valueOf(colorInt(R.color.colorPrimary))
+            setTextColor(Color.WHITE)
+            cornerRadius = dp(14)
+            stateListAnimator = null
+            isEnabled = false
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).also { it.topMargin = dp(8); it.bottomMargin = dp(8) }
+        }
+        checkButton!!.setOnClickListener {
+            val selected = selectedOptionIndex ?: return@setOnClickListener
+            checkButton!!.isEnabled = false
+            optionButtons.forEach { it.isEnabled = false }
+
+            val correct = question.correctIndex
+            optionButtons[correct].backgroundTintList = ColorStateList.valueOf(colorInt(R.color.correct_green))
+            optionButtons[correct].setTextColor(colorInt(R.color.white))
+            optionButtons[correct].strokeColor = ColorStateList.valueOf(colorInt(R.color.correct_green))
+
+            if (selected == correct) {
+                quizScore++
+                feedbackLabel.text = "✓ נכון!"
+                feedbackLabel.setTextColor(colorInt(R.color.correct_green))
+            } else {
+                optionButtons[selected].backgroundTintList = ColorStateList.valueOf(colorInt(R.color.wrong_red))
+                optionButtons[selected].setTextColor(colorInt(R.color.white))
+                optionButtons[selected].strokeColor = ColorStateList.valueOf(colorInt(R.color.wrong_red))
+                feedbackLabel.text = "✗ לא נכון"
+                feedbackLabel.setTextColor(colorInt(R.color.wrong_red))
+                if (question.explanation.isNotBlank()) {
+                    hintText.text = question.explanation
+                    hintCard.visibility = View.VISIBLE
                 }
             }
-
-            optionButtons.add(btn)
-            container.addView(btn)
+            feedbackLabel.visibility = View.VISIBLE
+            nextButton?.visibility = View.VISIBLE
         }
+        container.addView(checkButton)
+
+        // Next button (hidden until answer is checked)
+        nextButton = MaterialButton(this).apply {
+            text = "הבא ▶"
+            isAllCaps = false
+            backgroundTintList = ColorStateList.valueOf(colorInt(R.color.colorPrimary))
+            setTextColor(Color.WHITE)
+            cornerRadius = dp(14)
+            stateListAnimator = null
+            visibility = View.GONE
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+        }
+        nextButton!!.setOnClickListener {
+            quizIndex++
+            showQuizQuestion()
+        }
+        container.addView(nextButton)
 
         scrollView.addView(container)
         setContent(scrollView)
     }
 
     private fun onQuizComplete() {
-        ProgressManager.markLessonCompleted(this, lesson.id)
-        ProgressManager.addXP(this, 100)
-        ProgressManager.recordActivity(this)
-        showStep(Step.COMPLETE)
+        val total = lesson.exercises.size
+        val percent = if (total > 0) quizScore * 100 / total else 0
+
+        if (percent >= 80) {
+            ProgressManager.markLessonCompleted(this, lesson.id)
+            ProgressManager.addXP(this, 100)
+            ProgressManager.recordActivity(this)
+            showStep(Step.COMPLETE)
+        } else {
+            binding.btnContinue.visibility = View.GONE
+
+            val container = LinearLayout(this).apply {
+                orientation = LinearLayout.VERTICAL
+                gravity = Gravity.CENTER
+                setPadding(dp(32), dp(48), dp(32), dp(48))
+                layoutParams = FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.MATCH_PARENT,
+                    FrameLayout.LayoutParams.MATCH_PARENT
+                )
+            }
+            container.addView(TextView(this).apply {
+                text = "📚"
+                textSize = 64f
+                gravity = Gravity.CENTER
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).also { it.bottomMargin = dp(16) }
+            })
+            container.addView(TextView(this).apply {
+                text = "$quizScore / $total"
+                textSize = 48f
+                setTypeface(null, Typeface.BOLD)
+                setTextColor(colorInt(R.color.colorPrimary))
+                gravity = Gravity.CENTER
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).also { it.bottomMargin = dp(8) }
+            })
+            container.addView(TextView(this).apply {
+                text = "ניקוד: $percent%"
+                textSize = 18f
+                setTypeface(null, Typeface.BOLD)
+                setTextColor(colorInt(R.color.onSurface))
+                gravity = Gravity.CENTER
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).also { it.bottomMargin = dp(12) }
+            })
+            container.addView(TextView(this).apply {
+                text = "נדרש 80% כדי לעבור את השיעור. נסה שוב!"
+                textSize = 15f
+                setTextColor(colorInt(R.color.onSurfaceMuted))
+                gravity = Gravity.CENTER
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).also { it.bottomMargin = dp(32) }
+            })
+            val retryBtn = MaterialButton(this).apply {
+                text = "נסה שוב"
+                isAllCaps = false
+                backgroundTintList = ColorStateList.valueOf(colorInt(R.color.colorPrimary))
+                setTextColor(Color.WHITE)
+                cornerRadius = dp(14)
+                stateListAnimator = null
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+            }
+            retryBtn.setOnClickListener {
+                quizIndex = 0
+                quizScore = 0
+                showQuizQuestion()
+            }
+            container.addView(retryBtn)
+            setContent(container)
+        }
     }
 
     // ─────────────────────────────────────────────────────────────

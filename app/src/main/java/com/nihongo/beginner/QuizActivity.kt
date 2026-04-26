@@ -84,6 +84,9 @@ class QuizActivity : AppCompatActivity() {
                 btn.visibility = if (i < options.size) View.VISIBLE else View.GONE
                 btn.isEnabled = i < options.size
             }
+            speakOptionButtons().forEachIndexed { i, btn ->
+                btn.visibility = if (i < options.size) View.VISIBLE else View.GONE
+            }
             resetButtonColors()
             binding.tvFeedback.text = ""
             binding.tvFeedback.visibility = View.GONE
@@ -106,8 +109,8 @@ class QuizActivity : AppCompatActivity() {
 
             binding.tvFinalScore.text = "$score / $total"
             val percent = score * 100 / total
-            binding.tvResultSummary.text = "דיוק: $percent% · נדרש 70% כדי להשלים את השיעור"
-            if (percent >= 70) {
+            binding.tvResultSummary.text = "דיוק: $percent% · נדרש 80% כדי להשלים את השיעור"
+            if (percent >= 80) {
                 binding.tvResultEmoji.text = "🎉"
                 binding.tvResultMessage.text = "כל הכבוד! עברת את השיעור!"
                 binding.tvResultAchievement.text = "השיעור סומן כהושלם. ההתקדמות שלך נשמרה במכשיר."
@@ -116,7 +119,7 @@ class QuizActivity : AppCompatActivity() {
                 Snackbar.make(binding.root, "Achievement unlocked: lesson completed", Snackbar.LENGTH_LONG).show()
             } else {
                 binding.tvResultEmoji.text = "📚"
-                binding.tvResultMessage.text = "נסה שוב כדי לעבור את השיעור (70% נדרש)"
+                binding.tvResultMessage.text = "נסה שוב כדי לעבור את השיעור (80% נדרש)"
                 binding.tvResultAchievement.text = "אפשר לחזור על החידון. הניקוד מתאפס רק כשלוחצים שחק שוב."
             }
         }
@@ -151,6 +154,10 @@ class QuizActivity : AppCompatActivity() {
         binding.btnOption1.setOnClickListener { setOptionSelected(1) }
         binding.btnOption2.setOnClickListener { setOptionSelected(2) }
         binding.btnOption3.setOnClickListener { setOptionSelected(3) }
+        binding.btnSpeakOption0.setOnClickListener { if (questions[currentIndex].options.size > 0) speaker.speak(questions[currentIndex].options[0]) }
+        binding.btnSpeakOption1.setOnClickListener { if (questions[currentIndex].options.size > 1) speaker.speak(questions[currentIndex].options[1]) }
+        binding.btnSpeakOption2.setOnClickListener { if (questions[currentIndex].options.size > 2) speaker.speak(questions[currentIndex].options[2]) }
+        binding.btnSpeakOption3.setOnClickListener { if (questions[currentIndex].options.size > 3) speaker.speak(questions[currentIndex].options[3]) }
         binding.btnSubmit.setOnClickListener { submitAnswer() }
         binding.btnSpeakQuestion.setOnClickListener { speaker.speak(questions[currentIndex].question) }
 
@@ -187,6 +194,13 @@ class QuizActivity : AppCompatActivity() {
         binding.btnOption1,
         binding.btnOption2,
         binding.btnOption3
+    )
+
+    private fun speakOptionButtons() = listOf(
+        binding.btnSpeakOption0,
+        binding.btnSpeakOption1,
+        binding.btnSpeakOption2,
+        binding.btnSpeakOption3
     )
 
     override fun onDestroy() {
