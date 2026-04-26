@@ -798,7 +798,7 @@ class LessonJourneyActivity : AppCompatActivity() {
             ).also { it.topMargin = dp(4) }
         }
 
-        val btnSpeak = MaterialButton(this, null, com.google.android.material.R.attr.materialButtonOutlinedStyle).apply {
+        val btnSpeak = MaterialButton(this, null, com.google.android.material.R.attr.materialButtonStyle).apply {
             text = "🔊"
             textSize = 18f
             layoutParams = LinearLayout.LayoutParams(dp(52), dp(52)).also {
@@ -806,10 +806,12 @@ class LessonJourneyActivity : AppCompatActivity() {
                 it.gravity = Gravity.CENTER_HORIZONTAL
             }
             setPadding(0, 0, 0, 0)
-            strokeColor = ColorStateList.valueOf(colorInt(R.color.colorPrimary))
-            strokeWidth = dp(1)
-            setTextColor(colorInt(R.color.colorPrimary))
-            backgroundTintList = ColorStateList.valueOf(Color.TRANSPARENT)
+            insetTop = 0; insetBottom = 0
+            cornerRadius = dp(26)
+            strokeColor = ColorStateList.valueOf(colorInt(R.color.colorPrimaryDark))
+            strokeWidth = dp(2)
+            setTextColor(colorInt(R.color.white))
+            backgroundTintList = ColorStateList.valueOf(colorInt(R.color.colorPrimary))
             setOnClickListener { speaker.speak(vocab.japanese) }
         }
 
