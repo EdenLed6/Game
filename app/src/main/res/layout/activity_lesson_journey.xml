@@ -7,6 +7,16 @@
     android:background="@android:color/transparent">
 
     <!-- Top progress / header section -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="© קימורה בית הספר לשפה היפנית"
+        android:textSize="8sp"
+        android:gravity="center"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:textColor="#80FFFFFF" />
     <com.nihongo.beginner.HeaderLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
