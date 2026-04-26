@@ -51,9 +51,14 @@ class VideoPlayerActivity : AppCompatActivity() {
             webViewClient = object : WebViewClient() {
                 override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest) = true
                 override fun onPageFinished(view: WebView, url: String) {
-                    view.evaluateJavascript(
-                        "document.body.style.cssText+='-webkit-user-select:none;user-select:none;';", null
-                    )
+                    view.evaluateJavascript("""
+                        (function(){
+                            var s=document.createElement('style');
+                            s.textContent='*{-webkit-user-select:none!important;user-select:none!important}'
+                                +'[class*="overflow"],[class*="share"],[class*="more"],[aria-label*="share"],[aria-label*="Share"],[class*="vimeo-logo"],[class*="vimeoLogo"],[href*="vimeo.com/"]{display:none!important}';
+                            document.head&&document.head.appendChild(s);
+                        })();
+                    """.trimIndent(), null)
                 }
             }
             webChromeClient = object : WebChromeClient() {
@@ -86,7 +91,7 @@ class VideoPlayerActivity : AppCompatActivity() {
         setContentView(webView)
 
         val videoId = url.substringAfterLast("/").substringBefore("?")
-        webView.loadUrl("https://player.vimeo.com/video/$videoId?autoplay=0&title=0&byline=0&portrait=0")
+        webView.loadUrl("https://player.vimeo.com/video/$videoId?autoplay=0&title=0&byline=0&portrait=0&share=0&pip=0&vimeo_logo=0")
     }
 
     @Suppress("DEPRECATION")

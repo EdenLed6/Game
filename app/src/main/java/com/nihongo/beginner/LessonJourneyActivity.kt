@@ -399,9 +399,14 @@ class LessonJourneyActivity : AppCompatActivity() {
                     view: WebView, request: android.webkit.WebResourceRequest
                 ) = true
                 override fun onPageFinished(view: WebView, url: String) {
-                    view.evaluateJavascript(
-                        "document.body.style.cssText+='-webkit-user-select:none;user-select:none;';", null
-                    )
+                    view.evaluateJavascript("""
+                        (function(){
+                            var s=document.createElement('style');
+                            s.textContent='*{-webkit-user-select:none!important;user-select:none!important}'
+                                +'[class*="overflow"],[class*="share"],[class*="more"],[aria-label*="share"],[aria-label*="Share"],[class*="vimeo-logo"],[class*="vimeoLogo"],[href*="vimeo.com/"]{display:none!important}';
+                            document.head&&document.head.appendChild(s);
+                        })();
+                    """.trimIndent(), null)
                 }
             }
             webChromeClient = object : WebChromeClient() {
@@ -430,7 +435,7 @@ class LessonJourneyActivity : AppCompatActivity() {
                 // Called by the player when IT exits fullscreen — just restore UI
                 override fun onHideCustomView() = restoreFromVideoFullscreen()
             }
-            loadUrl("$videoUrl?autoplay=0&title=0&byline=0&portrait=0")
+            loadUrl("$videoUrl?autoplay=0&title=0&byline=0&portrait=0&share=0&pip=0&vimeo_logo=0")
         }
         lessonWebView = webView
         card.addView(webView)
