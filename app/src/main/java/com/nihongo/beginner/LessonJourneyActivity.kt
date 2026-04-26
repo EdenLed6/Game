@@ -403,7 +403,7 @@ class LessonJourneyActivity : AppCompatActivity() {
                         (function(){
                             var s=document.createElement('style');
                             s.textContent='*{-webkit-user-select:none!important;user-select:none!important}'
-                                +'[class*="overflow"],[class*="share"],[class*="more"],[aria-label*="share"],[aria-label*="Share"],[class*="vimeo-logo"],[class*="vimeoLogo"],[href*="vimeo.com/"]{display:none!important}';
+                                +'[class*="overflow"],[class*="share"],[class*="vp-logo"],[class*="vimeo-logo"],[class*="vimeoLogo"]{display:none!important}';
                             document.head&&document.head.appendChild(s);
                         })();
                     """.trimIndent(), null)
