@@ -82,15 +82,239 @@
             app:tabTextColor="@color/onSurfaceMuted"
             app:tabIndicatorColor="@color/colorPrimary"
             app:tabIndicatorHeight="3dp"
-            app:tabTextAppearance="@android:style/TextAppearance.Small"
             app:tabMode="fixed"
             app:tabGravity="fill" />
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPager"
+        <!-- PAGE 1: תוכן השיעור (grammar + examples + games) -->
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/pageContent"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <!-- Grammar section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp">
+
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="22dp"
+                        android:background="@color/colorPrimary"
+                        android:layout_marginEnd="10dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="דקדוק"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/onSurface" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvGrammar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:nestedScrollingEnabled="false" />
+
+                <!-- Examples section -->
+                <LinearLayout
+                    android:id="@+id/layoutExamplesHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp">
+
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="22dp"
+                        android:background="@color/accentTeal"
+                        android:layout_marginEnd="10dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="דוגמאות"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/onSurface" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvExamples"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:nestedScrollingEnabled="false" />
+
+                <!-- Games section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="14dp">
+
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="22dp"
+                        android:background="@color/accentPurple"
+                        android:layout_marginEnd="10dp" />
+
+                    <TextView
+                        android:id="@+id/tvGamesHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="תרגול ומשחקים"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/onSurface" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnWorkbook"
+                    style="@style/App.Button.Gold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="📖  חוברת עבודה אינטראקטיבית" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+
+                    <Button
+                        android:id="@+id/btnQuiz"
+                        style="@style/App.Button"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="6dp"
+                        android:text="📝  חידון" />
+
+                    <Button
+                        android:id="@+id/btnFlashcards"
+                        style="@style/App.Button"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="6dp"
+                        android:text="🃏  כרטיסיות" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+                    <Button
+                        android:id="@+id/btnMatching"
+                        style="@style/App.Button"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="6dp"
+                        android:text="🔗  התאמה" />
+
+                    <Button
+                        android:id="@+id/btnNumberGame"
+                        style="@style/App.Button"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="6dp"
+                        android:text="🔢  מספרים"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnSentenceBuilder"
+                    style="@style/App.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:text="🧩  בניית משפטים"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <!-- PAGE 2: מילים חדשות (vocabulary) -->
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/pageVocab"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp">
+
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="22dp"
+                        android:background="@color/colorSecondary"
+                        android:layout_marginEnd="10dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="מילים חדשות"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/onSurface" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvVocab"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false" />
+
+                <TextView
+                    android:id="@+id/tvVocabHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="אין מילים חדשות בשיעור זה"
+                    android:textSize="15sp"
+                    android:textColor="@color/onSurfaceMuted"
+                    android:gravity="center"
+                    android:padding="40dp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
 
     </LinearLayout>
 
