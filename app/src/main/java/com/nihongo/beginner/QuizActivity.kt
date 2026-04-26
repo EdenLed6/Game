@@ -52,7 +52,8 @@ class QuizActivity : AppCompatActivity() {
         fun resetButtonColors() {
             val buttons = listOf(binding.btnOption0, binding.btnOption1, binding.btnOption2, binding.btnOption3)
             buttons.forEach {
-                it.backgroundTintList = ColorStateList.valueOf(getColor(R.color.white))
+                it.backgroundTintList = ColorStateList.valueOf(getColor(R.color.surface))
+                it.strokeColor = ColorStateList.valueOf(getColor(R.color.colorPrimary))
                 it.setTextColor(getColor(R.color.onSurface))
             }
         }
@@ -64,7 +65,8 @@ class QuizActivity : AppCompatActivity() {
             optionButtons().forEachIndexed { i, button ->
                 if (i == index) {
                     button.backgroundTintList = ColorStateList.valueOf(getColor(R.color.selected_yellow))
-                    button.setTextColor(getColor(R.color.onSurface))
+                    button.strokeColor = ColorStateList.valueOf(getColor(R.color.selected_yellow_stroke))
+                    button.setTextColor(Color.WHITE)
                 }
             }
             binding.btnSubmit.isEnabled = true

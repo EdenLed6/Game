@@ -32,8 +32,10 @@
     <color name="correct_green_light">#DCFCE7</color>
     <color name="wrong_red">#DC2626</color>
     <color name="wrong_light_red">#FEE2E2</color>
-    <color name="selected_yellow">#FEF3C7</color>
-    <color name="selected_yellow_stroke">#F59E0B</color>
+    <color name="selected_orange">#F97316</color>
+    <color name="selected_orange_stroke">#EA580C</color>
+    <color name="selected_yellow">#F97316</color>
+    <color name="selected_yellow_stroke">#EA580C</color>
     <color name="matched_green">#DCFCE7</color>
     <!-- Misc -->
     <color name="white">#FFFFFF</color>
