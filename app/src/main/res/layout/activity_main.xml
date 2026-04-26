@@ -6,6 +6,17 @@
     android:orientation="vertical"
     android:background="@android:color/transparent">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="© קימורה בית הספר לשפה היפנית"
+        android:textSize="8sp"
+        android:gravity="center"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:textColor="#80FFFFFF" />
+
     <FrameLayout
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
@@ -17,34 +28,17 @@
         android:layout_height="2dp"
         android:background="@color/colorPrimary" />
 
-    <FrameLayout
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="96dp"
-        android:background="@drawable/bg_bottom_nav">
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNav"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="10dp"
-            android:background="@android:color/transparent"
-            app:itemIconTint="@null"
-            app:itemIconSize="64dp"
-            app:itemTextColor="@color/bottom_nav_color"
-            app:itemTextAppearanceActive="@style/App.BottomNavLabel"
-            app:itemTextAppearanceInactive="@style/App.BottomNavLabel"
-            app:labelVisibilityMode="labeled"
-            app:menu="@menu/bottom_nav_menu" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:text="© קימורה בית הספר לשפה היפנית"
-            android:textSize="7sp"
-            android:gravity="center"
-            android:textColor="@color/onSurfaceMuted" />
-
-    </FrameLayout>
+        android:background="@drawable/bg_bottom_nav"
+        app:itemIconTint="@null"
+        app:itemIconSize="64dp"
+        app:itemTextColor="@color/bottom_nav_color"
+        app:itemTextAppearanceActive="@style/App.BottomNavLabel"
+        app:itemTextAppearanceInactive="@style/App.BottomNavLabel"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav_menu" />
 
 </LinearLayout>
