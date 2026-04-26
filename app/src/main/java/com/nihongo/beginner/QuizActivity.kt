@@ -66,7 +66,7 @@ class QuizActivity : AppCompatActivity() {
                 if (i == index) {
                     button.backgroundTintList = ColorStateList.valueOf(getColor(R.color.selected_yellow))
                     button.strokeColor = ColorStateList.valueOf(getColor(R.color.selected_yellow_stroke))
-                    button.setTextColor(Color.WHITE)
+                    button.setTextColor(getColor(R.color.onSurface))
                 }
             }
             binding.btnSubmit.isEnabled = true

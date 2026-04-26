@@ -1142,7 +1142,7 @@ class LessonJourneyActivity : AppCompatActivity() {
                     if (i == index) {
                         b.backgroundTintList = ColorStateList.valueOf(colorInt(R.color.selected_yellow))
                         b.strokeColor = ColorStateList.valueOf(colorInt(R.color.selected_yellow_stroke))
-                        b.setTextColor(android.graphics.Color.WHITE)
+                        b.setTextColor(colorInt(R.color.onSurface))
                     } else {
                         b.backgroundTintList = ColorStateList.valueOf(colorInt(R.color.surface))
                         b.strokeColor = ColorStateList.valueOf(colorInt(R.color.colorPrimary))
