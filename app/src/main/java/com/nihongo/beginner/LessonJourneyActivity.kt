@@ -1031,7 +1031,7 @@ class LessonJourneyActivity : AppCompatActivity() {
             setOnClickListener { speaker.speak(question.question) }
         }
         questionRow.addView(questionTextView)
-        questionRow.addView(speakQuestionBtn)
+        if (!question.question.isHebrew()) questionRow.addView(speakQuestionBtn)
         questionCard.addView(questionRow)
         container.addView(questionCard)
 
@@ -1145,7 +1145,7 @@ class LessonJourneyActivity : AppCompatActivity() {
             }
             optionButtons.add(btn)
             row.addView(btn)
-            row.addView(speakBtn)
+            if (!optionText.isHebrew()) row.addView(speakBtn)
             container.addView(row)
         }
 
@@ -1393,4 +1393,6 @@ class LessonJourneyActivity : AppCompatActivity() {
         scrollView.addView(container)
         setContent(scrollView)
     }
+
+    private fun String.isHebrew() = any { it in '֐'..'׿' }
 }

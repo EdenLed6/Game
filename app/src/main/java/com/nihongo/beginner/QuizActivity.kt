@@ -77,7 +77,8 @@ class QuizActivity : AppCompatActivity() {
             binding.tvQuestionCounter.text = "שאלה ${currentIndex + 1} מתוך $total"
             binding.progressBarQuiz.progress = currentIndex * 100 / total
             binding.tvQuestion.text = question.question
-            binding.btnSpeakQuestion.visibility = View.VISIBLE
+            binding.btnSpeakQuestion.visibility =
+                if (question.question.isHebrew()) View.GONE else View.VISIBLE
             val options = question.options
             optionButtons().forEachIndexed { i, btn ->
                 btn.text = if (i < options.size) options[i] else ""
@@ -85,7 +86,8 @@ class QuizActivity : AppCompatActivity() {
                 btn.isEnabled = i < options.size
             }
             speakOptionButtons().forEachIndexed { i, btn ->
-                btn.visibility = if (i < options.size) View.VISIBLE else View.GONE
+                btn.visibility =
+                    if (i < options.size && !options[i].isHebrew()) View.VISIBLE else View.GONE
             }
             resetButtonColors()
             binding.tvFeedback.text = ""
@@ -188,6 +190,8 @@ class QuizActivity : AppCompatActivity() {
 
         showQuestion()
     }
+
+    private fun String.isHebrew() = any { it in '֐'..'׿' }
 
     private fun optionButtons() = listOf(
         binding.btnOption0,
