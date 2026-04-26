@@ -51,10 +51,19 @@ class VideoPlayerActivity : AppCompatActivity() {
             webViewClient = object : WebViewClient() {
                 override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest) = true
                 override fun onPageFinished(view: WebView, url: String) {
-                    view.evaluateJavascript(
-                        "(function(){var s=document.createElement('style');s.textContent='*{-webkit-user-select:none!important;user-select:none!important}';document.head&&document.head.appendChild(s);})()",
-                        null
-                    )
+                    view.evaluateJavascript("""
+                        (function(){
+                            var css='*{-webkit-user-select:none!important;user-select:none!important}'
+                                +'button[class*="overflow"],[data-js*="overflow"],[data-control*="overflow"],button[aria-label*="More"],button[aria-label*="more"]{display:none!important}';
+                            var s=document.createElement('style');s.textContent=css;
+                            document.head&&document.head.appendChild(s);
+                            setTimeout(function(){
+                                ['button[class*="overflow"]','[data-js*="overflow"]','[data-control*="overflow"]'].forEach(function(q){
+                                    document.querySelectorAll(q).forEach(function(e){e.style.setProperty('display','none','important');});
+                                });
+                            },1500);
+                        })()
+                    """.trimIndent(), null)
                 }
             }
             webChromeClient = object : WebChromeClient() {
