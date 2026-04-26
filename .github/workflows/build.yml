@@ -30,9 +30,15 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build debug APK
-        run: ./gradlew assembleDebug --no-daemon --stacktrace
+        run: |
+          ./gradlew assembleDebug --no-daemon 2>&1 | tee /tmp/build.log
+          exit ${PIPESTATUS[0]}
         env:
           GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx2g -Dorg.gradle.daemon=false"
+
+      - name: Show build errors
+        if: failure()
+        run: grep -E "^e:|error:|ERROR:|FAILURE|What went wrong|Caused by|> " /tmp/build.log | head -40
 
       - name: Upload APK
         if: success()
