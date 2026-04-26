@@ -150,7 +150,7 @@
                 app:cardBackgroundColor="@color/surface"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/dividerSoft"
+                app:strokeColor="@color/cardStroke"
                 app:strokeWidth="1dp">
 
                 <TextView
