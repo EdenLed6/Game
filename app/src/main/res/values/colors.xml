@@ -16,7 +16,7 @@
     <color name="surfaceCard">#F5E8D5</color>
     <!-- Washi paper tone — sampled from bg_japanese.png watercolor background -->
     <color name="surfaceWashi">#F5E8D5</color>
-    <color name="cardStrokeWashi">#DEC9AD</color>
+    <color name="cardStrokeWashi">#C4A87A</color>
     <color name="onSurface">#1A0800</color>
     <color name="onSurfaceMuted">#7C6A67</color>
     <color name="background">#FDF5F4</color>
@@ -40,8 +40,8 @@
     <color name="black">#1A0800</color>
     <color name="heroGradientStart">#C0362A</color>
     <color name="heroGradientEnd">#6A1410</color>
-    <color name="cardStroke">#F0D8D5</color>
-    <color name="optionStroke">#E8D5D2</color>
+    <color name="cardStroke">#C4A87A</color>
+    <color name="optionStroke">#C4A87A</color>
     <color name="greenStroke">#16A34A</color>
     <color name="goldStroke">#F59E0B</color>
     <!-- Transparent -->
