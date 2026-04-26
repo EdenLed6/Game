@@ -187,6 +187,27 @@ object Lesson10 {
                 answer = "Kaerimasu",
                 audioText = "Kaerimasu",
                 inputHint = "כתבו את צורת המאסו..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו למאסו חיובי:",
+                prompt = "Kiku (לשמוע)",
+                answer = "Kikimasu",
+                audioText = "Kikimasu",
+                inputHint = "כתבו את צורת המאסו..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו למאסו חיובי:",
+                prompt = "Iku (ללכת)",
+                answer = "Ikimasu",
+                audioText = "Ikimasu",
+                inputHint = "כתבו את צורת המאסו..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו למאסו חיובי:",
+                prompt = "Benkyou suru (ללמוד)",
+                answer = "Benkyou shimasu",
+                audioText = "Benkyou shimasu",
+                inputHint = "כתבו את צורת המאסו..."
             )
         )
     )

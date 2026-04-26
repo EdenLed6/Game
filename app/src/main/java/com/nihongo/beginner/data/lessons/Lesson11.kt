@@ -224,6 +224,55 @@ object Lesson11 {
                 answer = "Kikimasen",
                 audioText = "Kikimasen",
                 inputHint = "כתבו את צורת השלילה..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו למאסו שלילי:",
+                prompt = "Neru (לישון)",
+                answer = "Nemasen",
+                audioText = "Nemasen",
+                inputHint = "כתבו את צורת השלילה..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו למאסו שלילי:",
+                prompt = "Iku (ללכת)",
+                answer = "Ikimasen",
+                audioText = "Ikimasen",
+                inputHint = "כתבו את צורת השלילה..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו למאסו שלילי:",
+                prompt = "Kaeru (לחזור)",
+                answer = "Kaerimasen",
+                audioText = "Kaerimasen",
+                inputHint = "כתבו את צורת השלילה..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו למאסו שלילי:",
+                prompt = "Suru (לעשות)",
+                answer = "Shimasen",
+                audioText = "Shimasen",
+                inputHint = "כתבו את צורת השלילה..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו למאסו שלילי:",
+                prompt = "Kuru (לבוא)",
+                answer = "Kimasen",
+                audioText = "Kimasen",
+                inputHint = "כתבו את צורת השלילה..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו למאסו שלילי:",
+                prompt = "Taberu (לאכול)",
+                answer = "Tabemasen",
+                audioText = "Tabemasen",
+                inputHint = "כתבו את צורת השלילה..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו למאסו שלילי:",
+                prompt = "Benkyou suru (ללמוד)",
+                answer = "Benkyou shimasen",
+                audioText = "Benkyou shimasen",
+                inputHint = "כתבו את צורת השלילה..."
             )
         )
     )

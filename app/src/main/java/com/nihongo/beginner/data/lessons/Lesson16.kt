@@ -224,6 +224,55 @@ object Lesson16 {
                 answer = "Kaerimashita",
                 audioText = "Kaerimashita",
                 inputHint = "כתבו את צורת העבר..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לעבר חיובי:",
+                prompt = "Taberu (לאכול)",
+                answer = "Tabemashita",
+                audioText = "Tabemashita",
+                inputHint = "כתבו את צורת העבר..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לעבר חיובי:",
+                prompt = "Kiku (לשמוע)",
+                answer = "Kikimashita",
+                audioText = "Kikimashita",
+                inputHint = "כתבו את צורת העבר..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לעבר חיובי:",
+                prompt = "Iku (ללכת)",
+                answer = "Ikimashita",
+                audioText = "Ikimashita",
+                inputHint = "כתבו את צורת העבר..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לעבר חיובי:",
+                prompt = "Nomu (לשתות)",
+                answer = "Nomimashita",
+                audioText = "Nomimashita",
+                inputHint = "כתבו את צורת העבר..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לעבר חיובי:",
+                prompt = "Suru (לעשות)",
+                answer = "Shimashita",
+                audioText = "Shimashita",
+                inputHint = "כתבו את צורת העבר..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לעבר חיובי:",
+                prompt = "Kuru (לבוא)",
+                answer = "Kimashita",
+                audioText = "Kimashita",
+                inputHint = "כתבו את צורת העבר..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לעבר חיובי:",
+                prompt = "Benkyou suru (ללמוד)",
+                answer = "Benkyou shimashita",
+                audioText = "Benkyou shimashita",
+                inputHint = "כתבו את צורת העבר..."
             )
         )
     )

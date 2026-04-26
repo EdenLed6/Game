@@ -186,6 +186,76 @@ object Lesson06 {
                 answer = "Suzuki san no nihon no no-to",
                 audioText = "Suzuki san no nihon no no-to",
                 inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "ספר צרפתי",
+                answer = "Furansu no hon",
+                audioText = "Furansu no hon",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "ארנק של איש סיני",
+                answer = "Chugoku jin no saifu",
+                audioText = "Chugoku jin no saifu",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לרומאג'י:",
+                prompt = "עיתון ישראלי שלי",
+                answer = "Watashi no Isuraeru no shinbun",
+                audioText = "Watashi no Isuraeru no shinbun",
+                inputHint = "כתבו את התעתיק היפני..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לעברית:",
+                prompt = "Watashi no shatsu",
+                answer = "חולצה שלי",
+                audioText = "Watashi no shatsu",
+                inputHint = "כתבו את התרגום לעברית..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לעברית:",
+                prompt = "Nihonjin no saifu",
+                answer = "ארנק של איש יפני",
+                audioText = "Nihonjin no saifu",
+                inputHint = "כתבו את התרגום לעברית..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לעברית:",
+                prompt = "Tanaka san no pen",
+                answer = "עט של טאנקה",
+                audioText = "Tanaka san no pen",
+                inputHint = "כתבו את התרגום לעברית..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לעברית:",
+                prompt = "Isuraeru no hon",
+                answer = "ספר ישראלי",
+                audioText = "Isuraeru no hon",
+                inputHint = "כתבו את התרגום לעברית..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לעברית:",
+                prompt = "Furansu no kasa",
+                answer = "מטרייה צרפתית",
+                audioText = "Furansu no kasa",
+                inputHint = "כתבו את התרגום לעברית..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לעברית:",
+                prompt = "Watashi no kankoku no no-to",
+                answer = "מחברת קוראנית שלי",
+                audioText = "Watashi no kankoku no no-to",
+                inputHint = "כתבו את התרגום לעברית..."
+            ),
+            PracticeCard(
+                promptLabel = "תרגמו לעברית:",
+                prompt = "Watashi no chugoku sumaho",
+                answer = "טלפון סיני שלי",
+                audioText = "Watashi no chugoku sumaho",
+                inputHint = "כתבו את התרגום לעברית..."
             )
         )
     )

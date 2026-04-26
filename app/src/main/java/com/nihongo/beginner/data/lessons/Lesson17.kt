@@ -204,6 +204,55 @@ object Lesson17 {
                 answer = "Kaerimasendeshita",
                 audioText = "Kaerimasendeshita",
                 inputHint = "כתבו את צורת העבר השלילי..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לעבר שלילי:",
+                prompt = "Taberu (לאכול)",
+                answer = "Tabemasendeshita",
+                audioText = "Tabemasendeshita",
+                inputHint = "כתבו את צורת העבר השלילי..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לעבר שלילי:",
+                prompt = "Kiku (לשמוע)",
+                answer = "Kikimasendeshita",
+                audioText = "Kikimasendeshita",
+                inputHint = "כתבו את צורת העבר השלילי..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לעבר שלילי:",
+                prompt = "Iku (ללכת)",
+                answer = "Ikimasendeshita",
+                audioText = "Ikimasendeshita",
+                inputHint = "כתבו את צורת העבר השלילי..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לעבר שלילי:",
+                prompt = "Nomu (לשתות)",
+                answer = "Nomimasendeshita",
+                audioText = "Nomimasendeshita",
+                inputHint = "כתבו את צורת העבר השלילי..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לעבר שלילי:",
+                prompt = "Suru (לעשות)",
+                answer = "Shimasendeshita",
+                audioText = "Shimasendeshita",
+                inputHint = "כתבו את צורת העבר השלילי..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לעבר שלילי:",
+                prompt = "Kuru (לבוא)",
+                answer = "Kimasendeshita",
+                audioText = "Kimasendeshita",
+                inputHint = "כתבו את צורת העבר השלילי..."
+            ),
+            PracticeCard(
+                promptLabel = "הפכו לעבר שלילי:",
+                prompt = "Benkyou suru (ללמוד)",
+                answer = "Benkyou shimasendeshita",
+                audioText = "Benkyou shimasendeshita",
+                inputHint = "כתבו את צורת העבר השלילי..."
             )
         )
     )

@@ -208,6 +208,41 @@ object Lesson13 {
                 answer = "San ji han",
                 audioText = "San ji han",
                 inputHint = "כתבו את השעה בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "01:00",
+                answer = "Ichi ji",
+                audioText = "Ichi ji",
+                inputHint = "כתבו את השעה בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "02:00",
+                answer = "Ni ji",
+                audioText = "Ni ji",
+                inputHint = "כתבו את השעה בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "04:00",
+                answer = "Yo ji",
+                audioText = "Yo ji",
+                inputHint = "כתבו את השעה בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "05:00",
+                answer = "Go ji",
+                audioText = "Go ji",
+                inputHint = "כתבו את השעה בתעתיק..."
+            ),
+            PracticeCard(
+                promptLabel = "כיצד אומרים ביפנית?",
+                prompt = "08:00",
+                answer = "Hachi ji",
+                audioText = "Hachi ji",
+                inputHint = "כתבו את השעה בתעתיק..."
             )
         )
     )
