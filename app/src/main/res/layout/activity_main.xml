@@ -17,9 +17,10 @@
         android:layout_height="2dp"
         android:background="@color/colorPrimary" />
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="98dp"
+        android:layout_height="108dp"
+        android:orientation="vertical"
         android:background="@drawable/bg_bottom_nav">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -37,14 +38,13 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
+            android:layout_height="match_parent"
             android:text="© קימורה בית הספר לשפה היפנית"
             android:textSize="9sp"
             android:gravity="center"
-            android:paddingBottom="2dp"
+            android:paddingBottom="3dp"
             android:textColor="@color/onSurfaceMuted" />
 
-    </FrameLayout>
+    </LinearLayout>
 
 </LinearLayout>
