@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#5C1410"
+        android:background="@color/colorPrimary"
         android:text="© קימורה בית הספר לשפה היפנית"
         android:textSize="8sp"
         android:gravity="center"
