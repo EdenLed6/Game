@@ -51,14 +51,10 @@ class VideoPlayerActivity : AppCompatActivity() {
             webViewClient = object : WebViewClient() {
                 override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest) = true
                 override fun onPageFinished(view: WebView, url: String) {
-                    view.evaluateJavascript("""
-                        (function(){
-                            var s=document.createElement('style');
-                            s.textContent='*{-webkit-user-select:none!important;user-select:none!important}'
-                                +'[class*="overflow"],[class*="share"],[class*="vp-logo"],[class*="vimeo-logo"],[class*="vimeoLogo"]{display:none!important}';
-                            document.head&&document.head.appendChild(s);
-                        })();
-                    """.trimIndent(), null)
+                    view.evaluateJavascript(
+                        "(function(){var s=document.createElement('style');s.textContent='*{-webkit-user-select:none!important;user-select:none!important}';document.head&&document.head.appendChild(s);})()",
+                        null
+                    )
                 }
             }
             webChromeClient = object : WebChromeClient() {
