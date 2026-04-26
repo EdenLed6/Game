@@ -1,5 +1,7 @@
 package com.nihongo.beginner
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -15,6 +17,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.bottomNav.itemIconTintList = null
+        binding.bottomNav.itemActiveIndicatorColor = ColorStateList.valueOf(Color.TRANSPARENT)
         binding.bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_learn -> { showFragment(LearnFragment()); true }
