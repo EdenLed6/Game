@@ -9,14 +9,12 @@
     <!-- Header bar with streak + XP -->
     <com.nihongo.beginner.HeaderLinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="96dp"
         android:background="@drawable/bg_gradient_hero"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:paddingTop="48dp"
-        android:paddingBottom="16dp">
+        android:paddingEnd="20dp">
 
         <TextView
             android:id="@+id/tvAppTitle"
