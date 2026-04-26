@@ -614,37 +614,39 @@ class LessonJourneyActivity : AppCompatActivity() {
         }
         val inner = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
-            setPadding(dp(16), dp(16), dp(16), dp(16))
+            setPadding(dp(18), dp(18), dp(18), dp(18))
         }
         inner.addView(TextView(this).apply {
             text = grammar.title
-            textSize = 17f
+            textSize = 18f
             setTypeface(null, Typeface.BOLD)
             setTextColor(colorInt(R.color.colorPrimary))
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
-            ).also { it.bottomMargin = dp(10) }
+            ).also { it.bottomMargin = dp(12) }
         })
         inner.addView(TextView(this).apply {
             text = grammar.content
-            textSize = 15f
+            textSize = 16f
+            setLineSpacing(0f, 1.5f)
             setTextColor(colorInt(R.color.onSurface))
             isSingleLine = false
         })
         if (!grammar.pattern.isNullOrBlank()) {
             inner.addView(TextView(this).apply {
                 text = grammar.pattern
-                textSize = 14f
-                setTextColor(colorInt(R.color.onSurfaceMuted))
-                setPadding(dp(12), dp(10), dp(12), dp(10))
+                textSize = 15f
+                setLineSpacing(0f, 1.3f)
+                setTextColor(colorInt(R.color.colorPrimary))
+                setPadding(dp(14), dp(12), dp(14), dp(12))
                 background = GradientDrawable().apply {
                     shape = GradientDrawable.RECTANGLE
-                    cornerRadius = dp(8).toFloat()
+                    cornerRadius = dp(10).toFloat()
                     setColor(colorInt(R.color.surfaceSoft))
                 }
                 layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
-                ).also { it.topMargin = dp(12) }
+                ).also { it.topMargin = dp(14) }
             })
         }
         card.addView(inner)

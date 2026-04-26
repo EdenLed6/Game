@@ -28,34 +28,35 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:padding="14dp">
+            android:padding="18dp">
 
             <TextView
                 android:id="@+id/tvGrammarTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/onSurface"
-                android:textSize="16sp"
+                android:layout_marginBottom="12dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvGrammarContent"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:textColor="@color/onSurfaceMuted"
-                android:textSize="14sp" />
+                android:lineSpacingMultiplier="1.5"
+                android:textColor="@color/onSurface"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tvGrammarPattern"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="14dp"
                 android:background="@drawable/bg_grammar_pattern"
-                android:fontFamily="monospace"
-                android:padding="10dp"
+                android:lineSpacingMultiplier="1.3"
+                android:padding="14dp"
                 android:textColor="@color/colorPrimary"
-                android:textSize="13sp" />
+                android:textSize="15sp" />
 
         </LinearLayout>
 
