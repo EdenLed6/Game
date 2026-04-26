@@ -19,7 +19,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="106dp"
+        android:layout_height="104dp"
         android:orientation="vertical"
         android:background="@drawable/bg_bottom_nav">
 
@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="© קימורה בית הספר לשפה היפנית"
-            android:textSize="9sp"
+            android:textSize="7sp"
             android:gravity="bottom|center_horizontal"
             android:textColor="@color/onSurfaceMuted" />
 
