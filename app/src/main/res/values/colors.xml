@@ -10,10 +10,10 @@
     <color name="colorSecondaryDark">#D97706</color>
     <color name="colorOnSecondary">#1A0800</color>
     <!-- Surfaces -->
-    <color name="surface">#FFFFFF</color>
-    <color name="surfaceAlt">#FFFAF9</color>
+    <color name="surface">#F5E8D5</color>
+    <color name="surfaceAlt">#FAF0E4</color>
     <color name="surfaceSoft">#FDECEA</color>
-    <color name="surfaceCard">#FFFFFF</color>
+    <color name="surfaceCard">#F5E8D5</color>
     <!-- Washi paper tone — sampled from bg_japanese.png watercolor background -->
     <color name="surfaceWashi">#F5E8D5</color>
     <color name="cardStrokeWashi">#DEC9AD</color>
