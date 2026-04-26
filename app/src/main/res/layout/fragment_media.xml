@@ -11,7 +11,7 @@
         android:layout_height="96dp"
         android:background="@drawable/bg_gradient_hero"
         android:orientation="vertical"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:paddingStart="20dp"
         android:paddingEnd="20dp">
 
@@ -109,71 +109,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="פתח את אתר הקורס"/>
-
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Videos Card -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardVideos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="@color/surface">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="12dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="🎬"
-                            android:textSize="28sp"
-                            android:layout_marginEnd="12dp"/>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="שיעורי וידאו"
-                                android:textSize="17sp"
-                                android:textStyle="bold"
-                                android:textColor="@color/onSurface"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="סרטוני הקורס לכל שיעור"
-                                android:textSize="13sp"
-                                android:textColor="@color/onSurfaceMuted"
-                                android:layout_marginTop="2dp"/>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/videoList"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"/>
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

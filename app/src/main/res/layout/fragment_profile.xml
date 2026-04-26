@@ -11,7 +11,7 @@
         android:layout_height="96dp"
         android:background="@drawable/bg_gradient_hero"
         android:orientation="vertical"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:paddingStart="20dp"
         android:paddingEnd="20dp">
 
@@ -43,6 +43,106 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <!-- Profile identity card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="8dp"
+                app:cardBackgroundColor="@color/surface"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:strokeColor="@color/cardStroke"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="20dp">
+
+                    <!-- Avatar circle with optional photo -->
+                    <FrameLayout
+                        android:layout_width="68dp"
+                        android:layout_height="68dp">
+
+                        <ImageView
+                            android:id="@+id/ivAvatar"
+                            android:layout_width="68dp"
+                            android:layout_height="68dp"
+                            android:background="@drawable/bg_avatar_circle"
+                            android:scaleType="centerCrop"
+                            android:clipToOutline="true"/>
+
+                        <TextView
+                            android:id="@+id/tvAvatarInitial"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="?"
+                            android:textColor="#FFFFFF"
+                            android:textSize="26sp"
+                            android:textStyle="bold"/>
+
+                        <ImageView
+                            android:id="@+id/btnEditPhoto"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="bottom|end"
+                            android:background="@color/colorPrimary"
+                            android:src="@drawable/ic_edit"
+                            android:tint="#FFFFFF"
+                            android:padding="4dp"
+                            android:clickable="true"
+                            android:focusable="true"/>
+
+                    </FrameLayout>
+
+                    <!-- Name + subtitle -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="16dp">
+
+                        <TextView
+                            android:id="@+id/tvProfileName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="הלומד שלי"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/onSurface"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="לומד יפנית"
+                            android:textSize="13sp"
+                            android:textColor="@color/onSurfaceMuted"
+                            android:layout_marginTop="2dp"/>
+
+                    </LinearLayout>
+
+                    <!-- Edit name button -->
+                    <ImageView
+                        android:id="@+id/btnEditName"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/ic_edit"
+                        android:tint="@color/onSurfaceMuted"
+                        android:padding="6dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackgroundBorderless"/>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- Stats row -->
             <LinearLayout
