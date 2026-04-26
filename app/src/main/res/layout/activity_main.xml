@@ -41,7 +41,7 @@
             android:layout_height="match_parent"
             android:text="© קימורה בית הספר לשפה היפנית"
             android:textSize="9sp"
-            android:gravity="center"
+            android:gravity="bottom|center_horizontal"
             android:textColor="@color/onSurfaceMuted" />
 
     </LinearLayout>
