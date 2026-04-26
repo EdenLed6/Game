@@ -18,6 +18,12 @@
         <item name="android:windowLightStatusBar">false</item>
     </style>
 
+    <!-- Bottom nav label — centered in RTL -->
+    <style name="App.BottomNavLabel" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:gravity">center</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
     <!-- Primary filled pill button -->
     <style name="App.Button" parent="Widget.MaterialComponents.Button">
         <item name="cornerRadius">28dp</item>

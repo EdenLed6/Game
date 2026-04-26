@@ -20,6 +20,8 @@
         app:itemIconTint="@null"
         app:itemIconSize="64dp"
         app:itemTextColor="@color/bottom_nav_color"
+        app:itemTextAppearanceActive="@style/App.BottomNavLabel"
+        app:itemTextAppearanceInactive="@style/App.BottomNavLabel"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_nav_menu" />
 
