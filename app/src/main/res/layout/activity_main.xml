@@ -42,7 +42,6 @@
             android:text="© קימורה בית הספר לשפה היפנית"
             android:textSize="9sp"
             android:gravity="center"
-            android:paddingBottom="2dp"
             android:textColor="@color/onSurfaceMuted" />
 
     </LinearLayout>
