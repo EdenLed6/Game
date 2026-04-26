@@ -9,7 +9,7 @@
     app:cardCornerRadius="20dp"
     app:cardElevation="1dp"
     app:strokeColor="@color/cardStroke"
-    app:strokeWidth="1.5dp">
+    app:strokeWidth="1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -87,7 +87,7 @@
             android:layout_marginStart="8dp"
             app:cornerRadius="22dp"
             app:strokeColor="@color/colorPrimary"
-            app:strokeWidth="1.5dp"
+            app:strokeWidth="1dp"
             app:icon="@drawable/ic_volume"
             app:iconGravity="textStart"
             app:iconSize="20dp"

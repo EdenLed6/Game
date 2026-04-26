@@ -67,7 +67,7 @@
                 app:cardCornerRadius="20dp"
                 app:cardElevation="2dp"
                 app:strokeColor="@color/cardStroke"
-                app:strokeWidth="1.5dp">
+                app:strokeWidth="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -151,7 +151,7 @@
                 app:cardCornerRadius="16dp"
                 app:cardElevation="0dp"
                 app:strokeColor="@color/dividerSoft"
-                app:strokeWidth="1.5dp">
+                app:strokeWidth="1dp">
 
                 <TextView
                     android:id="@+id/tvFeedback"
