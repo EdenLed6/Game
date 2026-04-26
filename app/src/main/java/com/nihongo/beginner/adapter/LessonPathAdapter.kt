@@ -75,8 +75,7 @@ class LessonPathAdapter(
                 unitLessons.forEach { lesson ->
                     val state = when {
                         lesson.id in completedIds -> NodeState.COMPLETED
-                        lesson.id == 1 || (lesson.id - 1) in completedIds -> NodeState.ACTIVE
-                        else -> NodeState.LOCKED
+                        else -> NodeState.ACTIVE
                     }
                     items.add(PathItem.Node(lesson, state))
                 }
@@ -163,18 +162,11 @@ class LessonPathAdapter(
         holder.tvNodeNumber.text = lesson.number
 
         // Badge icon
-        when (item.state) {
-            NodeState.COMPLETED -> {
-                holder.ivNodeIcon.visibility = View.VISIBLE
-                holder.ivNodeIcon.setImageResource(R.drawable.ic_completed_badge)
-            }
-            NodeState.LOCKED -> {
-                holder.ivNodeIcon.visibility = View.VISIBLE
-                holder.ivNodeIcon.setImageResource(R.drawable.ic_lock_node)
-            }
-            NodeState.ACTIVE -> {
-                holder.ivNodeIcon.visibility = View.GONE
-            }
+        if (item.state == NodeState.COMPLETED) {
+            holder.ivNodeIcon.visibility = View.VISIBLE
+            holder.ivNodeIcon.setImageResource(R.drawable.ic_completed_badge)
+        } else {
+            holder.ivNodeIcon.visibility = View.GONE
         }
 
         // Connector bottom: hide for last item in list
@@ -189,11 +181,9 @@ class LessonPathAdapter(
 
         // Click handler
         holder.nodeRoot.setOnClickListener {
-            if (item.state != NodeState.LOCKED) {
-                val intent = Intent(context, LessonJourneyActivity::class.java)
-                intent.putExtra("lesson_id", lesson.id)
-                context.startActivity(intent)
-            }
+            val intent = Intent(context, LessonJourneyActivity::class.java)
+            intent.putExtra("lesson_id", lesson.id)
+            context.startActivity(intent)
         }
     }
 
