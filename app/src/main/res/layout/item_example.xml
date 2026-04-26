@@ -59,23 +59,11 @@
         <!-- Audio button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSpeakExample"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/App.Button.Audio"
             android:layout_width="44dp"
             android:layout_height="44dp"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:padding="0dp"
             android:layout_marginStart="12dp"
-            app:cornerRadius="22dp"
-            app:strokeColor="@color/colorPrimary"
-            app:strokeWidth="1dp"
-            app:icon="@drawable/ic_volume"
-            app:iconGravity="textStart"
-            app:iconSize="20dp"
-            app:iconPadding="0dp"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            app:backgroundTint="@color/surface" />
+            app:icon="@drawable/ic_volume" />
 
     </LinearLayout>
 
