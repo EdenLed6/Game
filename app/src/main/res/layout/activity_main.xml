@@ -6,6 +6,14 @@
     android:orientation="vertical"
     android:background="@android:color/transparent">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="© קימורה בית הספר לשפה היפנית"
+        android:textSize="9sp"
+        android:gravity="center"
+        android:textColor="@color/onSurfaceMuted" />
+
     <FrameLayout
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
@@ -17,33 +25,17 @@
         android:layout_height="2dp"
         android:background="@color/colorPrimary" />
 
-    <LinearLayout
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="vertical"
-        android:background="@drawable/bg_bottom_nav">
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNav"
-            android:layout_width="match_parent"
-            android:layout_height="96dp"
-            android:background="@android:color/transparent"
-            app:itemIconTint="@null"
-            app:itemIconSize="64dp"
-            app:itemTextColor="@color/bottom_nav_color"
-            app:itemTextAppearanceActive="@style/App.BottomNavLabel"
-            app:itemTextAppearanceInactive="@style/App.BottomNavLabel"
-            app:labelVisibilityMode="labeled"
-            app:menu="@menu/bottom_nav_menu" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="© קימורה בית הספר לשפה היפנית"
-            android:textSize="6sp"
-            android:gravity="bottom|center_horizontal"
-            android:textColor="@color/onSurfaceMuted" />
-
-    </LinearLayout>
+        android:layout_height="96dp"
+        android:background="@drawable/bg_bottom_nav"
+        app:itemIconTint="@null"
+        app:itemIconSize="64dp"
+        app:itemTextColor="@color/bottom_nav_color"
+        app:itemTextAppearanceActive="@style/App.BottomNavLabel"
+        app:itemTextAppearanceInactive="@style/App.BottomNavLabel"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav_menu" />
 
 </LinearLayout>
