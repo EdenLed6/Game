@@ -33,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="96dp"
         android:background="@android:color/transparent"
+        app:itemActiveIndicatorColor="@android:color/transparent"
         app:itemIconTint="@null"
         app:itemIconSize="64dp"
         app:itemTextColor="@color/bottom_nav_color"
