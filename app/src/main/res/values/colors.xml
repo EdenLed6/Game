@@ -14,6 +14,9 @@
     <color name="surfaceAlt">#FFFAF9</color>
     <color name="surfaceSoft">#FDECEA</color>
     <color name="surfaceCard">#FFFFFF</color>
+    <!-- Washi paper tone — sampled from bg_japanese.png watercolor background -->
+    <color name="surfaceWashi">#F5E8D5</color>
+    <color name="cardStrokeWashi">#DEC9AD</color>
     <color name="onSurface">#1A0800</color>
     <color name="onSurfaceMuted">#7C6A67</color>
     <color name="background">#FDF5F4</color>

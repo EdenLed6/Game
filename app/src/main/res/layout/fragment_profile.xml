@@ -160,10 +160,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginEnd="6dp"
-                    app:cardBackgroundColor="@color/surface"
+                    app:cardBackgroundColor="@color/surfaceWashi"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="2dp"
-                    app:strokeColor="@color/cardStroke"
+                    app:strokeColor="@color/cardStrokeWashi"
                     app:strokeWidth="1dp">
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -191,10 +191,10 @@
                     android:layout_weight="1"
                     android:layout_marginStart="6dp"
                     android:layout_marginEnd="6dp"
-                    app:cardBackgroundColor="@color/surface"
+                    app:cardBackgroundColor="@color/surfaceWashi"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="2dp"
-                    app:strokeColor="@color/cardStroke"
+                    app:strokeColor="@color/cardStrokeWashi"
                     app:strokeWidth="1dp">
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -221,10 +221,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="6dp"
-                    app:cardBackgroundColor="@color/surface"
+                    app:cardBackgroundColor="@color/surfaceWashi"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="2dp"
-                    app:strokeColor="@color/cardStroke"
+                    app:strokeColor="@color/cardStrokeWashi"
                     app:strokeWidth="1dp">
                     <LinearLayout
                         android:layout_width="match_parent"
