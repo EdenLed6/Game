@@ -138,7 +138,7 @@
         <item name="android:textSize">15sp</item>
         <item name="strokeColor">@color/colorPrimary</item>
         <item name="strokeWidth">2dp</item>
-        <item name="backgroundTint">@color/white</item>
+        <item name="backgroundTint">@color/surface</item>
         <item name="android:textColor">@color/onSurface</item>
         <item name="android:gravity">start|center_vertical</item>
         <item name="elevation">0dp</item>

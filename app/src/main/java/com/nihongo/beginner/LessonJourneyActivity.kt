@@ -749,9 +749,9 @@ class LessonJourneyActivity : AppCompatActivity() {
         val promptCard = MaterialCardView(this).apply {
             radius = dp(20).toFloat()
             strokeWidth = dp(1)
-            strokeColor = colorInt(R.color.cardStroke)
+            strokeColor = colorInt(R.color.optionStroke)
             cardElevation = 0f
-            setCardBackgroundColor(colorInt(R.color.surfaceSoft))
+            setCardBackgroundColor(colorInt(R.color.surface))
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
@@ -1007,9 +1007,9 @@ class LessonJourneyActivity : AppCompatActivity() {
         val questionCard = MaterialCardView(this).apply {
             radius = dp(20).toFloat()
             strokeWidth = dp(1)
-            strokeColor = colorInt(R.color.cardStroke)
+            strokeColor = colorInt(R.color.optionStroke)
             cardElevation = 0f
-            setCardBackgroundColor(colorInt(R.color.surfaceSoft))
+            setCardBackgroundColor(colorInt(R.color.surface))
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
@@ -1029,18 +1029,19 @@ class LessonJourneyActivity : AppCompatActivity() {
             layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
                 .also { it.marginEnd = dp(12) }
         }
-        val speakQuestionBtn = MaterialButton(this, null, com.google.android.material.R.attr.materialButtonOutlinedStyle).apply {
+        val speakQuestionBtn = MaterialButton(this).apply {
             layoutParams = LinearLayout.LayoutParams(dp(44), dp(44))
             insetTop = 0; insetBottom = 0
             minWidth = 0; minHeight = 0
             cornerRadius = dp(22)
-            strokeColor = ColorStateList.valueOf(colorInt(R.color.colorPrimary))
+            backgroundTintList = ColorStateList.valueOf(colorInt(R.color.colorPrimary))
+            strokeColor = ColorStateList.valueOf(colorInt(R.color.colorPrimaryDark))
             strokeWidth = dp(2)
             icon = ContextCompat.getDrawable(this@LessonJourneyActivity, R.drawable.ic_volume)
+            iconTint = ColorStateList.valueOf(colorInt(R.color.white))
             iconSize = dp(20)
             iconPadding = 0
             iconGravity = MaterialButton.ICON_GRAVITY_TEXT_START
-            backgroundTintList = ColorStateList.valueOf(colorInt(R.color.white))
             stateListAnimator = null
             setOnClickListener { speaker.speak(question.question) }
         }
@@ -1123,7 +1124,7 @@ class LessonJourneyActivity : AppCompatActivity() {
                 textSize = 15f
                 isAllCaps = false
                 setTextColor(colorInt(R.color.onSurface))
-                backgroundTintList = ColorStateList.valueOf(colorInt(R.color.white))
+                backgroundTintList = ColorStateList.valueOf(colorInt(R.color.surface))
                 strokeColor = ColorStateList.valueOf(colorInt(R.color.colorPrimary))
                 strokeWidth = dp(2)
                 cornerRadius = dp(16)
@@ -1141,7 +1142,7 @@ class LessonJourneyActivity : AppCompatActivity() {
                         b.strokeColor = ColorStateList.valueOf(colorInt(R.color.selected_yellow))
                         b.setTextColor(colorInt(R.color.onSurface))
                     } else {
-                        b.backgroundTintList = ColorStateList.valueOf(colorInt(R.color.white))
+                        b.backgroundTintList = ColorStateList.valueOf(colorInt(R.color.surface))
                         b.strokeColor = ColorStateList.valueOf(colorInt(R.color.colorPrimary))
                         b.setTextColor(colorInt(R.color.onSurface))
                     }
@@ -1151,18 +1152,19 @@ class LessonJourneyActivity : AppCompatActivity() {
             if (!optionText.isHebrew()) {
                 btn.setOnLongClickListener { speaker.speak(optionText); true }
             }
-            val speakBtn = MaterialButton(this, null, com.google.android.material.R.attr.materialButtonOutlinedStyle).apply {
+            val speakBtn = MaterialButton(this).apply {
                 layoutParams = LinearLayout.LayoutParams(dp(44), dp(44)).also { it.marginStart = dp(8) }
                 insetTop = 0; insetBottom = 0
                 minWidth = 0; minHeight = 0
                 cornerRadius = dp(22)
-                strokeColor = ColorStateList.valueOf(colorInt(R.color.colorPrimary))
+                backgroundTintList = ColorStateList.valueOf(colorInt(R.color.colorPrimary))
+                strokeColor = ColorStateList.valueOf(colorInt(R.color.colorPrimaryDark))
                 strokeWidth = dp(2)
                 icon = ContextCompat.getDrawable(this@LessonJourneyActivity, R.drawable.ic_volume)
+                iconTint = ColorStateList.valueOf(colorInt(R.color.white))
                 iconSize = dp(20)
                 iconPadding = 0
                 iconGravity = MaterialButton.ICON_GRAVITY_TEXT_START
-                backgroundTintList = ColorStateList.valueOf(colorInt(R.color.white))
                 stateListAnimator = null
                 setOnClickListener { speaker.speak(optionText) }
             }
