@@ -9,7 +9,30 @@
     <com.nihongo.beginner.HeaderLinearLayout
         android:layout_width="match_parent"
         android:layout_height="96dp"
-        android:background="@drawable/bg_gradient_hero"/>
+        android:background="@drawable/bg_gradient_hero"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="מדיה"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="קישורים, חומרי לימוד ופודקאסטים"
+            android:textColor="#FFFFFF"
+            android:alpha="0.85"
+            android:textSize="12sp"
+            android:layout_marginTop="2dp"/>
+
+    </com.nihongo.beginner.HeaderLinearLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
