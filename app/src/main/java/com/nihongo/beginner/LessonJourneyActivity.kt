@@ -562,6 +562,9 @@ class LessonJourneyActivity : AppCompatActivity() {
             textSize = 26f
             setTypeface(null, Typeface.BOLD)
             setTextColor(colorInt(R.color.onSurface))
+            isClickable = true
+            isFocusable = true
+            setOnClickListener { speaker.speak(vocab.japanese) }
         })
         textBlock.addView(TextView(this).apply {
             text = vocab.romaji
@@ -661,12 +664,18 @@ class LessonJourneyActivity : AppCompatActivity() {
             textSize = 17f
             setTypeface(null, Typeface.BOLD)
             setTextColor(colorInt(R.color.onSurface))
+            isClickable = true
+            isFocusable = true
+            setOnClickListener { speaker.speak(example.romaji) }
         })
         if (example.japanese.isNotBlank()) {
             row.addView(TextView(this).apply {
                 text = "    ${example.japanese}"
                 textSize = 14f
                 setTextColor(colorInt(R.color.onSurfaceMuted))
+                isClickable = true
+                isFocusable = true
+                setOnClickListener { speaker.speak(example.japanese) }
             })
         }
         row.addView(TextView(this).apply {
@@ -822,6 +831,11 @@ class LessonJourneyActivity : AppCompatActivity() {
             setTextColor(colorInt(R.color.colorPrimary))
             gravity = Gravity.CENTER
             isSingleLine = false
+            if (card.audioText.isNotBlank()) {
+                isClickable = true
+                isFocusable = true
+                setOnClickListener { speaker.speak(card.audioText) }
+            }
         })
         if (card.answerSub.isNotBlank()) {
             answerInner.addView(TextView(this).apply {
@@ -1127,6 +1141,9 @@ class LessonJourneyActivity : AppCompatActivity() {
                     }
                 }
                 checkButton?.isEnabled = true
+            }
+            if (!optionText.isHebrew()) {
+                btn.setOnLongClickListener { speaker.speak(optionText); true }
             }
             val speakBtn = MaterialButton(this, null, com.google.android.material.R.attr.materialButtonOutlinedStyle).apply {
                 layoutParams = LinearLayout.LayoutParams(dp(44), dp(44)).also { it.marginStart = dp(8) }
