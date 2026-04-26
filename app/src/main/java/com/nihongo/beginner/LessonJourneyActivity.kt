@@ -50,6 +50,12 @@ class LessonJourneyActivity : AppCompatActivity() {
     private lateinit var teachScrollView: ScrollView
     private lateinit var teachPageLayout: LinearLayout
 
+    // Progressive reveal for vocab page
+    private val vocabAllItems = mutableListOf<VocabItem>()
+    private var vocabRevealIndex = 0
+    private lateinit var vocabScrollView: ScrollView
+    private lateinit var vocabPageLayout: LinearLayout
+
     private val handler = Handler(Looper.getMainLooper())
 
     // ─────────────────────────────────────────────────────────────
@@ -67,7 +73,7 @@ class LessonJourneyActivity : AppCompatActivity() {
 
         teachCards = buildTeachCards()
 
-        binding.btnBack.setOnClickListener { finish() }
+        binding.btnBack.setOnClickListener { onBack() }
         binding.btnContinue.setOnClickListener { onContinue() }
 
         showStep(Step.INTRO)
@@ -141,7 +147,13 @@ class LessonJourneyActivity : AppCompatActivity() {
                     showStep(Step.PRACTICE)
                 }
             }
-            Step.VOCAB -> showStep(Step.PRACTICE)
+            Step.VOCAB -> {
+                if (vocabRevealIndex < vocabAllItems.size) {
+                    appendVocabItem()
+                } else {
+                    showStep(Step.PRACTICE)
+                }
+            }
             Step.PRACTICE -> {
                 val maxCards = minOf(lesson.vocabulary.size, 4)
                 if (practiceIndex < maxCards - 1) {
@@ -153,6 +165,41 @@ class LessonJourneyActivity : AppCompatActivity() {
             }
             Step.COMPLETE -> finish()
             else -> { /* Quiz handles its own clicks */ }
+        }
+    }
+
+    private fun onBack() {
+        when (currentStep) {
+            Step.INTRO -> finish()
+            Step.TEACH -> {
+                if (teachRevealIndex <= 1) {
+                    showStep(Step.INTRO)
+                } else {
+                    teachRevealIndex--
+                    rebuildTeachPage()
+                }
+            }
+            Step.VOCAB -> {
+                if (vocabRevealIndex <= 1) {
+                    // Go back to TEACH with all items revealed
+                    showStep(Step.TEACH)
+                    while (teachRevealIndex < teachAllItems.size) appendTeachItem()
+                } else {
+                    vocabRevealIndex--
+                    rebuildVocabPage()
+                }
+            }
+            Step.PRACTICE -> {
+                if (lesson.vocabulary.isNotEmpty()) {
+                    showStep(Step.VOCAB)
+                    while (vocabRevealIndex < vocabAllItems.size) appendVocabItem()
+                } else {
+                    showStep(Step.TEACH)
+                    while (teachRevealIndex < teachAllItems.size) appendTeachItem()
+                }
+            }
+            Step.QUIZ -> { quizIndex = 0; showStep(Step.PRACTICE) }
+            Step.COMPLETE -> finish()
         }
     }
 
@@ -340,16 +387,17 @@ class LessonJourneyActivity : AppCompatActivity() {
     )
 
     private fun showVocabPage() {
-        binding.btnContinue.text = "לתרגול →"
-        binding.btnContinue.isEnabled = true
+        vocabAllItems.clear()
+        vocabAllItems.addAll(lesson.vocabulary)
+        vocabRevealIndex = 0
 
-        val scrollView = ScrollView(this).apply {
+        vocabScrollView = ScrollView(this).apply {
             layoutParams = FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT
             )
         }
-        val container = LinearLayout(this).apply {
+        vocabPageLayout = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
             setPadding(dp(16), dp(12), dp(16), dp(24))
             layoutParams = LinearLayout.LayoutParams(
@@ -357,12 +405,37 @@ class LessonJourneyActivity : AppCompatActivity() {
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
         }
-        container.addView(sectionLabel("מילים חדשות 📝"))
-        lesson.vocabulary.forEachIndexed { i, vocab ->
-            container.addView(buildVocabRow(vocab, emojiColors[i % emojiColors.size]))
-        }
-        scrollView.addView(container)
-        setContent(scrollView)
+        vocabPageLayout.addView(sectionLabel("מילים חדשות 📝"))
+        vocabScrollView.addView(vocabPageLayout)
+        setContent(vocabScrollView)
+
+        appendVocabItem()
+    }
+
+    private fun appendVocabItem() {
+        if (vocabRevealIndex >= vocabAllItems.size) return
+        vocabPageLayout.addView(buildVocabRow(vocabAllItems[vocabRevealIndex], emojiColors[vocabRevealIndex % emojiColors.size]))
+        vocabRevealIndex++
+        vocabScrollView.post { vocabScrollView.fullScroll(View.FOCUS_DOWN) }
+        binding.btnContinue.text = if (vocabRevealIndex >= vocabAllItems.size) "לתרגול →" else "הבא ↓"
+        binding.btnContinue.isEnabled = true
+    }
+
+    private fun rebuildTeachPage() {
+        teachPageLayout.removeAllViews()
+        val target = teachRevealIndex
+        teachRevealIndex = 0
+        repeat(target) { appendTeachItem() }
+        teachScrollView.post { teachScrollView.fullScroll(View.FOCUS_DOWN) }
+    }
+
+    private fun rebuildVocabPage() {
+        vocabPageLayout.removeAllViews()
+        vocabPageLayout.addView(sectionLabel("מילים חדשות 📝"))
+        val target = vocabRevealIndex
+        vocabRevealIndex = 0
+        repeat(target) { appendVocabItem() }
+        vocabScrollView.post { vocabScrollView.fullScroll(View.FOCUS_DOWN) }
     }
 
     private fun showTeachPage() {
