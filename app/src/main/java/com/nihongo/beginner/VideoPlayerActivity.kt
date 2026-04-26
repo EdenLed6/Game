@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import android.webkit.WebChromeClient
+import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.FrameLayout
@@ -23,7 +24,7 @@ class VideoPlayerActivity : AppCompatActivity() {
     private var fullscreenCallback: WebChromeClient.CustomViewCallback? = null
     private var videoFullscreenContainer: FrameLayout? = null
 
-    @SuppressLint("SetJavaScriptEnabled", "ClickableViewAccessibility")
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -44,13 +45,11 @@ class VideoPlayerActivity : AppCompatActivity() {
                 mediaPlaybackRequiresUserGesture = false
                 loadWithOverviewMode = true
                 useWideViewPort = true
-                allowContentAccess = false
-                allowFileAccess = false
             }
             isLongClickable = false
             setOnLongClickListener { true }
             webViewClient = object : WebViewClient() {
-                override fun shouldOverrideUrlLoading(view: WebView, url: String) = true
+                override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest) = true
                 override fun onPageFinished(view: WebView, url: String) {
                     view.evaluateJavascript(
                         "document.body.style.cssText+='-webkit-user-select:none;user-select:none;';", null
@@ -58,6 +57,7 @@ class VideoPlayerActivity : AppCompatActivity() {
                 }
             }
             webChromeClient = object : WebChromeClient() {
+                @Suppress("DEPRECATION")
                 override fun onShowCustomView(view: View, callback: CustomViewCallback) {
                     fullscreenCallback = callback
                     val container = FrameLayout(this@VideoPlayerActivity).apply {
@@ -73,14 +73,13 @@ class VideoPlayerActivity : AppCompatActivity() {
                     ))
                     (window.decorView as FrameLayout).addView(container)
                     videoFullscreenContainer = container
-                    @Suppress("DEPRECATION")
                     window.decorView.systemUiVisibility = (
                         View.SYSTEM_UI_FLAG_FULLSCREEN or
                         View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
                         View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                     )
                 }
-                override fun onHideCustomView() = exitVideoFullscreen()
+                override fun onHideCustomView() = restoreFromVideoFullscreen()
             }
         }
 
@@ -92,24 +91,27 @@ class VideoPlayerActivity : AppCompatActivity() {
 
     @Suppress("DEPRECATION")
     override fun onBackPressed() {
-        if (videoFullscreenContainer != null) exitVideoFullscreen()
-        else super.onBackPressed()
+        if (videoFullscreenContainer != null) {
+            fullscreenCallback?.onCustomViewHidden()
+            restoreFromVideoFullscreen()
+        } else super.onBackPressed()
     }
 
-    private fun exitVideoFullscreen() {
-        fullscreenCallback?.onCustomViewHidden()
+    @Suppress("DEPRECATION")
+    private fun restoreFromVideoFullscreen() {
         fullscreenCallback = null
         videoFullscreenContainer?.removeAllViews()
         (window.decorView as? FrameLayout)?.removeView(videoFullscreenContainer)
         videoFullscreenContainer = null
-        @Suppress("DEPRECATION")
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            if (videoFullscreenContainer != null) exitVideoFullscreen()
-            else finish()
+            if (videoFullscreenContainer != null) {
+                fullscreenCallback?.onCustomViewHidden()
+                restoreFromVideoFullscreen()
+            } else finish()
             return true
         }
         return super.onOptionsItemSelected(item)

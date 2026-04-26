@@ -85,17 +85,19 @@ class LessonJourneyActivity : AppCompatActivity() {
 
     @Suppress("DEPRECATION")
     override fun onBackPressed() {
-        if (videoFullscreenContainer != null) exitVideoFullscreen()
-        else super.onBackPressed()
+        if (videoFullscreenContainer != null) {
+            // Tell the player to exit fullscreen — it will call onHideCustomView
+            fullscreenCallback?.onCustomViewHidden()
+            restoreFromVideoFullscreen()
+        } else super.onBackPressed()
     }
 
-    private fun exitVideoFullscreen() {
-        fullscreenCallback?.onCustomViewHidden()
+    @Suppress("DEPRECATION")
+    private fun restoreFromVideoFullscreen() {
         fullscreenCallback = null
         videoFullscreenContainer?.removeAllViews()
         (window.decorView as? FrameLayout)?.removeView(videoFullscreenContainer)
         videoFullscreenContainer = null
-        @Suppress("DEPRECATION")
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
     }
 
@@ -364,7 +366,6 @@ class LessonJourneyActivity : AppCompatActivity() {
         setContent(scrollView)
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
     @SuppressLint("SetJavaScriptEnabled", "ClickableViewAccessibility")
     private fun buildVideoCard(videoUrl: String): MaterialCardView {
         val card = MaterialCardView(this).apply {
@@ -394,7 +395,9 @@ class LessonJourneyActivity : AppCompatActivity() {
             isLongClickable = false
             setOnLongClickListener { true }
             webViewClient = object : WebViewClient() {
-                override fun shouldOverrideUrlLoading(view: WebView, url: String) = true
+                override fun shouldOverrideUrlLoading(
+                    view: WebView, request: android.webkit.WebResourceRequest
+                ) = true
                 override fun onPageFinished(view: WebView, url: String) {
                     view.evaluateJavascript(
                         "document.body.style.cssText+='-webkit-user-select:none;user-select:none;';", null
@@ -402,6 +405,7 @@ class LessonJourneyActivity : AppCompatActivity() {
                 }
             }
             webChromeClient = object : WebChromeClient() {
+                @Suppress("DEPRECATION")
                 override fun onShowCustomView(view: View, callback: CustomViewCallback) {
                     fullscreenCallback = callback
                     val container = FrameLayout(this@LessonJourneyActivity).apply {
@@ -417,14 +421,14 @@ class LessonJourneyActivity : AppCompatActivity() {
                     ))
                     (window.decorView as FrameLayout).addView(container)
                     videoFullscreenContainer = container
-                    @Suppress("DEPRECATION")
                     window.decorView.systemUiVisibility = (
                         View.SYSTEM_UI_FLAG_FULLSCREEN or
                         View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
                         View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                     )
                 }
-                override fun onHideCustomView() = exitVideoFullscreen()
+                // Called by the player when IT exits fullscreen — just restore UI
+                override fun onHideCustomView() = restoreFromVideoFullscreen()
             }
             loadUrl("$videoUrl?autoplay=0&title=0&byline=0&portrait=0")
         }
