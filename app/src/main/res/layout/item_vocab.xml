@@ -94,7 +94,7 @@
             app:iconPadding="0dp"
             android:minWidth="0dp"
             android:minHeight="0dp"
-            app:backgroundTint="@color/white" />
+            app:backgroundTint="@color/surface" />
 
     </LinearLayout>
 

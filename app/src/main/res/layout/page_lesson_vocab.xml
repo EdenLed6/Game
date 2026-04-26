@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- Vocab section header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+
+            <View
+                android:layout_width="4dp"
+                android:layout_height="22dp"
+                android:background="@color/colorSecondary"
+                android:layout_marginEnd="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="מילים חדשות"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/onSurface" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvVocab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false" />
+
+        <TextView
+            android:id="@+id/tvNoVocab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="אין מילים חדשות בשיעור זה"
+            android:textSize="15sp"
+            android:textColor="@color/onSurfaceMuted"
+            android:gravity="center"
+            android:padding="40dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
