@@ -12,6 +12,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.Gravity
 import android.view.View
+import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.*
@@ -44,6 +45,8 @@ class LessonJourneyActivity : AppCompatActivity() {
     private var quizScore = 0
 
     private var lessonWebView: WebView? = null
+    private var fullscreenCallback: WebChromeClient.CustomViewCallback? = null
+    private var videoFullscreenContainer: FrameLayout? = null
 
     // Progressive reveal for teach page
     private val teachAllItems = mutableListOf<Any>()
@@ -78,6 +81,22 @@ class LessonJourneyActivity : AppCompatActivity() {
         binding.btnContinue.setOnClickListener { onContinue() }
 
         showStep(Step.INTRO)
+    }
+
+    @Suppress("DEPRECATION")
+    override fun onBackPressed() {
+        if (videoFullscreenContainer != null) exitVideoFullscreen()
+        else super.onBackPressed()
+    }
+
+    private fun exitVideoFullscreen() {
+        fullscreenCallback?.onCustomViewHidden()
+        fullscreenCallback = null
+        videoFullscreenContainer?.removeAllViews()
+        (window.decorView as? FrameLayout)?.removeView(videoFullscreenContainer)
+        videoFullscreenContainer = null
+        @Suppress("DEPRECATION")
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
     }
 
     override fun onDestroy() {
@@ -346,6 +365,7 @@ class LessonJourneyActivity : AppCompatActivity() {
     }
 
     @SuppressLint("SetJavaScriptEnabled")
+    @SuppressLint("SetJavaScriptEnabled", "ClickableViewAccessibility")
     private fun buildVideoCard(videoUrl: String): MaterialCardView {
         val card = MaterialCardView(this).apply {
             radius = dp(16).toFloat()
@@ -368,9 +388,44 @@ class LessonJourneyActivity : AppCompatActivity() {
                 mediaPlaybackRequiresUserGesture = false
                 loadWithOverviewMode = true
                 useWideViewPort = true
+                allowContentAccess = false
+                allowFileAccess = false
             }
-            webViewClient = WebViewClient()
-            webChromeClient = android.webkit.WebChromeClient()
+            isLongClickable = false
+            setOnLongClickListener { true }
+            webViewClient = object : WebViewClient() {
+                override fun shouldOverrideUrlLoading(view: WebView, url: String) = true
+                override fun onPageFinished(view: WebView, url: String) {
+                    view.evaluateJavascript(
+                        "document.body.style.cssText+='-webkit-user-select:none;user-select:none;';", null
+                    )
+                }
+            }
+            webChromeClient = object : WebChromeClient() {
+                override fun onShowCustomView(view: View, callback: CustomViewCallback) {
+                    fullscreenCallback = callback
+                    val container = FrameLayout(this@LessonJourneyActivity).apply {
+                        setBackgroundColor(Color.BLACK)
+                        layoutParams = FrameLayout.LayoutParams(
+                            FrameLayout.LayoutParams.MATCH_PARENT,
+                            FrameLayout.LayoutParams.MATCH_PARENT
+                        )
+                    }
+                    container.addView(view, FrameLayout.LayoutParams(
+                        FrameLayout.LayoutParams.MATCH_PARENT,
+                        FrameLayout.LayoutParams.MATCH_PARENT
+                    ))
+                    (window.decorView as FrameLayout).addView(container)
+                    videoFullscreenContainer = container
+                    @Suppress("DEPRECATION")
+                    window.decorView.systemUiVisibility = (
+                        View.SYSTEM_UI_FLAG_FULLSCREEN or
+                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
+                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                    )
+                }
+                override fun onHideCustomView() = exitVideoFullscreen()
+            }
             loadUrl("$videoUrl?autoplay=0&title=0&byline=0&portrait=0")
         }
         lessonWebView = webView
