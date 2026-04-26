@@ -39,6 +39,11 @@ class MediaFragment : Fragment() {
         binding.btnOpenSpotify.setOnClickListener { openUrl(spotifyShowUrl) }
         binding.btnOpenPdfMain.setOnClickListener { openPdf("course_travelers.pdf") }
         binding.btnOpenPdfTravelers.setOnClickListener { openPdf("course_main.pdf") }
+        binding.btnOpenPdfMatome.setOnClickListener { openPdf("exercise_matome.pdf") }
+        binding.btnOpenPdfOwnership.setOnClickListener { openPdf("exercise_ownership.pdf") }
+        binding.btnOpenPdfPresentFuture.setOnClickListener { openPdf("exercise_present_future.pdf") }
+        binding.btnOpenPdfPast.setOnClickListener { openPdf("exercise_past.pdf") }
+        binding.btnOpenPdfTime.setOnClickListener { openPdf("exercise_time.pdf") }
 
         setupSpotifyWebView()
     }

@@ -186,7 +186,47 @@
                         style="@style/App.Button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:text="✈️  קורס יפנית למטיילים"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnOpenPdfMatome"
+                        style="@style/App.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="📋  סיכום — מסכם דקדוק"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnOpenPdfOwnership"
+                        style="@style/App.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="📝  תרגול שייכות (NO)"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnOpenPdfPresentFuture"
+                        style="@style/App.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="📝  תרגול פעלים הווה/עתיד"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnOpenPdfPast"
+                        style="@style/App.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="📝  תרגול פעלים עבר"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnOpenPdfTime"
+                        style="@style/App.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="📝  תרגול שעות"/>
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
