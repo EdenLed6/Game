@@ -1,0 +1,3465 @@
+[
+  {
+    "id": 1,
+    "number": "שיעור 1",
+    "title": "הגיה",
+    "subtitle": "Pronunciation",
+    "emoji": "🔤",
+    "grammarPoints": [
+      {
+        "title": "יפנית: כללי הגייה",
+        "content": "יפנית היא שפה פשוטה מבחינת ההגייה. כל מילה חייבת להסתיים בתנועה (a, i, u, e, o) או בעיצור n. כל הברה היא: עיצור + תנועה (ka, ki, ku, ke, ko…)"
+      },
+      {
+        "title": "Japanglish: צלילים שאינם ביפנית",
+        "content": "ביפנית חסרים מספר צלילים, לכן מחליפים אותם:\n• V → B (vintage → binteji)\n• R → R יפני (robot → roboto)\n• L → R יפני (Israel → Isuraeru)\n• Si → Shi (Sivan → Shiban)\n• Zi → Ji (Ziva → Jiba)\n• Ci → Shi (cinema → shinema)"
+      }
+    ],
+    "vocabulary": [
+      {
+        "japanese": "ビンテージ",
+        "romaji": "Binteji",
+        "hebrew": "Vintage",
+        "emoji": "👗"
+      },
+      {
+        "japanese": "ロボット",
+        "romaji": "Roboto",
+        "hebrew": "Robot",
+        "emoji": "🤖"
+      },
+      {
+        "japanese": "イスラエル",
+        "romaji": "Isuraeru",
+        "hebrew": "ישראל",
+        "emoji": "🇮🇱"
+      },
+      {
+        "japanese": "シネマ",
+        "romaji": "Shinema",
+        "hebrew": "Cinema",
+        "emoji": "🎬"
+      },
+      {
+        "japanese": "ミルク",
+        "romaji": "Miruku",
+        "hebrew": "Milk",
+        "emoji": "🥛"
+      },
+      {
+        "japanese": "インスタグラム",
+        "romaji": "Insutagurama",
+        "hebrew": "Instagram",
+        "emoji": "📸"
+      },
+      {
+        "japanese": "ラブ",
+        "romaji": "Rabu",
+        "hebrew": "Love",
+        "emoji": "❤️"
+      },
+      {
+        "japanese": "コンビニ",
+        "romaji": "Konbini",
+        "hebrew": "Convenience Store",
+        "emoji": "🏪"
+      }
+    ],
+    "examples": [
+      {
+        "romaji": "V → B: vintage = binteji",
+        "japanese": "",
+        "hebrew": "הצליל V אינו קיים ביפנית → מחליפים ב-B"
+      },
+      {
+        "romaji": "R / L → R יפני: robot = roboto, Israel = Isuraeru",
+        "japanese": "",
+        "hebrew": "R ו-L הופכים ל-R יפני"
+      },
+      {
+        "romaji": "Si → Shi: Sivan = Shiban",
+        "japanese": "",
+        "hebrew": "הצליל Si אינו קיים → Shi"
+      },
+      {
+        "romaji": "Zi → Ji: Ziva = Jiba",
+        "japanese": "",
+        "hebrew": "הצליל Zi אינו קיים → Ji"
+      },
+      {
+        "romaji": "Konnichi-WA, Arigatou, Sayounara",
+        "japanese": "",
+        "hebrew": "כל הברה: עיצור + תנועה"
+      }
+    ],
+    "exercises": [
+      {
+        "question": "איך תיכתב המילה 'Vintage' ביפנית (Japanglish)?",
+        "options": [
+          "Winteeji",
+          "Binteji",
+          "Vinteeji",
+          "Finteeji"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "איזה צליל אינו קיים ביפנית?",
+        "options": [
+          "K",
+          "V",
+          "M",
+          "N"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "איך תיכתב 'Israel' ביפנית?",
+        "options": [
+          "Isurael",
+          "Izraeru",
+          "Isuraeru",
+          "Iserael"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "הצליל 'Si' מוחלף ביפנית ב...?",
+        "options": [
+          "Zi",
+          "Se",
+          "Shi",
+          "Chi"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "איך תיכתב 'Ziva' ביפנית?",
+        "options": [
+          "Ziba",
+          "Jiba",
+          "Shiva",
+          "Ziva"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "במה מסתיימות כל המילים ביפנית?",
+        "options": [
+          "עיצור",
+          "תנועה או n",
+          "תנועה בלבד",
+          "n בלבד"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "איך תיכתב 'Love' ביפנית?",
+        "options": [
+          "Lobu",
+          "Rabu",
+          "Ravu",
+          "Lobu"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "איך תיכתב 'Cinema' ביפנית?",
+        "options": [
+          "Sinema",
+          "Chinema",
+          "Shinema",
+          "Kinema"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "number": "שיעור 2",
+    "title": "מילות ברכה",
+    "subtitle": "Greetings",
+    "emoji": "🙏",
+    "grammarPoints": [
+      {
+        "title": "ברכות ביפנית",
+        "content": "תמיד מברכים יחד עם קידה קלה. ביפנית יש שפה פורמלית ולא פורמלית. מקובל לפנות בצורה פורמלית. חשוב מאוד לא להשתמש בצורה הלא פורמלית עם אנשים שאינם קרובים."
+      },
+      {
+        "title": "פורמלי vs. לא פורמלי",
+        "content": "הצורה הפורמלית: Ohayougozaimasu, Arigatougozaimasu, Oyasuminasai\nהצורה הלא פורמלית (*): Ohayou, Arigatou, Oyasumi\n* לשימוש עם חברים קרובים/משפחה בלבד"
+      }
+    ],
+    "vocabulary": [
+      {
+        "japanese": "おはよう",
+        "romaji": "Ohayou",
+        "hebrew": "בוקר טוב (לא פורמלי)",
+        "emoji": "😊"
+      },
+      {
+        "japanese": "おはようございます",
+        "romaji": "Ohayougozaimasu",
+        "hebrew": "בוקר טוב (פורמלי)",
+        "emoji": "🌅"
+      },
+      {
+        "japanese": "こんにちは",
+        "romaji": "Konnichiwa",
+        "hebrew": "שלום / צהריים טובים",
+        "emoji": "👋"
+      },
+      {
+        "japanese": "ありがとう",
+        "romaji": "Arigatou",
+        "hebrew": "תודה (לא פורמלי)",
+        "emoji": "❤️"
+      },
+      {
+        "japanese": "ありがとうございます",
+        "romaji": "Arigatougozaimasu",
+        "hebrew": "תודה (פורמלי)",
+        "emoji": "🙏"
+      },
+      {
+        "japanese": "すいません",
+        "romaji": "Suimasen",
+        "hebrew": "סליחה / התנצלות",
+        "emoji": "🙇"
+      },
+      {
+        "japanese": "こんばんは",
+        "romaji": "Konbanwa",
+        "hebrew": "ערב טוב",
+        "emoji": "🌙"
+      },
+      {
+        "japanese": "おやすみ",
+        "romaji": "Oyasumi",
+        "hebrew": "לילה טוב (לא פורמלי)",
+        "emoji": "😴"
+      },
+      {
+        "japanese": "おやすみなさい",
+        "romaji": "Oyasuminasai",
+        "hebrew": "לילה טוב (פורמלי)",
+        "emoji": "🌟"
+      },
+      {
+        "japanese": "いただきます",
+        "romaji": "Itadakimasu",
+        "hebrew": "ברכה לפני האוכל",
+        "emoji": "🍱"
+      },
+      {
+        "japanese": "ごちそうさまでした",
+        "romaji": "Gochisou sama deshita",
+        "hebrew": "ברכה אחרי האוכל",
+        "emoji": "🍽️"
+      },
+      {
+        "japanese": "おつかれさま",
+        "romaji": "Otsukare sama",
+        "hebrew": "כל הכבוד / אחרי עבודה",
+        "emoji": "💪"
+      },
+      {
+        "japanese": "はじめまして",
+        "romaji": "Hajimemashite",
+        "hebrew": "נעים להכיר",
+        "emoji": "🤝"
+      },
+      {
+        "japanese": "よろしくおねがいします",
+        "romaji": "Yoroshiku onegai shimasu",
+        "hebrew": "שמחה לשמור קשר",
+        "emoji": "🤗"
+      },
+      {
+        "japanese": "さようなら",
+        "romaji": "Sayounara",
+        "hebrew": "להתראות",
+        "emoji": "👋"
+      },
+      {
+        "japanese": "いってきます",
+        "romaji": "Ittekimasu",
+        "hebrew": "אני הולך/ת (יוצא/ת מהבית)",
+        "emoji": "🚶"
+      },
+      {
+        "japanese": "いってらっしゃい",
+        "romaji": "Itterasshai",
+        "hebrew": "לך/כי בשלום (תגובה)",
+        "emoji": "🏠"
+      }
+    ],
+    "examples": [
+      {
+        "romaji": "Ohayougozaimasu!",
+        "japanese": "おはようございます！",
+        "hebrew": "בוקר טוב! (בבוקר)"
+      },
+      {
+        "romaji": "A: Itadakimasu! / B: Gochisou sama deshita.",
+        "japanese": "いただきます！/ ごちそうさまでした。",
+        "hebrew": "לפני האוכל / אחרי האוכל"
+      },
+      {
+        "romaji": "A: Hajimemashite. Watashi wa Yamada desu. Yoroshiku onegaishimasu.",
+        "japanese": "はじめまして。わたしはやまだです。よろしくおねがいします。",
+        "hebrew": "פגישה ראשונה: נעים להכיר, אני יאמדה, שמחה להכיר."
+      },
+      {
+        "romaji": "A: Ittekimasu! / B: Itterasshai!",
+        "japanese": "いってきます！/ いってらっしゃい！",
+        "hebrew": "יוצא/ת מהבית / תגובה: לך בשלום"
+      }
+    ],
+    "exercises": [
+      {
+        "question": "איך אומרים 'בוקר טוב' בצורה פורמלית?",
+        "options": [
+          "Ohayou",
+          "Ohayougozaimasu",
+          "Konnichiwa",
+          "Konbanwa"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מה אומרים לפני האוכל?",
+        "options": [
+          "Sayounara",
+          "Itadakimasu",
+          "Otsukare sama",
+          "Suimasen"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מה פירוש Suimasen?",
+        "options": [
+          "תודה",
+          "שלום",
+          "סליחה",
+          "להתראות"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "איך אומרים 'ערב טוב'?",
+        "options": [
+          "Ohayou",
+          "Konnichiwa",
+          "Konbanwa",
+          "Oyasumi"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "מה פירוש Hajimemashite?",
+        "options": [
+          "להתראות",
+          "בוקר טוב",
+          "נעים להכיר",
+          "תודה רבה"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "מה עונים כשמישהו אומר Ittekimasu?",
+        "options": [
+          "Sayounara",
+          "Itterasshai",
+          "Oyasumi",
+          "Otsukare sama"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "איזו ברכה משתמשים אחרי אוכל?",
+        "options": [
+          "Itadakimasu",
+          "Konnichiwa",
+          "Gochisou sama deshita",
+          "Hajimemashite"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "מה אומרים אחרי עבודה קשה?",
+        "options": [
+          "Arigatou",
+          "Suimasen",
+          "Otsukare sama",
+          "Konbanwa"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "number": "שיעור 3",
+    "title": "הצגה עצמית",
+    "subtitle": "Self Introduction",
+    "emoji": "👋",
+    "grammarPoints": [
+      {
+        "title": "תבנית הצגה עצמית",
+        "content": "ארבעה שלבים:\n1. こんにちは (Konnichiwa) - שלום\n2. はじめまして (Hajimemashite) - נעים להכיר\n3. [שם] です ([name] desu) - אני [שם]\n4. よろしくおねがいします (Yoroshiku onegaishimasu) - שמחה לשמור קשר",
+        "pattern": "Konnichiwa → Hajimemashite → [שם] desu → Yoroshiku onegaishimasu"
+      },
+      {
+        "title": "desu - הסבר",
+        "content": "desu (です) = 'הוא/היא/אני' - פועל עזר פורמלי ביפנית. מוסיפים אחרי שמות עצם לסיום משפט. דוגמה: 'Sensei desu' = 'אני מורה'"
+      }
+    ],
+    "vocabulary": [
+      {
+        "japanese": "わたし",
+        "romaji": "Watashi",
+        "hebrew": "אני",
+        "emoji": "👤"
+      },
+      {
+        "japanese": "です",
+        "romaji": "Desu",
+        "hebrew": "הוא/היא/אני (סיומת פורמלית)",
+        "emoji": "💬"
+      },
+      {
+        "japanese": "さん",
+        "romaji": "San",
+        "hebrew": "אדוני/גברת (תואר כבוד)",
+        "emoji": "🎩"
+      },
+      {
+        "japanese": "えんじにあ",
+        "romaji": "Enjinia",
+        "hebrew": "מהנדס",
+        "emoji": "🔧"
+      },
+      {
+        "japanese": "せんせい",
+        "romaji": "Sensei",
+        "hebrew": "מורה",
+        "emoji": "📚"
+      },
+      {
+        "japanese": "がくせい",
+        "romaji": "Gakusei",
+        "hebrew": "תלמיד/סטודנט",
+        "emoji": "🎓"
+      }
+    ],
+    "examples": [
+      {
+        "romaji": "Konnichiwa. Hajimemashite. Watashi wa Yamada Tarou desu. Enjinia desu. Yoroshiku onegaishimasu.",
+        "japanese": "こんにちは。はじめまして。わたしはやまだたろうです。えんじにあです。よろしくおねがいします。",
+        "hebrew": "שלום, נעים להכיר, אני יאמדה טארו, מהנדס, שמחה לשמור קשר."
+      },
+      {
+        "romaji": "Konnichiwa. Hajimemashite. Watashi wa Kimura Rihi desu. Nihongo no sensei desu. Yoroshiku onegaishimasu.",
+        "japanese": "こんにちは。はじめまして。わたしはきむらりひです。にほんごのせんせいです。よろしくおねがいします。",
+        "hebrew": "שלום, נעים להכיר, אני קימורה ריהי, מורה ליפנית, שמחה לשמור קשר."
+      }
+    ],
+    "exercises": [
+      {
+        "question": "מה השלב הראשון בהצגה עצמית?",
+        "options": [
+          "Hajimemashite",
+          "Konnichiwa",
+          "Desu",
+          "Yoroshiku"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מה פירוש 'Desu' בהצגה עצמית?",
+        "options": [
+          "תודה",
+          "שלום",
+          "סיומת פורמלית (הוא/היא/אני)",
+          "נעים להכיר"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "מה פירוש 'Hajimemashite'?",
+        "options": [
+          "שלום",
+          "תודה",
+          "נעים להכיר",
+          "להתראות"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "איך אומרים 'אני מהנדס'?",
+        "options": [
+          "Sensei desu",
+          "Enjinia desu",
+          "Gakusei desu",
+          "Watashi desu"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מה האחרון בהצגה עצמית?",
+        "options": [
+          "Konnichiwa",
+          "Hajimemashite",
+          "Desu",
+          "Yoroshiku onegaishimasu"
+        ],
+        "correctIndex": 3,
+        "explanation": ""
+      },
+      {
+        "question": "מה פירוש 'San' כשמוסיפים לשם?",
+        "options": [
+          "חבר",
+          "מורה",
+          "תואר כבוד (אדוני/גברת)",
+          "תלמיד"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "number": "שיעור 4",
+    "title": "מבנה: WA…DESU",
+    "subtitle": "WA…DESU",
+    "emoji": "💬",
+    "grammarPoints": [
+      {
+        "title": "wa (は) - מילית נושא",
+        "content": "wa (は) מציינת את נושא המשפט. מגיעה אחרי הנושא.",
+        "pattern": "[נושא] wa [שם עצם] desu"
+      },
+      {
+        "title": "desu (です) - סיומת פורמלית",
+        "content": "desu (です) = סיומת פורמלית. נותנת משקל הווה/עתיד. ביפנית אין הבדל בין: הווה-עתיד, זכר-נקבה, יחיד-רבים."
+      },
+      {
+        "title": "שאלות עם ka (か)",
+        "content": "להפיכת משפט לשאלה: מוסיפים 'ka' בסוף.",
+        "pattern": "[נושא] wa [שם עצם] desu ka?"
+      },
+      {
+        "title": "jin (じん) - ממוצא",
+        "content": "מוסיפים 'jin' אחרי שם מדינה ליצירת לאומיות.\nדוגמה: Nihon + jin = Nihonjin (יפני/ת)",
+        "pattern": "[מדינה] + jin = [לאומיות]"
+      }
+    ],
+    "vocabulary": [
+      {
+        "japanese": "わたし",
+        "romaji": "Watashi",
+        "hebrew": "אני",
+        "emoji": "👤"
+      },
+      {
+        "japanese": "あなた",
+        "romaji": "Anata",
+        "hebrew": "אתה/את",
+        "emoji": "👉"
+      },
+      {
+        "japanese": "さん",
+        "romaji": "San",
+        "hebrew": "אדוני/גברת",
+        "emoji": "🎩"
+      },
+      {
+        "japanese": "せんせい",
+        "romaji": "Sensei",
+        "hebrew": "מורה",
+        "emoji": "📚"
+      },
+      {
+        "japanese": "えんじにあ",
+        "romaji": "Enjinia",
+        "hebrew": "מהנדס",
+        "emoji": "🔧"
+      },
+      {
+        "japanese": "プログラマー",
+        "romaji": "Purogurema-",
+        "hebrew": "מתכנת/ת",
+        "emoji": "💻"
+      },
+      {
+        "japanese": "マネージャー",
+        "romaji": "Mane-ja-",
+        "hebrew": "מנהל/ת",
+        "emoji": "👔"
+      },
+      {
+        "japanese": "インストラクター",
+        "romaji": "Insutorakuta-",
+        "hebrew": "מדריך/ה",
+        "emoji": "🏋️"
+      },
+      {
+        "japanese": "がくせい",
+        "romaji": "Gakusei",
+        "hebrew": "תלמיד/סטודנט",
+        "emoji": "🎓"
+      },
+      {
+        "japanese": "にほん",
+        "romaji": "Nihon",
+        "hebrew": "יפן",
+        "emoji": "🇯🇵"
+      },
+      {
+        "japanese": "イスラエル",
+        "romaji": "Isuraeru",
+        "hebrew": "ישראל",
+        "emoji": "🇮🇱"
+      },
+      {
+        "japanese": "フランス",
+        "romaji": "Furansu",
+        "hebrew": "צרפת",
+        "emoji": "🇫🇷"
+      },
+      {
+        "japanese": "アメリカ",
+        "romaji": "Amerika",
+        "hebrew": "ארה\"ב",
+        "emoji": "🇺🇸"
+      },
+      {
+        "japanese": "ロシア",
+        "romaji": "Roshia",
+        "hebrew": "רוסיה",
+        "emoji": "🇷🇺"
+      },
+      {
+        "japanese": "かんこく",
+        "romaji": "Kankoku",
+        "hebrew": "קוריאה",
+        "emoji": "🇰🇷"
+      },
+      {
+        "japanese": "ちゅうごく",
+        "romaji": "Chugoku",
+        "hebrew": "סין",
+        "emoji": "🇨🇳"
+      },
+      {
+        "japanese": "じん",
+        "romaji": "Jin",
+        "hebrew": "אדם ממוצא [מדינה]",
+        "emoji": "🌍"
+      }
+    ],
+    "examples": [
+      {
+        "romaji": "Watashi wa Rihi desu.",
+        "japanese": "わたしはりひです。",
+        "hebrew": "אני ריהי."
+      },
+      {
+        "romaji": "Tanaka san wa sensei desu.",
+        "japanese": "たなかさんはせんせいです。",
+        "hebrew": "מר טאנקה הוא מורה."
+      },
+      {
+        "romaji": "Anata wa enjinia desu ka?",
+        "japanese": "あなたはえんじにあですか？",
+        "hebrew": "האם אתה/את מהנדס/ת?"
+      },
+      {
+        "romaji": "Watashi wa Isuraeru jin desu.",
+        "japanese": "わたしはイスラエルじんです。",
+        "hebrew": "אני ישראלי/ת."
+      },
+      {
+        "romaji": "Maria san wa Furansu jin desu.",
+        "japanese": "マリアさんはフランスじんです。",
+        "hebrew": "מריה היא צרפתייה."
+      }
+    ],
+    "exercises": [
+      {
+        "question": "מה עושה המילית 'wa' במשפט?",
+        "options": [
+          "מציינת פועל",
+          "מציינת נושא",
+          "מציינת מושא",
+          "מציינת זמן"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "איך אומרים 'אני מורה'?",
+        "options": [
+          "Watashi wa sensei ka",
+          "Watashi wa sensei desu",
+          "Anata wa sensei desu",
+          "Sensei wa watashi desu"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "איך הופכים משפט לשאלה?",
+        "options": [
+          "מוסיפים 'ne' בסוף",
+          "מוסיפים 'ka' בסוף",
+          "מוסיפים 'wa' בתחילה",
+          "משנים את הסדר"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מה פירוש 'Nihonjin'?",
+        "options": [
+          "ספר יפני",
+          "שפה יפנית",
+          "יפני/ת (אדם ממוצא יפן)",
+          "מנהל יפני"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "איך אומרים 'האם אתה מתכנת?'",
+        "options": [
+          "Watashi wa purogurema- desu",
+          "Anata wa purogurema- desu ka",
+          "Anata wa purogurema- ka",
+          "Purogurema- wa anata desu"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "ביפנית 'desu' משמש עבור...",
+        "options": [
+          "עבר בלבד",
+          "עתיד בלבד",
+          "הווה ועתיד, זכר ונקבה, יחיד ורבים",
+          "זכר בלבד"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "איך אומרים 'ישראלי/ת'?",
+        "options": [
+          "Isuraeru go",
+          "Isuraeru jin",
+          "Isuraeru san",
+          "Isuraeru no"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "'Kimura san wa mane-ja- desu' פירושו:",
+        "options": [
+          "האם קימורה מנהל?",
+          "קימורה הוא/היא לא מנהל/ת",
+          "קימורה הוא/היא מנהל/ת",
+          "אני מנהל"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "number": "שיעור 5",
+    "title": "שלילה: JANAIDESU",
+    "subtitle": "JANAIDESU",
+    "emoji": "❌",
+    "grammarPoints": [
+      {
+        "title": "janaidesu (じゃないです) - שלילה",
+        "content": "janaidesu = הצורה השלילית הפורמלית של desu.\nסדר המשפט לא משתנה - רק מחליפים desu ב-janaidesu.",
+        "pattern": "[נושא] wa [שם עצם] janaidesu"
+      },
+      {
+        "title": "Iie / Hai - תשובות",
+        "content": "Iie (いいえ) = לא\nHai (はい) = כן\nבמענה לשאלה: Iie, [subject] wa [noun] janaidesu."
+      },
+      {
+        "title": "שאלה בשלילה",
+        "content": "ניתן לשאול שאלה שלילית על ידי הוספת 'ka' בסוף.",
+        "pattern": "[נושא] wa [שם עצם] janaidesu ka?"
+      }
+    ],
+    "vocabulary": [
+      {
+        "japanese": "いいえ",
+        "romaji": "Iie",
+        "hebrew": "לא",
+        "emoji": "❌"
+      },
+      {
+        "japanese": "はい",
+        "romaji": "Hai",
+        "hebrew": "כן",
+        "emoji": "✅"
+      },
+      {
+        "japanese": "わたし",
+        "romaji": "Watashi",
+        "hebrew": "אני",
+        "emoji": "👤"
+      },
+      {
+        "japanese": "あなた",
+        "romaji": "Anata",
+        "hebrew": "אתה/את",
+        "emoji": "👉"
+      },
+      {
+        "japanese": "さん",
+        "romaji": "San",
+        "hebrew": "אדוני/גברת (תואר כבוד)",
+        "emoji": "🎩"
+      },
+      {
+        "japanese": "せんせい",
+        "romaji": "Sensei",
+        "hebrew": "מורה",
+        "emoji": "📚"
+      },
+      {
+        "japanese": "えんじにあ",
+        "romaji": "Enjinia",
+        "hebrew": "מהנדס",
+        "emoji": "🔧"
+      },
+      {
+        "japanese": "にほんじん",
+        "romaji": "Nihonjin",
+        "hebrew": "יפני/ת",
+        "emoji": "🇯🇵"
+      },
+      {
+        "japanese": "かんこくじん",
+        "romaji": "Kankokujin",
+        "hebrew": "קוריאני/ת",
+        "emoji": "🇰🇷"
+      },
+      {
+        "japanese": "ちゅうごくじん",
+        "romaji": "Chugokujin",
+        "hebrew": "סיני/ת",
+        "emoji": "🇨🇳"
+      }
+    ],
+    "examples": [
+      {
+        "romaji": "Kim san wa Chugoku jin desu ka?",
+        "japanese": "キムさんはちゅうごくじんですか？",
+        "hebrew": "האם קים הוא/היא סיני/ת?"
+      },
+      {
+        "romaji": "Iie, Kim san wa Chugoku jin janaidesu. Kankoku jin desu.",
+        "japanese": "いいえ、キムさんはちゅうごくじんじゃないです。かんこくじんです。",
+        "hebrew": "לא, קים לא סיני/ת. הוא/היא קוריאני/ת."
+      },
+      {
+        "romaji": "Watashi wa sensei janaidesu.",
+        "japanese": "わたしはせんせいじゃないです。",
+        "hebrew": "אני לא מורה."
+      },
+      {
+        "romaji": "Suzuki san wa enjinia janaidesu ka?",
+        "japanese": "すずきさんはえんじにあじゃないですか？",
+        "hebrew": "האם סוזוקי אינו/ה מהנדס/ת?"
+      }
+    ],
+    "exercises": [
+      {
+        "question": "איך אומרים 'אני לא מורה'?",
+        "options": [
+          "Watashi wa sensei desu",
+          "Watashi wa sensei janaidesu",
+          "Watashi wa sensei ka",
+          "Sensei wa watashi janaidesu"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מה פירוש 'Iie'?",
+        "options": [
+          "כן",
+          "אולי",
+          "לא",
+          "בסדר"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "'Kim san wa Chugoku jin janaidesu' פירושו:",
+        "options": [
+          "קים הוא סיני",
+          "האם קים סיני?",
+          "קים אינו/ה סיני/ת",
+          "אני לא סיני"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "מה ההבדל בין desu ל-janaidesu?",
+        "options": [
+          "desu=עתיד, janaidesu=עבר",
+          "desu=חיוב, janaidesu=שלילה",
+          "desu=שאלה, janaidesu=תשובה",
+          "אין הבדל"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "איך שואלים 'האם סוזוקי לא יפני?'",
+        "options": [
+          "Suzuki san wa Nihon jin desu ka",
+          "Suzuki san wa Nihon jin janaidesu ka",
+          "Suzuki san wa Nihon janaidesu",
+          "Iie Suzuki san"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מה התשובה ל-'Hai'?",
+        "options": [
+          "כן",
+          "לא",
+          "אולי",
+          "סליחה"
+        ],
+        "correctIndex": 0,
+        "explanation": ""
+      },
+      {
+        "question": "איך אומרים 'ואן לא סינייה'?",
+        "options": [
+          "Wan san wa Chugoku jin desu",
+          "Wan san wa Chugoku jin janaidesu",
+          "Wan san wa Kankoku jin desu",
+          "Iie Wan san"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "סדר המשפט בשלילה הוא...",
+        "options": [
+          "שונה מחיוב",
+          "זהה לחיוב",
+          "הפוך מחיוב",
+          "תלוי בנושא"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "number": "שיעור 6",
+    "title": "שייכות: NO",
+    "subtitle": "NO (の)",
+    "emoji": "📦",
+    "grammarPoints": [
+      {
+        "title": "no (の) - שייכות",
+        "content": "no (の) = 'של' - מציין שייכות. הסדר הפוך מעברית (דומה ל-'s באנגלית).",
+        "pattern": "[בעלים] no [חפץ]"
+      },
+      {
+        "title": "שילוב עם desu / janaidesu",
+        "content": "ניתן לשלב no עם desu לבניית משפטים:\nKore wa [בעלים] no [חפץ] desu.\nניתן גם: Kore wa [בעלים] no [חפץ] janaidesu."
+      }
+    ],
+    "vocabulary": [
+      {
+        "japanese": "ペン",
+        "romaji": "Pen",
+        "hebrew": "עט",
+        "emoji": "✏️"
+      },
+      {
+        "japanese": "コーヒー",
+        "romaji": "Ko-hi-",
+        "hebrew": "קפה",
+        "emoji": "☕"
+      },
+      {
+        "japanese": "ほん",
+        "romaji": "Hon",
+        "hebrew": "ספר",
+        "emoji": "📖"
+      },
+      {
+        "japanese": "スマホ",
+        "romaji": "Sumaho",
+        "hebrew": "טלפון חכם",
+        "emoji": "📱"
+      },
+      {
+        "japanese": "ノート",
+        "romaji": "No-to",
+        "hebrew": "מחברת",
+        "emoji": "📓"
+      },
+      {
+        "japanese": "とけい",
+        "romaji": "Tokei",
+        "hebrew": "שעון",
+        "emoji": "⌚"
+      },
+      {
+        "japanese": "かばん",
+        "romaji": "Kaban",
+        "hebrew": "תיק",
+        "emoji": "👜"
+      },
+      {
+        "japanese": "シャツ",
+        "romaji": "Shatsu",
+        "hebrew": "חולצה",
+        "emoji": "👕"
+      }
+    ],
+    "examples": [
+      {
+        "romaji": "Suzuki san no pen",
+        "japanese": "すずきさんのペン",
+        "hebrew": "עט של מר סוזוקי"
+      },
+      {
+        "romaji": "Honda san no no-to",
+        "japanese": "ほんださんのノート",
+        "hebrew": "מחברת של מר הונדה"
+      },
+      {
+        "romaji": "Kore wa watashi no ko-hi- desu.",
+        "japanese": "これはわたしのコーヒーです。",
+        "hebrew": "זה הקפה שלי."
+      },
+      {
+        "romaji": "Sore wa Rihi san no kaban janaidesu.",
+        "japanese": "それはりひさんのかばんじゃないです。",
+        "hebrew": "זה לא התיק של ריהי."
+      },
+      {
+        "romaji": "Are wa watashi no nihongo no hon desu.",
+        "japanese": "あれはわたしのにほんごのほんです。",
+        "hebrew": "זה הספר יפנית שלי (שם)."
+      }
+    ],
+    "exercises": [
+      {
+        "question": "מה פירוש 'no' ביפנית?",
+        "options": [
+          "לא",
+          "של (שייכות)",
+          "זה",
+          "ה-"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "איך אומרים 'עט של סוזוקי'?",
+        "options": [
+          "pen no Suzuki san",
+          "Suzuki san no pen",
+          "Suzuki san pen no",
+          "no pen Suzuki san"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מה הסדר הנכון?",
+        "options": [
+          "חפץ + no + בעלים",
+          "בעלים + no + חפץ",
+          "no + בעלים + חפץ",
+          "חפץ + בעלים + no"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "'Kore wa watashi no sumaho desu' פירושו:",
+        "options": [
+          "זה לא הטלפון שלי",
+          "זה הטלפון שלך",
+          "זה הטלפון שלי",
+          "השאלה: האם זה הטלפון שלי?"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "איך אומרים 'מחברת של הונדה'?",
+        "options": [
+          "no-to no Honda san",
+          "Honda san no no-to",
+          "Honda no-to san",
+          "no Honda san to"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "'Sore wa Tanaka san no tokei janaidesu' פירושו:",
+        "options": [
+          "זה השעון של טאנקה",
+          "זה לא השעון של טאנקה",
+          "האם זה השעון של טאנקה?",
+          "השעון של טאנקה שם"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מה ניתן לשלב אחרי '[בעלים] no [חפץ]'?",
+        "options": [
+          "רק desu",
+          "רק janaidesu",
+          "גם desu וגם janaidesu",
+          "שאלה בלבד"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "number": "שיעור 7",
+    "title": "KORE / SORE / ARE",
+    "subtitle": "これ・それ・あれ",
+    "emoji": "👈",
+    "grammarPoints": [
+      {
+        "title": "שלושה סוגי 'זה' ביפנית",
+        "content": "ביפנית יש 3 מילים ל'זה', לפי מרחק:\n• kore (これ) = זה/זאת - קרוב לדובר\n• sore (それ) = זה/זאת - קרוב לשומע\n• are (あれ) = זה/זאת - רחוק משניהם"
+      },
+      {
+        "title": "ne (ね) ו-yo (よ) - סיומות",
+        "content": "ne (ね) = סיומת ריכוך, כמו 'נכון?' - מחפשת אישור\nyo (よ) = סיומת הדגשה, כמו '!' - הדגשת מידע"
+      }
+    ],
+    "vocabulary": [
+      {
+        "japanese": "これ",
+        "romaji": "Kore",
+        "hebrew": "זה/זאת (קרוב לדובר)",
+        "emoji": "👈"
+      },
+      {
+        "japanese": "それ",
+        "romaji": "Sore",
+        "hebrew": "זה/זאת (קרוב לשומע)",
+        "emoji": "👉"
+      },
+      {
+        "japanese": "あれ",
+        "romaji": "Are",
+        "hebrew": "זה/זאת (רחוק משניהם)",
+        "emoji": "👀"
+      },
+      {
+        "japanese": "ラーメン",
+        "romaji": "Ra-men",
+        "hebrew": "ראמן",
+        "emoji": "🍜"
+      },
+      {
+        "japanese": "そば",
+        "romaji": "Soba",
+        "hebrew": "אטריות סובה",
+        "emoji": "🍝"
+      },
+      {
+        "japanese": "にく",
+        "romaji": "Niku",
+        "hebrew": "בשר",
+        "emoji": "🥩"
+      },
+      {
+        "japanese": "おいしい",
+        "romaji": "Oishii",
+        "hebrew": "טעים",
+        "emoji": "😋"
+      },
+      {
+        "japanese": "ね",
+        "romaji": "Ne",
+        "hebrew": "נכון? (סיומת ריכוך)",
+        "emoji": "💭"
+      },
+      {
+        "japanese": "よ",
+        "romaji": "Yo",
+        "hebrew": "! (סיומת הדגשה)",
+        "emoji": "❗"
+      }
+    ],
+    "examples": [
+      {
+        "romaji": "A: Kore wa osoba desu ka?",
+        "japanese": "これはおそばですか？",
+        "hebrew": "A: האם זה סובה?"
+      },
+      {
+        "romaji": "B: Iie, sore wa ra-men desu yo. Oishii desu yo!",
+        "japanese": "いいえ、それはラーメンですよ。おいしいですよ！",
+        "hebrew": "B: לא, זה ראמן! טעים מאוד!"
+      },
+      {
+        "romaji": "A: Kore wa oniku desu ne.",
+        "japanese": "これはおにくですね。",
+        "hebrew": "A: זה בשר, נכון?"
+      },
+      {
+        "romaji": "B: Hai, oniku desu.",
+        "japanese": "はい、おにくです。",
+        "hebrew": "B: כן, זה בשר."
+      },
+      {
+        "romaji": "Are wa nan desu ka?",
+        "japanese": "あれはなんですか？",
+        "hebrew": "מה זה שם (רחוק)?"
+      }
+    ],
+    "exercises": [
+      {
+        "question": "'kore' פירושו?",
+        "options": [
+          "זה - קרוב לשומע",
+          "זה - רחוק משניהם",
+          "זה - קרוב לדובר",
+          "זה - באמצע"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "מה ההבדל בין 'sore' ל-'are'?",
+        "options": [
+          "sore=קרוב לדובר, are=קרוב לשומע",
+          "sore=קרוב לשומע, are=רחוק משניהם",
+          "sore=רחוק, are=קרוב לדובר",
+          "אין הבדל"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מה פירוש 'ne' בסוף משפט?",
+        "options": [
+          "הדגשה !",
+          "ספק",
+          "חיפוש אישור - נכון?",
+          "שאלה רשמית"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "'Oishii desu yo!' פירושו:",
+        "options": [
+          "טעים, נכון?",
+          "טעים! (הדגשה)",
+          "לא טעים",
+          "האם טעים?"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "אתה ושומע שלך עומדים ליד עוגה. מה תשתמש?",
+        "options": [
+          "kore",
+          "sore",
+          "are",
+          "kono"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מה פירוש 'Ra-men'?",
+        "options": [
+          "סובה",
+          "בשר",
+          "ראמן",
+          "טעים"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "'Are wa niku desu ne' פירושו:",
+        "options": [
+          "זה בשר, נכון? (רחוק)",
+          "זה בשר! (קרוב)",
+          "האם זה בשר?",
+          "זה לא בשר"
+        ],
+        "correctIndex": 0,
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "number": "בונוס",
+    "title": "מספרים",
+    "subtitle": "Numbers",
+    "emoji": "🔢",
+    "grammarPoints": [
+      {
+        "title": "מספרים 0–10",
+        "content": "0: zero/rei\n1: ichi\n2: ni\n3: san\n4: yon/shi\n5: go\n6: roku\n7: nana/shichi\n8: hachi\n9: kyuu\n10: juu"
+      },
+      {
+        "title": "מספרים 11–99",
+        "content": "11–19: juu + ספרה (juu ichi, juu ni, juu san...)\n20–90: ספרה + juu (ni juu, san juu, yon juu, go juu, roku juu, nana juu, hachi juu, kyuu juu)\nדוגמה: 56 = go juu roku"
+      },
+      {
+        "title": "מאות",
+        "content": "100: hyaku\n200: ni hyaku\n300: *san byaku (לא סדיר!)\n400: yon hyaku\n500: go hyaku\n600: *roppyaku (לא סדיר!)\n700: nana hyaku\n800: *happyaku (לא סדיר!)\n900: kyuu hyaku"
+      },
+      {
+        "title": "אלפים",
+        "content": "1000: sen\n2000: ni sen\n3000: *san zen (לא סדיר!)\n4000: yon sen\n5000: go sen\n6000: roku sen\n7000: nana sen\n8000: *hassen (לא סדיר!)\n9000: kyuu sen\n* = צורה לא סדירה - לשים לב!"
+      }
+    ],
+    "vocabulary": [
+      {
+        "japanese": "ゼロ/れい",
+        "romaji": "Zero / Rei",
+        "hebrew": "0",
+        "emoji": "0️⃣"
+      },
+      {
+        "japanese": "いち",
+        "romaji": "Ichi",
+        "hebrew": "1",
+        "emoji": "1️⃣"
+      },
+      {
+        "japanese": "に",
+        "romaji": "Ni",
+        "hebrew": "2",
+        "emoji": "2️⃣"
+      },
+      {
+        "japanese": "さん",
+        "romaji": "San",
+        "hebrew": "3",
+        "emoji": "3️⃣"
+      },
+      {
+        "japanese": "よん/し",
+        "romaji": "Yon / Shi",
+        "hebrew": "4",
+        "emoji": "4️⃣"
+      },
+      {
+        "japanese": "ご",
+        "romaji": "Go",
+        "hebrew": "5",
+        "emoji": "5️⃣"
+      },
+      {
+        "japanese": "ろく",
+        "romaji": "Roku",
+        "hebrew": "6",
+        "emoji": "6️⃣"
+      },
+      {
+        "japanese": "なな/しち",
+        "romaji": "Nana / Shichi",
+        "hebrew": "7",
+        "emoji": "7️⃣"
+      },
+      {
+        "japanese": "はち",
+        "romaji": "Hachi",
+        "hebrew": "8",
+        "emoji": "8️⃣"
+      },
+      {
+        "japanese": "きゅう",
+        "romaji": "Kyuu",
+        "hebrew": "9",
+        "emoji": "9️⃣"
+      },
+      {
+        "japanese": "じゅう",
+        "romaji": "Juu",
+        "hebrew": "10",
+        "emoji": "🔟"
+      },
+      {
+        "japanese": "ひゃく",
+        "romaji": "Hyaku",
+        "hebrew": "100",
+        "emoji": "💯"
+      },
+      {
+        "japanese": "せん",
+        "romaji": "Sen",
+        "hebrew": "1000",
+        "emoji": "💴"
+      }
+    ],
+    "examples": [
+      {
+        "romaji": "8 = hachi",
+        "japanese": "8 = はち",
+        "hebrew": "8 = hachi"
+      },
+      {
+        "romaji": "17 = juu nana",
+        "japanese": "17 = じゅうなな",
+        "hebrew": "17 = juu nana"
+      },
+      {
+        "romaji": "56 = go juu roku",
+        "japanese": "56 = ごじゅうろく",
+        "hebrew": "56 = go juu roku"
+      },
+      {
+        "romaji": "300 = san byaku (*לא סדיר)",
+        "japanese": "300 = さんびゃく",
+        "hebrew": "300 = san byaku (צורה לא סדירה!)"
+      },
+      {
+        "romaji": "689 = roppyaku hachi juu kyuu (*לא סדיר)",
+        "japanese": "689 = ろっぴゃくはちじゅうきゅう",
+        "hebrew": "689 = roppyaku hachi juu kyuu"
+      },
+      {
+        "romaji": "1995 = sen kyuu hyaku kyuu juu go",
+        "japanese": "1995 = せんきゅうひゃくきゅうじゅうご",
+        "hebrew": "1995 = sen kyuu hyaku kyuu juu go"
+      },
+      {
+        "romaji": "8000 = hassen (*לא סדיר)",
+        "japanese": "8000 = はっせん",
+        "hebrew": "8000 = hassen (צורה לא סדירה!)"
+      }
+    ],
+    "exercises": [
+      {
+        "question": "מה קוראים למספר 7?",
+        "options": [
+          "roku",
+          "nana",
+          "hachi",
+          "kyuu"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "כיצד אומרים 17?",
+        "options": [
+          "nana juu",
+          "juu nana",
+          "juu shichi",
+          "nana ichi"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "איך אומרים 300?",
+        "options": [
+          "san hyaku",
+          "sanbyaku",
+          "san byaku",
+          "son byaku"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "מה הצורה הלא סדירה של 600?",
+        "options": [
+          "roku hyaku",
+          "roppyaku",
+          "rokku hyaku",
+          "roku pyaku"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "איך אומרים 8000?",
+        "options": [
+          "hachi sen",
+          "hassen",
+          "hatchi sen",
+          "hassenn"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "'go juu roku' שווה למספר:",
+        "options": [
+          "56",
+          "65",
+          "506",
+          "560"
+        ],
+        "correctIndex": 0,
+        "explanation": ""
+      },
+      {
+        "question": "איך אומרים 1995?",
+        "options": [
+          "ichi kyuu kyuu go",
+          "sen kyuu hyaku kyuu juu go",
+          "sen kyuu juu go",
+          "kyuu hyaku kyuu juu go"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מה קוראים ל-4?",
+        "options": [
+          "shi בלבד",
+          "yon בלבד",
+          "yon או shi",
+          "ichi"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "איך אומרים 3000?",
+        "options": [
+          "san sen",
+          "sanzen",
+          "san zen",
+          "sensen"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "'hachi juu kyuu' שווה למספר:",
+        "options": [
+          "89",
+          "98",
+          "809",
+          "980"
+        ],
+        "correctIndex": 0,
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "number": "שיעור 8",
+    "title": "KONO / SONO / ANO",
+    "subtitle": "この・その・あの",
+    "emoji": "📍",
+    "grammarPoints": [
+      {
+        "title": "kono/sono/ano - כמו kore/sore/are + שם עצם",
+        "content": "kono/sono/ano = כמו kore/sore/are אבל חייב לבוא אחריהם שם עצם.\nkono = 'ה...הזה/הזאת' (קרוב לדובר)\nsono = 'ה...ההוא/ההיא' (קרוב לשומע)\nano = 'ה...ההוא/ההיא' (רחוק משניהם)",
+        "pattern": "kono/sono/ano + [שם עצם] + wa ... desu"
+      },
+      {
+        "title": "en (円) - ין יפני",
+        "content": "en = ין יפני (מטבע). משתמשים עם מחירים. דוגמה: sen ni hyaku en = 1200 ין"
+      }
+    ],
+    "vocabulary": [
+      {
+        "japanese": "スマホ",
+        "romaji": "Sumaho",
+        "hebrew": "טלפון חכם",
+        "emoji": "📱"
+      },
+      {
+        "japanese": "カード",
+        "romaji": "Kaado",
+        "hebrew": "כרטיס אשראי",
+        "emoji": "💳"
+      },
+      {
+        "japanese": "とけい",
+        "romaji": "Tokei",
+        "hebrew": "שעון",
+        "emoji": "⌚"
+      },
+      {
+        "japanese": "かさ",
+        "romaji": "Kasa",
+        "hebrew": "מטריה",
+        "emoji": "☂️"
+      },
+      {
+        "japanese": "さいふ",
+        "romaji": "Saifu",
+        "hebrew": "ארנק",
+        "emoji": "👛"
+      },
+      {
+        "japanese": "かばん",
+        "romaji": "Kaban",
+        "hebrew": "תיק",
+        "emoji": "👜"
+      },
+      {
+        "japanese": "くつ",
+        "romaji": "Kutsu",
+        "hebrew": "נעליים",
+        "emoji": "👟"
+      },
+      {
+        "japanese": "ぼうし",
+        "romaji": "Boushi",
+        "hebrew": "כובע",
+        "emoji": "🎩"
+      },
+      {
+        "japanese": "えん",
+        "romaji": "En",
+        "hebrew": "ין (מטבע יפני)",
+        "emoji": "💴"
+      }
+    ],
+    "examples": [
+      {
+        "romaji": "Kono no-to wa hyaku en desu.",
+        "japanese": "このノートはひゃくえんです。",
+        "hebrew": "המחברת הזאת עולה 100 ין."
+      },
+      {
+        "romaji": "Sono osoba wa oishii desu ka?",
+        "japanese": "そのおそばはおいしいですか？",
+        "hebrew": "האם הסובה ההיא טעים?"
+      },
+      {
+        "romaji": "Ano nihonjin wa Suzuki san janaidesu.",
+        "japanese": "あのにほんじんはすずきさんじゃないです。",
+        "hebrew": "אותו יפני אינו סוזוקי."
+      },
+      {
+        "romaji": "Kono boushi wa sen ni hyaku en desu.",
+        "japanese": "このぼうしはせんにひゃくえんです。",
+        "hebrew": "הכובע הזה עולה 1,200 ין."
+      },
+      {
+        "romaji": "Sono kasa wa roppyaku hachi juu en desu.",
+        "japanese": "そのかさはろっぴゃくはちじゅうえんです。",
+        "hebrew": "המטריה ההיא עולה 680 ין."
+      }
+    ],
+    "exercises": [
+      {
+        "question": "מה ההבדל בין 'kore' ל-'kono'?",
+        "options": [
+          "אין הבדל",
+          "kono חייב לבוא לפני שם עצם, kore לא",
+          "kore חייב לבוא לפני שם עצם, kono לא",
+          "kono=קרוב, kore=רחוק"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "'Kono tokei wa...' פירושו:",
+        "options": [
+          "השעון שם...",
+          "השעון ההוא...",
+          "השעון הזה...",
+          "איזה שעון?"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "איך אומרים 'המטריה ההיא' (קרוב לשומע)?",
+        "options": [
+          "kono kasa",
+          "sono kasa",
+          "ano kasa",
+          "are kasa"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מה פירוש 'En'?",
+        "options": [
+          "ין יפני",
+          "שעון",
+          "כרטיס אשראי",
+          "ארנק"
+        ],
+        "correctIndex": 0,
+        "explanation": ""
+      },
+      {
+        "question": "'Ano saifu wa hassen en desu' פירושו:",
+        "options": [
+          "הארנק הזה 8,000 ין",
+          "הארנק ההוא (רחוק) 8,000 ין",
+          "הארנק שלי 8,000 ין",
+          "האם הארנק 8,000 ין?"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מתי משתמשים ב-'sono'?",
+        "options": [
+          "קרוב לדובר",
+          "רחוק משניהם",
+          "קרוב לשומע",
+          "כשאין שם עצם"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "'Kono kaban wa ni sen nana hyaku en desu' = כמה ין?",
+        "options": [
+          "1,700",
+          "2,700",
+          "2,070",
+          "27,000"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "number": "שיעור 9",
+    "title": "פעלים: אוצר מילים",
+    "subtitle": "Verbs Vocabulary",
+    "emoji": "🏃",
+    "grammarPoints": [
+      {
+        "title": "שתי קבוצות פעלים",
+        "content": "ביפנית יש שתי קבוצות עיקריות:\n• פעלי RU (Group 2): מסתיימים ב-ru\n  דוגמאות: Taberu, Miru, Neru, Okiru\n• פעלי U (Group 1): מסתיימים ב-u אחרת\n  דוגמאות: Kiku, Iku, Yomu, Nomu, Kaeru, Hanasu"
+      },
+      {
+        "title": "פעלים לא סדירים",
+        "content": "שני פעלים לא סדירים:\n• Suru (する) = לעשות → Shimasu\n• Kuru (くる) = לבוא → Kimasu\nצורת המילון (dictionary form) = הצורה הבסיסית"
+      }
+    ],
+    "vocabulary": [
+      {
+        "japanese": "たべる",
+        "romaji": "Taberu",
+        "hebrew": "לאכול",
+        "emoji": "🍽️"
+      },
+      {
+        "japanese": "みる",
+        "romaji": "Miru",
+        "hebrew": "לראות / לצפות",
+        "emoji": "👀"
+      },
+      {
+        "japanese": "おきる",
+        "romaji": "Okiru",
+        "hebrew": "לקום",
+        "emoji": "🛏️"
+      },
+      {
+        "japanese": "ねる",
+        "romaji": "Neru",
+        "hebrew": "לישון",
+        "emoji": "😴"
+      },
+      {
+        "japanese": "はなす",
+        "romaji": "Hanasu",
+        "hebrew": "לדבר",
+        "emoji": "💬"
+      },
+      {
+        "japanese": "きく",
+        "romaji": "Kiku",
+        "hebrew": "לשמוע / להקשיב",
+        "emoji": "👂"
+      },
+      {
+        "japanese": "いく",
+        "romaji": "Iku",
+        "hebrew": "ללכת / לנסוע",
+        "emoji": "🚶"
+      },
+      {
+        "japanese": "よむ",
+        "romaji": "Yomu",
+        "hebrew": "לקרוא",
+        "emoji": "📖"
+      },
+      {
+        "japanese": "のむ",
+        "romaji": "Nomu",
+        "hebrew": "לשתות",
+        "emoji": "🥤"
+      },
+      {
+        "japanese": "かえる",
+        "romaji": "Kaeru",
+        "hebrew": "לחזור",
+        "emoji": "🏠"
+      },
+      {
+        "japanese": "する",
+        "romaji": "Suru",
+        "hebrew": "לעשות (לא סדיר)",
+        "emoji": "✅"
+      },
+      {
+        "japanese": "くる",
+        "romaji": "Kuru",
+        "hebrew": "לבוא (לא סדיר)",
+        "emoji": "🚶"
+      },
+      {
+        "japanese": "べんきょうする",
+        "romaji": "Benkyou suru",
+        "hebrew": "ללמוד",
+        "emoji": "📚"
+      }
+    ],
+    "examples": [
+      {
+        "romaji": "Taberu = לאכול (RU verb)",
+        "japanese": "",
+        "hebrew": "RU verb: הורד ru, הוסף masu = Tabemasu"
+      },
+      {
+        "romaji": "Kiku = לשמוע (U verb)",
+        "japanese": "",
+        "hebrew": "U verb: שנה u→i, הוסף masu = Kikimasu"
+      },
+      {
+        "romaji": "Suru → Shimasu (irregular!)",
+        "japanese": "",
+        "hebrew": "לא סדיר: לעשות → עושה"
+      },
+      {
+        "romaji": "Kuru → Kimasu (irregular!)",
+        "japanese": "",
+        "hebrew": "לא סדיר: לבוא → בא/ה"
+      }
+    ],
+    "exercises": [
+      {
+        "question": "'Taberu' שייך לאיזו קבוצה?",
+        "options": [
+          "U verb",
+          "RU verb",
+          "לא סדיר",
+          "Group 3"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מה פירוש 'Nomu'?",
+        "options": [
+          "לאכול",
+          "לשתות",
+          "לישון",
+          "לקרוא"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "'Suru' הוא...",
+        "options": [
+          "RU verb",
+          "U verb",
+          "פועל לא סדיר",
+          "Group 1"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "מה פירוש 'Kaeru'?",
+        "options": [
+          "לבוא",
+          "ללכת",
+          "לחזור",
+          "לקום"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "'Kiku' שייך לאיזו קבוצה?",
+        "options": [
+          "RU verb",
+          "U verb",
+          "לא סדיר",
+          "אף אחד"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מה פירוש 'Okiru'?",
+        "options": [
+          "לישון",
+          "לקום",
+          "לדבר",
+          "לקרוא"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "'Miru' = ?",
+        "options": [
+          "לשמוע",
+          "לדבר",
+          "לראות/לצפות",
+          "לקרוא"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "'Kuru' הוא פועל לא סדיר. מה צורת ה-masu שלו?",
+        "options": [
+          "Kurumasu",
+          "Shimasu",
+          "Kimasu",
+          "Kurimas"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "number": "שיעורים 9-10",
+    "title": "צורת MASU",
+    "subtitle": "MASU Form",
+    "emoji": "✅",
+    "grammarPoints": [
+      {
+        "title": "masu (ます) - הווה/עתיד פורמלי",
+        "content": "masu = סיומת פורמלית לפעלים בהווה ועתיד.\nמשמשת לדיבור פורמלי ומנומס.",
+        "pattern": "[נושא] wa [מושא] wo [פועל-masu]"
+      },
+      {
+        "title": "הטיית RU verbs",
+        "content": "פעלי RU: הורד 'ru', הוסף 'masu'",
+        "pattern": "Taberu → Tabe + masu = Tabemasu"
+      },
+      {
+        "title": "הטיית U verbs",
+        "content": "פעלי U: שנה 'u' → 'i', הוסף 'masu'",
+        "pattern": "Kiku → Kiki + masu = Kikimasu\nHanasu → Hanashi + masu = Hanashimasu"
+      },
+      {
+        "title": "פעלים לא סדירים",
+        "content": "Suru → Shimasu\nKuru → Kimasu\nBenkyou suru → Benkyou shimasu"
+      },
+      {
+        "title": "masen (ません) - שלילה",
+        "content": "להטיה שלילית: הורד 'masu', הוסף 'masen'",
+        "pattern": "Tabemasu → Tabemasen\nKikimasu → Kikimasen"
+      }
+    ],
+    "vocabulary": [
+      {
+        "japanese": "たべる (Taberu)",
+        "romaji": "Tabemasu / Tabemasen",
+        "hebrew": "לאכול",
+        "emoji": "🍽️"
+      },
+      {
+        "japanese": "みる (Miru)",
+        "romaji": "Mimasu / Mimasen",
+        "hebrew": "לראות",
+        "emoji": "👀"
+      },
+      {
+        "japanese": "おきる (Okiru)",
+        "romaji": "Okimasu / Okimasen",
+        "hebrew": "לקום",
+        "emoji": "🛏️"
+      },
+      {
+        "japanese": "ねる (Neru)",
+        "romaji": "Nemasu / Nemasen",
+        "hebrew": "לישון",
+        "emoji": "😴"
+      },
+      {
+        "japanese": "はなす (Hanasu)",
+        "romaji": "Hanashimasu / Hanashimasen",
+        "hebrew": "לדבר",
+        "emoji": "💬"
+      },
+      {
+        "japanese": "きく (Kiku)",
+        "romaji": "Kikimasu / Kikimasen",
+        "hebrew": "לשמוע",
+        "emoji": "👂"
+      },
+      {
+        "japanese": "いく (Iku)",
+        "romaji": "Ikimasu / Ikimasen",
+        "hebrew": "ללכת",
+        "emoji": "🚶"
+      },
+      {
+        "japanese": "よむ (Yomu)",
+        "romaji": "Yomimasu / Yomimasen",
+        "hebrew": "לקרוא",
+        "emoji": "📖"
+      },
+      {
+        "japanese": "のむ (Nomu)",
+        "romaji": "Nomimasu / Nomimasen",
+        "hebrew": "לשתות",
+        "emoji": "🥤"
+      },
+      {
+        "japanese": "かえる (Kaeru)",
+        "romaji": "Kaerimasu / Kaerimasen",
+        "hebrew": "לחזור",
+        "emoji": "🏠"
+      },
+      {
+        "japanese": "する (Suru)",
+        "romaji": "Shimasu / Shimasen",
+        "hebrew": "לעשות (לא סדיר)",
+        "emoji": "✅"
+      },
+      {
+        "japanese": "くる (Kuru)",
+        "romaji": "Kimasu / Kimasen",
+        "hebrew": "לבוא (לא סדיר)",
+        "emoji": "🚶"
+      },
+      {
+        "japanese": "べんきょうする",
+        "romaji": "Benkyou shimasu / Benkyou shimasen",
+        "hebrew": "ללמוד",
+        "emoji": "📚"
+      }
+    ],
+    "examples": [
+      {
+        "romaji": "Watashi wa tabemasu.",
+        "japanese": "わたしはたべます。",
+        "hebrew": "אני אוכל/ת."
+      },
+      {
+        "romaji": "Honda san wa nomimasu.",
+        "japanese": "ほんださんはのみます。",
+        "hebrew": "מר הונדה שותה."
+      },
+      {
+        "romaji": "Nihonjin wa benkyou shimasu.",
+        "japanese": "にほんじんはべんきょうします。",
+        "hebrew": "היפני/ת לומד/ת."
+      },
+      {
+        "romaji": "Suzuki san wa kikimasen.",
+        "japanese": "すずきさんはききません。",
+        "hebrew": "סוזוקי לא מקשיב/ה."
+      },
+      {
+        "romaji": "Honda san wa sakana wo tabemasuka?",
+        "japanese": "ほんださんはさかなをたべますか？",
+        "hebrew": "האם הונדה אוכל/ת דגים?"
+      }
+    ],
+    "exercises": [
+      {
+        "question": "מה צורת ה-masu של 'Taberu'?",
+        "options": [
+          "Taberimasu",
+          "Tabemasu",
+          "Taberumasu",
+          "Tabimasu"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מה צורת ה-masu של 'Kiku'?",
+        "options": [
+          "Kikumasu",
+          "Kikimasu",
+          "Kikusmasu",
+          "Kiimasu"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מה צורת השלילה של 'Tabemasu'?",
+        "options": [
+          "Tabejanai",
+          "Tabemasen",
+          "Tabenai",
+          "Tabemasuka"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מה צורת ה-masu של 'Suru' (לא סדיר)?",
+        "options": [
+          "Surumasu",
+          "Simasu",
+          "Shimasu",
+          "Surimasu"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "'Watashi wa nemasu' פירושו:",
+        "options": [
+          "אני ישן/ה",
+          "אני קם/ה",
+          "אני אוכל/ת",
+          "אני שותה"
+        ],
+        "correctIndex": 0,
+        "explanation": ""
+      },
+      {
+        "question": "מה צורת ה-masu של 'Hanasu'?",
+        "options": [
+          "Hanamasu",
+          "Hanasumasu",
+          "Hanashimasu",
+          "Hanasimasu"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "'Kikimasen' פירושו:",
+        "options": [
+          "מקשיב/ה",
+          "לא מקשיב/ה",
+          "אשמע",
+          "האם תשמע?"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מה צורת ה-masu של 'Kuru' (לא סדיר)?",
+        "options": [
+          "Kurumasu",
+          "Kimasu",
+          "Kumasu",
+          "Kirumasu"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "'Honda san wa nomimasu ka?' = ?",
+        "options": [
+          "הונדה שותה",
+          "האם הונדה שותה?",
+          "הונדה לא שותה",
+          "מה הונדה שותה?"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מה צורת ה-masu של 'Kaeru'?",
+        "options": [
+          "Kaemasu",
+          "Kaerimasu",
+          "Kaerumasu",
+          "Kaemasu"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "number": "שיעור 11",
+    "title": "מילית המושא: WO",
+    "subtitle": "WO (を)",
+    "emoji": "🎯",
+    "grammarPoints": [
+      {
+        "title": "wo (を) - מילית מושא",
+        "content": "wo (を) = מציינת מושא (אובייקט) של הפועל.\nמגיעה אחרי המושא, לפני הפועל.\nהגייה: 'o' (למרות שנכתב wo).",
+        "pattern": "[נושא] wa [מושא] wo [פועל-masu]"
+      },
+      {
+        "title": "סדר המשפט",
+        "content": "סדר קבוע: נושא → זמן → מקום → מושא → פועל\nהמושא תמיד לפני הפועל."
+      }
+    ],
+    "vocabulary": [
+      {
+        "japanese": "さかな",
+        "romaji": "Sakana",
+        "hebrew": "דג",
+        "emoji": "🐟"
+      },
+      {
+        "japanese": "ベジタリアン",
+        "romaji": "Bejitarian",
+        "hebrew": "צמחוני/ת",
+        "emoji": "🥗"
+      },
+      {
+        "japanese": "ビール",
+        "romaji": "Bi-ru",
+        "hebrew": "בירה",
+        "emoji": "🍺"
+      },
+      {
+        "japanese": "ワイン",
+        "romaji": "Wain",
+        "hebrew": "יין",
+        "emoji": "🍷"
+      },
+      {
+        "japanese": "ちょっと",
+        "romaji": "Chotto",
+        "hebrew": "קצת",
+        "emoji": "🤏"
+      },
+      {
+        "japanese": "えいが",
+        "romaji": "Eiga",
+        "hebrew": "סרט",
+        "emoji": "🎬"
+      },
+      {
+        "japanese": "にほんご",
+        "romaji": "Nihongo",
+        "hebrew": "יפנית (שפה)",
+        "emoji": "🇯🇵"
+      },
+      {
+        "japanese": "フランス語",
+        "romaji": "Furansugo",
+        "hebrew": "צרפתית (שפה)",
+        "emoji": "🇫🇷"
+      },
+      {
+        "japanese": "ハンバーガー",
+        "romaji": "Hamba-ga-",
+        "hebrew": "המבורגר",
+        "emoji": "🍔"
+      },
+      {
+        "japanese": "おんがく",
+        "romaji": "Ongaku",
+        "hebrew": "מוסיקה",
+        "emoji": "🎵"
+      },
+      {
+        "japanese": "テレビ",
+        "romaji": "Terebi",
+        "hebrew": "טלוויזיה",
+        "emoji": "📺"
+      }
+    ],
+    "examples": [
+      {
+        "romaji": "Watashi wa eiga wo mimasu.",
+        "japanese": "わたしはえいがをみます。",
+        "hebrew": "אני צופה בסרט."
+      },
+      {
+        "romaji": "Watashi wa Furansugo wo hanashimasu.",
+        "japanese": "わたしはフランス語をはなします。",
+        "hebrew": "אני מדבר/ת צרפתית."
+      },
+      {
+        "romaji": "Watashi wa nihongo no hon wo yomimasu.",
+        "japanese": "わたしはにほんごのほんをよみます。",
+        "hebrew": "אני קורא/ת ספר יפנית."
+      },
+      {
+        "romaji": "A: Honda san wa sakana wo tabemasuka? / B: Iie, watashi wa bejitarian desu. / A: Wain wo nomimasuka? / B: Iie, bi-ru wa chotto... Watashi wa wain wo nomimasu ne.",
+        "japanese": "ほんださんはさかなをたべますか？/ いいえ、わたしはベジタリアンです。/ ワインをのみますか？/ いいえ、ビールはちょっと...わたしはワインをのみますね。",
+        "hebrew": "דיאלוג: האם הונדה אוכל/ת דגים? / לא, אני צמחוני/ת. / האם שותה יין? / לא, בירה קצת... אני שותה יין, נכון."
+      }
+    ],
+    "exercises": [
+      {
+        "question": "מה עושה המילית 'wo' במשפט?",
+        "options": [
+          "מציינת נושא",
+          "מציינת מושא",
+          "מציינת זמן",
+          "מציינת מקום"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "'Watashi wa eiga wo mimasu' פירושו:",
+        "options": [
+          "אני שומע/ת סרט",
+          "אני צופה בסרט",
+          "אני עושה סרט",
+          "אני קורא/ת סרט"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "איפה מגיעה 'wo' במשפט?",
+        "options": [
+          "אחרי הנושא",
+          "אחרי הפועל",
+          "אחרי המושא לפני הפועל",
+          "בתחילת המשפט"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "איך אומרים 'אני שותה בירה'?",
+        "options": [
+          "Watashi wa bi-ru wo nomimasu",
+          "Watashi wo bi-ru wa nomimasu",
+          "Bi-ru wo watashi wa nomimasu",
+          "Watashi wa nomimasu bi-ru wo"
+        ],
+        "correctIndex": 0,
+        "explanation": ""
+      },
+      {
+        "question": "מה פירוש 'Chotto'?",
+        "options": [
+          "הרבה",
+          "קצת",
+          "בסדר",
+          "לא"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "'Nihongo wo hanashimasu' פירושו:",
+        "options": [
+          "לומד/ת יפנית",
+          "כותב/ת יפנית",
+          "מדבר/ת יפנית",
+          "קורא/ת יפנית"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "מה הגייה נכונה של 'を'?",
+        "options": [
+          "wo",
+          "o",
+          "we",
+          "wi"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "'Ongaku wo kikimasu' פירושו:",
+        "options": [
+          "עושה מוסיקה",
+          "מקשיב/ה למוסיקה",
+          "כותב/ת מוסיקה",
+          "רואה מוסיקה"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "number": "שיעור 12",
+    "title": "מילית הזמן: NI",
+    "subtitle": "NI Time (に)",
+    "emoji": "⏰",
+    "grammarPoints": [
+      {
+        "title": "ni (に) - מילית זמן ספציפי",
+        "content": "ni (に) = 'ב-' לציון שעה/תאריך ספציפי.\nמגיעה אחרי הזמן הספציפי.\nרק עם זמן ספציפי! לא עם: ima (עכשיו), kinou (אתמול), mainichi (כל יום).",
+        "pattern": "[נושא] wa [שעה] ji ni [פועל]"
+      },
+      {
+        "title": "ji (じ) - שעה",
+        "content": "ji = o'clock (שעה).\nji han = וחצי.\nדוגמה: 7 ji = 7 בשבע, 19 ji han = 19:30"
+      },
+      {
+        "title": "סדר המשפט המלא",
+        "content": "סדר מלא: נושא → זמן + ni → מקום + de → מושא + wo → פועל",
+        "pattern": "Subject wa [time] ni [place] de [object] wo [verb-masu]"
+      }
+    ],
+    "vocabulary": [
+      {
+        "japanese": "ごはん",
+        "romaji": "Gohan",
+        "hebrew": "אוכל / אורז מבושל",
+        "emoji": "🍚"
+      },
+      {
+        "japanese": "あさごはん",
+        "romaji": "Asagohan",
+        "hebrew": "ארוחת בוקר",
+        "emoji": "🌅"
+      },
+      {
+        "japanese": "ひるごはん",
+        "romaji": "Hirugohan",
+        "hebrew": "ארוחת צהריים",
+        "emoji": "☀️"
+      },
+      {
+        "japanese": "ばんごはん",
+        "romaji": "Bangohan",
+        "hebrew": "ארוחת ערב",
+        "emoji": "🌙"
+      },
+      {
+        "japanese": "しごと",
+        "romaji": "Shigoto",
+        "hebrew": "עבודה",
+        "emoji": "💼"
+      },
+      {
+        "japanese": "じ",
+        "romaji": "Ji",
+        "hebrew": "שעה (o'clock)",
+        "emoji": "⏰"
+      },
+      {
+        "japanese": "じはん",
+        "romaji": "Ji han",
+        "hebrew": "וחצי (half past)",
+        "emoji": "🕧"
+      },
+      {
+        "japanese": "いま",
+        "romaji": "Ima",
+        "hebrew": "עכשיו (ללא ni!)",
+        "emoji": "⚡"
+      },
+      {
+        "japanese": "まいにち",
+        "romaji": "Mainichi",
+        "hebrew": "כל יום (ללא ni!)",
+        "emoji": "📅"
+      }
+    ],
+    "examples": [
+      {
+        "romaji": "Watashi wa 7 ji ni okimasu.",
+        "japanese": "わたしは7じにおきます。",
+        "hebrew": "אני קם/ה בשבע."
+      },
+      {
+        "romaji": "8 ji ni asagohan wo tabemasu.",
+        "japanese": "8じにあさごはんをたべます。",
+        "hebrew": "בשמונה אוכל/ת ארוחת בוקר."
+      },
+      {
+        "romaji": "9 ji ni shigoto wo shimasu.",
+        "japanese": "9じにしごとをします。",
+        "hebrew": "בתשע עובד/ת."
+      },
+      {
+        "romaji": "17 ji ni yoga wo shimasu.",
+        "japanese": "17じにヨガをします。",
+        "hebrew": "ב-17 עושה יוגה."
+      },
+      {
+        "romaji": "19 ji han ni bangohan wo tabemasu.",
+        "japanese": "19じはんにばんごはんをたべます。",
+        "hebrew": "ב-19:30 אוכל/ת ארוחת ערב."
+      },
+      {
+        "romaji": "23 ji ni nemasu.",
+        "japanese": "23じにねます。",
+        "hebrew": "ב-23 ישן/ה."
+      },
+      {
+        "romaji": "Watashi wa ima tabemasu. (no ni!)",
+        "japanese": "わたしはいまたべます。",
+        "hebrew": "אני אוכל/ת עכשיו. (ima = ללא ni)"
+      }
+    ],
+    "exercises": [
+      {
+        "question": "מתי משתמשים ב-'ni' לציון זמן?",
+        "options": [
+          "תמיד עם זמן",
+          "רק עם זמן יחסי (עכשיו, אתמול)",
+          "רק עם שעות ותאריכים ספציפיים",
+          "אחרי כל שם עצם"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "'7 ji ni okimasu' פירושו:",
+        "options": [
+          "אני קם/ה בשש",
+          "אני קם/ה בשבע",
+          "אני ישן/ה בשבע",
+          "בשבע אוכל/ת"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מה פירוש 'ji han'?",
+        "options": [
+          "שעה מדויקת",
+          "וחצי (half past)",
+          "שעה ורבע",
+          "חצות"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "'Ima tabemasu' - למה אין 'ni' אחרי 'ima'?",
+        "options": [
+          "שגיאה",
+          "ima הוא זמן יחסי, לא ספציפי",
+          "ima = שם עצם",
+          "ni לא בא עם אוכל"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "איך אומרים '19:30'?",
+        "options": [
+          "juu kyuu ji",
+          "juu kyuu ji han",
+          "kyuu juu ji han",
+          "juu kyuu han ji"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "'Bangohan wo tabemasu' עם שעה 8 = ?",
+        "options": [
+          "8 ji bangohan wo tabemasu",
+          "8 ji ni bangohan wo tabemasu",
+          "Bangohan 8 ji ni tabemasu",
+          "8 ni ji bangohan tabemasu"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מה פירוש 'Asagohan'?",
+        "options": [
+          "ארוחת ערב",
+          "ארוחת צהריים",
+          "ארוחת בוקר",
+          "אורז"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "'Mainichi shigoto wo shimasu' - למה אין 'ni'?",
+        "options": [
+          "שגיאה",
+          "mainichi = זמן יחסי",
+          "mainichi = שם עצם",
+          "ni בא אחרי shigoto"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "number": "שיעור 13",
+    "title": "מילית המקום: DE",
+    "subtitle": "DE (で) - Location",
+    "emoji": "🏠",
+    "grammarPoints": [
+      {
+        "title": "de (で) - מקום הפעולה",
+        "content": "de (で) = 'ב-' / 'אצל' - מציינת מקום שבו הפעולה מתרחשת.\nמגיעה אחרי שם המקום.",
+        "pattern": "[מקום] de [פועל]"
+      },
+      {
+        "title": "de (で) - אמצעי / כלי",
+        "content": "de גם = 'ב-' / 'עם' / 'על ידי' - ציון אמצעי.\nדוגמה: kuruma de = במכונית, basu de = באוטובוס"
+      },
+      {
+        "title": "סדר המשפט המלא",
+        "content": "נושא → זמן + ni → מקום + de → מושא + wo → פועל\nהמקום בא אחרי הזמן ולפני המושא.",
+        "pattern": "[נושא] wa [זמן] ni [מקום] de [מושא] wo [פועל]"
+      }
+    ],
+    "vocabulary": [
+      {
+        "japanese": "キッチン",
+        "romaji": "Kicchin",
+        "hebrew": "מטבח",
+        "emoji": "🍳"
+      },
+      {
+        "japanese": "ホテル",
+        "romaji": "Hoteru",
+        "hebrew": "מלון",
+        "emoji": "🏨"
+      },
+      {
+        "japanese": "リビングルーム",
+        "romaji": "Ribingu rumu",
+        "hebrew": "סלון",
+        "emoji": "🛋️"
+      },
+      {
+        "japanese": "オフィス",
+        "romaji": "Ofisu",
+        "hebrew": "משרד",
+        "emoji": "🏢"
+      },
+      {
+        "japanese": "ジム",
+        "romaji": "Jimu",
+        "hebrew": "חדר כושר",
+        "emoji": "💪"
+      },
+      {
+        "japanese": "レストラン",
+        "romaji": "Resutoran",
+        "hebrew": "מסעדה",
+        "emoji": "🍴"
+      },
+      {
+        "japanese": "パブ",
+        "romaji": "Pabu",
+        "hebrew": "בר / פאב",
+        "emoji": "🍻"
+      },
+      {
+        "japanese": "うち / いえ",
+        "romaji": "Uchi / Ie",
+        "hebrew": "בית",
+        "emoji": "🏠"
+      },
+      {
+        "japanese": "くるま",
+        "romaji": "Kuruma",
+        "hebrew": "מכונית",
+        "emoji": "🚗"
+      },
+      {
+        "japanese": "バス",
+        "romaji": "Basu",
+        "hebrew": "אוטובוס",
+        "emoji": "🚌"
+      }
+    ],
+    "examples": [
+      {
+        "romaji": "Watashi wa resutoran de tabemasu.",
+        "japanese": "わたしはレストランでたべます。",
+        "hebrew": "אני אוכל/ת במסעדה."
+      },
+      {
+        "romaji": "Watashi wa resutoran de piza wo tabemasu.",
+        "japanese": "わたしはレストランでピザをたべます。",
+        "hebrew": "אני אוכל/ת פיצה במסעדה."
+      },
+      {
+        "romaji": "Watashi wa 6 ji ni resutoran de piza wo tabemasu.",
+        "japanese": "わたしは6じにレストランでピザをたべます。",
+        "hebrew": "בשש אני אוכל/ת פיצה במסעדה."
+      },
+      {
+        "romaji": "Watashi wa asa kicchin de nihongo wo hanashimasu.",
+        "japanese": "わたしはあさキッチンでにほんごをはなします。",
+        "hebrew": "בבוקר אני מדבר/ת יפנית במטבח."
+      },
+      {
+        "romaji": "Watashi wa basu de shigoto ni ikimasu.",
+        "japanese": "わたしはバスでしごとにいきます。",
+        "hebrew": "אני הולך/ת לעבודה באוטובוס (de=אמצעי)."
+      }
+    ],
+    "exercises": [
+      {
+        "question": "מה עושה 'de' במשפט?",
+        "options": [
+          "מציינת כיוון",
+          "מציינת מקום הפעולה או אמצעי",
+          "מציינת זמן",
+          "מציינת נושא"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "'Jimu de yoga wo shimasu' פירושו:",
+        "options": [
+          "הולך/ת לחדר כושר",
+          "עושה יוגה בחדר כושר",
+          "חדר כושר טוב",
+          "יוגה בחדר"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "'Basu de ikimasu' - 'basu de' מציין:",
+        "options": [
+          "יעד",
+          "מקום הפעולה",
+          "אמצעי תחבורה",
+          "זמן"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "מה הסדר הנכון?",
+        "options": [
+          "זמן + de → מקום + ni → מושא",
+          "זמן + ni → מקום + de → מושא + wo",
+          "מקום + de → זמן + ni → מושא",
+          "מושא + wo → מקום + de → זמן"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "'Watashi wa ofisu de shigoto wo shimasu' פירושו:",
+        "options": [
+          "אני הולך/ת למשרד",
+          "אני עובד/ת במשרד",
+          "אני גר/ה במשרד",
+          "המשרד שלי"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מה פירוש 'Kicchin'?",
+        "options": [
+          "סלון",
+          "משרד",
+          "מטבח",
+          "מסעדה"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "'Kuruma de ikimasu' פירושו:",
+        "options": [
+          "הולך/ת לרכב",
+          "הולך/ת ברכב (במכונית)",
+          "נוהג/ת רכב",
+          "רכב נוסע"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "איפה מגיעה 'de' במשפט?",
+        "options": [
+          "אחרי הנושא",
+          "אחרי הזמן, לפני המושא",
+          "לפני הנושא",
+          "בסוף המשפט"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "number": "שיעור 14",
+    "title": "מילית הכיוון: NI",
+    "subtitle": "NI Direction (に)",
+    "emoji": "➡️",
+    "grammarPoints": [
+      {
+        "title": "ni (に) - כיוון / יעד",
+        "content": "ni (に) = 'ל-' / 'אל' - מציינת יעד / כיוון.\nמשמשת עם פעלי תנועה: iku (ללכת), kuru (לבוא), kaeru (לחזור).",
+        "pattern": "[נושא] wa [יעד] ni [פועל תנועה]"
+      },
+      {
+        "title": "de vs. ni - ההבדל",
+        "content": "de = מקום שבו הפעולה מתרחשת\nni = יעד שאליו הולכים\nדוגמה:\n• Jimu de yoga wo shimasu = עושה יוגה בחדר כושר (de)\n• Jimu ni ikimasu = הולך/ת לחדר כושר (ni)"
+      },
+      {
+        "title": "soshite (そして) - חיבור משפטים",
+        "content": "soshite = 'ו-' / 'ואז' - מחבר בין שני משפטים.\nדוגמה: Jimu ni ikimashita. Soshite, yoga wo shimashita."
+      },
+      {
+        "title": "kinou (きのう) - אתמול",
+        "content": "kinou = אתמול. זמן יחסי → ללא ni!\nדוגמה: Kinou eiga wo mimashita. (ללא ni אחרי kinou)"
+      }
+    ],
+    "vocabulary": [
+      {
+        "japanese": "きのう",
+        "romaji": "Kinou",
+        "hebrew": "אתמול",
+        "emoji": "📅"
+      },
+      {
+        "japanese": "そして",
+        "romaji": "Soshite",
+        "hebrew": "ואז / ו- (חיבור)",
+        "emoji": "🔗"
+      },
+      {
+        "japanese": "うみ",
+        "romaji": "Umi",
+        "hebrew": "ים",
+        "emoji": "🌊"
+      },
+      {
+        "japanese": "しょっぴんぐもーる",
+        "romaji": "Shoppingu mo-ru",
+        "hebrew": "קניון",
+        "emoji": "🛍️"
+      },
+      {
+        "japanese": "とうきょう",
+        "romaji": "Tokyou",
+        "hebrew": "טוקיו",
+        "emoji": "🗼"
+      },
+      {
+        "japanese": "うち / いえ",
+        "romaji": "Uchi / Ie",
+        "hebrew": "הבית",
+        "emoji": "🏠"
+      },
+      {
+        "japanese": "ジム",
+        "romaji": "Jimu",
+        "hebrew": "חדר כושר",
+        "emoji": "💪"
+      }
+    ],
+    "examples": [
+      {
+        "romaji": "Watashi wa Tokyou ni ikimasu.",
+        "japanese": "わたしはとうきょうにいきます。",
+        "hebrew": "אני הולך/ת לטוקיו."
+      },
+      {
+        "romaji": "Watashi wa 6 ji ni Tokyou ni ikimasu.",
+        "japanese": "わたしは6じにとうきょうにいきます。",
+        "hebrew": "אני הולך/ת לטוקיו בשש."
+      },
+      {
+        "romaji": "Watashi wa kuruma de Tokyou ni ikimasu.",
+        "japanese": "わたしはくるまでとうきょうにいきます。",
+        "hebrew": "אני הולך/ת לטוקיו במכונית."
+      },
+      {
+        "romaji": "Watashi wa kinou 6 ji ni okimashita. Uchi de asagohan wo tabemashita. Soshite, jimu ni ikimashita. Jimu de yoga wo shimashita.",
+        "japanese": "わたしはきのう6じにおきました。うちであさごはんをたべました。そして、ジムにいきました。ジムでヨガをしました。",
+        "hebrew": "אתמול קמתי בשש. אכלתי ארוחת בוקר בבית. ואז הלכתי לחדר כושר. עשיתי יוגה בחדר כושר."
+      }
+    ],
+    "exercises": [
+      {
+        "question": "מה ההבדל בין 'de' ל-'ni' לגבי מקום?",
+        "options": [
+          "שניהם זהים",
+          "de=מקום הפעולה, ni=יעד תנועה",
+          "ni=מקום הפעולה, de=יעד",
+          "de=זמן, ni=מקום"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "'Umi ni ikimasu' פירושו:",
+        "options": [
+          "שוחה בים",
+          "הולך/ת לים",
+          "שוחה מהים",
+          "גר/ה ליד הים"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "'Jimu de yoga wo shimasu' - 'de' מציין:",
+        "options": [
+          "יעד - לחדר כושר",
+          "מקום הפעולה - בחדר כושר",
+          "אמצעי",
+          "זמן"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מה פירוש 'soshite'?",
+        "options": [
+          "אבל",
+          "כי",
+          "ואז / ו-",
+          "אם"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "'Kinou' (אתמול) - האם מוסיפים 'ni'?",
+        "options": [
+          "כן, תמיד",
+          "לא, זמן יחסי",
+          "כן, אם יש שעה",
+          "לפעמים"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "'Watashi wa shoppingu mo-ru ni kaerimasu' פירושו:",
+        "options": [
+          "הולך/ת לקניון",
+          "חוזר/ת לקניון",
+          "קונה בקניון",
+          "גר/ה בקניון"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "'Watashi wa kuruma de Tokyou ni ikimasu' - כמה מיליות?",
+        "options": [
+          "אחת (de)",
+          "אחת (ni)",
+          "שתיים (de + ni)",
+          "שלוש"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "number": "שיעור 15",
+    "title": "עבר לפעלים: MASHITA",
+    "subtitle": "MASHITA (ました)",
+    "emoji": "⏮️",
+    "grammarPoints": [
+      {
+        "title": "mashita (ました) - עבר פורמלי חיובי",
+        "content": "mashita = סיומת עבר פורמלית לפעלים (חיוב).\nמחליפה את 'masu'.",
+        "pattern": "Tabemasu → Tabemashita"
+      },
+      {
+        "title": "masen deshita (ませんでした) - עבר שלילי",
+        "content": "masen deshita = עבר שלילי פורמלי.\nמחליפה את 'masen'.",
+        "pattern": "Tabemasen → Tabemasendeshita"
+      },
+      {
+        "title": "הטיית RU verbs לעבר",
+        "content": "פעלי RU: הורד ru, הוסף mashita",
+        "pattern": "Taberu → Tabe + mashita = Tabemashita"
+      },
+      {
+        "title": "הטיית U verbs לעבר",
+        "content": "פעלי U: שנה u→i, הוסף mashita",
+        "pattern": "Kiku → Kiki + mashita = Kikimashita\nHanasu → Hanashi + mashita = Hanashimashita"
+      },
+      {
+        "title": "פעלים לא סדירים בעבר",
+        "content": "Suru → Shimashita\nKuru → Kimashita\nBenkyou suru → Benkyou shimashita"
+      }
+    ],
+    "vocabulary": [
+      {
+        "japanese": "たべる (Taberu)",
+        "romaji": "Tabemashita / Tabemasendeshita",
+        "hebrew": "אכל/ה / לא אכל/ה",
+        "emoji": "🍽️"
+      },
+      {
+        "japanese": "みる (Miru)",
+        "romaji": "Mimashita / Mimasendeshita",
+        "hebrew": "ראה/ראתה / לא ראה/ה",
+        "emoji": "👀"
+      },
+      {
+        "japanese": "おきる (Okiru)",
+        "romaji": "Okimashita / Okimasendeshita",
+        "hebrew": "קם/ה / לא קם/ה",
+        "emoji": "🛏️"
+      },
+      {
+        "japanese": "ねる (Neru)",
+        "romaji": "Nemashita / Nemasendeshita",
+        "hebrew": "ישן/ה / לא ישן/ה",
+        "emoji": "😴"
+      },
+      {
+        "japanese": "はなす (Hanasu)",
+        "romaji": "Hanashimashita / Hanashimasendeshita",
+        "hebrew": "דיבר/ה / לא דיבר/ה",
+        "emoji": "💬"
+      },
+      {
+        "japanese": "きく (Kiku)",
+        "romaji": "Kikimashita / Kikimasendeshita",
+        "hebrew": "שמע/ה / לא שמע/ה",
+        "emoji": "👂"
+      },
+      {
+        "japanese": "いく (Iku)",
+        "romaji": "Ikimashita / Ikimasendeshita",
+        "hebrew": "הלך/ה / לא הלך/ה",
+        "emoji": "🚶"
+      },
+      {
+        "japanese": "よむ (Yomu)",
+        "romaji": "Yomimashita / Yomimasendeshita",
+        "hebrew": "קרא/ה / לא קרא/ה",
+        "emoji": "📖"
+      },
+      {
+        "japanese": "のむ (Nomu)",
+        "romaji": "Nomimashita / Nomimasendeshita",
+        "hebrew": "שתה/ה / לא שתה/ה",
+        "emoji": "🥤"
+      },
+      {
+        "japanese": "かえる (Kaeru)",
+        "romaji": "Kaerimashita / Kaerimasendeshita",
+        "hebrew": "חזר/ה / לא חזר/ה",
+        "emoji": "🏠"
+      },
+      {
+        "japanese": "する (Suru)",
+        "romaji": "Shimashita / Shimasendeshita",
+        "hebrew": "עשה/ה / לא עשה/ה",
+        "emoji": "✅"
+      },
+      {
+        "japanese": "くる (Kuru)",
+        "romaji": "Kimashita / Kimasendeshita",
+        "hebrew": "בא/ה / לא בא/ה",
+        "emoji": "🚶"
+      },
+      {
+        "japanese": "べんきょうする",
+        "romaji": "Benkyou shimashita / Benkyou shimasendeshita",
+        "hebrew": "למד/ה / לא למד/ה",
+        "emoji": "📚"
+      }
+    ],
+    "examples": [
+      {
+        "romaji": "Watashi wa nomimashita.",
+        "japanese": "わたしはのみました。",
+        "hebrew": "שתיתי."
+      },
+      {
+        "romaji": "Watashi wa 6 ji ni wain wo nomimashita.",
+        "japanese": "わたしは6じにワインをのみました。",
+        "hebrew": "שתיתי יין בשש."
+      },
+      {
+        "romaji": "Suzuki san wa kikimasendeshita.",
+        "japanese": "すずきさんはききませんでした。",
+        "hebrew": "סוזוקי לא הקשיב/ה."
+      },
+      {
+        "romaji": "Watashi wa kinou nihon no eiga wo mimashita.",
+        "japanese": "わたしはきのうにほんのえいがをみました。",
+        "hebrew": "אתמול צפיתי בסרט יפני."
+      },
+      {
+        "romaji": "Watashi wa benkyou shimasendeshita.",
+        "japanese": "わたしはべんきょうしませんでした。",
+        "hebrew": "לא למדתי."
+      }
+    ],
+    "exercises": [
+      {
+        "question": "מה צורת העבר של 'Tabemasu'?",
+        "options": [
+          "Taberimashita",
+          "Tabemashita",
+          "Tabemasendeshita",
+          "Tabeshimashita"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מה צורת העבר השלילית של 'Nomimasu'?",
+        "options": [
+          "Nomimasen",
+          "Nomimashita",
+          "Nomimasendeshita",
+          "Nominasen"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "'Ikimashita' פירושו:",
+        "options": [
+          "הולך/ת",
+          "הלך/ה",
+          "לא הלך/ה",
+          "ילך/ת"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מה צורת העבר של 'Shimasu'?",
+        "options": [
+          "Shirimashita",
+          "Shimashita",
+          "Shishimashita",
+          "Shisumashita"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "'Kikimasendeshita' פירושו:",
+        "options": [
+          "הקשיב/ה",
+          "לא הקשיב/ה",
+          "יקשיב/ה",
+          "האם הקשיב/ה?"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מה צורת העבר של 'Kimasu' (לבוא)?",
+        "options": [
+          "Kimashita",
+          "Kurumashita",
+          "Kirimashita",
+          "Kumashita"
+        ],
+        "correctIndex": 0,
+        "explanation": ""
+      },
+      {
+        "question": "'Watashi wa nemasendeshita' פירושו:",
+        "options": [
+          "ישנתי",
+          "לא ישנתי",
+          "אישן",
+          "האם ישנת?"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "מה ההבדל בין 'mashita' ל-'masen deshita'?",
+        "options": [
+          "אין הבדל",
+          "mashita=חיוב, masen deshita=שלילה",
+          "mashita=שלילה, masen deshita=חיוב",
+          "שניהם שלילה"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "'Benkyou shimashita' פירושו:",
+        "options": [
+          "לומד/ת",
+          "ילמד/תלמד",
+          "למד/ה",
+          "לא למד/ה"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "מה צורת העבר של 'Hanashimasu'?",
+        "options": [
+          "Hanashimashita",
+          "Hanarimashita",
+          "Hanashita",
+          "Hanasumashita"
+        ],
+        "correctIndex": 0,
+        "explanation": ""
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "number": "שיעור 16",
+    "title": "עבר לשמות עצם: DESHITA",
+    "subtitle": "DESHITA (でした)",
+    "emoji": "📚",
+    "grammarPoints": [
+      {
+        "title": "deshita (でした) - עבר חיובי לשמות עצם",
+        "content": "deshita = עבר של desu (חיוב).\nמשמשת עם שמות עצם לציון מצב בעבר.",
+        "pattern": "[נושא] wa [שם עצם] deshita"
+      },
+      {
+        "title": "janakatta desu (じゃなかったです) - עבר שלילי",
+        "content": "janakatta desu = עבר של janaidesu (שלילה).",
+        "pattern": "[נושא] wa [שם עצם] janakatta desu"
+      },
+      {
+        "title": "טבלת הטיות - שמות עצם",
+        "content": "הווה+: desu\nהווה-: janaidesu\nעבר+: deshita\nעבר-: janakatta desu"
+      },
+      {
+        "title": "סיכום מיליות (particles)",
+        "content": "は (wa) = נושא\nの (no) = שייכות (של)\nを (wo) = מושא\nに (ni) = זמן ספציפי / כיוון\nで (de) = מקום פעולה / אמצעי"
+      }
+    ],
+    "vocabulary": [
+      {
+        "japanese": "おかあさん",
+        "romaji": "Okaasan",
+        "hebrew": "אמא",
+        "emoji": "👩"
+      },
+      {
+        "japanese": "ともだち",
+        "romaji": "Tomodachi",
+        "hebrew": "חבר/ה",
+        "emoji": "👫"
+      },
+      {
+        "japanese": "サラダ",
+        "romaji": "Sarada",
+        "hebrew": "סלט",
+        "emoji": "🥗"
+      },
+      {
+        "japanese": "ここ",
+        "romaji": "Koko",
+        "hebrew": "כאן",
+        "emoji": "📍"
+      },
+      {
+        "japanese": "そこ",
+        "romaji": "Soko",
+        "hebrew": "שם (קרוב)",
+        "emoji": "📍"
+      },
+      {
+        "japanese": "あそこ",
+        "romaji": "Asoko",
+        "hebrew": "שם (רחוק)",
+        "emoji": "🗺️"
+      }
+    ],
+    "examples": [
+      {
+        "romaji": "Suzuki san wa sensei deshita.",
+        "japanese": "すずきさんはせんせいでした。",
+        "hebrew": "סוזוקי היה/תה מורה."
+      },
+      {
+        "romaji": "Kore wa watashi no hon janakatta desu.",
+        "japanese": "これはわたしのほんじゃなかったです。",
+        "hebrew": "זה לא היה הספר שלי."
+      },
+      {
+        "romaji": "Are wa nihon no eiga deshita.",
+        "japanese": "あれはにほんのえいがでした。",
+        "hebrew": "זה היה סרט יפני (שם)."
+      },
+      {
+        "romaji": "Asagohan wa sarada janakatta desu yo!",
+        "japanese": "あさごはんはサラダじゃなかったですよ！",
+        "hebrew": "ארוחת הבוקר לא הייתה סלט!"
+      },
+      {
+        "romaji": "Watashi wa gakusei deshita.",
+        "japanese": "わたしはがくせいでした。",
+        "hebrew": "הייתי תלמיד/ה."
+      },
+      {
+        "romaji": "Koko wa resutoran janakatta desu.",
+        "japanese": "ここはレストランじゃなかったです。",
+        "hebrew": "כאן לא הייתה מסעדה."
+      }
+    ],
+    "exercises": [
+      {
+        "question": "מה העבר החיובי של 'desu'?",
+        "options": [
+          "deshita",
+          "janaidesu",
+          "janakatta desu",
+          "mashita"
+        ],
+        "correctIndex": 0,
+        "explanation": ""
+      },
+      {
+        "question": "'Suzuki san wa sensei deshita' פירושו:",
+        "options": [
+          "סוזוקי הוא מורה",
+          "סוזוקי לא היה/תה מורה",
+          "סוזוקי היה/תה מורה",
+          "האם סוזוקי מורה?"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "מה העבר השלילי של 'janaidesu'?",
+        "options": [
+          "masendeshita",
+          "deshita",
+          "janakatta desu",
+          "janaidesu deshita"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "'Kore wa watashi no hon janakatta desu' פירושו:",
+        "options": [
+          "זה הספר שלי",
+          "זה לא הספר שלי (עכשיו)",
+          "זה לא היה הספר שלי",
+          "הספר שלי"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "מה עושה 'wo' במשפט?",
+        "options": [
+          "מציינת נושא",
+          "מציינת שייכות",
+          "מציינת מושא",
+          "מציינת זמן"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "מה עושה 'no' במשפט?",
+        "options": [
+          "מציינת נושא",
+          "מציינת שייכות (של)",
+          "מציינת מושא",
+          "מציינת כיוון"
+        ],
+        "correctIndex": 1,
+        "explanation": ""
+      },
+      {
+        "question": "'wa' vs 'ga' - מה עושה 'wa'?",
+        "options": [
+          "מציינת מושא",
+          "מציינת שייכות",
+          "מציינת נושא המשפט",
+          "מציינת מקום"
+        ],
+        "correctIndex": 2,
+        "explanation": ""
+      },
+      {
+        "question": "איזו מילית משמשת עם פעלי תנועה לציון יעד?",
+        "options": [
+          "de",
+          "wo",
+          "no",
+          "ni"
+        ],
+        "correctIndex": 3,
+        "explanation": ""
+      }
+    ]
+  }
+]

@@ -1,0 +1,65 @@
+name: Deploy web to GitHub Pages
+
+# This workflow is ADDITIVE. It does not replace or modify build.yml,
+# which continues to build the Android APK exactly as before.
+
+on:
+  push:
+    branches:
+      - main
+      - work
+      - "claude/**"
+    paths:
+      - "web/**"
+      - "scripts/extract_lessons.py"
+      - "scripts/extract_workbook.py"
+      - "app/src/main/java/com/nihongo/beginner/data/**"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Re-extract lesson + workbook JSON from Kotlin sources
+        run: |
+          python3 scripts/extract_lessons.py
+          python3 scripts/extract_workbook.py
+
+      - name: Verify generated JSON
+        run: |
+          test -s web/data/lessons.json
+          test -s web/data/workbook.json
+          python3 -c "import json; assert len(json.load(open('web/data/lessons.json',encoding='utf-8')))==17"
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: web
+
+      - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,62 @@
+/* Mirrors app/src/main/res/values/colors.xml — Kimura Brand palette */
+:root {
+  /* Primary — Kimura Brand Red */
+  --color-primary: #C0362A;
+  --color-primary-dark: #8A1F16;
+  --color-primary-variant: #D94C40;
+  --color-on-primary: #FFFFFF;
+  /* Gold for gamification */
+  --color-secondary: #F59E0B;
+  --color-secondary-dark: #D97706;
+  --color-on-secondary: #1A0800;
+  /* Surfaces */
+  --surface: #FFFFFF;
+  --surface-alt: #FFFAF9;
+  --surface-soft: #FDECEA;
+  --surface-card: #FFFFFF;
+  --on-surface: #1A0800;
+  --on-surface-muted: #7C6A67;
+  --background: #FDF5F4;
+  /* Accents */
+  --accent-gold: #F59E0B;
+  --accent-teal: #0EA5E9;
+  --accent-purple: #8B5CF6;
+  --gold-light: #FEF9EE;
+  /* Dividers */
+  --divider-soft: #EDD8D5;
+  /* Game states */
+  --correct-green: #16A34A;
+  --correct-green-light: #DCFCE7;
+  --wrong-red: #DC2626;
+  --wrong-light-red: #FEE2E2;
+  --selected-yellow: #FEF3C7;
+  --selected-yellow-stroke: #F59E0B;
+  --matched-green: #DCFCE7;
+  /* Misc */
+  --white: #FFFFFF;
+  --black: #1A0800;
+  --hero-gradient-start: #C0362A;
+  --hero-gradient-end: #6A1410;
+  --card-stroke: #F0D8D5;
+  --option-stroke: #E8D5D2;
+  --green-stroke: #16A34A;
+  --gold-stroke: #F59E0B;
+
+  /* Typography sizes (mirroring Android sp values) */
+  --fs-display: 32px;
+  --fs-h1: 22px;
+  --fs-h2: 18px;
+  --fs-body: 16px;
+  --fs-caption: 13px;
+  --fs-tiny: 12px;
+
+  /* Radii (Android dp values, 1:1 → px) */
+  --radius-card: 8px;
+  --radius-button: 999px; /* pill */
+
+  /* Shadow */
+  --elevation-1: 0 1px 2px rgba(26, 8, 0, 0.08), 0 1px 1px rgba(26, 8, 0, 0.06);
+  --elevation-2: 0 2px 6px rgba(26, 8, 0, 0.10), 0 2px 4px rgba(26, 8, 0, 0.06);
+
+  --hero-gradient: linear-gradient(135deg, var(--hero-gradient-start), var(--hero-gradient-end));
+}
