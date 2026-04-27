@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNav.itemIconTintList = null
         binding.bottomNav.itemActiveIndicatorColor = ColorStateList.valueOf(Color.TRANSPARENT)
+        binding.bottomNav.background = null
         binding.bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_learn -> { showFragment(LearnFragment()); true }
