@@ -1,14 +1,17 @@
-/* Mirrors app/src/main/res/values/colors.xml — Kimura Brand palette */
+/* Mirrors app/src/main/res/values/colors.xml — Kimura Brand palette.
+   Every name maps 1:1 to a color resource so we never drift from Android. */
 :root {
   /* Primary — Kimura Brand Red */
   --color-primary: #C0362A;
   --color-primary-dark: #8A1F16;
   --color-primary-variant: #D94C40;
   --color-on-primary: #FFFFFF;
+
   /* Gold for gamification */
   --color-secondary: #F59E0B;
   --color-secondary-dark: #D97706;
   --color-on-secondary: #1A0800;
+
   /* Surfaces */
   --surface: #FFFFFF;
   --surface-alt: #FFFAF9;
@@ -17,13 +20,16 @@
   --on-surface: #1A0800;
   --on-surface-muted: #7C6A67;
   --background: #FDF5F4;
+
   /* Accents */
   --accent-gold: #F59E0B;
   --accent-teal: #0EA5E9;
   --accent-purple: #8B5CF6;
   --gold-light: #FEF9EE;
+
   /* Dividers */
   --divider-soft: #EDD8D5;
+
   /* Game states */
   --correct-green: #16A34A;
   --correct-green-light: #DCFCE7;
@@ -32,31 +38,63 @@
   --selected-yellow: #FEF3C7;
   --selected-yellow-stroke: #F59E0B;
   --matched-green: #DCFCE7;
+
   /* Misc */
   --white: #FFFFFF;
   --black: #1A0800;
   --hero-gradient-start: #C0362A;
-  --hero-gradient-end: #6A1410;
+  --hero-gradient-mid:   #9E2A20;
+  --hero-gradient-end:   #6A1410;
   --card-stroke: #F0D8D5;
   --option-stroke: #E8D5D2;
   --green-stroke: #16A34A;
   --gold-stroke: #F59E0B;
 
+  /* Progress hero card (bg_progress_hero solid #2A0A08) */
+  --hero-progress-bg: #2A0A08;
+  --hero-progress-track: #4A1A16;
+
+  /* Dimens (mirrors values/dimens.xml). 1dp ≈ 1px. */
+  --d-activity-h-margin: 20px;
+  --d-activity-v-margin: 20px;
+  --d-card-margin: 10px;
+  --d-card-elev: 3px;
+  --d-card-radius: 20px;
+  --d-card-radius-large: 24px;
+  --d-card-radius-small: 12px;
+  --d-button-radius: 28px;
+  --d-hero-padding: 24px;
+  --d-section-spacing: 20px;
+  --d-icon-bubble: 56px;
+  --d-icon-bubble-large: 64px;
+
   /* Typography sizes (mirroring Android sp values) */
-  --fs-display: 32px;
-  --fs-h1: 22px;
-  --fs-h2: 18px;
+  --fs-display: 40px;
+  --fs-score: 52px;
+  --fs-h-headline: 22px;
+  --fs-h-section: 18px;
   --fs-body: 16px;
-  --fs-caption: 13px;
+  --fs-body-sm: 15px;
+  --fs-caption: 14px;
+  --fs-caption-sm: 13px;
   --fs-tiny: 12px;
+  --fs-micro: 11px;
+  --fs-nano: 10px;
 
-  /* Radii (Android dp values, 1:1 → px) */
-  --radius-card: 8px;
-  --radius-button: 999px; /* pill */
+  /* Elevation / shadow approximations */
+  --elev-0: none;
+  --elev-1: 0 1px 2px rgba(26, 8, 0, 0.10);
+  --elev-2: 0 2px 4px rgba(26, 8, 0, 0.12);
+  --elev-3: 0 3px 6px rgba(26, 8, 0, 0.14);
+  --elev-gold: 0 4px 14px rgba(245, 158, 11, 0.36);
 
-  /* Shadow */
-  --elevation-1: 0 1px 2px rgba(26, 8, 0, 0.08), 0 1px 1px rgba(26, 8, 0, 0.06);
-  --elevation-2: 0 2px 6px rgba(26, 8, 0, 0.10), 0 2px 4px rgba(26, 8, 0, 0.06);
+  /* Gradients (135° = top-left to bottom-right in Android,
+     which translates to CSS linear-gradient(135deg, ...)). */
+  --hero-gradient: linear-gradient(135deg, #C0362A 0%, #9E2A20 50%, #6A1410 100%);
+  --flashcard-back-gradient: linear-gradient(135deg, #C0362A, #6A1410);
+  --score-badge-gradient: linear-gradient(135deg, #F59E0B, #D97706);
+  --toolbar-gradient: linear-gradient(180deg, #C0362A, #8A1F16);
 
-  --hero-gradient: linear-gradient(135deg, var(--hero-gradient-start), var(--hero-gradient-end));
+  /* AppBar height — Material's actionBarSize = 56dp on phones */
+  --action-bar-size: 56px;
 }
