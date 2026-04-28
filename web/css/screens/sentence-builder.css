@@ -1,0 +1,298 @@
+/* ===================================================================
+   Sentence Builder — pixel-perfect port of activity_sentence_builder.xml
+   =================================================================== */
+
+.sb-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--background);
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Gradient hero header — paddingStart/End=20dp, paddingTop=44dp, paddingBottom=16dp */
+.sb-hero {
+  background: var(--hero-gradient);
+  padding: calc(44px + env(safe-area-inset-top)) 20px 16px;
+  display: flex;
+  flex-direction: column;
+}
+.sb-toolbar {
+  height: var(--action-bar-size);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--white);
+  background: transparent;
+  margin-bottom: 4px;
+}
+.sb-toolbar .sb-back {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-size: 24px;
+  line-height: 1;
+  border-radius: 999px;
+  background: transparent;
+}
+.sb-toolbar .sb-back:hover { background: rgba(255, 255, 255, 0.10); }
+.sb-toolbar .sb-title {
+  flex: 1;
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: 0.15px;
+  text-align: start;
+}
+
+/* Score row — gravity=center */
+.sb-score-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.sb-score {
+  background: var(--score-badge-gradient);
+  border-radius: 16px;
+  padding: 8px 20px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--on-surface);
+  display: inline-block;
+}
+
+/* Builder card — match_parent x weight=1, margin=16dp, radius=24dp, elev=3dp */
+.sb-card {
+  background: var(--surface);
+  border-radius: 24px;
+  border: 1px solid var(--card-stroke);
+  box-shadow: var(--elev-3);
+  margin: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+/* tvSbInstruction — gravity=center, marginBottom=8dp, 13sp, onSurfaceMuted */
+.sb-instruction {
+  text-align: center;
+  font-size: 13px;
+  color: var(--on-surface-muted);
+  margin: 0 0 8px;
+}
+
+/* tvSbQuestion — marginBottom=14dp, 18sp bold, onSurface (NO gravity = start) */
+.sb-question {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--on-surface);
+  margin: 0 0 14px;
+  text-align: start;
+  line-height: 1.4;
+}
+
+/* Built sentence display — surfaceSoft, 12dp radius, 1dp dividerSoft stroke,
+   tvSbBuilt: minHeight=52dp, padding=14dp, 16sp, onSurface, gravity=center_vertical */
+.sb-built-card {
+  background: var(--surface-soft);
+  border-radius: 12px;
+  border: 1px solid var(--divider-soft);
+  margin-bottom: 14px;
+}
+.sb-built {
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  padding: 14px;
+  font-size: 16px;
+  color: var(--on-surface);
+  text-align: start;
+  word-break: break-word;
+  line-height: 1.4;
+}
+.sb-built.is-empty {
+  color: var(--on-surface-muted);
+}
+
+/* Word chip RecyclerView — orientation=horizontal, GridLayoutManager(span=4).
+   We use flex-wrap so chips reflow naturally and remain horizontal pill rows. */
+.sb-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0 -4px 12px; /* compensate for chip's 4dp margin */
+  min-height: 56px;
+}
+
+/* Word chip — item_word_chip.xml: surface bg, 20dp radius, 2dp elev,
+   1.5dp optionStroke. TextView: padding 16dp/10dp, 14sp bold, onSurface.
+   margin=4dp on the card itself. */
+.sb-chip {
+  background: var(--surface);
+  border-radius: 20px;
+  border: 1.5px solid var(--option-stroke);
+  box-shadow: var(--elev-2);
+  margin: 4px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--on-surface);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  cursor: pointer;
+  transition: background-color 140ms ease, border-color 140ms ease,
+              transform 160ms ease, opacity 160ms ease;
+  font-family: inherit;
+}
+.sb-chip:hover:not(:disabled) {
+  background: var(--surface-soft);
+}
+.sb-chip:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+/* Chip pick animation — when tapped, the Android adapter sets the row to GONE.
+   We fade+shrink to mimic that immediate disappearance. */
+.sb-chip.is-picked {
+  animation: sb_chip_pick 220ms ease-out both;
+  pointer-events: none;
+}
+@keyframes sb_chip_pick {
+  0%   { opacity: 1; transform: scale(1); }
+  60%  { opacity: 0.4; transform: scale(0.5); }
+  100% { opacity: 0; transform: scale(0.2); width: 0; padding: 0; margin: 0; border-width: 0; }
+}
+.sb-chip.is-used {
+  display: none; /* Mirrors View.GONE in the adapter. */
+}
+
+/* Chip return (reset) — bounce-back when "↺ אפס" is tapped */
+.sb-chip.is-returning {
+  animation: sb_chip_return 360ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes sb_chip_return {
+  0%   { opacity: 0; transform: scale(0.4); }
+  60%  { opacity: 1; transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* Feedback card — surfaceSoft, 12dp radius, no elevation; tvSbFeedback:
+   gravity=center, padding=12dp, 14sp */
+.sb-feedback {
+  background: var(--surface-soft);
+  border-radius: 12px;
+  margin-bottom: 8px;
+  padding: 12px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--on-surface);
+  animation: fade_in 200ms ease-out both;
+}
+.sb-feedback.is-correct {
+  background: var(--correct-green-light);
+  color: var(--correct-green);
+  font-weight: 700;
+  border: 1px solid var(--correct-green);
+}
+.sb-feedback.is-wrong {
+  background: var(--wrong-light-red);
+  color: var(--wrong-red);
+  font-weight: 700;
+  border: 1px solid var(--wrong-red);
+}
+
+/* Action buttons (App.Button + App.Button.Outlined). Layout: stacked,
+   marginTop=4dp / 8dp like the XML. */
+.sb-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+.sb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 54px;
+  padding: 12px 24px;
+  border-radius: 28px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.1px;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  transition: background-color 120ms ease, transform 80ms ease, border-color 120ms ease;
+  background: var(--color-primary);
+  color: var(--white);
+  font-family: inherit;
+}
+.sb-btn:hover:not(:disabled) { background: var(--color-primary-variant); }
+.sb-btn:active:not(:disabled) { transform: translateY(1px); }
+.sb-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.sb-btn.is-outlined {
+  background: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+.sb-btn.is-outlined:hover:not(:disabled) {
+  background: rgba(192, 54, 42, 0.06);
+}
+.sb-btn.is-gold {
+  background: var(--color-secondary);
+  color: var(--on-surface);
+  min-height: 56px;
+  padding: 14px 32px;
+  font-size: 16px;
+  box-shadow: var(--elev-gold);
+}
+.sb-btn.is-gold:hover:not(:disabled) {
+  background: var(--color-secondary-dark);
+}
+
+/* Result screen — gravity=center, padding=32dp, vertical orientation. */
+.sb-result {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  padding: 32px;
+  background: var(--background);
+  text-align: center;
+}
+.sb-result-emoji {
+  font-size: 72px;
+  line-height: 1;
+  margin: 0 0 16px;
+  text-align: center;
+  animation: scale_in 400ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.sb-result-score {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0 0 32px;
+  text-align: center;
+}
+.sb-result-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sb-card.is-hidden { display: none; }

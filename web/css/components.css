@@ -1,0 +1,453 @@
+/* =========================================================================
+   COMPONENT STYLES — each .bg-* / .btn-* class is a 1:1 port of the matching
+   drawable or styles.xml definition in app/src/main/res/.
+   ========================================================================= */
+
+/* ---------- bg_*.xml shape drawables ---------- */
+
+/* bg_gradient_hero.xml — angle 135°, 3 stops C0362A→9E2A20→6A1410 */
+.bg-gradient-hero {
+  background: var(--hero-gradient);
+  border-radius: 0;
+}
+
+/* bg_progress_hero.xml — solid #2A0A08, 16dp radius */
+.bg-progress-hero {
+  background: var(--hero-progress-bg);
+  border-radius: 16px;
+}
+
+/* bg_achievement_pill.xml — gold-light fill, 50dp radius, 1.5dp gold stroke */
+.bg-achievement-pill {
+  background: var(--gold-light);
+  border-radius: 50px;
+  border: 1.5px solid var(--gold-stroke);
+}
+
+/* bg_lesson_card_default.xml — white, 20dp radius, 1dp #F0D8D5 stroke */
+.bg-lesson-card-default {
+  background: var(--surface);
+  border-radius: 20px;
+  border: 1px solid var(--card-stroke);
+}
+
+/* bg_lesson_card_completed.xml — white, 20dp radius, 2dp green stroke */
+.bg-lesson-card-completed {
+  background: var(--surface);
+  border-radius: 20px;
+  border: 2px solid var(--correct-green);
+}
+
+/* bg_lesson_number_chip.xml — surface-soft, 50dp radius (pill) */
+.bg-lesson-number-chip {
+  background: var(--surface-soft);
+  border-radius: 50px;
+}
+
+/* bg_icon_bubble.xml — surface-soft, 16dp radius, 1dp divider stroke */
+.bg-icon-bubble {
+  background: var(--surface-soft);
+  border-radius: 16px;
+  border: 1px solid var(--divider-soft);
+}
+
+/* bg_option_default.xml — white, 16dp radius, 1.5dp option-stroke */
+.bg-option-default {
+  background: var(--white);
+  border-radius: 16px;
+  border: 1.5px solid var(--option-stroke);
+}
+
+/* bg_option_selected.xml — selected-yellow, 16dp radius, 2dp gold stroke */
+.bg-option-selected {
+  background: var(--selected-yellow);
+  border-radius: 16px;
+  border: 2px solid var(--selected-yellow-stroke);
+}
+
+/* bg_option_correct.xml — correct-green-light fill, 16dp radius, 2dp green stroke */
+.bg-option-correct {
+  background: var(--correct-green-light);
+  border-radius: 16px;
+  border: 2px solid var(--correct-green);
+}
+
+/* bg_option_wrong.xml — wrong-light-red fill, 16dp radius, 2dp wrong-red stroke */
+.bg-option-wrong {
+  background: var(--wrong-light-red);
+  border-radius: 16px;
+  border: 2px solid var(--wrong-red);
+}
+
+/* bg_score_badge.xml — gold gradient 135°, 16dp radius */
+.bg-score-badge {
+  background: var(--score-badge-gradient);
+  border-radius: 16px;
+}
+
+/* bg_section_header.xml — surface-soft, 8dp radius */
+.bg-section-header {
+  background: var(--surface-soft);
+  border-radius: 8px;
+}
+
+/* bg_stats_chip.xml — solid #2A0A08, 50dp radius */
+.bg-stats-chip {
+  background: var(--hero-progress-bg);
+  border-radius: 50px;
+}
+
+/* bg_white_round.xml & bg_card_modern.xml — both: white, 20dp radius, 1dp stroke */
+.bg-white-round,
+.bg-card-modern {
+  background: var(--surface);
+  border-radius: 20px;
+  border: 1px solid var(--card-stroke);
+}
+
+/* bg_flashcard_front.xml — white, 24dp radius, 1.5dp stroke */
+.bg-flashcard-front {
+  background: var(--surface);
+  border-radius: 24px;
+  border: 1.5px solid var(--card-stroke);
+}
+
+/* bg_flashcard_back.xml — gradient C0362A→6A1410 135°, 24dp radius */
+.bg-flashcard-back {
+  background: var(--flashcard-back-gradient);
+  border-radius: 24px;
+  color: var(--white);
+}
+
+/* bg_grammar_pattern.xml — surface-soft, 10dp radius, 1dp divider stroke */
+.bg-grammar-pattern {
+  background: var(--surface-soft);
+  border-radius: 10px;
+  border: 1px solid var(--divider-soft);
+}
+
+/* bg_hero_green.xml (despite the name, the file is a red gradient identical to bg_flashcard_back) */
+.bg-hero-green {
+  background: var(--flashcard-back-gradient);
+  border-radius: 0;
+}
+
+/* bg_toolbar_gradient.xml — vertical gradient #C0362A → #8A1F16 */
+.bg-toolbar-gradient {
+  background: var(--toolbar-gradient);
+}
+
+/* MaterialCardView default (used by item_vocab/item_grammar/item_example/quiz):
+   white, 20dp radius, 1dp #F0D8D5 stroke, elevation 1dp/2dp. */
+.material-card {
+  background: var(--surface);
+  border-radius: 20px;
+  border: 1px solid var(--card-stroke);
+  box-shadow: var(--elev-1);
+}
+.material-card.elev-2 { box-shadow: var(--elev-2); }
+.material-card.elev-3 { box-shadow: var(--elev-3); }
+
+
+/* ---------- styles.xml — buttons ---------- */
+
+/* App.Button — primary filled red pill, 28dp radius, 54dp min-height */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 54px;
+  padding: 12px 24px;
+  border-radius: 28px;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.1px;
+  text-align: center;
+  user-select: none;
+  text-transform: none;
+  transition: transform 80ms ease, background-color 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
+  background: var(--color-primary);
+  color: var(--white);
+  border: none;
+  width: 100%;
+}
+.btn:active:not(:disabled) { transform: translateY(1px); }
+.btn:hover:not(:disabled) { background: var(--color-primary-variant); }
+.btn:disabled { opacity: 0.55; }
+
+/* App.Button.Outlined — 28dp radius, 2dp red stroke, white background */
+.btn-outlined {
+  background: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+.btn-outlined:hover:not(:disabled) {
+  background: rgba(192, 54, 42, 0.06);
+  color: var(--color-primary);
+}
+
+/* App.Button.Gold — 28dp radius, 56dp min-height, 16sp text, gold bg, dark text */
+.btn-gold {
+  background: var(--color-secondary);
+  color: var(--color-on-secondary);
+  min-height: 56px;
+  padding: 14px 32px;
+  font-size: 16px;
+  font-weight: 700;
+  box-shadow: var(--elev-gold);
+}
+.btn-gold:hover:not(:disabled) {
+  background: var(--color-secondary-dark);
+  color: var(--color-on-secondary);
+}
+
+/* App.Button.Small — 20dp radius, 40dp min-height, 13sp */
+.btn-small {
+  min-height: 40px;
+  padding: 8px 16px;
+  font-size: 13px;
+  border-radius: 20px;
+}
+
+/* App.Button.Small.Outlined */
+.btn-small.btn-outlined { border-width: 1px; }
+
+/* App.Button.Option — full-width quiz/answer card option, 16dp radius */
+.btn-option {
+  background: var(--white);
+  color: var(--on-surface);
+  border: 1.5px solid var(--option-stroke);
+  border-radius: 16px;
+  min-height: 58px;
+  padding: 14px 20px;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 100%;
+  transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+}
+.btn-option:hover:not(:disabled) {
+  border-color: var(--color-primary-variant);
+}
+/* Selected option = bg_option_selected.xml */
+.btn-option.is-selected {
+  background: var(--selected-yellow);
+  border-color: var(--selected-yellow-stroke);
+  border-width: 2px;
+}
+/* Correct = bg_option_correct.xml */
+.btn-option.is-correct {
+  background: var(--correct-green-light);
+  border-color: var(--correct-green);
+  border-width: 2px;
+  color: var(--correct-green);
+  font-weight: 700;
+}
+/* Wrong = bg_option_wrong.xml */
+.btn-option.is-wrong {
+  background: var(--wrong-light-red);
+  border-color: var(--wrong-red);
+  border-width: 2px;
+  color: var(--wrong-red);
+  font-weight: 700;
+}
+
+/* Round icon button (used for "speak this") — matches the OutlinedButton variant in
+   the layouts (48dp size, 24dp corner, 2dp red stroke, white bg). */
+.btn-icon {
+  width: 48px;
+  height: 48px;
+  min-height: 0;
+  padding: 0;
+  border-radius: 24px;
+  border: 2px solid var(--color-primary);
+  background: var(--white);
+  color: var(--color-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.btn-icon:hover:not(:disabled) {
+  background: var(--surface-soft);
+}
+.btn-icon svg { width: 24px; height: 24px; }
+/* Smaller variant used inside list items (44dp / 1.5dp stroke). */
+.btn-icon.btn-icon-sm {
+  width: 44px;
+  height: 44px;
+  border-radius: 22px;
+  border-width: 1.5px;
+}
+.btn-icon.btn-icon-sm svg { width: 20px; height: 20px; }
+
+/* Plain link/text button used in toolbars */
+.btn-toolbar {
+  background: rgba(255, 255, 255, 0.10);
+  color: var(--white);
+  width: 40px;
+  height: 40px;
+  min-height: 0;
+  padding: 0;
+  border-radius: 999px;
+  font-size: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+.btn-toolbar:hover { background: rgba(255, 255, 255, 0.20); }
+
+
+/* ---------- Toolbar / app-bar ---------- */
+
+/* MaterialToolbar — used in the gradient hero on every screen. paddingTop:44dp
+   in most activities, 28dp in lesson detail. We provide a base + a class for
+   the slimmer variant. */
+.app-toolbar {
+  height: var(--action-bar-size);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--white);
+  background: transparent;
+}
+.app-toolbar .title {
+  flex: 1;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--white);
+  letter-spacing: 0.15px;
+  /* Hebrew text in RTL — left-align of the visual reading direction is start. */
+  text-align: start;
+}
+
+
+/* ---------- Linear progress indicator (mirrors LinearProgressIndicator) ---------- */
+
+.progress-indicator {
+  width: 100%;
+  height: 8px;
+  background: var(--hero-progress-track);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.progress-indicator > .progress-fill {
+  height: 100%;
+  background: var(--color-secondary);
+  transition: width 250ms ease-out;
+  border-radius: 4px;
+}
+
+
+/* ---------- Achievement banner (re-uses bg_achievement_pill) ---------- */
+
+.achievement-banner {
+  margin: 12px 16px 4px;
+  padding: 12px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--color-secondary-dark);
+  background: var(--gold-light);
+  border-radius: 50px;
+  border: 1.5px solid var(--gold-stroke);
+}
+.achievement-banner.is-hidden { display: none; }
+
+
+/* ---------- Section header with accent strip (matches the row of
+   View 4dp wide + bold TextView used in lesson_detail). ---------- */
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 10px;
+}
+.section-header .stripe {
+  width: 4px;
+  height: 22px;
+  background: var(--color-primary);
+  border-radius: 1px;
+  flex-shrink: 0;
+}
+.section-header.gold     .stripe { background: var(--color-secondary); }
+.section-header.teal     .stripe { background: var(--accent-teal); }
+.section-header.purple   .stripe { background: var(--accent-purple); }
+.section-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--on-surface);
+  flex: 1;
+  text-align: start;
+}
+
+
+/* ---------- Stats chip (used on flashcard counter, score badge etc.) ---------- */
+.chip-stats {
+  display: inline-flex;
+  align-items: center;
+  background: var(--hero-progress-bg);
+  color: var(--white);
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.chip-score {
+  display: inline-flex;
+  align-items: center;
+  background: var(--score-badge-gradient);
+  color: var(--color-on-secondary);
+  padding: 8px 20px;
+  border-radius: 16px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* Lesson number chip (red text on surface-soft pill) */
+.chip-lesson-number {
+  display: inline-flex;
+  background: var(--surface-soft);
+  color: var(--color-primary);
+  border-radius: 50px;
+  padding: 2px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* "Hint: tap" pill on flashcards */
+.chip-hint {
+  display: inline-flex;
+  background: var(--surface-soft);
+  color: var(--color-primary);
+  border-radius: 50px;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+
+/* ---------- Cards (reusable for every MaterialCardView in layouts) ---------- */
+
+.card-base {
+  background: var(--surface);
+  border-radius: 20px;
+  border: 1px solid var(--card-stroke);
+  box-shadow: var(--elev-1);
+}
+.card-base.large { border-radius: 24px; box-shadow: var(--elev-3); }
+.card-soft {
+  background: var(--surface-soft);
+  border-radius: 12px;
+  border: 1px solid var(--divider-soft);
+}
