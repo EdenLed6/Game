@@ -64,6 +64,22 @@ function showError(host, message) {
 }
 
 (async function boot() {
+  // Kill any service worker + cache from the previous web port. The earlier
+  // version registered web/sw.js; that file no longer exists but the browser
+  // keeps serving the stale cached HTML/CSS/JS until the SW is unregistered.
+  if ("serviceWorker" in navigator) {
+    try {
+      const regs = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(regs.map((r) => r.unregister()));
+    } catch {}
+  }
+  if (typeof caches !== "undefined") {
+    try {
+      const keys = await caches.keys();
+      await Promise.all(keys.map((k) => caches.delete(k)));
+    } catch {}
+  }
+
   const host    = document.getElementById("screen-host");
   const navHost = document.getElementById("bottom-nav");
 
