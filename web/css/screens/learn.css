@@ -136,9 +136,6 @@
   text-align: center;
   -webkit-tap-highlight-color: transparent;
   width: 100%;
-  /* Provide vertical breathing room so the connector isn't crammed */
-  padding-top: 6px;
-  padding-bottom: 8px;
   /* JS sets --node-dir to -1 (left) or +1 (right). CSS controls magnitude. */
   --node-dir: 0;
   --node-shift: 60px;
@@ -150,13 +147,13 @@
   opacity: 0.85;
 }
 
-/* Bottom connector — dashed/dotted vertical rule between consecutive nodes */
+/* Bottom connector — solid vertical rule between consecutive nodes
+ * (matches item_lesson_node.xml: View 3dp×20dp, background @color/cardStroke). */
 .lesson-node__connector {
-  width: 0;
+  width: 3px;
   height: 20px;
-  margin-top: 6px;
-  border-inline-start: 3px dotted var(--color-card-stroke);
-  /* Use border-left fallback equivalent — border-inline-start handles RTL */
+  background: var(--color-card-stroke);
+  flex: 0 0 auto;
 }
 
 .lesson-node--last .lesson-node__connector {
