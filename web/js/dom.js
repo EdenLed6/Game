@@ -1,63 +1,69 @@
-// Minimal DOM helpers — keeps screens terse and dependency-free.
-export function el(tag, attrs = {}, ...children) {
+// dom.js — tiny DOM helpers (no framework, no build step)
+//
+// Usage:
+//   const root = el("div", { class: "card" }, "hello");
+//   mount(host, root);          // replaces children of host
+//   mount(host, [a, b, c]);     // also accepts arrays
+//   clear(host);                // empties host
+
+export function el(tag, props, ...children) {
   const node = document.createElement(tag);
-  for (const [k, v] of Object.entries(attrs || {})) {
-    if (v == null || v === false) continue;
-    if (k === "class" || k === "className") {
-      node.className = v;
-    } else if (k === "style" && typeof v === "object") {
-      Object.assign(node.style, v);
-    } else if (k === "dataset" && typeof v === "object") {
-      Object.assign(node.dataset, v);
-    } else if (k.startsWith("on") && typeof v === "function") {
-      node.addEventListener(k.slice(2).toLowerCase(), v);
-    } else if (k in node && typeof v !== "boolean" && k !== "for") {
-      node[k] = v;
-    } else if (k === "html") {
-      node.innerHTML = v;
-    } else {
-      node.setAttribute(k === "for" ? "for" : k, String(v));
+  if (props && typeof props === "object" && !Array.isArray(props) && !(props instanceof Node)) {
+    for (const [k, v] of Object.entries(props)) {
+      if (v == null || v === false) continue;
+      if (k === "class" || k === "className") {
+        node.className = Array.isArray(v) ? v.filter(Boolean).join(" ") : String(v);
+      } else if (k === "style" && typeof v === "object") {
+        Object.assign(node.style, v);
+      } else if (k === "dataset" && typeof v === "object") {
+        for (const [dk, dv] of Object.entries(v)) node.dataset[dk] = String(dv);
+      } else if (k.startsWith("on") && typeof v === "function") {
+        node.addEventListener(k.slice(2).toLowerCase(), v);
+      } else if (k === "html") {
+        node.innerHTML = v;
+      } else if (k === "ref" && typeof v === "function") {
+        v(node);
+      } else if (k in node && typeof node[k] !== "function") {
+        try { node[k] = v; } catch { node.setAttribute(k, String(v)); }
+      } else {
+        node.setAttribute(k, v === true ? "" : String(v));
+      }
     }
+  } else if (props !== undefined) {
+    children.unshift(props);
   }
-  for (const c of children.flat(Infinity)) {
-    if (c == null || c === false) continue;
-    node.appendChild(typeof c === "string" || typeof c === "number" ? document.createTextNode(String(c)) : c);
-  }
+  appendChildren(node, children);
   return node;
 }
 
-export function mount(view) {
-  const root = document.getElementById("app");
-  root.replaceChildren(view);
-  // Reset scroll for new screen
-  window.scrollTo({ top: 0, left: 0, behavior: "instant" in window ? "instant" : "auto" });
-}
-
-export function shuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
+function appendChildren(node, children) {
+  for (const c of children) {
+    if (c == null || c === false) continue;
+    if (Array.isArray(c)) appendChildren(node, c);
+    else if (c instanceof Node) node.appendChild(c);
+    else node.appendChild(document.createTextNode(String(c)));
   }
-  return a;
 }
 
-export function randomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+export function mount(host, content) {
+  if (!host) return;
+  while (host.firstChild) host.removeChild(host.firstChild);
+  if (content == null) return;
+  if (Array.isArray(content)) appendChildren(host, content);
+  else if (content instanceof Node) host.appendChild(content);
+  else host.appendChild(document.createTextNode(String(content)));
 }
 
-export function pageEl({ title, subtitle, onBack, body, hero }) {
-  return el(
-    "div",
-    { class: "page" },
-    el(
-      "header",
-      { class: "toolbar" },
-      onBack ? el("button", { class: "btn-back", title: "חזור", onClick: onBack }, "→") : null,
-      el("h1", {}, title || ""),
-      subtitle ? el("span", { class: "muted" }, subtitle) : null
-    ),
-    hero,
-    el("main", { class: "container" }, body)
-  );
+export function clear(host) {
+  if (!host) return;
+  while (host.firstChild) host.removeChild(host.firstChild);
+}
+
+export function text(s) {
+  return document.createTextNode(String(s));
+}
+
+// Promise that resolves on next animation frame
+export function nextFrame() {
+  return new Promise(r => requestAnimationFrame(() => r()));
 }

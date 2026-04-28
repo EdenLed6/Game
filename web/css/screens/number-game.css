@@ -1,262 +1,226 @@
 /* ============================================================
-   Number Game — pixel-perfect port of activity_number_game.xml
-   ============================================================ */
+ * Kimura — Number Game
+ * Port of activity_number_game.xml + NumberGameActivity.kt.
+ * ========================================================== */
 
-/* Root vertical container that fills the viewport, matches the
-   match_parent + orientation="vertical" LinearLayout. */
 .ng-screen {
-  flex: 1;
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-  background: var(--background);
-  width: 100%;
-  max-width: 480px;
-  margin: 0 auto;
-  position: relative;
-  overflow-x: hidden;
-}
-
-/* Gradient hero header — paddingStart/End=20dp, paddingTop=44dp, paddingBottom=16dp */
-.ng-hero {
-  background: var(--hero-gradient);
-  padding: calc(44px + env(safe-area-inset-top)) 20px 16px;
-  display: flex;
-  flex-direction: column;
-}
-
-/* MaterialToolbar — 56dp height, transparent, white nav icon and title */
-.ng-toolbar {
-  height: var(--action-bar-size);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--white);
+  min-height: 0;
   background: transparent;
-  margin-bottom: 4px;
 }
-.ng-toolbar .ng-back {
+
+/* ---------- Header (HeaderLinearLayout port) ----------
+   bg_gradient_hero (bg_header.png), pad start/end 20dp, top 44dp -> 16dp,
+   contains the toolbar (back arrow + empty title) + the score chip row. */
+.ng-header {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 20px 16px 20px;
+  color: #FFFFFF;
+  position: relative;
+}
+
+.ng-header__back {
   width: 40px;
   height: 40px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: var(--white);
-  font-size: 24px;
-  line-height: 1;
-  border-radius: 999px;
-  background: transparent;
-}
-.ng-toolbar .ng-back:hover { background: rgba(255, 255, 255, 0.10); }
-.ng-toolbar .ng-title {
-  flex: 1;
-  margin: 0;
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--white);
-  letter-spacing: 0.15px;
-  text-align: start;
+  align-self: flex-start;
+  /* RTL: back arrow visually points right; mirror image */
+  transform: scaleX(-1);
 }
 
-/* Centered score badge container (gravity="center") */
-.ng-score-row {
+.ng-header__back img {
+  width: 24px;
+  height: 24px;
+}
+
+.ng-header__title {
+  margin: 0;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-top: -32px;          /* center on toolbar row */
+  pointer-events: none;
+}
+
+.ng-header__score-row {
   display: flex;
   justify-content: center;
-  align-items: center;
+  margin-top: 12px;
 }
-/* tvNumScore — bg_score_badge (gold gradient 16dp), padding 20dp/8dp, 15sp bold,
-   textColor=onSurface (= #1A0800) */
-.ng-score {
-  background: var(--score-badge-gradient);
-  border-radius: 16px;
+
+.ng-score-badge {
+  display: inline-block;
   padding: 8px 20px;
   font-size: 15px;
   font-weight: 700;
-  color: var(--on-surface);
-  display: inline-block;
+  color: var(--color-on-surface);
+  /* bg-score-badge already provides gold gradient + 16dp radius */
 }
 
-/* Game card — match_parent x weight=1, margin=16dp, radius=24dp, elev=3dp,
-   surface fill, 1dp cardStroke */
-.ng-card {
-  background: var(--surface);
-  border-radius: 24px;
-  border: 1px solid var(--card-stroke);
-  box-shadow: var(--elev-3);
-  margin: 16px;
-  padding: 20px;
+/* ---------- Body — game card or result ---------- */
+.ng-body {
+  flex: 1 1 auto;
+  min-height: 0;
   display: flex;
   flex-direction: column;
-  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 16px;
+  gap: 0;
+}
+
+/* MaterialCardView port: 24dp radius, surface bg, 1dp cardStroke, 3dp elev */
+.ng-card {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface);
+  border-radius: 24px;
+  border: 1px solid var(--color-card-stroke);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  padding: 20px;
   min-height: 0;
 }
 
-/* Question — gravity=center, marginBottom=8dp, 16sp, onSurfaceMuted */
 .ng-question {
   text-align: center;
+  margin: 0 0 8px 0;
+  color: var(--color-on-surface-muted);
   font-size: 16px;
-  color: var(--on-surface-muted);
-  margin: 0 0 8px;
 }
 
-/* Number display — 64sp, bold, colorPrimary, gravity=center, marginBottom=24dp */
 .ng-display {
   text-align: center;
+  margin: 0 0 24px 0;
+  color: var(--color-primary);
   font-size: 64px;
   font-weight: 700;
-  color: var(--color-primary);
-  margin: 0 0 24px;
-  line-height: 1.05;
-  word-break: break-word;
-}
-/* When showing the romaji form we still keep big size but allow wrap. */
-.ng-display.is-romaji {
-  font-size: 36px;
-  line-height: 1.15;
-  letter-spacing: 0.5px;
+  line-height: 1.1;
+  /* numbers/romaji are LTR Latin/digit content */
 }
 
-/* Option buttons — App.Button.Option style: width match_parent, marginBottom=10dp,
-   16dp radius, 58dp min-height, 20dp h-padding, 15sp, start|center_vertical */
 .ng-options {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
+
+/* App.Button.Option port — surface bg, 2dp primary stroke, 16dp radius,
+   58dp min-height, start-aligned 15sp text (Kotlin sets backgroundTint=white
+   per round; we honor that on default state). */
 .ng-option {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  text-align: start;
-  background: var(--white);
-  color: var(--on-surface);
-  border: 2px solid var(--option-stroke);
+  justify-content: center;
+  text-align: center;
+  background: var(--color-white);
+  color: var(--color-on-surface);
+  border: 2px solid var(--color-primary);
   border-radius: 16px;
   min-height: 58px;
-  padding: 14px 20px;
-  font-size: 15px;
-  font-weight: 500;
-  width: 100%;
-  transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
-}
-.ng-option:hover:not(:disabled) {
-  border-color: var(--color-primary-variant);
-}
-/* Correct / wrong tints come from setBackgroundTintList in onOptionSelected().
-   The Activity tints to solid R.color.correct_green/wrong_red and white text. */
-.ng-option.is-correct {
-  background: var(--correct-green);
-  border-color: var(--correct-green);
-  color: var(--white);
-  font-weight: 700;
-}
-.ng-option.is-wrong {
-  background: var(--wrong-red);
-  border-color: var(--wrong-red);
-  color: var(--white);
-  font-weight: 700;
+  padding: 0 16px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* Feedback card — surfaceSoft fill, 12dp radius, no elevation, 12dp padding,
-   14sp gravity=center. Wrapping outer card matches the layout's MaterialCardView. */
-.ng-feedback {
-  background: var(--surface-soft);
-  border-radius: 12px;
+.ng-option:disabled { cursor: default; }
+
+.ng-option:active:not(:disabled) { transform: scale(0.98); }
+
+.ng-option--correct {
+  background: var(--color-correct);
+  color: #FFFFFF;
+  border-color: var(--color-correct);
+}
+
+.ng-option--wrong {
+  background: var(--color-wrong);
+  color: #FFFFFF;
+  border-color: var(--color-wrong);
+}
+
+/* Feedback card — bg surfaceSoft, 12dp radius, 1dp cardStroke. The Kotlin
+   makes only tvNumFeedback visible after a guess, so we hide the card chrome
+   until the feedback class is added. */
+.ng-feedback-card {
   margin-top: 4px;
+  background: var(--color-surface-soft);
+  border-radius: 12px;
+  border: 1px solid var(--color-card-stroke);
   padding: 12px;
   text-align: center;
   font-size: 14px;
-  color: var(--on-surface);
-  animation: fade_in 200ms ease-out both;
-}
-.ng-feedback.is-correct { color: var(--correct-green); font-weight: 700; }
-.ng-feedback.is-wrong   { color: var(--wrong-red);    font-weight: 700; }
-
-/* Number flash feedback — quick scale-in on every new round, mirrors the
-   Activity's instantaneous text replacement; use a subtle 220ms scale to
-   highlight the new prompt. */
-.ng-display.flash {
-  animation: ng_flash 320ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
-}
-@keyframes ng_flash {
-  0%   { opacity: 0; transform: scale(0.85); }
-  60%  { opacity: 1; transform: scale(1.05); }
-  100% { opacity: 1; transform: scale(1); }
+  color: var(--color-on-surface);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 
-/* Result screen — match_parent, gravity=center, padding=32dp, background. */
+.ng-feedback-card--visible {
+  visibility: visible;
+  opacity: 1;
+  animation: ng-fade-in 0.2s ease both;
+}
+
+.ng-feedback {
+  margin: 0;
+}
+
+@keyframes ng-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ---------- Result screen ---------- */
 .ng-result {
-  flex: 1;
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: center;
   padding: 32px;
-  background: var(--background);
-  text-align: center;
-}
-.ng-result-emoji {
-  font-size: 72px;
-  line-height: 1;
-  margin: 0 0 16px;
-  text-align: center;
-  animation: scale_in 400ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
-}
-.ng-result-score {
-  font-size: 48px;
-  font-weight: 700;
-  color: var(--color-primary);
-  margin: 0 0 32px;
-  text-align: center;
-}
-.ng-result-actions {
-  display: flex;
-  flex-direction: column;
   gap: 12px;
 }
 
-/* Result-screen buttons. App.Button.Gold (replay) + App.Button.Outlined (back). */
-.ng-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  min-height: 54px;
-  padding: 12px 24px;
-  border-radius: 28px;
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.1px;
+.ng-result__emoji {
   text-align: center;
-  border: none;
-  cursor: pointer;
-  transition: background-color 120ms ease, transform 80ms ease, border-color 120ms ease;
-  background: var(--color-primary);
-  color: var(--white);
-  font-family: inherit;
-}
-.ng-btn:hover:not(:disabled) { background: var(--color-primary-variant); }
-.ng-btn:active:not(:disabled) { transform: translateY(1px); }
-.ng-btn:disabled { opacity: 0.55; cursor: not-allowed; }
-.ng-btn.is-outlined {
-  background: transparent;
-  color: var(--color-primary);
-  border: 2px solid var(--color-primary);
-}
-.ng-btn.is-outlined:hover:not(:disabled) {
-  background: rgba(192, 54, 42, 0.06);
-}
-.ng-btn.is-gold {
-  background: var(--color-secondary);
-  color: var(--on-surface);
-  min-height: 56px;
-  padding: 14px 32px;
-  font-size: 16px;
-  box-shadow: var(--elev-gold);
-}
-.ng-btn.is-gold:hover:not(:disabled) {
-  background: var(--color-secondary-dark);
+  font-size: 72px;
+  line-height: 1;
+  margin-bottom: 16px;
+  transform-origin: center;
 }
 
-/* Hide chrome that the Activity sets to GONE on result screen */
-.ng-card.is-hidden { display: none; }
+.ng-result--in .ng-result__emoji {
+  animation: ng-scale-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes ng-scale-in {
+  0%   { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.ng-final-score {
+  text-align: center;
+  color: var(--color-primary);
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 32px;
+}
+
+.ng-result__btn {
+  /* full width — already btn--block */
+}

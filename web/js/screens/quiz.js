@@ -1,88 +1,138 @@
-// Quiz screen — pixel-1:1 port of activity_quiz.xml + QuizActivity.kt.
+// quiz.js — 1:1 port of activity_quiz.xml + QuizActivity.kt.
 //
-// The Android layout is a vertical LinearLayout:
-//   1) Gradient hero  (paddingTop=44, side=20, paddingBottom=20)
-//        - MaterialToolbar (back arrow + title)
-//        - LinearProgressIndicator (gold/F59E0B on track #4A1A16)
-//        - "שאלה N מתוך M" counter (white 12sp 0.8 alpha)
-//   2) NestedScrollView (padding=20dp) holding
-//        - Question card (MaterialCardView, 20dp radius, 1dp stroke, 2dp elev)
-//          * Question text (20sp bold) + speak icon-button (48x48 circle)
-//        - Four App.Button.Option cards (16dp radius, 58dp min height)
-//        - Optional feedback card (16dp radius, 1dp dividerSoft stroke)
-//        - Submit (filled red 28dp pill) / Next (outlined red pill) button
-//   3) Results layout (replaces body when done): emoji 72sp, 52sp red score,
-//      18sp bold message, 14sp muted summary, gold achievement pill,
-//      filled "שחק שוב" + outlined "חזור לשיעור" buttons.
+// Layout (top → bottom):
+//   1) Header (HeaderLinearLayout port, bg_header.png) holding
+//        - Toolbar (back arrow + "חידון" title)
+//        - LinearProgressIndicator (gold #F59E0B over #4A1A16 track, 4dp radius)
+//        - "שאלה N מתוך M" counter (12sp, white @ 0.8)
+//   2) Scroll body (padding 20dp) holding
+//        - Question card (MaterialCardView 20dp radius, 1dp stroke, surface
+//          background, 20dp inner padding) with question text + 48dp circular
+//          speaker button.
+//        - 4 option rows. Each row = an option button (16dp radius, 58dp min,
+//          surface bg, 2dp red stroke) PLUS a 44dp circular red speaker button
+//          on the right.
+//        - Feedback card (16dp radius, dividerSoft stroke) — visible after
+//          submit; shows the question's explanation.
+//        - Full-width red Submit button → after submit becomes Next.
+//   3) Results layout (replaces body when finished):
+//        - 72sp emoji
+//        - 52sp red final score "score / total"
+//        - 18sp bold message
+//        - 14sp muted summary ("דיוק: X% · נדרש 70% כדי להשלים את השיעור")
+//        - achievement pill
+//        - "שחק שוב" + "חזור לשיעור" buttons
+//
+// Speaker buttons next to the question and each option play the text via
+// Speaker.speak(). On a passing score (>=70%) the lesson is marked complete.
 
 import { el, mount } from "../dom.js";
-import { Router } from "../router.js";
-import { Speaker } from "../speaker.js";
-import { Progress } from "../store.js";
 
-export function Quiz(data, lessonId) {
-  const lesson = data.lessonsById[lessonId];
-  if (!lesson || !lesson.exercises || !lesson.exercises.length) {
-    Router.go(`/lesson/${lessonId}`);
+const PASS_THRESHOLD = 70;
+
+// Inline ic_volume.svg — red speaker glyph; we recolor via fill="currentColor".
+function volumeIconWhite() {
+  const ns = "http://www.w3.org/2000/svg";
+  const svg = document.createElementNS(ns, "svg");
+  svg.setAttribute("viewBox", "0 0 24 24");
+  svg.setAttribute("aria-hidden", "true");
+  svg.setAttribute("focusable", "false");
+  svg.setAttribute("width", "20");
+  svg.setAttribute("height", "20");
+  const p1 = document.createElementNS(ns, "path");
+  p1.setAttribute("fill", "currentColor");
+  p1.setAttribute(
+    "d",
+    "M3,9v6h4l5,5V4L7,9H3zm13.5,3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-0.73 2.5-2.25 2.5-4.02z"
+  );
+  const p2 = document.createElementNS(ns, "path");
+  p2.setAttribute("fill", "currentColor");
+  p2.setAttribute(
+    "d",
+    "M14,3.23v2.06c2.89,0.86 5,3.54 5,6.71s-2.11,5.85-5,6.71v2.06c4.01-0.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"
+  );
+  svg.appendChild(p1);
+  svg.appendChild(p2);
+  return svg;
+}
+
+// Hebrew range — used to decide whether to speak an option (Japanese vs Hebrew).
+const HEBREW_RANGE = /[֐-׿]/;
+function isHebrew(text) {
+  return HEBREW_RANGE.test(String(text || ""));
+}
+
+// Strip Hebrew tokens to get the romaji/Japanese portion of a question.
+function extractRomaji(text) {
+  return String(text || "")
+    .split(/\s+/)
+    .filter(w => w.length > 0 && !HEBREW_RANGE.test(w))
+    .join(" ")
+    .trim();
+}
+
+export function Quiz({ host, ctx, params }) {
+  const { lessons, router, store, speaker } = ctx;
+  const lessonId = Number(params.id);
+  const lesson = (lessons || []).find(l => Number(l.id) === lessonId);
+
+  if (!lesson || !Array.isArray(lesson.exercises) || lesson.exercises.length === 0) {
+    router.go(`#/lesson/${lessonId}`);
     return;
   }
 
-  // Mirror QuizActivity field state.
   const state = {
     questions: lesson.exercises,
     index: 0,
     score: 0,
-    selected: null,    // selectedIndex
-    submitted: false,  // toggled on submit; locks options + reveals feedback
-    finished: false,   // flips body → results layout
+    selected: null,
+    submitted: false,
+    finished: false,
+    completedThisRun: false,
   };
 
-  // ----- Render -----------------------------------------------------------
-
+  // ---- Render --------------------------------------------------------------
   function render() {
-    const view = el(
+    const root = el(
       "div",
-      { class: "quiz-screen" },
-      hero(),
+      { class: "screen quiz-screen" },
+      renderHeader(),
       state.finished ? renderResults() : renderBody()
     );
-    mount(view);
+    mount(host, root);
   }
 
-  // Gradient hero with toolbar + progress + counter (always visible until results).
-  function hero() {
+  function renderHeader() {
     const total = state.questions.length;
-    const progressPercent = state.finished
+    const percent = state.finished
       ? 100
       : Math.round((state.index / total) * 100);
 
     return el(
       "header",
-      { class: "quiz-hero" },
+      { class: "quiz-header" },
       el(
         "div",
-        { class: "app-toolbar", style: { paddingTop: "0", paddingBottom: "0" } },
+        { class: "quiz-header__top" },
         el(
           "button",
           {
-            class: "toolbar-back",
+            type: "button",
+            class: "quiz-header__back",
             "aria-label": "חזור",
-            onClick: () => Router.go(`/lesson/${lessonId}`),
+            onClick: () => router.back(),
           },
-          // Hebrew/RTL: visual back arrow points right.
-          "←"
+          el("img", { src: "assets/icons/ic_arrow_back.svg", alt: "" })
         ),
-        el("h1", { class: "toolbar-title" }, "חידון")
+        el("h1", { class: "quiz-header__title" }, "חידון")
       ),
-      // Progress indicator + counter only shown during quiz, not on results.
+      // LinearProgressIndicator (gold over dark-red track)
       !state.finished
         ? el(
             "div",
-            { class: "quiz-progress-bar" },
-            el("div", {
-              class: "fill",
-              style: { width: progressPercent + "%" },
-            })
+            { class: "quiz-progress", role: "progressbar",
+              "aria-valuemin": 0, "aria-valuemax": 100, "aria-valuenow": percent },
+            el("div", { class: "quiz-progress__fill", style: { width: percent + "%" } })
           )
         : null,
       !state.finished
@@ -95,123 +145,137 @@ export function Quiz(data, lessonId) {
     );
   }
 
-  // Body: question card + 4 options + (feedback) + submit/next button.
   function renderBody() {
     const q = state.questions[state.index];
-    const total = state.questions.length;
-
-    // 4 buttons mirror btnOption0..3. The XML hard-codes 4; we render only as
-    // many as the question provides (up to 4) — extras are hidden, matching
-    // the Kotlin "btn.visibility = if (i < options.size) VISIBLE else GONE".
     const options = (q.options || []).slice(0, 4);
-
-    const optionEls = options.map((opt, i) => {
-      let cls = "quiz-option";
-      if (state.submitted) {
-        if (i === q.correctIndex) cls += " is-correct";
-        else if (i === state.selected) cls += " is-wrong";
-      } else if (state.selected === i) {
-        cls += " is-selected";
-      }
-      return el(
-        "button",
-        {
-          class: cls,
-          type: "button",
-          disabled: state.submitted,
-          onClick: () => onSelect(i),
-        },
-        opt
-      );
-    });
+    const showQuestionSpeak = extractRomaji(q.question || "").length > 0;
 
     return el(
       "main",
       { class: "quiz-body" },
-      // Question card
+      // Question card — MaterialCardView, surface, 20dp radius, 1dp stroke
       el(
         "section",
         { class: "quiz-question-card" },
         el("p", { class: "quiz-question-text" }, q.question || ""),
-        el(
-          "button",
-          {
-            class: "quiz-speak-btn",
-            type: "button",
-            "aria-label": "השמע שאלה",
-            onClick: () => Speaker.speak(q.question || ""),
-          },
-          // ic_volume.xml — recreated as a small inline SVG so it always renders
-          // even before assets are cached.
-          volumeIcon()
-        )
+        showQuestionSpeak
+          ? el(
+              "button",
+              {
+                type: "button",
+                class: "quiz-speak quiz-speak--question",
+                "aria-label": "השמע שאלה",
+                onClick: () => {
+                  const r = extractRomaji(q.question || "");
+                  if (r) speaker.speak(r);
+                },
+              },
+              volumeIconWhite()
+            )
+          : null
       ),
-      // Options
-      ...optionEls,
-      // Feedback card — visible only after submit (mirrors cardFeedback.visibility)
+      // Option rows: option button + circular speaker button (only if not Hebrew)
+      ...options.map((opt, i) => renderOptionRow(opt, i)),
+      // Feedback card — visible only after submit
       state.submitted
         ? el(
             "div",
             { class: "quiz-feedback" },
-            feedbackText(q)
+            (q.explanation && q.explanation.trim()) ||
+              (state.selected === q.correctIndex
+                ? "תשובה נכונה."
+                : "סקור את הסיכום ונסה את השאלה הבאה.")
           )
         : null,
-      // Submit / Next button (mutually exclusive, like the XML)
+      // Submit / Next button
       state.submitted
         ? el(
             "button",
             {
-              class: "btn btn-outlined quiz-action",
               type: "button",
+              class: "btn btn--block quiz-action quiz-action--next",
               onClick: onNext,
             },
-            state.index + 1 < total ? "השאלה הבאה ◀" : "סיום"
+            state.index + 1 < state.questions.length
+              ? "השאלה הבאה ▶"
+              : "סיום ✓"
           )
         : el(
             "button",
             {
-              class: "btn quiz-action",
               type: "button",
+              class: "btn btn--block quiz-action quiz-action--submit",
               disabled: state.selected == null,
               onClick: onSubmit,
             },
-            "בדיקת תשובה"
+            "בדוק ✓"
           )
     );
   }
 
-  // Results layout — mirrors layoutResults block in the XML.
-  function renderResults() {
-    const total = state.questions.length;
-    const percent = Math.floor((state.score * 100) / total);
-    const passed = percent >= 70;
+  function renderOptionRow(opt, i) {
+    const q = state.questions[state.index];
+    let stateClass = "";
+    if (state.submitted) {
+      if (i === q.correctIndex) stateClass = "is-correct";
+      else if (i === state.selected) stateClass = "is-wrong";
+    } else if (state.selected === i) {
+      stateClass = "is-selected";
+    }
 
     return el(
-      "section",
+      "div",
+      { class: "quiz-option-row" },
+      el(
+        "button",
+        {
+          type: "button",
+          class: ["quiz-option", stateClass].filter(Boolean).join(" "),
+          disabled: state.submitted,
+          onClick: () => onSelect(i),
+        },
+        opt
+      ),
+      !isHebrew(opt)
+        ? el(
+            "button",
+            {
+              type: "button",
+              class: "quiz-speak quiz-speak--option",
+              "aria-label": "השמע אפשרות",
+              onClick: (e) => {
+                e.stopPropagation();
+                speaker.speak(opt);
+              },
+            },
+            volumeIconWhite()
+          )
+        : null
+    );
+  }
+
+  function renderResults() {
+    const total = state.questions.length;
+    const percent = Math.round((state.score / total) * 100);
+    const passed = percent >= PASS_THRESHOLD;
+    return el(
+      "main",
       { class: "quiz-results" },
+      el("p", { class: "quiz-results__emoji" }, passed ? "🎉" : "📚"),
+      el("p", { class: "quiz-results__score" }, `${state.score} / ${total}`),
       el(
         "p",
-        { class: "result-emoji" },
-        passed ? "🎉" : "📚"
-      ),
-      el(
-        "p",
-        { class: "result-final-score" },
-        `${state.score} / ${total}`
-      ),
-      el(
-        "p",
-        { class: "result-message" },
+        { class: "quiz-results__message" },
         passed ? "כל הכבוד! עברת את השיעור!" : "נסה שוב כדי לעבור את השיעור (70% נדרש)"
       ),
       el(
         "p",
-        { class: "result-summary" },
-        `דיוק: ${percent}% · נדרש 70% כדי להשלים את השיעור`
+        { class: "quiz-results__summary" },
+        `דיוק: ${percent}% · נדרש ${PASS_THRESHOLD}% כדי להשלים את השיעור`
       ),
       el(
         "p",
-        { class: "result-achievement" },
+        { class: "quiz-results__achievement bg-achievement-pill" },
         passed
           ? "השיעור סומן כהושלם. ההתקדמות שלך נשמרה במכשיר."
           : "אפשר לחזור על החידון. הניקוד מתאפס רק כשלוחצים שחק שוב."
@@ -219,8 +283,8 @@ export function Quiz(data, lessonId) {
       el(
         "button",
         {
-          class: "btn btn-replay",
           type: "button",
+          class: "btn btn--block quiz-results__btn",
           onClick: onReplay,
         },
         "שחק שוב"
@@ -228,17 +292,16 @@ export function Quiz(data, lessonId) {
       el(
         "button",
         {
-          class: "btn btn-outlined btn-back",
           type: "button",
-          onClick: () => Router.go(`/lesson/${lessonId}`),
+          class: "btn btn--outlined btn--block quiz-results__btn",
+          onClick: () => router.go(`#/lesson/${lessonId}`),
         },
         "חזור לשיעור"
       )
     );
   }
 
-  // ----- Behaviour --------------------------------------------------------
-
+  // ---- Handlers ------------------------------------------------------------
   function onSelect(i) {
     if (state.submitted) return;
     state.selected = i;
@@ -248,26 +311,29 @@ export function Quiz(data, lessonId) {
   function onSubmit() {
     if (state.submitted || state.selected == null) return;
     state.submitted = true;
-    if (state.selected === state.questions[state.index].correctIndex) {
-      state.score++;
-    }
+    const q = state.questions[state.index];
+    if (state.selected === q.correctIndex) state.score++;
     render();
   }
 
   function onNext() {
-    state.index++;
-    state.selected = null;
-    state.submitted = false;
-    if (state.index >= state.questions.length) {
-      // Mirror "showResults": persist progress on a passing run.
+    if (state.index + 1 < state.questions.length) {
+      state.index++;
+      state.selected = null;
+      state.submitted = false;
+      render();
+    } else {
+      // Quiz finished — mark completion if passed.
       const total = state.questions.length;
-      const percent = Math.floor((state.score * 100) / total);
-      if (percent >= 70) {
-        Progress.markLessonCompleted(lessonId);
+      const percent = Math.round((state.score / total) * 100);
+      if (percent >= PASS_THRESHOLD && !state.completedThisRun) {
+        try { store.markLessonCompleted(lessonId); } catch {}
+        try { store.addXP(10); } catch {}
+        state.completedThisRun = true;
       }
       state.finished = true;
+      render();
     }
-    render();
   }
 
   function onReplay() {
@@ -276,29 +342,8 @@ export function Quiz(data, lessonId) {
     state.selected = null;
     state.submitted = false;
     state.finished = false;
+    state.completedThisRun = false;
     render();
-  }
-
-  function feedbackText(q) {
-    const explanation = (q.explanation || "").trim();
-    if (explanation) return explanation;
-    return state.selected === q.correctIndex
-      ? "Correct."
-      : "Review the lesson notes and try the next one.";
-  }
-
-  function volumeIcon() {
-    // Inline SVG copy of res/drawable/ic_volume.xml (filled to currentColor so it
-    // tracks the button's text color when red or white).
-    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.setAttribute("viewBox", "0 0 24 24");
-    svg.setAttribute("width", "24");
-    svg.setAttribute("height", "24");
-    svg.setAttribute("aria-hidden", "true");
-    svg.innerHTML =
-      '<path fill="currentColor" d="M3,9v6h4l5,5V4L7,9H3zm13.5,3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-0.73 2.5-2.25 2.5-4.02z"/>' +
-      '<path fill="currentColor" d="M14,3.23v2.06c2.89,0.86 5,3.54 5,6.71s-2.11,5.85-5,6.71v2.06c4.01-0.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>';
-    return svg;
   }
 
   render();

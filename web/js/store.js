@@ -1,106 +1,131 @@
-// localStorage-backed mirror of ProgressManager.kt + WorkbookProgressManager.kt
+// store.js — progress + profile persistence
+//
+// Mirrors ProgressManager.kt (XP, streak, completed lessons, challenge high score)
+// and ProfileFragment's "nihongo_profile" prefs (name, photo).
+//
+// Storage keys are namespaced "kimura.*" in localStorage.
 
-const NS_PROGRESS = "nihongo_progress:";
-const NS_WORKBOOK = "nihongo_workbook:";
-const KEY_COMPLETED = NS_PROGRESS + "completed_lessons";
-const KEY_HIGH_SCORE = NS_PROGRESS + "challenge_high_score";
+const NS = "kimura.";
 
-const TOTAL_LESSONS = 17;
+const KEY_COMPLETED       = NS + "completed_lessons";       // JSON array of int
+const KEY_CHALLENGE_HIGH  = NS + "challenge_high_score";    // int
+const KEY_XP              = NS + "total_xp";                // int
+const KEY_STREAK          = NS + "streak_count";            // int
+const KEY_LAST_DAY        = NS + "last_activity_day";       // int (epoch days)
+const KEY_PROFILE_NAME    = NS + "profile_name";            // string
+const KEY_PROFILE_PHOTO   = NS + "profile_photo";           // dataURL
 
-function readSet(key) {
+// Display total — matches ProgressManager.getTotalLessons()
+export const TOTAL_LESSONS = 17;
+
+// ---------- low-level helpers ----------
+function read(key, fallback = null) {
   try {
-    const raw = localStorage.getItem(key);
-    if (!raw) return new Set();
-    return new Set(JSON.parse(raw));
-  } catch {
-    return new Set();
+    const v = localStorage.getItem(key);
+    return v == null ? fallback : v;
+  } catch { return fallback; }
+}
+function write(key, value) {
+  try { localStorage.setItem(key, value); } catch { /* quota / private mode */ }
+}
+function readInt(key, fb = 0) {
+  const v = read(key);
+  if (v == null) return fb;
+  const n = parseInt(v, 10);
+  return Number.isFinite(n) ? n : fb;
+}
+function readJSON(key, fb) {
+  const v = read(key);
+  if (v == null) return fb;
+  try { return JSON.parse(v); } catch { return fb; }
+}
+
+// ---------- completed lessons ----------
+export function getCompletedLessonIds() {
+  const arr = readJSON(KEY_COMPLETED, []);
+  if (!Array.isArray(arr)) return new Set();
+  return new Set(arr.map(n => Number(n)).filter(Number.isFinite));
+}
+
+export function isLessonCompleted(id) {
+  return getCompletedLessonIds().has(Number(id));
+}
+
+export function markLessonCompleted(id) {
+  const set = getCompletedLessonIds();
+  set.add(Number(id));
+  write(KEY_COMPLETED, JSON.stringify([...set]));
+}
+
+export function getCompletedCount() {
+  return getCompletedLessonIds().size;
+}
+
+// Sequential unlock: lesson 1 always unlocked; lesson N unlocked if N-1 completed
+export function isLessonUnlocked(id) {
+  const n = Number(id);
+  if (n <= 1) return true;
+  return isLessonCompleted(n - 1);
+}
+
+// ---------- XP ----------
+export function getTotalXP() { return readInt(KEY_XP, 0); }
+
+export function addXP(amount) {
+  const next = getTotalXP() + Number(amount || 0);
+  write(KEY_XP, String(next));
+  return next;
+}
+
+// ---------- Streak ----------
+export function getStreak() { return readInt(KEY_STREAK, 0); }
+
+// Equivalent of ProgressManager.recordActivity().
+// epochDay = floor(Date.now() / 86_400_000) in UTC.
+export function recordActivity() {
+  const today = Math.floor(Date.now() / 86400000);
+  const last  = readInt(KEY_LAST_DAY, -1);
+  const cur   = getStreak();
+  let next;
+  if (last === today)        next = cur || 1;
+  else if (last === today-1) next = cur + 1;
+  else                       next = 1;
+  write(KEY_STREAK,    String(next));
+  write(KEY_LAST_DAY,  String(today));
+  return next;
+}
+
+// ---------- Challenge high score ----------
+export function getChallengeHighScore() { return readInt(KEY_CHALLENGE_HIGH, 0); }
+
+export function saveChallengeHighScore(score) {
+  const cur = getChallengeHighScore();
+  if (score > cur) write(KEY_CHALLENGE_HIGH, String(score));
+}
+
+// ---------- Profile ----------
+export function getProfileName() {
+  return read(KEY_PROFILE_NAME, "הלומד שלי");
+}
+export function setProfileName(name) {
+  const v = (name || "").trim() || "הלומד שלי";
+  write(KEY_PROFILE_NAME, v);
+}
+
+export function getProfilePhoto() {
+  return read(KEY_PROFILE_PHOTO, null);
+}
+export function setProfilePhoto(dataUrl) {
+  if (!dataUrl) {
+    try { localStorage.removeItem(KEY_PROFILE_PHOTO); } catch {}
+    return;
+  }
+  write(KEY_PROFILE_PHOTO, dataUrl);
+}
+
+// ---------- Reset ----------
+export function resetProgress() {
+  for (const k of [KEY_COMPLETED, KEY_CHALLENGE_HIGH, KEY_XP, KEY_STREAK, KEY_LAST_DAY]) {
+    try { localStorage.removeItem(k); } catch {}
   }
 }
-
-function writeSet(key, set) {
-  localStorage.setItem(key, JSON.stringify([...set]));
-}
-
-export const Progress = {
-  getTotalLessons() { return TOTAL_LESSONS; },
-
-  markLessonCompleted(lessonId) {
-    const set = readSet(KEY_COMPLETED);
-    set.add(String(lessonId));
-    writeSet(KEY_COMPLETED, set);
-  },
-
-  isLessonCompleted(lessonId) {
-    return readSet(KEY_COMPLETED).has(String(lessonId));
-  },
-
-  getCompletedCount() {
-    return readSet(KEY_COMPLETED).size;
-  },
-
-  getCompletedIds() {
-    return [...readSet(KEY_COMPLETED)].map(s => parseInt(s, 10)).filter(n => !isNaN(n));
-  },
-
-  getChallengeHighScore() {
-    const v = parseInt(localStorage.getItem(KEY_HIGH_SCORE) || "0", 10);
-    return isNaN(v) ? 0 : v;
-  },
-
-  saveChallengeHighScore(score) {
-    const cur = this.getChallengeHighScore();
-    if (score > cur) {
-      localStorage.setItem(KEY_HIGH_SCORE, String(score));
-      return true;
-    }
-    return false;
-  },
-
-  resetAll() {
-    Object.keys(localStorage)
-      .filter(k => k.startsWith(NS_PROGRESS) || k.startsWith(NS_WORKBOOK))
-      .forEach(k => localStorage.removeItem(k));
-  },
-};
-
-export const Workbook = {
-  saveAnswer(exerciseId, text, maxLength = 1200) {
-    const trimmed = (text || "").slice(0, maxLength);
-    localStorage.setItem(NS_WORKBOOK + "answer_" + exerciseId, trimmed);
-  },
-  getAnswer(exerciseId) {
-    return localStorage.getItem(NS_WORKBOOK + "answer_" + exerciseId) || "";
-  },
-  markComplete(exerciseId, complete = true) {
-    if (complete) {
-      localStorage.setItem(NS_WORKBOOK + "complete_" + exerciseId, "1");
-    } else {
-      localStorage.removeItem(NS_WORKBOOK + "complete_" + exerciseId);
-    }
-  },
-  isComplete(exerciseId) {
-    return localStorage.getItem(NS_WORKBOOK + "complete_" + exerciseId) === "1";
-  },
-  recordAttempt(exerciseId) {
-    const key = NS_WORKBOOK + "attempts_" + exerciseId;
-    const cur = parseInt(localStorage.getItem(key) || "0", 10) || 0;
-    localStorage.setItem(key, String(cur + 1));
-    return cur + 1;
-  },
-  getAttempts(exerciseId) {
-    return parseInt(localStorage.getItem(NS_WORKBOOK + "attempts_" + exerciseId) || "0", 10) || 0;
-  },
-  revealNextHint(exerciseId, total) {
-    const key = NS_WORKBOOK + "hint_" + exerciseId;
-    const cur = parseInt(localStorage.getItem(key) || "0", 10) || 0;
-    const next = Math.min(cur + 1, total);
-    localStorage.setItem(key, String(next));
-    return next;
-  },
-  getRevealedHintCount(exerciseId) {
-    return parseInt(localStorage.getItem(NS_WORKBOOK + "hint_" + exerciseId) || "0", 10) || 0;
-  },
-  getLessonCompletedCount(lessonId, exercises) {
-    return exercises.filter(e => e.lessonId === lessonId && this.isComplete(e.id)).length;
-  },
-};

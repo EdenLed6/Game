@@ -1,88 +1,130 @@
 /* =========================================================================
-   FLASHCARDS screen — 1:1 port of activity_flashcard.xml + FlashcardActivity.kt.
-   Vertical LinearLayout: gradient hero (toolbar + counter chip),
-   then a centered card area (260dp tall front/back FrameLayout +
-   navigation row + speak button). Card flip mirrors anim/card_flip_*.xml.
-   ========================================================================= */
+ * Flashcards screen — 1:1 port of activity_flashcard.xml + FlashcardActivity.
+ *
+ *   Header (bg_header.png) — paddingTop=44, paddingBottom=16, side=20
+ *      Toolbar 56dp (back arrow + "כרטיסיות")
+ *      bg_stats_chip counter "N / total" (centered)
+ *
+ *   Body (LinearLayout vertical, padding=20dp, gravity=center)
+ *      FrameLayout 260dp tall, marginBottom=24dp
+ *        Front (cardFront): bg_flashcard_front (washi + 24dp + 1.5dp stroke),
+ *          padding=28dp, gravity center.
+ *            tvFrontJapanese: 52sp bold
+ *            tvFrontRomaji:   18sp muted, marginTop 8dp
+ *            tvHintTap:       12sp red on bg_lesson_number_chip pill, marginTop 20dp
+ *        Back (cardBack): bg_flashcard_back (red 135deg gradient + 24dp),
+ *          padding=28dp, gravity center.
+ *            tvBackEmoji:    44sp, marginBottom 8dp
+ *            tvBackHebrew:   30sp bold white
+ *            tvBackJapanese: 18sp white @ 0.85, marginTop 8dp
+ *            tvBackRomaji:   13sp white @ 0.65, marginTop 4dp
+ *      Nav row (horizontal, gravity=center, marginBottom=16dp)
+ *        Prev (App.Button.Small)  weight=1   marginEnd=8dp
+ *        Flip (App.Button)        weight=1.4 marginEnd=8dp
+ *        Next (App.Button.Small)  weight=1
+ *      btnSpeakCard (App.Button) full width
+ * ========================================================================= */
 
-.fc-screen {
+.flashcard-screen {
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-  min-height: 100dvh;
-  min-height: 100vh;
-  background: var(--background);
+  min-height: 0;
+  overflow: hidden;
+  background: transparent;
 }
 
-/* ---- Gradient hero (paddingStart/End=20dp, paddingTop=44dp, paddingBottom=16dp) ---- */
-.fc-hero {
-  background: var(--hero-gradient);
-  padding: calc(44px + env(safe-area-inset-top)) 20px 16px;
-  color: var(--white);
+/* ----- Header ----------------------------------------------------------- */
+
+.flashcard-header {
+  flex: 0 0 auto;
+  background-image: url("../../assets/bg_header.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  color: #FFFFFF;
+  padding: 20px 20px 16px;
+  padding-top: max(20px, env(safe-area-inset-top));
   display: flex;
   flex-direction: column;
+  gap: 4px;
 }
 
-.fc-hero .toolbar-back {
+.flashcard-header__top {
+  display: flex;
+  align-items: center;
+  height: 56px;
+  gap: 8px;
+}
+
+.flashcard-header__back {
   width: 40px;
   height: 40px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 999px;
-  color: var(--white);
   background: transparent;
-  border: none;
-  font-size: 24px;
-  flex-shrink: 0;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  flex: 0 0 auto;
 }
-.fc-hero .toolbar-back:hover { background: rgba(255,255,255,0.10); }
+.flashcard-header__back:active { background: rgba(255, 255, 255, 0.16); }
+.flashcard-header__back img {
+  width: 24px;
+  height: 24px;
+  transform: scaleX(-1);
+}
 
-.fc-hero .toolbar-title {
-  flex: 1;
-  margin: 0 0 0 8px;
+.flashcard-header__title {
+  flex: 1 1 auto;
+  margin: 0;
   font-size: 20px;
-  font-weight: 600;
-  color: var(--white);
-  letter-spacing: 0.15px;
+  font-weight: 700;
+  color: #FFFFFF;
   text-align: start;
 }
 
-/* tvCardCounter — bg_stats_chip (#2A0A08, 50dp radius), padding 16dp/6dp, white 13sp bold */
-.fc-counter-chip {
+.flashcard-counter {
   align-self: center;
-  display: inline-flex;
-  align-items: center;
-  background: var(--hero-progress-bg);
-  color: var(--white);
+  margin: 4px 0 0;
+  padding: 6px 16px;
+  height: auto;
   font-size: 13px;
   font-weight: 700;
-  padding: 6px 16px;
-  border-radius: 50px;
-  /* Push counter slightly down from toolbar */
-  margin-top: 4px;
+  letter-spacing: 0.4px;
+  color: #FFFFFF;
 }
 
-/* ---- Card area (LinearLayout layout_weight=1, padding=20dp, centered) ---- */
-.fc-body {
-  flex: 1;
+/* ----- Body ------------------------------------------------------------- */
+
+.flashcard-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: center;
-  padding: 20px;
 }
 
-/* FrameLayout 260dp tall, marginBottom=24dp. We use perspective + 3D so the flip
-   between front and back looks like the Android objectAnimator on rotationY. */
-.fc-card-stage {
+/* ----- Card (FrameLayout 260dp) — 3D rotateY flip ----------------------- */
+
+.flashcard-card {
   position: relative;
   width: 100%;
   height: 260px;
   margin-bottom: 24px;
   perspective: 1200px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.fc-card {
+.flashcard-face {
   position: absolute;
   inset: 0;
   display: flex;
@@ -91,180 +133,91 @@
   justify-content: center;
   text-align: center;
   padding: 28px;
-  cursor: pointer;
-  user-select: none;
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: transform 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
   transform-style: preserve-3d;
-  /* Card flip in/out: 200ms rotationY (90→0 in, 0→-90 out) */
-  transition: transform 200ms ease-out, opacity 100ms ease-out;
-  will-change: transform, opacity;
+  /* elevation 6dp */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
 }
 
-/* bg_flashcard_front — white, 24dp radius, 1.5dp stroke, elevation 6dp */
-.fc-card-front {
-  background: var(--surface);
-  border-radius: 24px;
-  border: 1.5px solid var(--card-stroke);
-  box-shadow: var(--elev-3);
-  color: var(--on-surface);
-}
+.flashcard-face--front { transform: rotateY(0deg); }
+.flashcard-face--back  { transform: rotateY(180deg); }
 
-/* bg_flashcard_back — gradient C0362A→6A1410 135°, 24dp radius, 6dp elevation, white text */
-.fc-card-back {
-  background: var(--flashcard-back-gradient);
-  border-radius: 24px;
-  box-shadow: var(--elev-3);
-  color: var(--white);
-}
+.flashcard-card.is-flipped .flashcard-face--front { transform: rotateY(-180deg); }
+.flashcard-card.is-flipped .flashcard-face--back  { transform: rotateY(0deg); }
 
-/* showFront=true : front rotated 0, back rotated -90 (hidden via opacity 0)
-   showFront=false: back rotated 0, front rotated +90 */
-.fc-card-stage.is-front .fc-card-front { transform: rotateY(0deg);   opacity: 1; pointer-events: auto; }
-.fc-card-stage.is-front .fc-card-back  { transform: rotateY(-90deg); opacity: 0; pointer-events: none; }
-.fc-card-stage.is-back  .fc-card-front { transform: rotateY(90deg);  opacity: 0; pointer-events: none; }
-.fc-card-stage.is-back  .fc-card-back  { transform: rotateY(0deg);   opacity: 1; pointer-events: auto; }
-
-/* ---- Front card text styles (matches XML directly) ---- */
-.fc-front-japanese {
-  margin: 0;
+/* Front face contents */
+.flashcard-front__japanese {
   font-size: 52px;
   font-weight: 700;
+  color: var(--color-on-surface);
   line-height: 1.1;
-  color: var(--on-surface);
-  text-align: center;
-  letter-spacing: 0;
+  word-break: break-word;
 }
-
-.fc-front-romaji {
-  margin: 8px 0 0;
+.flashcard-front__romaji {
+  margin-top: 8px;
   font-size: 18px;
-  color: var(--on-surface-muted);
-  text-align: center;
+  color: var(--color-on-surface-muted);
 }
-
-/* tvHintTap — bg_lesson_number_chip (surface-soft pill), 6dp/16dp padding,
-   colorPrimary 12sp text */
-.fc-hint-chip {
+.flashcard-front__hint {
   margin-top: 20px;
-  display: inline-flex;
-  align-items: center;
-  background: var(--surface-soft);
-  color: var(--color-primary);
-  border-radius: 50px;
   padding: 6px 16px;
+  background: var(--color-surface-soft);
+  border-radius: 999px;
   font-size: 12px;
-  font-weight: 600;
+  color: var(--color-primary);
+  font-weight: 500;
 }
 
-/* ---- Back card text styles ---- */
-.fc-back-emoji {
-  margin: 0 0 8px;
+/* Back face contents */
+.flashcard-back__emoji {
   font-size: 44px;
   line-height: 1;
-  text-align: center;
+  margin-bottom: 8px;
 }
-
-.fc-back-hebrew {
-  margin: 0;
+.flashcard-back__hebrew {
   font-size: 30px;
   font-weight: 700;
-  color: var(--white);
-  text-align: center;
-  line-height: 1.2;
+  color: #FFFFFF;
+  line-height: 1.15;
 }
-
-.fc-back-japanese {
-  margin: 8px 0 0;
+.flashcard-back__japanese {
+  margin-top: 8px;
   font-size: 18px;
-  color: var(--white);
+  color: #FFFFFF;
   opacity: 0.85;
-  text-align: center;
 }
-
-.fc-back-romaji {
-  margin: 4px 0 0;
+.flashcard-back__romaji {
+  margin-top: 4px;
   font-size: 13px;
-  color: var(--white);
+  color: #FFFFFF;
   opacity: 0.65;
-  text-align: center;
 }
 
-/* ---- Navigation row (horizontal with weights 1 / 1.4 / 1, marginBottom=16dp) ---- */
-.fc-nav {
+/* ----- Navigation row --------------------------------------------------- */
+
+.flashcard-nav {
   display: flex;
-  align-items: stretch;
+  flex-direction: row;
+  gap: 8px;
   margin-bottom: 16px;
-  gap: 8px;
-}
-
-.fc-nav .btn-prev,
-.fc-nav .btn-next {
-  flex: 1 1 0;
-  min-height: 40px;
-  padding: 8px 16px;
-  border-radius: 20px;
-  background: transparent;
-  color: var(--color-primary);
-  border: 1px solid var(--color-primary);
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background-color 120ms ease;
-}
-.fc-nav .btn-prev:hover:not(:disabled),
-.fc-nav .btn-next:hover:not(:disabled) {
-  background: rgba(192, 54, 42, 0.06);
-}
-.fc-nav .btn-prev:disabled,
-.fc-nav .btn-next:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
-.fc-nav .btn-flip {
-  flex: 1.4 1 0;
-  min-height: 54px;
-  padding: 12px 24px;
-  border-radius: 28px;
-  background: var(--color-primary);
-  color: var(--white);
-  border: none;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background-color 120ms ease, transform 80ms ease;
-}
-.fc-nav .btn-flip:hover { background: var(--color-primary-variant); }
-.fc-nav .btn-flip:active { transform: translateY(1px); }
-
-/* ---- Speak button (App.Button.Outlined, full width) ---- */
-.fc-speak-btn {
-  display: inline-flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
-  gap: 8px;
-  width: 100%;
-  min-height: 54px;
-  padding: 12px 24px;
-  border-radius: 28px;
-  background: transparent;
-  color: var(--color-primary);
-  border: 2px solid var(--color-primary);
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background-color 120ms ease;
 }
-.fc-speak-btn:hover { background: rgba(192, 54, 42, 0.06); }
 
-/* ---- Card flip helper animations (mirrors anim/card_flip_in.xml & _out.xml).
-   Used additively when JS triggers a flip — provides the subtle bounce-in feel. ---- */
-@keyframes fc_card_flip_in {
-  0%   { transform: rotateY(90deg); opacity: 0; }
-  50%  { opacity: 1; }
-  100% { transform: rotateY(0deg);  opacity: 1; }
+.flashcard-nav__btn {
+  /* override .btn default min-width so weights work cleanly */
+  min-width: 0;
+  padding: 0 12px;
 }
-.fc-card-stage.is-flipping .fc-card-front,
-.fc-card-stage.is-flipping .fc-card-back {
-  animation: fc_card_flip_in 220ms cubic-bezier(0.215, 0.61, 0.355, 1);
+.flashcard-nav__btn--prev,
+.flashcard-nav__btn--next { flex: 1 1 0; }
+.flashcard-nav__btn--flip { flex: 1.4 1 0; }
+.flashcard-nav__btn[disabled] { opacity: 0.45; cursor: not-allowed; }
+
+/* ----- Audio button ----------------------------------------------------- */
+
+.flashcard-speak {
+  width: 100%;
 }

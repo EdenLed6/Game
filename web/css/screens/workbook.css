@@ -1,263 +1,251 @@
-/* =========================================================================
-   Workbook screen — 1:1 port of WorkbookActivity.kt (no XML; built in Kotlin).
-   Source: app/src/main/java/com/nihongo/beginner/WorkbookActivity.kt
+/* ============================================================
+ * Kimura — Workbook
+ * Port of WorkbookActivity.kt programmatic layout.
+ * Toolbar is white (setBackgroundColor(white) + titleTextColor(primary))
+ * — different from other game screens which use bg_gradient_hero.
+ * ========================================================== */
 
-   Layout from buildShell():
-     • root LinearLayout vertical, background = surface (#FFFFFF)
-     • MaterialToolbar  height 56dp,  bg white, title color = colorPrimary
-     • progressText      padding 16/10/16/4, gravity center, 14sp, onSurface
-     • ProgressBar       height 8dp,  marginStart/End 18dp, primary tint
-     • ScrollView        padding 18dp, weight 1, vertical content
-     • bottom nav        padding 12/8/12/12, two equal-weight buttons w/ 6dp gap
-
-   Cards from card{}:
-     • surfaceAlt fill (#FFFAF9)
-     • 5dp radius, 1dp black stroke, 1dp elevation
-     • inner padding 16dp
-     • bottom margin 14dp
-   ========================================================================= */
-
-.workbook-page {
-  flex: 1;
+.wb-screen {
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-  background: var(--surface);    /* setBackgroundColor(color(R.color.surface)) */
-  min-height: 100dvh;
-  min-height: 100vh;
+  min-height: 0;
+  background: var(--color-surface);
 }
 
-/* ---------- Toolbar (white bg, red title, red back arrow) ---------- */
-.workbook-toolbar {
+/* ---------- Toolbar ---------- */
+.wb-toolbar {
+  flex: 0 0 auto;
   height: 56px;
+  background: #FFFFFF;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 0 8px 0 16px;       /* matches Material toolbar paddings */
-  background: var(--white);
-  color: var(--color-primary);
-  border-bottom: 1px solid var(--divider-soft);
-  padding-top: env(safe-area-inset-top);
-  box-sizing: content-box;
+  padding: 0 8px;
+  border-bottom: 1px solid var(--color-divider-soft);
 }
-.workbook-toolbar .nav-btn {
+
+.wb-toolbar__back {
   width: 40px;
   height: 40px;
-  border-radius: 999px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
-  color: var(--color-primary);
-  font-size: 22px;
-  flex-shrink: 0;
+  /* RTL: arrow is mirrored to point right (Hebrew "back") */
+  transform: scaleX(-1);
 }
-.workbook-toolbar .nav-btn:hover { background: var(--surface-soft); }
-.workbook-toolbar .title {
-  flex: 1;
-  margin: 0;
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--color-primary);
-  letter-spacing: 0.15px;
-  text-align: start;
+.wb-toolbar__back img {
+  width: 24px;
+  height: 24px;
+  /* tint to primary red */
+  filter: invert(22%) sepia(78%) saturate(2080%) hue-rotate(354deg) brightness(82%) contrast(91%);
 }
 
-/* ---------- Progress text + bar ---------- */
-.workbook-progress-text {
+.wb-toolbar__title {
+  margin: 0 8px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-primary);
+  flex: 1 1 auto;
+}
+
+/* ---------- Progress ---------- */
+.wb-progress__label {
+  margin: 0;
+  padding: 10px 16px 4px 16px;
   text-align: center;
   font-size: 14px;
-  color: var(--on-surface);
-  padding: 10px 16px 4px;
+  color: var(--color-on-surface);
 }
-.workbook-progress-bar {
+
+.wb-progress {
   margin: 0 18px;
   height: 8px;
-  background: var(--divider-soft);
+  background: var(--color-divider-soft);
   border-radius: 4px;
   overflow: hidden;
 }
-.workbook-progress-bar > .fill {
+
+.wb-progress__bar {
   height: 100%;
+  width: 0%;
   background: var(--color-primary);
-  border-radius: 4px;
-  transition: width 250ms cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition: width 0.3s ease;
 }
 
-/* ---------- Scroll content (matches ScrollView with content padding 18dp) ---------- */
-.workbook-scroll {
-  flex: 1;
+/* ---------- Scrolling content ---------- */
+.wb-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
-  padding: 16px 18px 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;          /* mirrors bottomMargin = 14dp on each card */
+  -webkit-overflow-scrolling: touch;
 }
 
-/* ---------- Card (matches card{} helper in Kotlin) ---------- */
-.workbook-card {
-  background: var(--surface-alt);
+.wb-content {
+  padding: 16px 18px 18px 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Cards ----------
+   Kotlin uses surfaceAlt bg, 5dp radius (yes — small), 1dp elev,
+   1dp black stroke. We mirror that. */
+.wb-card {
+  background: var(--color-surface-alt);
   border-radius: 5px;
-  border: 1px solid var(--black);
-  box-shadow: var(--elev-1);
+  border: 1px solid var(--color-black);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
   padding: 16px;
+  margin-bottom: 14px;
   display: flex;
   flex-direction: column;
+  gap: 4px;
 }
 
-/* Internal label spacing mirrors `addLabel` (4dp top + 4dp bottom on each TextView). */
-.workbook-card .label {
-  padding: 4px 0;
+.wb-label {
   margin: 0;
-  text-align: start;
-  line-height: 1.4;
-}
-.workbook-card .label.bold      { font-weight: 700; }
-.workbook-card .label.muted     { color: var(--on-surface-muted); }
-.workbook-card .label.on-surface { color: var(--on-surface); }
-.workbook-card .label.secondary { color: var(--color-secondary); }
-.workbook-card .label.size-13   { font-size: 13px; }
-.workbook-card .label.size-14   { font-size: 14px; }
-.workbook-card .label.size-15   { font-size: 15px; }
-.workbook-card .label.size-16   { font-size: 16px; }
-.workbook-card .label.size-18   { font-size: 18px; }
-.workbook-card .label.size-24   { font-size: 24px; }
-
-/* Internal stacked button (addButton): topMargin 10dp, full-width material button. */
-.workbook-card .stacked-btn {
-  margin-top: 10px;
+  padding: 4px 0;
+  color: var(--color-on-surface);
+  line-height: 1.35;
 }
 
-/* The textarea ("EditText") — mirrors topMargin 8dp / bottomMargin 12dp. */
-.workbook-textarea-input {
-  width: 100%;
-  margin-top: 8px;
-  margin-bottom: 12px;
-  min-height: 96px;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid var(--option-stroke);
-  background: var(--white);
-  color: var(--on-surface);
+.wb-label--13 { font-size: 13px; }
+.wb-label--14 { font-size: 14px; }
+.wb-label--15 { font-size: 15px; }
+.wb-label--16 { font-size: 16px; }
+.wb-label--18 { font-size: 18px; }
+.wb-label--24 { font-size: 24px; }
+
+.wb-pre {
+  margin: 0;
+  white-space: pre-wrap;
   font-family: inherit;
   font-size: 15px;
-  line-height: 1.45;
-  resize: vertical;
-}
-.workbook-textarea-input::placeholder { color: var(--on-surface-muted); }
-.workbook-textarea-input.tall { min-height: 200px; }
-
-/* Action row inside answer card (Check / Save done). 6dp gap as per Kotlin. */
-.workbook-action-row {
-  display: flex;
-  gap: 12px;        /* sum of 6dp marginStart + 6dp marginEnd from Kotlin */
-}
-.workbook-action-row .btn { flex: 1 1 0; min-height: 48px; }
-
-/* Hint paragraphs rendered when revealed. */
-.workbook-hint-list {
-  display: flex;
-  flex-direction: column;
+  color: var(--color-on-surface);
 }
 
-/* ---------- Inline message (replaces Material AlertDialog) ---------- */
-.workbook-message {
+/* Answer textarea */
+.wb-input {
+  width: 100%;
+  min-height: 88px;
+  margin: 8px 0 12px 0;
   border-radius: 12px;
-  padding: 12px 14px;
-  font-size: 14px;
-  line-height: 1.4;
-  border: 1px solid transparent;
+  border: 1.5px solid var(--color-card-stroke);
+  background: var(--color-white);
+  padding: 12px;
+  font: inherit;
+  font-size: 15px;
+  color: var(--color-on-surface);
+  resize: vertical;
+  -webkit-appearance: none;
 }
-.workbook-message .title { display: block; font-weight: 700; margin-bottom: 4px; }
-.workbook-message.is-info {
-  background: var(--correct-green-light);
-  border-color: var(--green-stroke);
-  color: var(--correct-green);
-}
-.workbook-message.is-error {
-  background: var(--wrong-light-red);
-  border-color: var(--wrong-red);
-  color: var(--wrong-red);
-}
+.wb-input::placeholder { color: var(--color-on-surface-muted); }
 
-/* ---------- Bottom Back / Next nav ---------- */
-.workbook-nav {
+.wb-card__actions {
   display: flex;
   gap: 12px;
-  padding: 8px 12px 12px;
+  margin-top: 4px;
 }
-.workbook-nav .btn { flex: 1 1 0; min-height: 48px; }
 
-/* ---------- Modal (used for "Open lesson info" and feedback dialogs).
-   The Kotlin uses MaterialAlertDialog; here we render a centered card. ---------- */
-.workbook-modal-backdrop {
+.wb-card__btn {
+  flex: 1 1 0;
+  /* small button overrides handled by .btn--small */
+}
+
+/* ---------- Bottom nav (Back / Next) ---------- */
+.wb-nav {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 12px;
+  padding: 8px 12px 12px 12px;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-divider-soft);
+}
+
+.wb-nav__btn {
+  flex: 1 1 0;
+}
+
+.wb-nav__btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---------- Empty / dialog ---------- */
+.wb-empty {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--color-on-surface-muted);
+  font-size: 16px;
+}
+
+.wb-dialog__overlay {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
+  z-index: 100;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
-  z-index: 50;
-  animation: fade_in 180ms ease-out both;
+  padding: 20px;
+  animation: wb-overlay-in 0.18s ease both;
 }
-.workbook-modal {
-  background: var(--surface);
+
+@keyframes wb-overlay-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.wb-dialog__card {
+  background: var(--color-white);
   border-radius: 16px;
   padding: 20px;
-  max-width: 460px;
+  max-width: 480px;
   width: 100%;
-  max-height: 80dvh;
+  max-height: 80vh;
   overflow-y: auto;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.30);
-  animation: scale_in 220ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  animation: wb-card-in 0.22s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
-.workbook-modal h3 {
-  margin: 0 0 12px;
+
+@keyframes wb-card-in {
+  from { transform: scale(0.94); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+.wb-dialog__title {
+  margin: 0 0 8px 0;
   font-size: 18px;
   font-weight: 700;
-  color: var(--on-surface);
+  color: var(--color-on-surface);
 }
-.workbook-modal pre {
-  margin: 0 0 16px;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  font-family: inherit;
-  font-size: 14px;
-  line-height: 1.55;
-  color: var(--on-surface);
-}
-.workbook-modal .actions { display: flex; justify-content: flex-end; }
 
-/* ---------- Local fallback .btn styles (mirror components.css). These ensure
-   the workbook page renders correctly even if components.css isn't linked. ---------- */
-.workbook-page .btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  min-height: 54px;
-  padding: 12px 24px;
-  border-radius: 28px;
+.wb-dialog__body {
   font-size: 15px;
-  font-weight: 700;
-  border: none;
-  background: var(--color-primary);
-  color: var(--white);
-  cursor: pointer;
-  width: 100%;
-  text-align: center;
-  transition: transform 80ms ease, background-color 120ms ease, border-color 120ms ease;
+  color: var(--color-on-surface);
+  line-height: 1.4;
+  margin-bottom: 16px;
 }
-.workbook-page .btn:disabled { opacity: 0.55; cursor: not-allowed; }
-.workbook-page .btn:active:not(:disabled) { transform: translateY(1px); }
-.workbook-page .btn:hover:not(:disabled) { background: var(--color-primary-variant); }
-.workbook-page .btn.btn-outlined {
-  background: transparent;
-  color: var(--color-primary);
-  border: 2px solid var(--color-primary);
+
+.wb-dialog__pre {
+  margin: 0;
+  white-space: pre-wrap;
+  font: inherit;
+  font-size: 14px;
 }
-.workbook-page .btn.btn-outlined:hover:not(:disabled) {
-  background: rgba(192, 54, 42, 0.06);
+
+.wb-dialog__actions {
+  display: flex;
+  justify-content: flex-end;
 }
-/* Modal "Back to exercise" — narrower button than full-width cards. */
-.workbook-modal .btn { width: auto; padding: 10px 22px; min-height: 44px; }
+
+.wb-dialog__btn {
+  min-width: 88px;
+}

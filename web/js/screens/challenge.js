@@ -1,333 +1,364 @@
-// Mirrors GameChallengeActivity.kt + activity_game_challenge.xml
+// challenge.js — 1:1 port of GameChallengeActivity.kt + activity_game_challenge.xml.
 //
-// Layout 1:1:
-//   • Vertical LinearLayout, background = @color/background
-//   • Hero block (bg_gradient_hero, padding 20/44/20/16)
-//       - MaterialToolbar (white nav + title)
-//       - Stats row: bg_stats_chip x 2  (high score weight 1, current weight 2)
-//       - LinearProgressIndicator (gold over #4A1A16)
-//       - Counter line (white, alpha 0.75, 11sp)
-//   • Game card (24dp radius, padding 20dp, weight 1)
-//       - Prompt row: prompt (22sp bold) + 48dp speak button
-//       - 4 Option buttons (App.Button.Option, 8dp gap)
-//       - Feedback line (visibility INVISIBLE while idle)
-//   • Result LinearLayout (visibility GONE while playing)
+// Source of truth:
+//   /home/user/Game/.ui-source/app/src/main/res/layout/activity_game_challenge.xml
+//   /home/user/Game/.ui-source/app/src/main/java/com/nihongo/beginner/GameChallengeActivity.kt
 //
-// Behaviour 1:1 with GameChallengeActivity:
-//   • restartGame  → questions = shuffled deck, take(12), reset stats
-//   • showQuestion → progress = index*100/size, counter, stats text "ניקוד: X   חיים: ♥...   רצף: Y"
-//                    paint each option white w/ red text, enable, set text
-//   • onOptionSelected → disable all, paint correct = green/white, paint
-//                        wrong = red/white, score += 100 + streak*15, streak++ on
-//                        correct, lives-- on wrong; postDelayed 1100ms → next.
-//   • showResult   → hide game, show result screen, save high score if new.
+// Mechanics (preserved verbatim):
+//   - Build deck from all lessons:
+//       * Every quiz exercise (question/options/correctIndex/explanation),
+//         filter to ones with exactly 4 options.
+//       * Two vocab questions per vocab item: "מה הפירוש של X (romaji)?"
+//         and "איזו מילה יפנית מתאימה ל-Y?", each with 3 random distractors
+//         drawn from the same pool. Filter to ones with exactly 4 options.
+//   - Shuffle, take 12.
+//   - Lives = 3, streak = 0, score = 0.
+//   - Correct: streak++; score += 100 + streak*15.
+//   - Wrong: lives--; streak = 0. (Heart shake animation.)
+//   - 1100ms delay → next question (or showResult() when lives==0 or i==12).
+//   - Result screen:
+//       title = "שיא חדש!" if score > prevHigh else "סיום אתגר"
+//       finalScore = score (big)
+//       message: lives<=0 → "נגמרו החיים..." else "השלמת את כל האתגר. השיא שלך: $high"
 
-import { el, mount, shuffle } from "../dom.js";
-import { Router } from "../router.js";
-import { Speaker } from "../speaker.js";
-import { Progress } from "../store.js";
+import { el, mount } from "../dom.js";
 
-const NEXT_DELAY_MS = 1100;          // mirrors postDelayed(..., 1100)
+const QUESTION_DELAY_MS = 1100;
+const DECK_SIZE = 12;
+const STARTING_LIVES = 3;
 
-export function Challenge(data) {
+export function Challenge({ host, ctx }) {
+  ensureStyle();
+
+  const router  = ctx.router;
+  const speaker = ctx.speaker;
+  const store   = ctx.store;
+  const lessons = Array.isArray(ctx.lessons) ? ctx.lessons : [];
+
+  // ---------- challenge-deck builders ----------
+  function shuffleArr(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function makeQuestion(prompt, correct, pool, explanation) {
+    const wrongs = shuffleArr(pool.filter(x => x !== correct)).slice(0, 3);
+    if (wrongs.length < 3) return null;
+    const opts = shuffleArr([correct, ...wrongs]);
+    return {
+      prompt,
+      options: opts,
+      correctIndex: opts.indexOf(correct),
+      explanation,
+    };
+  }
+
+  function buildDeck() {
+    // Quiz-derived questions.
+    const quizQs = [];
+    for (const lesson of lessons) {
+      const exercises = Array.isArray(lesson.exercises) ? lesson.exercises : [];
+      for (const q of exercises) {
+        if (!q || !Array.isArray(q.options)) continue;
+        const explanation = (q.explanation && q.explanation.trim())
+          || `מתוך ${lesson.title || ""}`;
+        quizQs.push({
+          prompt: q.question,
+          options: q.options,
+          correctIndex: q.correctIndex,
+          explanation,
+        });
+      }
+    }
+
+    // Vocab pool — distinct by (japanese + hebrew)
+    const seen = new Set();
+    const vocab = [];
+    for (const lesson of lessons) {
+      const items = Array.isArray(lesson.vocabulary) ? lesson.vocabulary : [];
+      for (const v of items) {
+        if (!v || !v.japanese || !v.hebrew) continue;
+        const k = (v.japanese || "") + (v.hebrew || "");
+        if (seen.has(k)) continue;
+        seen.add(k);
+        vocab.push(v);
+      }
+    }
+    const hebrewPool   = [...new Set(vocab.map(v => v.hebrew))];
+    const japanesePool = [...new Set(vocab.map(v => v.japanese))];
+
+    const vocabQs = [];
+    for (const v of vocab) {
+      const q1 = makeQuestion(
+        `מה הפירוש של ${v.japanese} (${v.romaji || ""})?`,
+        v.hebrew,
+        hebrewPool,
+        `${v.japanese} = ${v.hebrew}`,
+      );
+      if (q1) vocabQs.push(q1);
+      const q2 = makeQuestion(
+        `איזו מילה יפנית מתאימה ל-${v.hebrew}?`,
+        v.japanese,
+        japanesePool,
+        `${v.hebrew} = ${v.japanese}`,
+      );
+      if (q2) vocabQs.push(q2);
+    }
+
+    return [...quizQs, ...vocabQs].filter(q => q.options.length === 4);
+  }
+
+  // ---------- state ----------
   const state = {
-    questions: shuffle(buildChallengeDeck(data.lessons)).slice(0, 12),
-    index: 0,
+    deck: [],
+    currentIndex: 0,
     score: 0,
-    lives: 3,
+    lives: STARTING_LIVES,
     streak: 0,
-    highScore: Progress.getChallengeHighScore(),
-    selected: null,
-    submitted: false,
-    finished: false,
-    isNewRecord: false,
-    pendingTimer: null,
+    highScore: getHighScore(),
+    delayHandle: null,
+    answered: false,
   };
 
-  function clearTimer() {
-    if (state.pendingTimer != null) {
-      clearTimeout(state.pendingTimer);
-      state.pendingTimer = null;
+  function getHighScore() {
+    if (store && typeof store.getChallengeHighScore === "function") {
+      return store.getChallengeHighScore();
     }
+    try {
+      const v = parseInt(localStorage.getItem("kimura_challenge_high") || "0", 10);
+      return Number.isFinite(v) ? v : 0;
+    } catch { return 0; }
   }
 
-  function render() {
-    if (state.finished) return renderResult();
-    if (state.index >= state.questions.length || state.lives <= 0) {
-      return showResult();
+  function saveHighScore(score) {
+    if (store && typeof store.saveChallengeHighScore === "function") {
+      store.saveChallengeHighScore(score);
+      return;
     }
-    const q = state.questions[state.index];
-    const total = state.questions.length;
-    const progressPct = Math.floor((state.index * 100) / total);
+    try {
+      const cur = parseInt(localStorage.getItem("kimura_challenge_high") || "0", 10);
+      if (score > cur) localStorage.setItem("kimura_challenge_high", String(score));
+    } catch {}
+  }
 
-    // Stats row text — mirrors:
-    //   "ניקוד: $score   חיים: ${"♥".repeat(lives)}   רצף: $streak"
-    const statsText = `ניקוד: ${state.score}   חיים: ${"♥".repeat(state.lives)}   רצף: ${state.streak}`;
+  // ---------- DOM scaffold ----------
+  const tvHigh    = el("span", { class: "ch-stats-chip__value t-gold" });
+  const tvStats   = el("span", { class: "ch-stats-chip__value" });
+  const heartsBox = el("span", { class: "ch-hearts" });
+  const progress  = el("div",  { class: "ch-progress" }, el("div", { class: "ch-progress__bar" }));
+  const tvCounter = el("p",    { class: "ch-counter" });
+  const tvPrompt  = el("p",    { class: "ch-prompt" });
 
-    const optionEls = q.options.map((opt, i) => {
-      let cls = "challenge-option";
-      if (state.submitted) {
-        if (i === q.correctIndex) cls += " is-correct";
-        else if (i === state.selected) cls += " is-wrong";
-      }
-      return el("button", {
+  const optionButtons = [0, 1, 2, 3].map(i => el("button", {
+    class: "ch-option",
+    type: "button",
+    onClick: () => onSelect(i),
+  }));
+
+  const tvFeedback = el("p", { class: "ch-feedback" });
+
+  const btnSpeak = el("button", {
+    class: "ch-speak",
+    type: "button",
+    "aria-label": "השמע שאלה",
+    onClick: () => {
+      const q = state.deck[state.currentIndex];
+      if (q && speaker && speaker.speak) speaker.speak(q.prompt);
+    },
+  }, el("img", { src: "assets/icons/ic_volume.svg", alt: "" }));
+
+  const gameLayout = el("div", { class: "ch-card" },
+    el("div", { class: "ch-prompt-row" },
+      tvPrompt,
+      btnSpeak,
+    ),
+    ...optionButtons,
+    tvFeedback,
+  );
+
+  const tvResultTitle = el("h2", { class: "ch-result__title" });
+  const tvFinalScore  = el("div", { class: "ch-result__score" });
+  const tvResultMsg   = el("p",  { class: "ch-result__msg" });
+  const resultLayout = el("div", { class: "ch-result", style: { display: "none" } },
+    tvResultTitle,
+    tvFinalScore,
+    tvResultMsg,
+    el("button", {
+      class: "btn btn--gold btn--block ch-result__btn",
+      type: "button",
+      onClick: () => restart(),
+    }, "🔄  שחק שוב"),
+    el("button", {
+      class: "btn btn--block ch-result__btn",
+      type: "button",
+      onClick: () => router.go("#/learn"),
+    }, "חזור למסך הראשי"),
+  );
+
+  const screen = el("div", { class: "screen ch-screen" },
+    el("div", { class: "ch-header bg-gradient-hero" },
+      el("button", {
+        class: "ch-header__back",
         type: "button",
-        class: cls,
-        disabled: state.submitted,
-        onClick: () => onOptionSelected(i),
-      }, opt);
-    });
-
-    const view = el("div", { class: "page" },
-      // Hero block
-      el("section", { class: "challenge-hero bg-gradient-hero" },
-        el("div", { class: "app-toolbar" },
-          el("button", {
-            type: "button",
-            class: "back-btn",
-            "aria-label": "חזור",
-            onClick: () => { clearTimer(); Router.go("/"); },
-          },
-            // Android navigationIcon points "back" at start of writing direction.
-            // In RTL the visual arrow is →; CSS already lays it out at the start.
-            el("span", { html: "&#8594;" }),
-          ),
-          el("h1", { class: "title" }, "אתגר נינג׳ה"),
+        "aria-label": "חזור",
+        onClick: () => router.go("#/learn"),
+      }, el("img", { src: "assets/icons/ic_arrow_back.svg", alt: "" })),
+      el("h1", { class: "ch-header__title" }, "אתגר נינג׳ה"),
+      el("div", { class: "ch-stats-row" },
+        el("div", { class: "ch-stats-chip ch-stats-chip--high bg-stats-chip" },
+          el("span", { class: "ch-stats-chip__icon" }, "🏆"),
+          tvHigh,
         ),
-
-        // Stats row
-        el("div", { class: "challenge-stats-row" },
-          el("div", { class: "challenge-stat-chip high-score" },
-            el("span", { class: "emoji" }, "🏆"),
-            el("span", { class: "value" }, `שיא: ${state.highScore}`),
-          ),
-          el("div", { class: "challenge-stat-chip current" },
-            el("span", { class: "value", id: "challengeStatsValue" }, statsText),
-          ),
-        ),
-
-        // Progress indicator
-        el("div", { class: "challenge-progress", role: "progressbar",
-                    "aria-valuemin": 0, "aria-valuemax": 100, "aria-valuenow": progressPct },
-          el("div", { class: "fill", style: { width: progressPct + "%" } }),
-        ),
-
-        // Counter "שאלה X מתוך Y"
-        el("div", { class: "challenge-counter" },
-          `שאלה ${state.index + 1} מתוך ${total}`,
+        el("div", { class: "ch-stats-chip ch-stats-chip--main bg-stats-chip" },
+          tvStats,
+          heartsBox,
         ),
       ),
+      progress,
+      tvCounter,
+    ),
+    el("div", { class: "ch-body" },
+      gameLayout,
+      resultLayout,
+    ),
+  );
 
-      // Game card
-      el("section", { class: "challenge-card anim-fade-in" },
-        el("div", { class: "challenge-prompt-row" },
-          el("div", { class: "challenge-prompt", id: "challengePrompt" }, q.prompt),
-          el("button", {
-            type: "button",
-            class: "challenge-speak-btn",
-            "aria-label": "השמעה",
-            onClick: () => Speaker.speak(q.prompt),
-          },
-            // Inline ic_volume.svg — the same path used in app/res/drawable/ic_volume.xml.
-            el("span", { html:
-              '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">' +
-              '<path fill="currentColor" d="M3,9v6h4l5,5V4L7,9H3zm13.5,3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-0.73 2.5-2.25 2.5-4.02z"/>' +
-              '<path fill="currentColor" d="M14,3.23v2.06c2.89,0.86 5,3.54 5,6.71s-2.11,5.85-5,6.71v2.06c4.01-0.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>' +
-              '</svg>',
-            }),
-          ),
-        ),
+  // ---------- helpers ----------
+  function setOptionState(btn, kind /* default | correct | wrong */) {
+    btn.classList.remove("ch-option--correct", "ch-option--wrong");
+    if (kind === "correct") btn.classList.add("ch-option--correct");
+    else if (kind === "wrong") btn.classList.add("ch-option--wrong");
+  }
 
-        el("div", { class: "challenge-options" }, optionEls),
-
-        el("div", {
-          class: "challenge-feedback" + (state.submitted ? "" : " is-hidden"),
-          id: "challengeFeedback",
-        },
-          state.submitted
-            ? (state.selected === q.correctIndex
-                ? `נכון! ${q.explanation}`
-                : `לא נכון. ${q.explanation}`)
-            : " ",
-        ),
-      ),
-    );
-
-    mount(view);
-
-    // Once mounted, briefly pop the score-chip on a correct answer to mirror the
-    // gentle gamification beat from the original app.
-    if (state.submitted && state.selected === state.questions[state.index].correctIndex) {
-      const chip = document.getElementById("challengeStatsValue");
-      if (chip) {
-        chip.classList.remove("is-score-pop");
-        // force reflow before re-adding to restart animation
-        void chip.offsetWidth;
-        chip.classList.add("is-score-pop");
-      }
-    }
-    // Heart shake when a life was just lost.
-    if (state.submitted && state.selected != null
-        && state.selected !== state.questions[state.index].correctIndex) {
-      const chip = document.getElementById("challengeStatsValue");
-      if (chip) {
-        chip.classList.remove("is-shaking");
-        void chip.offsetWidth;
-        chip.classList.add("is-shaking");
-      }
+  function renderHearts(lives, lostIndex /* index that just disappeared */) {
+    while (heartsBox.firstChild) heartsBox.removeChild(heartsBox.firstChild);
+    for (let i = 0; i < STARTING_LIVES; i++) {
+      const isFilled = i < lives;
+      const span = el("span", {
+        class: "ch-heart" + (isFilled ? "" : " ch-heart--empty"),
+      }, "♥");
+      if (i === lostIndex) span.classList.add("ch-heart--shake");
+      heartsBox.appendChild(span);
     }
   }
 
-  function onOptionSelected(i) {
-    if (state.submitted) return;
-    const q = state.questions[state.index];
-    state.selected = i;
-    state.submitted = true;
+  function updateStatsRow() {
+    tvHigh.textContent  = `שיא: ${state.highScore}`;
+    tvStats.textContent = `ניקוד: ${state.score}   רצף: ${state.streak}`;
+  }
 
-    if (i === q.correctIndex) {
-      state.streak += 1;
-      state.score += 100 + state.streak * 15;
+  function showQuestion() {
+    state.answered = false;
+    if (state.currentIndex >= state.deck.length || state.lives <= 0) {
+      showResult();
+      return;
+    }
+    const q = state.deck[state.currentIndex];
+    const pct = Math.floor(state.currentIndex * 100 / state.deck.length);
+    progress.firstChild.style.width = `${pct}%`;
+    tvCounter.textContent = `שאלה ${state.currentIndex + 1} מתוך ${state.deck.length}`;
+
+    updateStatsRow();
+    renderHearts(state.lives, -1);
+
+    tvPrompt.textContent = q.prompt;
+    tvFeedback.textContent = "";
+    tvFeedback.classList.remove("ch-feedback--visible", "ch-feedback--correct", "ch-feedback--wrong");
+
+    optionButtons.forEach((b, i) => {
+      b.disabled = false;
+      b.textContent = q.options[i];
+      setOptionState(b, "default");
+    });
+  }
+
+  function onSelect(index) {
+    if (state.answered) return;
+    state.answered = true;
+    const q = state.deck[state.currentIndex];
+    optionButtons.forEach(b => { b.disabled = true; });
+
+    setOptionState(optionButtons[q.correctIndex], "correct");
+    const isCorrect = (index === q.correctIndex);
+
+    let lostHeartIndex = -1;
+    if (isCorrect) {
+      state.streak++;
+      state.score += 100 + (state.streak * 15);
+      tvFeedback.textContent = `נכון! ${q.explanation || ""}`;
+      tvFeedback.classList.add("ch-feedback--correct");
     } else {
-      state.lives -= 1;
+      lostHeartIndex = state.lives - 1;  // the heart we're about to lose
+      state.lives--;
       state.streak = 0;
+      setOptionState(optionButtons[index], "wrong");
+      tvFeedback.textContent = `לא נכון. ${q.explanation || ""}`;
+      tvFeedback.classList.add("ch-feedback--wrong");
+    }
+    tvFeedback.classList.add("ch-feedback--visible");
+    updateStatsRow();
+    if (lostHeartIndex >= 0) {
+      renderHearts(state.lives, lostHeartIndex);
+      // After shake animation completes (.6s), re-render to clean state.
+      setTimeout(() => renderHearts(state.lives, -1), 700);
     }
 
-    render();
-
-    // postDelayed({ showQuestion() }, 1100)
-    clearTimer();
-    state.pendingTimer = setTimeout(() => {
-      state.pendingTimer = null;
-      state.index += 1;
-      state.selected = null;
-      state.submitted = false;
-      render();
-    }, NEXT_DELAY_MS);
+    state.currentIndex++;
+    if (state.delayHandle) clearTimeout(state.delayHandle);
+    state.delayHandle = setTimeout(() => showQuestion(), QUESTION_DELAY_MS);
   }
 
   function showResult() {
-    state.isNewRecord = state.score > state.highScore;
-    if (state.isNewRecord) {
-      Progress.saveChallengeHighScore(state.score);
+    const isNewRecord = state.score > state.highScore;
+    if (isNewRecord) {
       state.highScore = state.score;
+      saveHighScore(state.score);
     }
-    state.finished = true;
-    renderResult();
-  }
-
-  function renderResult() {
-    const title = state.isNewRecord ? "שיא חדש!" : "סיום אתגר";
-    const message = state.lives <= 0
+    gameLayout.style.display = "none";
+    resultLayout.style.display = "";
+    tvFinalScore.textContent  = String(state.score);
+    tvResultTitle.textContent = isNewRecord ? "שיא חדש!" : "סיום אתגר";
+    tvResultMsg.textContent   = (state.lives <= 0)
       ? "נגמרו החיים, אבל כל סיבוב מחזק את הזיכרון."
       : `השלמת את כל האתגר. השיא שלך: ${state.highScore}`;
 
-    const view = el("div", { class: "page" },
-      // Hero header is kept so the screen feels continuous with the gameplay.
-      el("section", { class: "challenge-hero bg-gradient-hero" },
-        el("div", { class: "app-toolbar" },
-          el("button", {
-            type: "button",
-            class: "back-btn",
-            "aria-label": "חזור",
-            onClick: () => Router.go("/"),
-          },
-            el("span", { html: "&#8594;" }),
-          ),
-          el("h1", { class: "title" }, "אתגר נינג׳ה"),
-        ),
-      ),
-
-      el("section", { class: "challenge-result anim-fade-in" },
-        el("div", { class: "title anim-bounce" }, title),
-        el("div", { class: "final-score anim-scale-in" }, String(state.score)),
-        el("div", { class: "message" }, message),
-        el("div", { class: "btn-row" },
-          el("button", {
-            type: "button",
-            class: "btn btn-gold",
-            onClick: () => restartGame(),
-          }, "🔄  שחק שוב"),
-          el("button", {
-            type: "button",
-            class: "btn btn-outlined",
-            onClick: () => Router.go("/"),
-          }, "חזור למסך הראשי"),
-        ),
-      ),
-    );
-
-    mount(view);
+    resultLayout.classList.remove("ch-result--in");
+    void resultLayout.offsetWidth;
+    resultLayout.classList.add("ch-result--in");
   }
 
-  function restartGame() {
-    clearTimer();
-    state.questions = shuffle(buildChallengeDeck(data.lessons)).slice(0, 12);
-    state.index = 0;
+  function restart() {
+    if (state.delayHandle) clearTimeout(state.delayHandle);
+    const all = buildDeck();
+    state.deck = shuffleArr(all).slice(0, DECK_SIZE);
+    state.currentIndex = 0;
     state.score = 0;
-    state.lives = 3;
+    state.lives = STARTING_LIVES;
     state.streak = 0;
-    state.selected = null;
-    state.submitted = false;
-    state.finished = false;
-    state.isNewRecord = false;
-    state.highScore = Progress.getChallengeHighScore();
-    render();
+    gameLayout.style.display = "";
+    resultLayout.style.display = "none";
+    if (!state.deck.length) {
+      tvPrompt.textContent = "אין מספיק שאלות לאתגר.";
+      optionButtons.forEach(b => { b.disabled = true; b.textContent = ""; });
+      return;
+    }
+    showQuestion();
   }
 
-  render();
+  mount(host, screen);
+  restart();
 }
 
-// Mirrors buildChallengeDeck() — quiz questions across all lessons + 2 vocab
-// questions per item (Hebrew→Japanese, Japanese→Hebrew). Filtered to 4 options.
-function buildChallengeDeck(lessons) {
-  const quizQuestions = [];
-  for (const lesson of lessons) {
-    for (const q of lesson.exercises) {
-      quizQuestions.push({
-        prompt: q.question,
-        options: q.options,
-        correctIndex: q.correctIndex,
-        explanation: (q.explanation && q.explanation.trim()) || `מתוך ${lesson.title}`,
-      });
-    }
+function ensureStyle() {
+  for (const l of document.querySelectorAll('link[rel="stylesheet"]')) {
+    if (l.getAttribute("href") === "css/screens/challenge.css") return;
   }
-
-  // distinctBy { japanese + hebrew }
-  const seen = new Set();
-  const vocabulary = [];
-  for (const lesson of lessons) {
-    for (const v of lesson.vocabulary) {
-      const key = v.japanese + v.hebrew;
-      if (!seen.has(key)) { seen.add(key); vocabulary.push(v); }
-    }
-  }
-  const hebrewPool = [...new Set(vocabulary.map(v => v.hebrew))];
-  const japanesePool = [...new Set(vocabulary.map(v => v.japanese))];
-
-  const vocabQuestions = [];
-  for (const v of vocabulary) {
-    const a = makeQuestion({
-      prompt: `מה הפירוש של ${v.japanese} (${v.romaji})?`,
-      correct: v.hebrew,
-      pool: hebrewPool,
-      explanation: `${v.japanese} = ${v.hebrew}`,
-    });
-    if (a) vocabQuestions.push(a);
-    const b = makeQuestion({
-      prompt: `איזו מילה יפנית מתאימה ל-${v.hebrew}?`,
-      correct: v.japanese,
-      pool: japanesePool,
-      explanation: `${v.hebrew} = ${v.japanese}`,
-    });
-    if (b) vocabQuestions.push(b);
-  }
-
-  return [...quizQuestions, ...vocabQuestions].filter(q => q.options.length === 4);
-}
-
-function makeQuestion({ prompt, correct, pool, explanation }) {
-  const wrong = shuffle(pool.filter(x => x !== correct)).slice(0, 3);
-  if (wrong.length < 3) return null;
-  const options = shuffle([...wrong, correct]);
-  return { prompt, options, correctIndex: options.indexOf(correct), explanation };
+  const link = document.createElement("link");
+  link.rel  = "stylesheet";
+  link.href = "css/screens/challenge.css";
+  document.head.appendChild(link);
 }

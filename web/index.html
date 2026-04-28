@@ -1,31 +1,51 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="he" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#C0362A">
-<title>NihongoBeginner — יפנית למתחילים</title>
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" type="image/svg+xml" href="icons/icon.svg">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
-<link rel="stylesheet" href="css/tokens.css">
-<link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/components.css">
-<link rel="stylesheet" href="css/screens.css">
-<link rel="stylesheet" href="css/screens/main.css">
-<link rel="stylesheet" href="css/screens/lesson-detail.css">
-<link rel="stylesheet" href="css/screens/quiz.css">
-<link rel="stylesheet" href="css/screens/flashcards.css">
-<link rel="stylesheet" href="css/screens/matching.css">
-<link rel="stylesheet" href="css/screens/number-game.css">
-<link rel="stylesheet" href="css/screens/sentence-builder.css">
-<link rel="stylesheet" href="css/screens/challenge.css">
-<link rel="stylesheet" href="css/screens/workbook.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#8A1F16" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Kimura" />
+  <title>Kimura — יפנית למתחילים</title>
+
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="assets/kimura_logo_red.png" />
+  <link rel="apple-touch-icon" href="assets/kimura_logo_red.png" />
+
+  <link rel="preload" as="image" href="assets/bg_japanese.png" />
+  <link rel="preload" as="image" href="assets/bg_header.png" />
+
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/screens/learn.css" />
+  <link rel="stylesheet" href="css/screens/media.css" />
+  <link rel="stylesheet" href="css/screens/profile.css" />
+  <link rel="stylesheet" href="css/screens/lesson-detail.css" />
+  <link rel="stylesheet" href="css/screens/video.css" />
+  <link rel="stylesheet" href="css/screens/quiz.css" />
+  <link rel="stylesheet" href="css/screens/flashcards.css" />
+  <link rel="stylesheet" href="css/screens/matching.css" />
+  <link rel="stylesheet" href="css/screens/number-game.css" />
+  <link rel="stylesheet" href="css/screens/sentence-builder.css" />
+  <link rel="stylesheet" href="css/screens/challenge.css" />
+  <link rel="stylesheet" href="css/screens/workbook.css" />
 </head>
 <body>
-<div id="app" class="app-root">
-  <noscript>אפליקציה זו דורשת JavaScript מופעל.</noscript>
-</div>
-<script type="module" src="js/main.js"></script>
+
+  <!-- A02820 copyright bar — exact line from activity_main.xml -->
+  <div class="copyright-bar">© קימורה בית הספר לשפה היפנית</div>
+
+  <!-- Fragment container — current screen mounts here -->
+  <main id="screen-host" class="screen-host" role="main"></main>
+
+  <!-- 2dp red rule above the bottom nav -->
+  <div class="bottom-nav-divider"></div>
+
+  <!-- BottomNavigationView port (3 tabs, 96dp tall, 64dp icons) -->
+  <nav id="bottom-nav" class="bottom-nav" aria-label="ניווט ראשי"></nav>
+
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>

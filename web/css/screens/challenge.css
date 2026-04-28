@@ -1,302 +1,297 @@
-/* =========================================================================
-   Challenge screen — 1:1 port of activity_game_challenge.xml
-   Source: app/src/main/res/layout/activity_game_challenge.xml
-   ========================================================================= */
+/* ============================================================
+ * Kimura — Game Challenge ("אתגר נינג׳ה")
+ * Port of activity_game_challenge.xml + GameChallengeActivity.kt.
+ * ========================================================== */
 
-/* Hero header (LinearLayout with bg_gradient_hero, padding 20dp/44dp/20dp/16dp).
-   The Android layout puts the toolbar inside the gradient block, so navigation
-   icon and title are white. */
-.challenge-hero {
-  background: var(--hero-gradient);
-  color: var(--white);
-  padding: calc(28px + env(safe-area-inset-top)) 20px 16px;
+.ch-screen {
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  min-height: 0;
+  background: transparent;
 }
 
-.challenge-hero .app-toolbar {
-  height: var(--action-bar-size);
+/* ---------- Header ---------- */
+.ch-header {
+  flex: 0 0 auto;
   display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--white);
+  flex-direction: column;
+  padding: 16px 20px 16px 20px;
+  color: #FFFFFF;
+  position: relative;
 }
-.challenge-hero .app-toolbar .back-btn {
+
+.ch-header__back {
   width: 40px;
   height: 40px;
-  border-radius: 999px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
-  color: var(--white);
-  font-size: 22px;
-  flex-shrink: 0;
-  /* RTL: visually flips the back arrow glyph for the source-of-truth title bar
-     where Android's homeAsUp arrow points "back" (start). */
+  align-self: flex-start;
+  transform: scaleX(-1);
 }
-.challenge-hero .app-toolbar .back-btn:hover { background: rgba(255,255,255,0.10); }
-.challenge-hero .app-toolbar .title {
-  flex: 1;
+.ch-header__back img { width: 24px; height: 24px; }
+
+.ch-header__title {
   margin: 0;
+  text-align: center;
   font-size: 20px;
-  font-weight: 600;
-  color: var(--white);
-  text-align: start;
-  letter-spacing: 0.15px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-top: -32px;
+  pointer-events: none;
+  margin-bottom: 12px;
 }
 
-/* Stats row: high score (weight 1) | current stats (weight 2) — both
-   wrapped in bg_stats_chip (#2A0A08, 50dp pill, padding 10dp). */
-.challenge-stats-row {
-  display: flex;
-  align-items: stretch;
+/* Stats row: high-score (1fr) + main (2fr) ---------- */
+.ch-stats-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
   gap: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
-.challenge-stat-chip {
-  background: var(--hero-progress-bg);
-  border-radius: 50px;
-  padding: 10px;
+
+/* Override the default .bg-stats-chip flex-row pill — challenge uses
+   a vertical pill (ico/value stacked, multiline center). */
+.ch-stats-chip {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
+  gap: 2px;
+  padding: 10px;
+  height: auto;
+  font-weight: 700;
+  border-radius: 999px;
 }
-.challenge-stat-chip .emoji {
+
+.ch-stats-chip--main { flex-direction: column; }
+
+.ch-stats-chip__icon {
   font-size: 18px;
   line-height: 1;
 }
-.challenge-stat-chip.high-score {
-  flex: 1 1 0;
-}
-.challenge-stat-chip.high-score .value {
-  color: var(--color-secondary);   /* #F59E0B */
+
+.ch-stats-chip__value {
   font-size: 12px;
   font-weight: 700;
-}
-.challenge-stat-chip.current {
-  flex: 2 1 0;
-}
-.challenge-stat-chip.current .value {
-  color: var(--white);
-  font-size: 14px;
-  font-weight: 700;
-  white-space: nowrap;
+  color: #FFFFFF;
 }
 
-/* Linear progress indicator (indicator gold, track #4A1A16, 4dp radius). */
-.challenge-progress {
-  width: 100%;
-  height: 8px;
-  background: var(--hero-progress-track);
+.ch-stats-chip--high .ch-stats-chip__value {
+  color: var(--color-secondary);
+  font-size: 12px;
+}
+
+.ch-stats-chip--main .ch-stats-chip__value {
+  font-size: 14px;
+  color: #FFFFFF;
+}
+
+.ch-hearts {
+  display: inline-flex;
+  gap: 4px;
+  margin-top: 2px;
+  /* Hearts are LTR by nature */
+  direction: ltr;
+}
+.ch-heart {
+  color: var(--color-wrong);
+  font-size: 16px;
+  line-height: 1;
+}
+.ch-heart--empty { color: rgba(255, 255, 255, 0.25); }
+
+@keyframes ch-heart-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-3px); }
+  40% { transform: translateX(3px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(3px); }
+}
+.ch-heart--shake { animation: ch-heart-shake 0.6s ease both; }
+
+/* Progress indicator — gold on dark espresso track */
+.ch-progress {
+  height: 6px;
+  background: #4A1A16;
   border-radius: 4px;
   overflow: hidden;
   margin-top: 6px;
 }
-.challenge-progress > .fill {
+.ch-progress__bar {
   height: 100%;
+  width: 0%;
   background: var(--color-secondary);
-  border-radius: 4px;
-  transition: width 250ms cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition: width 0.3s ease;
 }
 
-/* Counter ("שאלה N מתוך M") under the progress bar — alpha 0.75, 11sp. */
-.challenge-counter {
+.ch-counter {
   text-align: center;
-  margin-top: 4px;
-  color: rgba(255, 255, 255, 0.75);
+  margin: 4px 0 0 0;
+  color: #FFFFFF;
+  opacity: 0.75;
   font-size: 11px;
 }
 
-/* Main game card. Note Android margin is 16dp on all sides. The card itself is
-   24dp radius / 1dp stroke / elev 3dp; padding inside is 20dp. */
-.challenge-card {
-  margin: 16px;
-  flex: 1;
-  background: var(--surface);
-  border-radius: 24px;
-  border: 1px solid var(--card-stroke);
-  box-shadow: var(--elev-3);
-  padding: 20px;
+/* ---------- Body ---------- */
+.ch-body {
+  flex: 1 1 auto;
+  min-height: 0;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 16px;
 }
 
-.challenge-prompt-row {
+.ch-card {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface);
+  border-radius: 24px;
+  border: 1px solid var(--color-card-stroke);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  min-height: 0;
+}
+
+.ch-prompt-row {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-bottom: 20px;
 }
-.challenge-prompt {
-  flex: 1;
+
+.ch-prompt {
+  flex: 1 1 auto;
+  margin: 0;
   font-size: 22px;
   font-weight: 700;
-  color: var(--on-surface);
-  line-height: 1.3;
-  min-height: 2.6em;     /* mirrors android:minLines="2" */
+  color: var(--color-on-surface);
+  min-height: calc(22px * 1.4 * 2);
+  line-height: 1.4;
 }
-/* The volume button — OutlinedButton 48dp, 24dp radius, 2dp red stroke. */
-.challenge-speak-btn {
-  flex-shrink: 0;
+
+.ch-speak {
+  flex: 0 0 auto;
   width: 48px;
   height: 48px;
-  border-radius: 24px;
   border: 2px solid var(--color-primary);
-  background: var(--surface);
-  color: var(--color-primary);
+  background: var(--color-surface);
+  border-radius: 24px;
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
-.challenge-speak-btn:hover:not(:disabled) {
-  background: var(--surface-soft);
+.ch-speak img {
+  width: 24px;
+  height: 24px;
+  filter: invert(22%) sepia(78%) saturate(2080%) hue-rotate(354deg) brightness(82%) contrast(91%);
+  /* approximate primary-red tint */
 }
-.challenge-speak-btn svg { width: 24px; height: 24px; }
 
-/* Option buttons — App.Button.Option style, 8dp gap, 54dp min-height per layout. */
-.challenge-options {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.challenge-option {
-  width: 100%;
-  min-height: 54px;
-  padding: 12px 20px;
-  border-radius: 16px;
-  border: 2px solid var(--option-stroke);
-  background: var(--white);
-  color: var(--color-primary);   /* default text color in Kotlin: getColor(colorPrimary) */
-  font-size: 15px;
-  font-weight: 500;
-  text-align: start;
+/* Option buttons. App.Button.Option = surface bg, 2dp primary stroke,
+   16dp radius, 54dp min-height. Kotlin overrides per round to white. */
+.ch-option {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 10px;
-  transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease, transform 100ms ease;
-}
-.challenge-option:hover:not(:disabled):not(.is-correct):not(.is-wrong) {
-  border-color: var(--color-primary-variant);
-}
-.challenge-option:active:not(:disabled) { transform: translateY(1px); }
-.challenge-option.is-correct {
-  background: var(--correct-green);
-  border-color: var(--correct-green);
-  color: var(--white);
-  font-weight: 700;
-}
-.challenge-option.is-wrong {
-  background: var(--wrong-red);
-  border-color: var(--wrong-red);
-  color: var(--white);
-  font-weight: 700;
-}
-
-/* Feedback line under the options (14sp, muted, 14dp top margin). */
-.challenge-feedback {
-  margin-top: 14px;
-  text-align: center;
-  font-size: 14px;
-  color: var(--on-surface-muted);
-  min-height: 2.8em;     /* mirrors minLines="2" */
-}
-.challenge-feedback.is-hidden { visibility: hidden; }
-
-/* Result screen — vertical center, padding 32dp, background tone. */
-.challenge-result {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: stretch;
-  padding: 32px;
-  background: var(--background);
-  text-align: center;
-}
-.challenge-result .title {
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--color-primary);
-  margin: 0 0 8px;
-}
-.challenge-result .final-score {
-  font-size: 64px;
-  font-weight: 700;
-  color: var(--on-surface);
-  margin: 0 0 12px;
-  line-height: 1;
-}
-.challenge-result .message {
-  font-size: 16px;
-  color: var(--on-surface-muted);
-  margin: 0 0 32px;
-}
-.challenge-result .btn-row {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: stretch;
-}
-
-/* ---------- Local fallback button styles (mirror components.css). These
-   ensure the screen renders correctly even if components.css isn't linked. */
-.challenge-result .btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  min-height: 54px;
-  padding: 14px 24px;
-  border-radius: 28px;
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.1px;
-  border: none;
-  background: var(--color-primary);
-  color: var(--white);
-  cursor: pointer;
-  transition: transform 80ms ease, background-color 120ms ease, border-color 120ms ease;
-}
-.challenge-result .btn:active:not(:disabled) { transform: translateY(1px); }
-.challenge-result .btn-gold {
-  background: var(--color-secondary);
-  color: var(--color-on-secondary);
-  min-height: 56px;
-  font-size: 16px;
-  box-shadow: var(--elev-gold);
-}
-.challenge-result .btn-gold:hover:not(:disabled) { background: var(--color-secondary-dark); }
-.challenge-result .btn-outlined {
-  background: transparent;
+  text-align: start;
+  background: var(--color-white);
   color: var(--color-primary);
   border: 2px solid var(--color-primary);
+  border-radius: 16px;
+  min-height: 54px;
+  padding: 0 16px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 8px;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+  -webkit-tap-highlight-color: transparent;
 }
-.challenge-result .btn-outlined:hover:not(:disabled) { background: rgba(192, 54, 42, 0.06); }
+.ch-option:last-of-type { margin-bottom: 0; }
+.ch-option:disabled { cursor: default; }
+.ch-option:active:not(:disabled) { transform: scale(0.99); }
 
-/* Animations — only what's not already in base.css. */
-@keyframes heart-shake {
-  0%, 100% { transform: translateX(0); }
-  20%      { transform: translateX(-6px); }
-  40%      { transform: translateX(6px); }
-  60%      { transform: translateX(-4px); }
-  80%      { transform: translateX(4px); }
+.ch-option--correct {
+  background: var(--color-correct);
+  color: #FFFFFF;
+  border-color: var(--color-correct);
 }
-.is-shaking {
-  animation: heart-shake 420ms cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+.ch-option--wrong {
+  background: var(--color-wrong);
+  color: #FFFFFF;
+  border-color: var(--color-wrong);
 }
 
-@keyframes score-pop {
-  0%   { transform: scale(1); }
-  40%  { transform: scale(1.2); color: var(--color-secondary); }
-  100% { transform: scale(1); }
+.ch-feedback {
+  margin: 14px 0 0 0;
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-on-surface-muted);
+  visibility: hidden;
+  min-height: calc(14px * 1.4 * 2);
 }
-.is-score-pop {
-  animation: score-pop 380ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
-  display: inline-block;
+.ch-feedback--visible {
+  visibility: visible;
+  animation: ch-fade-in 0.2s ease both;
+}
+.ch-feedback--correct { color: var(--color-correct); }
+.ch-feedback--wrong   { color: var(--color-wrong); }
+
+@keyframes ch-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ---------- Result ---------- */
+.ch-result {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 32px;
+  gap: 12px;
+}
+
+.ch-result__title {
+  margin: 0 0 8px 0;
+  text-align: center;
+  color: var(--color-primary);
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.ch-result__score {
+  text-align: center;
+  color: var(--color-on-surface);
+  font-size: 64px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.ch-result--in .ch-result__score {
+  animation: ch-scale-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes ch-scale-in {
+  0%   { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.ch-result__msg {
+  text-align: center;
+  color: var(--color-on-surface-muted);
+  font-size: 16px;
+  margin: 0 0 32px 0;
 }

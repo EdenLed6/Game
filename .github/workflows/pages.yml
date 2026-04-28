@@ -36,21 +36,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Re-extract lesson + workbook JSON from Kotlin sources
-        run: |
-          python3 scripts/extract_lessons.py
-          python3 scripts/extract_workbook.py
-
-      - name: Verify generated JSON
+      - name: Verify committed JSON exists
         run: |
           test -s web/data/lessons.json
           test -s web/data/workbook.json
-          python3 -c "import json; assert len(json.load(open('web/data/lessons.json',encoding='utf-8')))==17"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

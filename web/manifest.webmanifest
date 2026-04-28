@@ -1,17 +1,27 @@
 {
-  "name": "NihongoBeginner",
-  "short_name": "Nihongo",
-  "description": "יפנית למתחילים — Japanese for Hebrew speakers",
+  "name": "Kimura",
+  "short_name": "Kimura",
+  "description": "יפנית למתחילים — קורס שלם ל-17 שיעורים",
   "lang": "he",
   "dir": "rtl",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#FDF5F4",
-  "theme_color": "#C0362A",
+  "background_color": "#F2E8D5",
+  "theme_color": "#8A1F16",
   "icons": [
-    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
-    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+    {
+      "src": "assets/kimura_logo_red.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/kimura_logo_main.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
   ]
 }

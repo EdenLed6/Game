@@ -22,7 +22,19 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SRC = ROOT / "app" / "src" / "main" / "java" / "com" / "nihongo" / "beginner" / "data" / "DigitalCourseWorkbook.kt"
+
+# Prefer the read-only mirror at .ui-source/app/; fall back to legacy app/.
+def _src_path() -> Path:
+    candidates = [
+        ROOT / ".ui-source" / "app" / "src" / "main" / "java" / "com" / "nihongo" / "beginner" / "data" / "DigitalCourseWorkbook.kt",
+        ROOT / "app"        / "src" / "main" / "java" / "com" / "nihongo" / "beginner" / "data" / "DigitalCourseWorkbook.kt",
+    ]
+    for c in candidates:
+        if c.is_file():
+            return c
+    return candidates[0]
+
+SRC = _src_path()
 OUT = ROOT / "web" / "data" / "workbook.json"
 
 # Match Kotlin's String.japaneseSnippet() in DigitalCourseWorkbook.kt:

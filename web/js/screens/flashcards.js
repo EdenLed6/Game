@@ -1,169 +1,180 @@
-// Flashcards screen — pixel-1:1 port of activity_flashcard.xml + FlashcardActivity.kt.
+// flashcards.js — 1:1 port of activity_flashcard.xml + FlashcardActivity.kt.
 //
-// Vertical LinearLayout:
-//   1) Gradient hero (paddingTop=44, sides=20, paddingBottom=16)
-//        - MaterialToolbar (back arrow + title)
-//        - tvCardCounter (bg_stats_chip dark pill, white 13sp bold)
-//   2) Body (centered LinearLayout, padding=20, weight=1)
-//        - 260dp FrameLayout with cardFront / cardBack stacked. Tapping either
-//          (or btnFlip) flips between them. The XML uses anim/card_flip_in.xml
-//          and anim/card_flip_out.xml (objectAnimator rotationY 200ms). We
-//          reproduce that with CSS transform: rotateY().
-//        - Navigation row (btnPrev / btnFlip / btnNext, weights 1/1.4/1).
-//        - btnSpeakCard (full-width outlined red pill).
+// Layout (top → bottom):
+//   1) Header (bg_header.png) holding
+//        - Toolbar (back arrow + "כרטיסיות")
+//        - bg_stats_chip counter "N / total" centered
+//   2) Centered card area (padding=20dp)
+//        - 260dp tall card. Front = bg_flashcard_front (washi 24dp + 1.5dp
+//          stroke) with Japanese (52sp bold) + romaji (18sp muted) +
+//          "הקש להפיכה" hint pill. Back = bg_flashcard_back (red gradient
+//          24dp) with emoji (44sp), Hebrew (30sp bold), Japanese (18sp @
+//          0.85), romaji (13sp @ 0.65).
+//        - Tap card or Flip button to toggle (CSS rotateY 200ms).
+//   3) Nav row: Prev (small) / Flip (primary, weight 1.4) / Next (small)
+//   4) Full-width primary "🔊  שמע הגייה" button.
 
 import { el, mount } from "../dom.js";
-import { Router } from "../router.js";
-import { Speaker } from "../speaker.js";
 
-export function Flashcards(data, lessonId) {
-  const lesson = data.lessonsById[lessonId];
-  if (!lesson || !lesson.vocabulary || !lesson.vocabulary.length) {
-    Router.go(`/lesson/${lessonId}`);
+const FLIP_DURATION_MS = 200;
+
+export function Flashcards({ host, ctx, params }) {
+  const { lessons, router, speaker } = ctx;
+  const lessonId = Number(params.id);
+  const lesson = (lessons || []).find(l => Number(l.id) === lessonId);
+
+  if (!lesson || !Array.isArray(lesson.vocabulary) || lesson.vocabulary.length === 0) {
+    router.go(`#/lesson/${lessonId}`);
     return;
   }
 
-  // Mirror FlashcardActivity field state.
   const state = {
     vocab: lesson.vocabulary,
     index: 0,
-    showFront: true,
+    showingFront: true,
+    flipping: false,
   };
 
+  // ---- Render --------------------------------------------------------------
   function render() {
-    const total = state.vocab.length;
-    const v = state.vocab[state.index];
-
-    const view = el(
+    const root = el(
       "div",
-      { class: "fc-screen" },
-      // ---- Hero ---------------------------------------------------------
+      { class: "screen flashcard-screen" },
+      renderHeader(),
+      renderBody()
+    );
+    mount(host, root);
+  }
+
+  function renderHeader() {
+    return el(
+      "header",
+      { class: "flashcard-header" },
       el(
-        "header",
-        { class: "fc-hero" },
-        el(
-          "div",
-          { class: "app-toolbar", style: { paddingTop: "0", paddingBottom: "0" } },
-          el(
-            "button",
-            {
-              class: "toolbar-back",
-              "aria-label": "חזור",
-              onClick: () => Router.go(`/lesson/${lessonId}`),
-            },
-            "←"
-          ),
-          el("h1", { class: "toolbar-title" }, "כרטיסיות")
-        ),
-        el(
-          "span",
-          { class: "fc-counter-chip" },
-          `${state.index + 1} / ${total}`
-        )
-      ),
-      // ---- Body ---------------------------------------------------------
-      el(
-        "main",
-        { class: "fc-body" },
-        // Card stage with front + back. The .is-front / .is-back class on the
-        // stage drives the rotateY transform on each face — same outcome as
-        // setting cardFront.visibility=VISIBLE / cardBack.visibility=GONE in
-        // Kotlin, but with a real flip animation.
-        el(
-          "div",
-          {
-            class: "fc-card-stage " + (state.showFront ? "is-front" : "is-back"),
-            // Tapping anywhere on the stage flips, just like cardFront/cardBack
-            // both having setOnClickListener { toggleCard() }.
-            onClick: flip,
-          },
-          // Front face — white card with Japanese + romaji + hint chip.
-          el(
-            "div",
-            { class: "fc-card fc-card-front" },
-            el("p", { class: "fc-front-japanese" }, v.japanese || ""),
-            el("p", { class: "fc-front-romaji" }, v.romaji || ""),
-            el("span", { class: "fc-hint-chip" }, "הקש להפיכה")
-          ),
-          // Back face — red gradient card with emoji + Hebrew + Japanese + romaji.
-          el(
-            "div",
-            { class: "fc-card fc-card-back" },
-            el("p", { class: "fc-back-emoji" }, v.emoji || "🔤"),
-            el("p", { class: "fc-back-hebrew" }, v.hebrew || ""),
-            el("p", { class: "fc-back-japanese" }, v.japanese || ""),
-            el("p", { class: "fc-back-romaji" }, v.romaji || "")
-          )
-        ),
-        // Navigation row
-        el(
-          "div",
-          { class: "fc-nav" },
-          el(
-            "button",
-            {
-              class: "btn-prev",
-              type: "button",
-              disabled: state.index === 0,
-              onClick: prev,
-            },
-            "◀  הקודם"
-          ),
-          el(
-            "button",
-            {
-              class: "btn-flip",
-              type: "button",
-              onClick: flip,
-            },
-            "הפוך כרטיס"
-          ),
-          el(
-            "button",
-            {
-              class: "btn-next",
-              type: "button",
-              disabled: state.index >= state.vocab.length - 1,
-              onClick: next,
-            },
-            "הבא  ▶"
-          )
-        ),
-        // Speak button
+        "div",
+        { class: "flashcard-header__top" },
         el(
           "button",
           {
-            class: "fc-speak-btn",
             type: "button",
-            onClick: () => Speaker.speak(v.japanese || ""),
+            class: "flashcard-header__back",
+            "aria-label": "חזור",
+            onClick: () => router.back(),
           },
-          "🔊  שמע הגייה"
-        )
+          el("img", { src: "assets/icons/ic_arrow_back.svg", alt: "" })
+        ),
+        el("h1", { class: "flashcard-header__title" }, "כרטיסיות")
+      ),
+      el(
+        "p",
+        { class: "flashcard-counter bg-stats-chip" },
+        `${state.index + 1} / ${state.vocab.length}`
       )
     );
-
-    mount(view);
   }
 
-  function flip() {
-    state.showFront = !state.showFront;
+  function renderBody() {
+    const item = state.vocab[state.index];
+    const total = state.vocab.length;
+    const flipClass = state.showingFront ? "" : "is-flipped";
+
+    return el(
+      "main",
+      { class: "flashcard-body" },
+      // 260dp card area, FrameLayout port — uses 3D flip via rotateY
+      el(
+        "div",
+        {
+          class: ["flashcard-card", flipClass].filter(Boolean).join(" "),
+          onClick: toggleFlip,
+        },
+        // Front face — washi
+        el(
+          "div",
+          { class: "flashcard-face flashcard-face--front bg-flashcard-front" },
+          el("div", { class: "flashcard-front__japanese", lang: "ja" }, item.japanese || ""),
+          el("div", { class: "flashcard-front__romaji dir-ltr" }, item.romaji || ""),
+          el("div", { class: "flashcard-front__hint" }, "הקש להפיכה")
+        ),
+        // Back face — red gradient
+        el(
+          "div",
+          { class: "flashcard-face flashcard-face--back bg-flashcard-back" },
+          el("div", { class: "flashcard-back__emoji" }, item.emoji || ""),
+          el("div", { class: "flashcard-back__hebrew" }, item.hebrew || ""),
+          el("div", { class: "flashcard-back__japanese", lang: "ja" }, item.japanese || ""),
+          el("div", { class: "flashcard-back__romaji dir-ltr" }, item.romaji || "")
+        )
+      ),
+      // Navigation row: Prev / Flip / Next
+      el(
+        "div",
+        { class: "flashcard-nav" },
+        el(
+          "button",
+          {
+            type: "button",
+            class: "btn btn--small flashcard-nav__btn flashcard-nav__btn--prev",
+            disabled: state.index === 0,
+            onClick: onPrev,
+          },
+          "◀  הקודם"
+        ),
+        el(
+          "button",
+          {
+            type: "button",
+            class: "btn flashcard-nav__btn flashcard-nav__btn--flip",
+            onClick: toggleFlip,
+          },
+          "הפוך כרטיס"
+        ),
+        el(
+          "button",
+          {
+            type: "button",
+            class: "btn btn--small flashcard-nav__btn flashcard-nav__btn--next",
+            disabled: state.index >= total - 1,
+            onClick: onNext,
+          },
+          "הבא  ▶"
+        )
+      ),
+      // Full-width audio button
+      el(
+        "button",
+        {
+          type: "button",
+          class: "btn btn--block flashcard-speak",
+          onClick: () => speaker.speak(item.japanese || ""),
+        },
+        "🔊  שמע הגייה"
+      )
+    );
+  }
+
+  // ---- Handlers ------------------------------------------------------------
+  function toggleFlip(e) {
+    if (e && typeof e.stopPropagation === "function") e.stopPropagation();
+    if (state.flipping) return;
+    state.flipping = true;
+    state.showingFront = !state.showingFront;
+    render();
+    setTimeout(() => { state.flipping = false; }, FLIP_DURATION_MS);
+  }
+
+  function onPrev() {
+    if (state.index === 0) return;
+    state.index--;
+    state.showingFront = true;
     render();
   }
 
-  function prev() {
-    if (state.index > 0) {
-      state.index--;
-      state.showFront = true;
-      render();
-    }
-  }
-
-  function next() {
-    if (state.index < state.vocab.length - 1) {
-      state.index++;
-      state.showFront = true;
-      render();
-    }
+  function onNext() {
+    if (state.index >= state.vocab.length - 1) return;
+    state.index++;
+    state.showingFront = true;
+    render();
   }
 
   render();

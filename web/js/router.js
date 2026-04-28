@@ -1,74 +1,106 @@
-// Hash-based router. Routes look like #/path/123.
+// router.js — minimal hash router.
 //
-// API:
-//   Router.add(pattern, handler)  — pattern uses :param tokens
-//   Router.go(path)                — navigate (sets location.hash)
-//   Router.start()                 — wire to hashchange + initial load
-//   Router.back()                  — history.back() if possible, else go("/")
+// Routes:
+//   #/learn                          (Learn tab — default)
+//   #/media                          (Media tab)
+//   #/profile                        (Profile tab)
+//   #/lesson/:id                     (LessonDetail full-screen)
+//   #/lesson/:id/quiz
+//   #/lesson/:id/flashcards
+//   #/lesson/:id/matching
+//   #/lesson/:id/number-game
+//   #/lesson/:id/sentence-builder
+//   #/lesson/:id/workbook
+//   #/lesson/:id/video
+//   #/challenge
 
-const routes = [];
+const ROUTES = [
+  // Tab routes — bottom nav visible on these
+  { pattern: /^\/?$/,            name: "learn",        tab: "learn",   showNav: true,  redirect: "#/learn" },
+  { pattern: /^\/learn$/,        name: "learn",        tab: "learn",   showNav: true  },
+  { pattern: /^\/media$/,        name: "media",        tab: "media",   showNav: true  },
+  { pattern: /^\/profile$/,      name: "profile",      tab: "profile", showNav: true  },
 
-function compile(pattern) {
-  const keys = [];
-  const regex = new RegExp(
-    "^" +
-      pattern.replace(/\/:[^/]+/g, (m) => {
-        keys.push(m.slice(2));
-        return "/([^/]+)";
-      }) +
-      "$"
-  );
-  return { regex, keys };
-}
+  // Full-screen sub-routes — bottom nav hidden
+  { pattern: /^\/lesson\/(\d+)$/,                    name: "lesson-detail",     showNav: false, params: ["id"] },
+  { pattern: /^\/lesson\/(\d+)\/quiz$/,              name: "quiz",              showNav: false, params: ["id"] },
+  { pattern: /^\/lesson\/(\d+)\/flashcards$/,        name: "flashcards",        showNav: false, params: ["id"] },
+  { pattern: /^\/lesson\/(\d+)\/matching$/,          name: "matching",          showNav: false, params: ["id"] },
+  { pattern: /^\/lesson\/(\d+)\/number-game$/,       name: "number-game",       showNav: false, params: ["id"] },
+  { pattern: /^\/lesson\/(\d+)\/sentence-builder$/,  name: "sentence-builder",  showNav: false, params: ["id"] },
+  { pattern: /^\/lesson\/(\d+)\/workbook$/,          name: "workbook",          showNav: false, params: ["id"] },
+  { pattern: /^\/lesson\/(\d+)\/video$/,             name: "video",             showNav: false, params: ["id"] },
+  { pattern: /^\/challenge$/,                        name: "challenge",         showNav: false },
+];
 
-function parseHash() {
-  const h = location.hash || "#/";
-  return h.startsWith("#") ? h.slice(1) : h;
-}
+export class Router {
+  constructor({ onChange } = {}) {
+    this.onChange = onChange || (() => {});
+    this._handler = () => this._dispatch();
+  }
 
-function dispatch() {
-  const path = parseHash() || "/";
-  for (const r of routes) {
-    const m = path.match(r.compiled.regex);
-    if (m) {
-      const params = {};
-      r.compiled.keys.forEach((k, i) => { params[k] = decodeURIComponent(m[i + 1]); });
-      try {
-        r.handler(params);
-      } catch (e) {
-        console.error("Route handler error:", e);
-      }
+  start() {
+    window.addEventListener("hashchange", this._handler);
+    if (!location.hash || location.hash === "#" || location.hash === "#/") {
+      location.replace("#/learn");
       return;
     }
+    this._dispatch();
   }
-  // Fallback to root
-  if (path !== "/") {
-    location.hash = "#/";
-  }
-}
 
-export const Router = {
-  add(pattern, handler) {
-    routes.push({ pattern, handler, compiled: compile(pattern) });
-    return this;
-  },
-  go(path) {
-    if (!path.startsWith("/")) path = "/" + path;
-    if (location.hash === "#" + path) {
-      dispatch();
+  stop() {
+    window.removeEventListener("hashchange", this._handler);
+  }
+
+  go(hash) {
+    if (!hash.startsWith("#")) hash = "#" + (hash.startsWith("/") ? hash : "/" + hash);
+    if (location.hash === hash) {
+      // force redispatch
+      this._dispatch();
     } else {
-      location.hash = "#" + path;
+      location.hash = hash;
     }
-  },
+  }
+
   back() {
     if (history.length > 1) history.back();
-    else this.go("/");
-  },
+    else this.go("#/learn");
+  }
+
   current() {
-    return parseHash();
-  },
-  start() {
-    window.addEventListener("hashchange", dispatch);
-    dispatch();
-  },
-};
+    const h = location.hash.replace(/^#/, "") || "/learn";
+    return this._match(h) || { name: "not-found", path: h, params: {}, showNav: false };
+  }
+
+  _match(path) {
+    for (const r of ROUTES) {
+      const m = r.pattern.exec(path);
+      if (!m) continue;
+      const params = {};
+      if (r.params) r.params.forEach((p, i) => { params[p] = m[i + 1]; });
+      return {
+        name: r.name,
+        tab: r.tab || null,
+        showNav: !!r.showNav,
+        path,
+        params,
+        redirect: r.redirect || null,
+      };
+    }
+    return null;
+  }
+
+  _dispatch() {
+    const path = location.hash.replace(/^#/, "") || "/learn";
+    const route = this._match(path);
+    if (!route) {
+      location.replace("#/learn");
+      return;
+    }
+    if (route.redirect) {
+      location.replace(route.redirect);
+      return;
+    }
+    this.onChange(route);
+  }
+}

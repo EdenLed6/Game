@@ -1,245 +1,295 @@
-// Sentence Builder — 1:1 port of SentenceBuilderActivity.kt + activity_sentence_builder.xml.
+// sentence-builder.js — 1:1 port of SentenceBuilderActivity.kt + activity_sentence_builder.xml.
 //
-// Layout:
-//   1. Gradient hero (paddingTop=44dp, paddingStart/End=20dp, paddingBottom=16dp)
-//      with toolbar (back arrow + title) + centered gold score badge.
-//   2. Builder card (margin=16dp, radius=24dp, elev=3dp): instruction (13sp, muted,
-//      centered) → question (18sp bold, start) → built sentence display (surfaceSoft,
-//      12dp radius, 1dp dividerSoft stroke, minHeight=52dp, 16sp) → word chips grid
-//      → optional feedback card → "בדוק תשובה" (filled red) / "השאלה הבאה" (outlined).
-//   3. Result screen (centered, padding=32dp): emoji 🧩 + final score "X / N" +
-//      "🔄 שחק שוב" (gold) + "חזור לשיעור" (outlined).
+// Source of truth:
+//   /home/user/Game/.ui-source/app/src/main/res/layout/activity_sentence_builder.xml
+//   /home/user/Game/.ui-source/app/src/main/res/layout/item_word_chip.xml
+//   /home/user/Game/.ui-source/app/src/main/java/com/nihongo/beginner/SentenceBuilderActivity.kt
+//   /home/user/Game/.ui-source/app/src/main/java/com/nihongo/beginner/adapter/WordChipAdapter.kt
 //
-// Functional preservation: examples come from lesson.examples; words are split on
-// whitespace and shuffled; tap a chip to append it to the built sentence; the
-// chip "disappears" (View.GONE in the adapter) — we mirror that with the
-// is-picked → is-used class chain. checkAnswer() does case-insensitive trimmed
-// equality. ↺ אפס resets the round (reshuffle words).
+// Game loop:
+//   - Pull the lesson's example list (lesson.examples).
+//   - For each example: tvSbQuestion = example.hebrew. Split example.romaji on
+//     whitespace, shuffle words, render as chips (4-col GridLayoutManager).
+//   - Tap a chip → it disappears (fade+shrink 220ms), word is appended to the
+//     built sentence shown in tvSbBuilt.
+//   - Tap a built-sentence chip → it returns to the grid (bounce-in 360ms).
+//   - Press "בדוק תשובה": case-insensitive trimmed equality of joined romaji
+//     against example.romaji. Score increments on correct. Reveal "השאלה הבאה".
+//   - When all examples are exhausted → result screen "🧩" + "score / N" +
+//     "🔄 שחק שוב" + "חזור לשיעור".
 
-import { el, mount, shuffle } from "../dom.js";
-import { Router } from "../router.js";
+import { el, mount } from "../dom.js";
 
-export function SentenceBuilder(data, lessonId) {
-  const lesson = data.lessonsById[lessonId];
-  if (!lesson || !lesson.examples || lesson.examples.length === 0) {
-    Router.go(`/lesson/${lessonId}`);
+export function SentenceBuilder({ host, ctx, params }) {
+  ensureStyle();
+
+  const router  = ctx.router;
+  const lessonId = Number(params && params.id);
+  const backTo   = lessonId ? `#/lesson/${lessonId}` : "#/learn";
+
+  const lesson = (ctx.lessons || []).find(l => Number(l.id) === lessonId);
+  const examples = (lesson && Array.isArray(lesson.examples)) ? lesson.examples : [];
+
+  if (!examples.length) {
+    mount(host, el("div", { class: "screen sb-screen" },
+      el("div", { class: "sb-header bg-gradient-hero" },
+        el("button", {
+          class: "sb-header__back",
+          type: "button",
+          "aria-label": "חזור",
+          onClick: () => router.go(backTo),
+        }, el("img", { src: "assets/icons/ic_arrow_back.svg", alt: "" })),
+        el("h1", { class: "sb-header__title" }, "Kimura"),
+      ),
+      el("div", { class: "stub-screen" }, "לא נמצאו תרגילי משפטים בשיעור הזה."),
+    ));
     return;
   }
 
+  // ---------- state ----------
   const state = {
-    examples: lesson.examples,
-    index: 0,
+    currentIndex: 0,
     score: 0,
-    chips: [],          // [{ word, used, picking }] — picking triggers the pick animation
-    built: [],          // chip indices in pick order
-    feedback: null,     // { correct: bool, text: string } | null
-    showResult: false,
+    chips: [],          // [{ word, taken: bool }]
+    built: [],          // [{ chipIndex, word }]
+    checked: false,
   };
 
-  // Mirrors loadQuestion(): reset, shuffle the example's romaji words.
-  function loadQuestion() {
-    const ex = state.examples[state.index];
-    const words = ex.romaji.trim().split(/\s+/);
-    state.chips = shuffle(words).map(w => ({ word: w, used: false, picking: false, returning: true }));
-    state.built = [];
-    state.feedback = null;
-    render();
-  }
+  // ---------- DOM ----------
+  const tvScore       = el("span", { class: "sb-score-badge bg-score-badge" });
+  const tvInstruction = el("p",  { class: "sb-instruction" }, "סדר את המילים כדי לבנות את המשפט");
+  const tvQuestion    = el("p",  { class: "sb-question" });
+  const builtRow      = el("div", { class: "sb-built__row dir-ltr" });
+  const builtCard     = el("div", { class: "sb-built" }, builtRow);
+  const wordsGrid     = el("div", { class: "sb-words dir-ltr" });
+  const tvFeedback    = el("p",  { class: "sb-feedback" });
+  const cardFeedback  = el("div", { class: "sb-feedback-card" }, tvFeedback);
+  const btnCheck      = el("button", {
+    class: "btn btn--block sb-check",
+    type: "button",
+    onClick: () => onCheck(),
+  }, "בדוק תשובה");
+  const btnNext       = el("button", {
+    class: "btn btn--block sb-next",
+    type: "button",
+    onClick: () => onAdvance(),
+  }, "השאלה הבאה");
 
-  // Mirrors checkAnswer(): equalsIgnoreCase on trimmed strings.
-  function checkAnswer() {
-    const ex = state.examples[state.index];
-    const built = state.built.map(i => state.chips[i].word).join(" ").trim();
-    const correct = built.toLowerCase() === ex.romaji.trim().toLowerCase();
-    if (correct) {
-      state.score++;
-      state.feedback = { correct: true, text: "נכון! 🎉" };
-    } else {
-      state.feedback = { correct: false, text: `לא נכון. התשובה: ${ex.romaji}` };
+  const gameCard = el("div", { class: "sb-card" },
+    tvInstruction,
+    tvQuestion,
+    builtCard,
+    wordsGrid,
+    cardFeedback,
+    btnCheck,
+    btnNext,
+  );
+
+  const tvFinal = el("div", { class: "sb-final-score" });
+  const resultLayout = el("div", { class: "sb-result", style: { display: "none" } },
+    el("div", { class: "sb-result__emoji" }, "🧩"),
+    tvFinal,
+    el("button", {
+      class: "btn btn--gold btn--block sb-result__btn",
+      type: "button",
+      onClick: () => restart(),
+    }, "🔄  שחק שוב"),
+    el("button", {
+      class: "btn btn--block sb-result__btn",
+      type: "button",
+      onClick: () => router.go(backTo),
+    }, "חזור לשיעור"),
+  );
+
+  const screen = el("div", { class: "screen sb-screen" },
+    el("div", { class: "sb-header bg-gradient-hero" },
+      el("button", {
+        class: "sb-header__back",
+        type: "button",
+        "aria-label": "חזור",
+        onClick: () => router.go(backTo),
+      }, el("img", { src: "assets/icons/ic_arrow_back.svg", alt: "" })),
+      el("h1", { class: "sb-header__title" }, "Kimura"),
+      el("div", { class: "sb-header__score-row" }, tvScore),
+    ),
+    el("div", { class: "sb-body" },
+      gameCard,
+      resultLayout,
+    ),
+  );
+
+  // ---------- helpers ----------
+  function shuffleArr(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
     }
-    render();
+    return a;
   }
 
-  // Mirrors advanceQuestion()
-  function advance() {
-    state.index++;
-    if (state.index < state.examples.length) {
-      loadQuestion();
-    } else {
-      state.showResult = true;
-      render();
+  function setScore(n) {
+    tvScore.textContent = `ניקוד: ${n}`;
+  }
+
+  function renderChips() {
+    while (wordsGrid.firstChild) wordsGrid.removeChild(wordsGrid.firstChild);
+    state.chips.forEach((chip, idx) => {
+      const node = el("button", {
+        class: "sb-chip",
+        type: "button",
+        onClick: (ev) => takeChip(idx, ev.currentTarget),
+      }, chip.word);
+      if (chip.taken) {
+        node.classList.add("sb-chip--gone");
+      }
+      wordsGrid.appendChild(node);
+    });
+  }
+
+  function renderBuilt() {
+    while (builtRow.firstChild) builtRow.removeChild(builtRow.firstChild);
+    if (!state.built.length) {
+      const placeholder = el("span", { class: "sb-built__placeholder" }, "");
+      builtRow.appendChild(placeholder);
+      return;
     }
+    state.built.forEach((entry, i) => {
+      const node = el("button", {
+        class: "sb-built-chip",
+        type: "button",
+        onClick: () => returnChip(i),
+      }, entry.word);
+      builtRow.appendChild(node);
+    });
   }
 
-  // Mirrors restartGame()
-  function restart() {
-    state.index = 0;
-    state.score = 0;
-    state.showResult = false;
-    loadQuestion();
-  }
+  function takeChip(chipIndex, btnEl) {
+    if (state.checked) return;
+    const chip = state.chips[chipIndex];
+    if (!chip || chip.taken) return;
+    chip.taken = true;
+    state.built.push({ chipIndex, word: chip.word });
 
-  function back() {
-    Router.go(`/lesson/${lessonId}`);
-  }
-
-  function pickChip(idx) {
-    const chip = state.chips[idx];
-    if (chip.used || chip.picking) return;
-    if (state.feedback != null) return;
-    chip.picking = true;
-    state.built.push(idx);
-    render();
-    // After the pick animation completes, mark used (display:none) — same end
-    // state as the adapter's View.GONE.
+    // 220ms fade+shrink animation, then hide.
+    btnEl.classList.add("sb-chip--leaving");
     setTimeout(() => {
-      chip.picking = false;
-      chip.used = true;
-      render();
+      btnEl.classList.remove("sb-chip--leaving");
+      btnEl.classList.add("sb-chip--gone");
+      // Re-render built row to attach new chip
+      renderBuilt();
     }, 220);
   }
 
-  function render() {
-    if (state.showResult) {
-      mount(renderResult());
-      return;
+  function returnChip(builtPos) {
+    if (state.checked) return;
+    const entry = state.built[builtPos];
+    if (!entry) return;
+    state.built.splice(builtPos, 1);
+    state.chips[entry.chipIndex].taken = false;
+
+    // Animate the grid chip back in (bounce 360ms)
+    const gridChild = wordsGrid.children[entry.chipIndex];
+    if (gridChild) {
+      gridChild.classList.remove("sb-chip--gone");
+      gridChild.classList.remove("sb-chip--returning");
+      void gridChild.offsetWidth;
+      gridChild.classList.add("sb-chip--returning");
+      setTimeout(() => gridChild.classList.remove("sb-chip--returning"), 360);
     }
-    mount(renderGame());
+    renderBuilt();
   }
 
-  function renderGame() {
-    const ex = state.examples[state.index];
-    const allUsed = state.chips.every(c => c.used || c.picking);
-    const builtText = state.built
-      .map(i => state.chips[i].word)
-      .join(" ");
+  function loadQuestion() {
+    state.checked = false;
+    state.built = [];
+    const example = examples[state.currentIndex];
 
-    return el(
-      "div",
-      { class: "sb-screen" },
-      // Gradient hero header
-      el(
-        "header",
-        { class: "sb-hero" },
-        el(
-          "div",
-          { class: "sb-toolbar" },
-          el("button", { class: "sb-back", onClick: back, "aria-label": "חזור" }, "→"),
-          el("h1", { class: "sb-title" }, "✏️ בניית משפטים"),
-        ),
-        el(
-          "div",
-          { class: "sb-score-row" },
-          el("div", { class: "sb-score" }, `ניקוד: ${state.score}`),
-        ),
-      ),
-      // Builder card
-      el(
-        "div",
-        { class: "sb-card" },
-        el("div", { class: "sb-instruction" }, "סדר את המילים כדי לבנות את המשפט"),
-        el("div", { class: "sb-question" }, ex.hebrew),
-        // Built sentence display (cardSoft style)
-        el(
-          "div",
-          { class: "sb-built-card" },
-          el(
-            "div",
-            { class: "sb-built" + (builtText ? "" : " is-empty") },
-            builtText || " ",
-          ),
-        ),
-        // Word chips
-        el(
-          "div",
-          { class: "sb-chips" },
-          state.chips.map((c, i) => chipButton(c, i)),
-        ),
-        // Optional feedback card
-        state.feedback
-          ? el("div", {
-              class: "sb-feedback " + (state.feedback.correct ? "is-correct" : "is-wrong"),
-            }, state.feedback.text)
-          : null,
-        // Action buttons. The Activity has Check then Next as two stacked buttons,
-        // toggling visibility with View.VISIBLE/GONE; we mirror that here.
-        el(
-          "div",
-          { class: "sb-actions" },
-          state.feedback
-            ? el("button", { class: "sb-btn", onClick: advance },
-                state.index + 1 < state.examples.length ? "השאלה הבאה" : "סיים")
-            : el("button", {
-                class: "sb-btn",
-                disabled: !allUsed,
-                onClick: checkAnswer,
-              }, "בדוק תשובה"),
-          // ↺ אפס — soft reset of the current round (re-shuffles the same example).
-          state.feedback
-            ? null
-            : el("button", { class: "sb-btn is-outlined", onClick: loadQuestion }, "↺ אפס"),
-        ),
-      ),
+    tvQuestion.textContent    = example.hebrew || "";
+    tvInstruction.textContent = "סדר את המילים כדי לבנות את המשפט";
+
+    // Hide feedback, show check, hide next
+    tvFeedback.textContent = "";
+    cardFeedback.classList.remove(
+      "sb-feedback-card--visible",
+      "sb-feedback-card--correct",
+      "sb-feedback-card--wrong",
     );
+    btnCheck.style.display = "";
+    btnNext.style.display  = "none";
+
+    // Words: split romaji on whitespace, shuffle.
+    const words = String(example.romaji || "").trim().split(/\s+/).filter(Boolean);
+    const shuffled = shuffleArr(words);
+    state.chips = shuffled.map(w => ({ word: w, taken: false }));
+
+    renderChips();
+    renderBuilt();
+    setScore(state.score);
   }
 
-  function chipButton(c, i) {
-    let cls = "sb-chip";
-    if (c.used) cls += " is-used";
-    if (c.picking) cls += " is-picked";
-    if (c.returning) cls += " is-returning";
-    // Reset returning flag after first render so it doesn't replay.
-    if (c.returning) {
-      // Schedule clearing the flag after one tick — keeps the bounce-in to
-      // play exactly once when chips are first laid out / after ↺ אפס.
-      queueMicrotask(() => { c.returning = false; });
+  function onCheck() {
+    if (state.checked) return;
+    const example = examples[state.currentIndex];
+    const built = state.built.map(e => e.word).join(" ").trim();
+    const expected = String(example.romaji || "").trim();
+    const correct = built.toLowerCase() === expected.toLowerCase();
+
+    cardFeedback.classList.add("sb-feedback-card--visible");
+    if (correct) {
+      state.score++;
+      tvFeedback.textContent = "נכון! 🎉";
+      cardFeedback.classList.add("sb-feedback-card--correct");
+    } else {
+      tvFeedback.textContent = `לא נכון. התשובה: ${example.romaji}`;
+      cardFeedback.classList.add("sb-feedback-card--wrong");
     }
-    return el(
-      "button",
-      {
-        class: cls,
-        disabled: c.used || c.picking || state.feedback != null,
-        onClick: () => pickChip(i),
-        type: "button",
-      },
-      c.word,
-    );
+    state.checked = true;
+    btnCheck.style.display = "none";
+    btnNext.style.display  = "";
+    setScore(state.score);
   }
 
-  function renderResult() {
-    const total = state.examples.length;
-    return el(
-      "div",
-      { class: "sb-screen" },
-      el(
-        "header",
-        { class: "sb-hero" },
-        el(
-          "div",
-          { class: "sb-toolbar" },
-          el("button", { class: "sb-back", onClick: back, "aria-label": "חזור" }, "→"),
-          el("h1", { class: "sb-title" }, "✏️ בניית משפטים"),
-        ),
-        el(
-          "div",
-          { class: "sb-score-row" },
-          el("div", { class: "sb-score" }, `ניקוד: ${state.score}`),
-        ),
-      ),
-      el(
-        "div",
-        { class: "sb-result" },
-        el("div", { class: "sb-result-emoji" }, "🧩"),
-        el("div", { class: "sb-result-score" }, `${state.score} / ${total}`),
-        el(
-          "div",
-          { class: "sb-result-actions" },
-          el("button", { class: "sb-btn is-gold", onClick: restart }, "🔄  שחק שוב"),
-          el("button", { class: "sb-btn is-outlined", onClick: back }, "חזור לשיעור"),
-        ),
-      ),
-    );
+  function onAdvance() {
+    state.currentIndex++;
+    if (state.currentIndex < examples.length) {
+      loadQuestion();
+    } else {
+      showResult();
+    }
   }
 
+  function showResult() {
+    gameCard.style.display = "none";
+    resultLayout.style.display = "";
+    tvFinal.textContent = `${state.score} / ${examples.length}`;
+    resultLayout.classList.remove("sb-result--in");
+    void resultLayout.offsetWidth;
+    resultLayout.classList.add("sb-result--in");
+  }
+
+  function restart() {
+    state.currentIndex = 0;
+    state.score = 0;
+    setScore(0);
+    resultLayout.style.display = "none";
+    gameCard.style.display = "";
+    loadQuestion();
+  }
+
+  // Initial render
+  setScore(0);
+  mount(host, screen);
   loadQuestion();
+}
+
+// ---------- stylesheet injection (idempotent) ----------
+function ensureStyle() {
+  for (const l of document.querySelectorAll('link[rel="stylesheet"]')) {
+    if (l.getAttribute("href") === "css/screens/sentence-builder.css") return;
+  }
+  const link = document.createElement("link");
+  link.rel  = "stylesheet";
+  link.href = "css/screens/sentence-builder.css";
+  document.head.appendChild(link);
 }

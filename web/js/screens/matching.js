@@ -1,246 +1,269 @@
-// Matching screen — pixel-1:1 port of activity_matching.xml + item_match_word.xml
-// + MatchingGameActivity.kt + adapter/MatchAdapter.kt.
+// matching.js — 1:1 port of activity_matching.xml + MatchingGameActivity.kt
+// + item_match_word.xml + MatchAdapter.kt.
 //
-// Vertical LinearLayout:
-//   1) Gradient hero
-//        - MaterialToolbar (back arrow + title)
-//        - Score+instructions row (gold score badge weight=1, white instructions
-//          weight=2, with marginEnd=10dp between).
-//   2) Two RecyclerView columns (LinearLayout horizontal, padding=16dp,
-//      gap≈12dp). Each item is item_match_word.xml — a MaterialCardView with
-//      a centered TextView (15sp bold). Card-state cycles NORMAL → SELECTED →
-//      MATCHED / WRONG (mirrors MatchAdapter.State).
-//   3) Complete overlay (gravity=center, padding=32dp): 72sp 🎉 emoji,
-//      22sp bold result, 16sp muted time line, App.Button.Gold "🔄 שחק שוב",
-//      App.Button.Outlined "חזור לשיעור".
-//
-// Behaviour notes (preserves Kotlin):
-//   - vocabItems = lesson.vocabulary.shuffled().take(8)   (computed once per session)
-//   - On startGame() we reshuffle leftWords and rightWords independently and
-//     reset score/matched/state.
-//   - On wrong match both tiles flash WRONG for 500ms, then snap back to NORMAL.
+// Layout (top → bottom):
+//   1) Header (bg_header.png) holding
+//        - Toolbar (back arrow + "התאמת מילים")
+//        - Score row: gold bg_score_badge "ניקוד: N" (weight 1) +
+//          instructions text "התאם את המילים היפניות לתרגומן" (weight 2,
+//          12sp white @ 0.85)
+//   2) Two-column matching area (LinearLayout horizontal, padding=16dp)
+//        - Left column (RecyclerView): Japanese words
+//        - Right column (RecyclerView): Hebrew translations
+//        - Each card (item_match_word.xml): MaterialCardView, surface,
+//          16dp radius, 1.5dp optionStroke, padding=14dp, 15sp bold center.
+//          State NORMAL → SELECTED (yellow) → MATCHED (green, locked) /
+//          WRONG (red, 500ms then revert).
+//   3) Complete overlay (visibility=gone until all matched):
+//        - 🎉 emoji 72sp, "כל הזוגות הותאמו! ניקוד: N" 22sp bold,
+//          App.Button.Gold "🔄 שחק שוב" + App.Button "חזור לשיעור"
 
-import { el, mount, shuffle } from "../dom.js";
-import { Router } from "../router.js";
+import { el, mount } from "../dom.js";
 
-export function Matching(data, lessonId) {
-  const lesson = data.lessonsById[lessonId];
-  if (!lesson || !lesson.vocabulary || lesson.vocabulary.length < 4) {
-    Router.go(`/lesson/${lessonId}`);
+const WRONG_FLASH_MS = 500;
+
+function shuffle(arr) {
+  const out = arr.slice();
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+}
+
+export function Matching({ host, ctx, params }) {
+  const { lessons, router } = ctx;
+  const lessonId = Number(params.id);
+  const lesson = (lessons || []).find(l => Number(l.id) === lessonId);
+
+  if (!lesson || !Array.isArray(lesson.vocabulary) || lesson.vocabulary.length < 4) {
+    router.go(`#/lesson/${lessonId}`);
     return;
   }
 
-  // Sample up to 8 random vocabulary pairs; this list is fixed for the session
-  // (matches `vocabItems = lesson.vocabulary.shuffled().take(8)`).
-  const pool = shuffle(lesson.vocabulary).slice(0, 8);
+  // Pick up to 8 unique vocab pairs — matches Kotlin shuffled().take(8)
+  const sourcePairs = shuffle(lesson.vocabulary).slice(0, 8);
 
   const state = {
-    pool,
-    left: [],            // array of { word, status }   — japanese
-    right: [],           // array of { word, status }   — hebrew
+    pairs: sourcePairs,
+    leftWords: [],            // [{word, key}]   — Japanese
+    rightWords: [],           // [{word, key}]   — Hebrew
+    leftStates: [],           // "normal" | "selected" | "matched" | "wrong"
+    rightStates: [],
     selectedLeft: null,
     selectedRight: null,
     score: 0,
-    matched: 0,
+    matchedCount: 0,
     isProcessing: false,
     finished: false,
   };
 
-  // Match Adapter states: "normal" | "selected" | "matched" | "wrong".
   function startGame() {
-    const shuffledItems = shuffle(state.pool);
-    state.left = shuffledItems.map(v => ({ word: v.japanese, status: "normal" }));
-    state.right = shuffle(shuffledItems).map(v => ({ word: v.hebrew, status: "normal" }));
     state.selectedLeft = null;
     state.selectedRight = null;
     state.score = 0;
-    state.matched = 0;
+    state.matchedCount = 0;
     state.isProcessing = false;
     state.finished = false;
+
+    const leftOrder  = shuffle(state.pairs);
+    const rightOrder = shuffle(state.pairs);
+    state.leftWords  = leftOrder.map(p => ({ word: p.japanese, key: p.japanese }));
+    state.rightWords = rightOrder.map(p => ({ word: p.hebrew,   key: p.hebrew }));
+    state.leftStates  = state.leftWords.map(() => "normal");
+    state.rightStates = state.rightWords.map(() => "normal");
     render();
   }
 
-  // ----- Render -----------------------------------------------------------
-
+  // ---- Render --------------------------------------------------------------
   function render() {
-    const view = el(
+    const root = el(
       "div",
-      { class: "match-screen" },
-      hero(),
-      state.finished ? renderComplete() : renderGrid()
+      { class: "screen matching-screen" },
+      renderHeader(),
+      state.finished ? renderComplete() : renderBoard()
     );
-    mount(view);
+    mount(host, root);
   }
 
-  function hero() {
+  function renderHeader() {
     return el(
       "header",
-      { class: "match-hero" },
+      { class: "matching-header" },
       el(
         "div",
-        { class: "app-toolbar", style: { paddingTop: "0", paddingBottom: "0" } },
+        { class: "matching-header__top" },
         el(
           "button",
           {
-            class: "toolbar-back",
+            type: "button",
+            class: "matching-header__back",
             "aria-label": "חזור",
-            onClick: () => Router.go(`/lesson/${lessonId}`),
+            onClick: () => router.back(),
           },
-          "←"
+          el("img", { src: "assets/icons/ic_arrow_back.svg", alt: "" })
         ),
-        el("h1", { class: "toolbar-title" }, "התאמה")
+        el("h1", { class: "matching-header__title" }, "התאמת מילים")
       ),
       el(
         "div",
-        { class: "match-hero-row" },
+        { class: "matching-header__row" },
         el(
           "div",
-          { class: "match-score-badge" },
+          { class: "matching-score bg-score-badge" },
           `ניקוד: ${state.score}`
         ),
         el(
           "div",
-          { class: "match-instructions" },
+          { class: "matching-instructions" },
           "התאם את המילים היפניות לתרגומן"
         )
       )
     );
   }
 
-  function renderGrid() {
+  function renderBoard() {
     return el(
       "main",
-      { class: "match-grid" },
+      { class: "matching-body" },
       el(
         "div",
-        { class: "match-col match-col-left" },
-        state.left.map((item, i) => tile(item, () => onLeft(i)))
+        { class: "matching-column matching-column--left" },
+        ...state.leftWords.map((w, i) =>
+          renderCard(w.word, state.leftStates[i], () => onLeftClick(i), true)
+        )
       ),
       el(
         "div",
-        { class: "match-col match-col-right" },
-        state.right.map((item, i) => tile(item, () => onRight(i)))
+        { class: "matching-column matching-column--right" },
+        ...state.rightWords.map((w, i) =>
+          renderCard(w.word, state.rightStates[i], () => onRightClick(i), false)
+        )
       )
     );
   }
 
-  function tile(item, onClick) {
-    let cls = "match-tile";
-    if (item.status === "selected") cls += " is-selected";
-    else if (item.status === "matched") cls += " is-matched";
-    else if (item.status === "wrong") cls += " is-wrong";
+  function renderCard(word, cardState, onClick, isJapanese) {
+    const cls = [
+      "match-card",
+      "match-card--" + cardState,
+      isJapanese ? "match-card--ja" : null,
+    ].filter(Boolean).join(" ");
+    const locked = cardState === "matched";
     return el(
       "button",
       {
-        class: cls,
         type: "button",
-        disabled: item.status === "matched",
-        onClick,
+        class: cls,
+        disabled: locked,
+        onClick: locked ? null : onClick,
       },
-      item.word
+      el(
+        "span",
+        { class: "match-card__text", lang: isJapanese ? "ja" : "he" },
+        word
+      )
     );
   }
 
   function renderComplete() {
     return el(
-      "section",
-      { class: "match-complete" },
-      el("p", { class: "complete-emoji" }, "🎉"),
+      "main",
+      { class: "matching-complete" },
+      el("p", { class: "matching-complete__emoji" }, "🎉"),
       el(
         "p",
-        { class: "complete-result" },
+        { class: "matching-complete__title" },
         `כל הזוגות הותאמו! ניקוד: ${state.score}`
       ),
-      // tvMatchTime is set to "" by MatchingGameActivity.showComplete(). Render
-      // an empty placeholder so the spacing below the result line still matches.
-      el("p", { class: "complete-time" }, ""),
       el(
         "button",
         {
-          class: "btn-again",
           type: "button",
-          onClick: () => startGame(),
+          class: "btn btn--gold btn--block matching-complete__btn",
+          onClick: startGame,
         },
         "🔄  שחק שוב"
       ),
       el(
         "button",
         {
-          class: "btn-back",
           type: "button",
-          onClick: () => Router.go(`/lesson/${lessonId}`),
+          class: "btn btn--block matching-complete__btn",
+          onClick: () => router.go(`#/lesson/${lessonId}`),
         },
         "חזור לשיעור"
       )
     );
   }
 
-  // ----- Behaviour --------------------------------------------------------
-
-  function onLeft(i) {
+  // ---- Handlers ------------------------------------------------------------
+  function onLeftClick(i) {
     if (state.isProcessing) return;
-    if (state.left[i].status === "matched") return;
-    // If a different left tile was previously selected, reset it to normal.
-    if (state.selectedLeft != null && state.selectedLeft !== i) {
-      state.left[state.selectedLeft].status = "normal";
+    if (state.leftStates[i] === "matched") return;
+    if (state.selectedLeft != null && state.selectedLeft !== i &&
+        state.leftStates[state.selectedLeft] !== "matched") {
+      state.leftStates[state.selectedLeft] = "normal";
     }
     state.selectedLeft = i;
-    state.left[i].status = "selected";
+    state.leftStates[i] = "selected";
     render();
     tryMatch();
   }
 
-  function onRight(i) {
+  function onRightClick(i) {
     if (state.isProcessing) return;
-    if (state.right[i].status === "matched") return;
-    if (state.selectedRight != null && state.selectedRight !== i) {
-      state.right[state.selectedRight].status = "normal";
+    if (state.rightStates[i] === "matched") return;
+    if (state.selectedRight != null && state.selectedRight !== i &&
+        state.rightStates[state.selectedRight] !== "matched") {
+      state.rightStates[state.selectedRight] = "normal";
     }
     state.selectedRight = i;
-    state.right[i].status = "selected";
+    state.rightStates[i] = "selected";
     render();
     tryMatch();
   }
 
   function tryMatch() {
     if (state.selectedLeft == null || state.selectedRight == null) return;
-    state.isProcessing = true;
 
     const li = state.selectedLeft;
     const ri = state.selectedRight;
-    const ja = state.left[li].word;
-    const he = state.right[ri].word;
-    const isMatch = state.pool.some(v => v.japanese === ja && v.hebrew === he);
+    state.isProcessing = true;
+
+    const leftWord  = state.leftWords[li].key;
+    const rightWord = state.rightWords[ri].key;
+    const isMatch = state.pairs.some(
+      p => p.japanese === leftWord && p.hebrew === rightWord
+    );
 
     if (isMatch) {
-      state.left[li].status = "matched";
-      state.right[ri].status = "matched";
+      state.leftStates[li] = "matched";
+      state.rightStates[ri] = "matched";
       state.score++;
-      state.matched++;
+      state.matchedCount++;
       state.selectedLeft = null;
       state.selectedRight = null;
       state.isProcessing = false;
-      if (state.matched === state.pool.length) {
+      if (state.matchedCount === state.pairs.length) {
         state.finished = true;
       }
       render();
     } else {
-      state.left[li].status = "wrong";
-      state.right[ri].status = "wrong";
+      state.leftStates[li] = "wrong";
+      state.rightStates[ri] = "wrong";
       render();
-      // 500ms postDelayed in Kotlin — same here.
       setTimeout(() => {
-        // Only reset if the two are still the wrong-pair we set; protects
-        // against rapid taps changing the selection.
-        if (state.left[li]) state.left[li].status = "normal";
-        if (state.right[ri]) state.right[ri].status = "normal";
+        if (state.leftStates[li] === "wrong") state.leftStates[li] = "normal";
+        if (state.rightStates[ri] === "wrong") state.rightStates[ri] = "normal";
         state.selectedLeft = null;
         state.selectedRight = null;
         state.isProcessing = false;
         render();
-      }, 500);
+      }, WRONG_FLASH_MS);
     }
   }
 
+  // Kick off
   startGame();
 }
