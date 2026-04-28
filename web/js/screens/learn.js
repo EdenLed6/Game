@@ -5,8 +5,10 @@
 //   • Scrollable lesson journey path:
 //       - Unit header cards (5 units, hardcoded ranges + colors per
 //         LessonPathAdapter.UNITS / UNIT_COLORS)
-//       - Lesson nodes with zigzag (alternating left/right) layout, dotted
-//         connectors between consecutive nodes, completed/active/locked states
+//       - Lesson nodes with zigzag (alternating left/right) layout, solid
+//         connectors between consecutive nodes (3dp × 20dp cardStroke,
+//         matches item_lesson_node.xml vConnectorBottom), completed/active/
+//         locked states
 //   • Tap a node → navigate to #/lesson/${id} (matches Android intent into
 //     LessonJourneyActivity)
 //

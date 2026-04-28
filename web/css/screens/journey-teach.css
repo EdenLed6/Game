@@ -1,0 +1,113 @@
+/* journey-teach.css — TEACH step (LessonJourneyActivity.showTeachPage,
+ * Kotlin :511–574, plus buildGrammarBlock :673–723 and buildExampleRow
+ * :725–761) specific styling.
+ *
+ * The shared journey-step.css already provides .lj-step / .lj-card /
+ * .lj-card__title / .lj-card__body / .lj-section / .lj-section__bar /
+ * .lj-speaker / .dir-ltr and the .lj-card-slide-up keyframes used when
+ * a new card is appended during progressive reveal. This sheet only
+ * adds:
+ *   • side accent stripes (red for grammar, teal for examples)
+ *   • the optional grammar.pattern pale block at the bottom of a grammar card
+ *   • example card line styles (romaji bold italic, japanese muted, hebrew
+ *     pill chip in primary red)
+ */
+
+.lj-step--teach {
+  /* Override the foundation gap so per-card spacing is owned by each
+   * card's own bottom margin, mirroring Kotlin's LinearLayout
+   * bottomMargin:dp(10/12) per item. */
+  gap: 12px;
+}
+
+/* The first section header should hug the top of the step. */
+.lj-step--teach .lj-section:first-child {
+  margin-top: 0;
+}
+
+/* ── Grammar card — left red 4dp stripe ─────────────────────────
+ * Mirrors item_grammar.xml :19–24 and the vertical inner LinearLayout
+ * (:26–31). The .lj-card foundation already supplies the surfaceAlt bg,
+ * 16dp radius, 1dp stroke and 16dp padding — we layer the stripe via
+ * border-inline-start so it logically maps to the leading edge in RTL.
+ */
+
+.lj-teach-grammar {
+  border-inline-start: 4px solid var(--color-primary, #C0362A);
+  /* Foundation .lj-card is 16dp padding all around; we already get
+   * the stripe via border so no extra inset is needed — the border
+   * eats 4px of the inline-start padding visually, which matches the
+   * Android layout where the stripe is OUTSIDE the inner padding. */
+}
+
+.lj-teach-grammar .lj-card__title {
+  /* Per task spec: 16sp bold primary. */
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-primary, #C0362A);
+  margin: 0 0 8px 0;
+}
+.lj-teach-grammar .lj-card__body {
+  /* Per task spec: 15sp 1.55 line-height. */
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--color-on-surface, #1A0800);
+  margin: 0;
+  white-space: pre-wrap; /* preserve paragraph breaks in grammar.content */
+}
+
+/* Pattern block — only appears when grammar.pattern is truthy.
+ * Per task spec: surface-soft bg, 4dp radius, 12dp padding, 13sp italic. */
+.lj-grammar-pattern {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 4px;
+  background: var(--color-surface-soft, #FDECEA);
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--color-primary, #C0362A);
+  white-space: pre-wrap;
+}
+
+/* ── Example card — left teal 4dp stripe, vertical layout ────── */
+
+.lj-teach-example {
+  border-inline-start: 4px solid var(--color-accent-teal, #0EA5E9);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Romaji line — 18sp bold italic, LTR isolation so the latin script
+ * renders left-to-right inside the RTL page. */
+.lj-example-romaji {
+  font-size: 18px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--color-on-surface, #1A0800);
+  margin: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+/* Japanese line — 16sp muted, LTR isolation, lang="ja" set on element. */
+.lj-example-japanese {
+  font-size: 16px;
+  color: var(--color-on-surface-muted, #7C6A67);
+  margin: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+/* Hebrew chip — 15sp red bold inside a rounded pill (mirrors
+ * bg_lesson_number_chip), surface-soft background, 8dp padding. */
+.lj-card-hebrew {
+  display: inline-block;
+  align-self: flex-start;
+  margin-top: 4px;
+  padding: 8px;
+  border-radius: 999px;
+  background: var(--color-surface-soft, #FDECEA);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-primary, #C0362A);
+}
