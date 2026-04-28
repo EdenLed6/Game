@@ -1,106 +1,116 @@
-import { Router } from "./router.js";
-import { Main } from "./screens/main.js";
-import { LessonDetail } from "./screens/lesson-detail.js";
-import { Quiz } from "./screens/quiz.js";
-import { Flashcards } from "./screens/flashcards.js";
-import { Matching } from "./screens/matching.js";
-import { NumberGame } from "./screens/number-game.js";
-import { SentenceBuilder } from "./screens/sentence-builder.js";
-import { Challenge } from "./screens/challenge.js";
-import { WorkbookScreen } from "./screens/workbook.js";
+// main.js — bootstraps the Kimura web port.
+//
+// 1. Fetch lessons.json + workbook.json (in parallel).
+// 2. Instantiate Router.
+// 3. Render bottom nav (3 tabs).
+// 4. On every route change, mount the matching screen module.
+//
+// All screen modules export a function that takes { host, ctx } where
+// ctx = { router, store, speaker, lessons, workbook, params }.
 
-async function loadJSON(path) {
-  const res = await fetch(path);
-  if (!res.ok) throw new Error(`Failed to load ${path}: ${res.status}`);
-  return res.json();
+import { Router }                    from "./router.js";
+import { renderBottomNav,
+         setBottomNavVisible,
+         setActiveTab }              from "./tabs.js";
+import { mount, el }                 from "./dom.js";
+import * as store                    from "./store.js";
+import * as speaker                  from "./speaker.js";
+
+// Screen modules — every one is a stub right now; other agents fill them in
+import { Learn }            from "./screens/learn.js";
+import { Media }            from "./screens/media.js";
+import { Profile }          from "./screens/profile.js";
+import { LessonDetail }     from "./screens/lesson-detail.js";
+import { Quiz }             from "./screens/quiz.js";
+import { Flashcards }       from "./screens/flashcards.js";
+import { Matching }         from "./screens/matching.js";
+import { NumberGame }       from "./screens/number-game.js";
+import { SentenceBuilder }  from "./screens/sentence-builder.js";
+import { Workbook }         from "./screens/workbook.js";
+import { Video }            from "./screens/video.js";
+import { Challenge }        from "./screens/challenge.js";
+
+const SCREEN_MAP = {
+  "learn":            Learn,
+  "media":            Media,
+  "profile":          Profile,
+  "lesson-detail":    LessonDetail,
+  "quiz":             Quiz,
+  "flashcards":       Flashcards,
+  "matching":         Matching,
+  "number-game":      NumberGame,
+  "sentence-builder": SentenceBuilder,
+  "workbook":         Workbook,
+  "video":            Video,
+  "challenge":        Challenge,
+};
+
+async function loadJSON(url) {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status} fetching ${url}`);
+    return await res.json();
+  } catch (err) {
+    console.error("Failed to load", url, err);
+    return null;
+  }
 }
 
-async function bootstrap() {
+function showError(host, message) {
+  mount(host, el("div", { class: "stub-screen" },
+    el("p", {}, "אירעה שגיאה בטעינת התוכן."),
+    el("p", { class: "t-muted", style: { marginTop: "8px" } }, String(message || ""))
+  ));
+}
+
+(async function boot() {
+  const host    = document.getElementById("screen-host");
+  const navHost = document.getElementById("bottom-nav");
+
+  // Parallel fetch — these are independent
   const [lessons, workbook] = await Promise.all([
     loadJSON("data/lessons.json"),
     loadJSON("data/workbook.json"),
   ]);
 
-  const data = {
+  if (!lessons) {
+    showError(host, "lessons.json לא נטען");
+    return;
+  }
+
+  // Record activity once per app open (matches Android behavior of ticking the streak)
+  try { store.recordActivity(); } catch {}
+
+  const router = new Router({ onChange: (route) => render(route) });
+
+  const ctx = {
+    router,
+    store,
+    speaker,
     lessons,
-    lessonsById: Object.fromEntries(lessons.map(l => [l.id, l])),
-    workbook,
+    workbook: workbook || { pageTexts: {}, lessonForPage: {}, lessonTitles: {}, interactiveExercises: [] },
   };
 
-  // Build the full per-lesson workbook exercise list (interactive + auto PAGE_NOTES)
-  // mirroring DigitalCourseWorkbook.getExercisesForLesson()
-  data.allWorkbookExercises = buildAllWorkbookExercises(workbook);
+  function render(route) {
+    // Bottom nav visibility + active-tab marker
+    setBottomNavVisible(navHost, route.showNav);
+    if (route.tab) setActiveTab(navHost, route.tab);
 
-  // Routes
-  Router
-    .add("/", () => Main(data))
-    .add("/lesson/:id", ({ id }) => LessonDetail(data, parseInt(id, 10)))
-    .add("/quiz/:id", ({ id }) => Quiz(data, parseInt(id, 10)))
-    .add("/flashcards/:id", ({ id }) => Flashcards(data, parseInt(id, 10)))
-    .add("/matching/:id", ({ id }) => Matching(data, parseInt(id, 10)))
-    .add("/numbers/:id", ({ id }) => NumberGame(data, parseInt(id, 10)))
-    .add("/sentences/:id", ({ id }) => SentenceBuilder(data, parseInt(id, 10)))
-    .add("/challenge", () => Challenge(data))
-    .add("/workbook/:id", ({ id }) => WorkbookScreen(data, parseInt(id, 10)));
-
-  Router.start();
-
-  // Service worker (only when served over http(s))
-  if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
-    navigator.serviceWorker.register("./sw.js").catch(() => {});
-  }
-}
-
-// Mirrors:
-//   private fun lessonForPage(page) ... (already in workbook.lessonForPage)
-//   fun getExercisesForLesson(lessonId): combine interactiveExercises + auto PAGE_NOTES per page
-function buildAllWorkbookExercises(workbook) {
-  const out = [...workbook.interactiveExercises];
-  const pageNumbers = Object.keys(workbook.pageTexts).map(s => parseInt(s, 10)).sort((a, b) => a - b);
-  for (const page of pageNumbers) {
-    const lessonId = workbook.lessonForPage[String(page)];
-    if (!lessonId) continue;
-    const id = `digital-p${String(page).padStart(2, "0")}-notes`;
-    const text = workbook.pageTexts[String(page)];
-    out.push({
-      id,
-      lessonId,
-      pageNumber: page,
-      title: `Workbook page ${page}`,
-      type: "PAGE_NOTES",
-      prompt: "Read this workbook page, then write your notes or answer exactly as you would in the printed booklet.",
-      referenceText: text,
-      japaneseToSpeak: japaneseSnippet(text),
-      hints: [
-        { text: "Use the reference text above as the original booklet content for this page." },
-        { text: "If this page is an answer page, compare it only after trying the previous exercise." },
-      ],
-      options: [],
-      expectedAnswers: [],
-      maxAnswerLength: 1200,
-    });
-  }
-  // Sort by pageNumber then id, mirroring Kotlin compareBy { pageNumber }.thenBy { id }
-  out.sort((a, b) => {
-    if (a.pageNumber !== b.pageNumber) return a.pageNumber - b.pageNumber;
-    return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
-  });
-  return out;
-}
-
-function japaneseSnippet(s) {
-  let out = "";
-  for (const ch of s || "") {
-    const c = ch.codePointAt(0);
-    if ((c >= 0x3040 && c <= 0x30FF) || (c >= 0x4E00 && c <= 0x9FAF)) {
-      out += ch;
-      if (out.length >= 80) break;
+    const Screen = SCREEN_MAP[route.name];
+    if (!Screen) {
+      showError(host, `Unknown route: ${route.name}`);
+      return;
+    }
+    try {
+      Screen({ host, ctx, params: route.params, route });
+    } catch (err) {
+      console.error(err);
+      showError(host, err && err.message);
     }
   }
-  return out;
-}
 
-bootstrap().catch(err => {
-  console.error("Bootstrap failed:", err);
-  document.getElementById("app").textContent = "אירעה שגיאה בטעינה. נסה לרענן.";
-});
+  // Initial nav render — done once, then route handler keeps active tab in sync
+  renderBottomNav(navHost, { router, current: "learn" });
+
+  router.start();
+})();

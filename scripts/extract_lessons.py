@@ -11,11 +11,17 @@ The Kotlin lesson files follow a strict, regular shape:
     grammarPoints = listOf(GrammarPoint(...), ...),
     vocabulary    = listOf(VocabItem(...), ...),
     examples      = listOf(Example(...), ...),
-    exercises     = listOf(QuizQuestion(question="...", options=listOf("...","..."), correctIndex=N, explanation="..."), ...)
+    exercises     = listOf(QuizQuestion(question="...", options=listOf("...","..."), correctIndex=N, explanation="..."), ...),
+    videoUrl      = "...",                                     // optional
+    practiceCards = listOf(PracticeCard(...), ...)             // optional
   )
 
 We tokenize at the character level, tracking string boundaries so we never
 split inside a Kotlin "..." literal.
+
+Source-of-truth = .ui-source/app/ (read-only Android tree). The bundled APK
+source lives at app/, but the *new* truth is .ui-source/app/, so we resolve
+that path first and fall back gracefully.
 """
 from __future__ import annotations
 
@@ -25,7 +31,19 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-LESSONS_DIR = ROOT / "app" / "src" / "main" / "java" / "com" / "nihongo" / "beginner" / "data" / "lessons"
+
+# Prefer the read-only mirror at .ui-source/app/; fall back to legacy app/.
+def _lessons_dir() -> Path:
+    candidates = [
+        ROOT / ".ui-source" / "app" / "src" / "main" / "java" / "com" / "nihongo" / "beginner" / "data" / "lessons",
+        ROOT / "app"        / "src" / "main" / "java" / "com" / "nihongo" / "beginner" / "data" / "lessons",
+    ]
+    for c in candidates:
+        if c.is_dir():
+            return c
+    return candidates[0]
+
+LESSONS_DIR = _lessons_dir()
 OUT_FILE = ROOT / "web" / "data" / "lessons.json"
 
 
@@ -229,6 +247,7 @@ def parse_lesson_file(path: Path) -> dict:
             "romaji": extract_first_string(v["romaji"]),
             "hebrew": extract_first_string(v["hebrew"]),
             "emoji": extract_first_string(v["emoji"]) if "emoji" in v else "",
+            "imageKeyword": extract_first_string(v["imageKeyword"]) if "imageKeyword" in v else "",
         })
 
     examples = []
@@ -248,6 +267,21 @@ def parse_lesson_file(path: Path) -> dict:
             "explanation": extract_first_string(q["explanation"]) if "explanation" in q else "",
         })
 
+    practice_cards = []
+    for p in parse_listof(args.get("practiceCards", ""), "PracticeCard"):
+        practice_cards.append({
+            "promptLabel": extract_first_string(p["promptLabel"]),
+            "prompt":      extract_first_string(p["prompt"]),
+            "answer":      extract_first_string(p["answer"]),
+            "answerSub":   extract_first_string(p["answerSub"]) if "answerSub" in p else "",
+            "audioText":   extract_first_string(p["audioText"]) if "audioText" in p else "",
+            "inputHint":   extract_first_string(p["inputHint"]) if "inputHint" in p else "כתבו את התשובה...",
+        })
+
+    video_url = ""
+    if "videoUrl" in args:
+        video_url = extract_first_string(args["videoUrl"])
+
     return {
         "id": extract_int(args["id"]),
         "number": extract_first_string(args["number"]),
@@ -258,7 +292,24 @@ def parse_lesson_file(path: Path) -> dict:
         "vocabulary": vocab,
         "examples": examples,
         "exercises": exercises,
+        "videoUrl": video_url,
+        "practiceCards": practice_cards,
     }
+
+
+def referenced_lesson_files(data_dir: Path) -> set[str] | None:
+    """Read LessonData.kt and return the set of `LessonNN.lesson` references.
+    Returns the matching `LessonNN.kt` filenames, or None if the file is missing.
+    """
+    data_file = data_dir / "LessonData.kt"
+    if not data_file.is_file():
+        return None
+    text = data_file.read_text(encoding="utf-8")
+    # Capture both `LessonNN.lesson` and `LessonNN`
+    refs = re.findall(r"\bLesson(\d{1,3})\b", text)
+    if not refs:
+        return None
+    return {f"Lesson{int(r):02d}.kt" for r in set(refs)}
 
 
 def main() -> int:
@@ -266,6 +317,13 @@ def main() -> int:
     if not files:
         print(f"No lesson files found in {LESSONS_DIR}", file=sys.stderr)
         return 1
+    referenced = referenced_lesson_files(LESSONS_DIR.parent)
+    if referenced:
+        before = len(files)
+        files = [p for p in files if p.name in referenced]
+        skipped = before - len(files)
+        if skipped:
+            print(f"Skipping {skipped} Lesson*.kt file(s) not referenced by LessonData.kt", file=sys.stderr)
     lessons = [parse_lesson_file(p) for p in files]
     lessons.sort(key=lambda l: l["id"])
     OUT_FILE.parent.mkdir(parents=True, exist_ok=True)

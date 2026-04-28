@@ -1,100 +1,141 @@
-/* Mirrors app/src/main/res/values/colors.xml — Kimura Brand palette.
-   Every name maps 1:1 to a color resource so we never drift from Android. */
+/* ============================================================
+ * Kimura — design tokens
+ * Ported 1:1 from .ui-source/app/src/main/res/values/colors.xml
+ *                 and .ui-source/app/src/main/res/values/dimens.xml
+ * ========================================================== */
+
 :root {
-  /* Primary — Kimura Brand Red */
+  /* ---------- Brand red ---------- */
   --color-primary: #C0362A;
   --color-primary-dark: #8A1F16;
   --color-primary-variant: #D94C40;
   --color-on-primary: #FFFFFF;
 
-  /* Gold for gamification */
+  /* ---------- Gold (gamification) ---------- */
   --color-secondary: #F59E0B;
   --color-secondary-dark: #D97706;
   --color-on-secondary: #1A0800;
 
-  /* Surfaces */
-  --surface: #FFFFFF;
-  --surface-alt: #FFFAF9;
-  --surface-soft: #FDECEA;
-  --surface-card: #FFFFFF;
-  --on-surface: #1A0800;
-  --on-surface-muted: #7C6A67;
-  --background: #FDF5F4;
+  /* ---------- Surfaces ---------- */
+  --color-surface: #F5E8D5;
+  --color-surface-alt: #FAF0E4;
+  --color-surface-soft: #FDECEA;
+  --color-surface-card: #F5E8D5;
+  --color-surface-washi: #F5E8D5;
+  --color-card-stroke-washi: #D8C4A8;
+  --color-on-surface: #1A0800;
+  --color-on-surface-muted: #7C6A67;
+  --color-background: #FDF5F4;
 
-  /* Accents */
-  --accent-gold: #F59E0B;
-  --accent-teal: #0EA5E9;
-  --accent-purple: #8B5CF6;
-  --gold-light: #FEF9EE;
+  /* ---------- Accents ---------- */
+  --color-accent-gold: #F59E0B;
+  --color-accent-teal: #0EA5E9;
+  --color-accent-purple: #8B5CF6;
+  --color-gold-light: #FEF9EE;
 
-  /* Dividers */
-  --divider-soft: #EDD8D5;
+  /* ---------- Dividers ---------- */
+  --color-divider-soft: #EDD8D5;
 
-  /* Game states */
-  --correct-green: #16A34A;
-  --correct-green-light: #DCFCE7;
-  --wrong-red: #DC2626;
-  --wrong-light-red: #FEE2E2;
-  --selected-yellow: #FEF3C7;
-  --selected-yellow-stroke: #F59E0B;
-  --matched-green: #DCFCE7;
+  /* ---------- Game states ---------- */
+  --color-correct: #16A34A;
+  --color-correct-light: #DCFCE7;
+  --color-wrong: #DC2626;
+  --color-wrong-light: #FEE2E2;
+  --color-selected: #F97316;
+  --color-selected-stroke: #EA580C;
+  --color-selected-yellow: #F97316;
+  --color-selected-yellow-stroke: #EA580C;
+  --color-matched: #DCFCE7;
 
-  /* Misc */
-  --white: #FFFFFF;
-  --black: #1A0800;
-  --hero-gradient-start: #C0362A;
-  --hero-gradient-mid:   #9E2A20;
-  --hero-gradient-end:   #6A1410;
-  --card-stroke: #F0D8D5;
-  --option-stroke: #E8D5D2;
-  --green-stroke: #16A34A;
-  --gold-stroke: #F59E0B;
+  /* ---------- Misc ---------- */
+  --color-white: #FFFFFF;
+  --color-black: #1A0800;
+  --color-hero-gradient-start: #C0362A;
+  --color-hero-gradient-end: #6A1410;
+  --color-card-stroke: #D8C4A8;
+  --color-option-stroke: #D8C4A8;
+  --color-green-stroke: #16A34A;
+  --color-gold-stroke: #F59E0B;
 
-  /* Progress hero card (bg_progress_hero solid #2A0A08) */
-  --hero-progress-bg: #2A0A08;
-  --hero-progress-track: #4A1A16;
+  /* ---------- App-shell specific (from activity_main.xml) ---------- */
+  --color-copyright-bar: #A02820;
+  --color-copyright-text: rgba(255, 255, 255, 0.5);
+  --color-bottom-rule: #A02820;
 
-  /* Dimens (mirrors values/dimens.xml). 1dp ≈ 1px. */
-  --d-activity-h-margin: 20px;
-  --d-activity-v-margin: 20px;
-  --d-card-margin: 10px;
-  --d-card-elev: 3px;
-  --d-card-radius: 20px;
-  --d-card-radius-large: 24px;
-  --d-card-radius-small: 12px;
-  --d-button-radius: 28px;
-  --d-hero-padding: 24px;
-  --d-section-spacing: 20px;
-  --d-icon-bubble: 56px;
-  --d-icon-bubble-large: 64px;
+  /* ---------- Bottom-nav text colors (from color/bottom_nav_color.xml) ---------- */
+  --color-bottom-nav-active: var(--color-primary);
+  --color-bottom-nav-inactive: var(--color-on-surface-muted);
 
-  /* Typography sizes (mirroring Android sp values) */
-  --fs-display: 40px;
-  --fs-score: 52px;
-  --fs-h-headline: 22px;
-  --fs-h-section: 18px;
-  --fs-body: 16px;
-  --fs-body-sm: 15px;
-  --fs-caption: 14px;
-  --fs-caption-sm: 13px;
-  --fs-tiny: 12px;
-  --fs-micro: 11px;
-  --fs-nano: 10px;
+  /* ---------- Stats-chip dark pill (from bg_stats_chip.xml / bg_progress_hero.xml) ---------- */
+  --color-chip-dark: #2A0A08;
 
-  /* Elevation / shadow approximations */
-  --elev-0: none;
-  --elev-1: 0 1px 2px rgba(26, 8, 0, 0.10);
-  --elev-2: 0 2px 4px rgba(26, 8, 0, 0.12);
-  --elev-3: 0 3px 6px rgba(26, 8, 0, 0.14);
-  --elev-gold: 0 4px 14px rgba(245, 158, 11, 0.36);
+  /* ---------- Path-node colors (from bg_node_*.xml) ---------- */
+  --color-node-active-fill: #E8DCC8;
+  --color-node-active-stroke: #C9B89A;
+  --color-node-completed-fill: #C0362A;
+  --color-node-completed-stroke: #8A1F16;
+  --color-node-locked-fill: #D1C4C2;
+  --color-node-locked-stroke: #B0A09E;
 
-  /* Gradients (135° = top-left to bottom-right in Android,
-     which translates to CSS linear-gradient(135deg, ...)). */
-  --hero-gradient: linear-gradient(135deg, #C0362A 0%, #9E2A20 50%, #6A1410 100%);
-  --flashcard-back-gradient: linear-gradient(135deg, #C0362A, #6A1410);
-  --score-badge-gradient: linear-gradient(135deg, #F59E0B, #D97706);
-  --toolbar-gradient: linear-gradient(180deg, #C0362A, #8A1F16);
+  /* ---------- Option backgrounds (from bg_option_*.xml) ---------- */
+  --color-option-default-bg: var(--color-surface-washi);
+  --color-option-default-stroke: #E8D5D2;
+  --color-option-selected-bg: #FEF3C7;
+  --color-option-selected-stroke: var(--color-secondary);
+  --color-option-correct-bg: var(--color-correct-light);
+  --color-option-correct-stroke: var(--color-correct);
+  --color-option-wrong-bg: var(--color-wrong-light);
+  --color-option-wrong-stroke: var(--color-wrong);
 
-  /* AppBar height — Material's actionBarSize = 56dp on phones */
-  --action-bar-size: 56px;
+  /* ---------- Achievement / pill ---------- */
+  --color-achievement-bg: #FEF9EE;
+  --color-achievement-stroke: #F59E0B;
+
+  /* ============================================================
+   * Dimensions — ported from values/dimens.xml + key XML literals
+   * 1dp = 1px (web port assumption)
+   * ========================================================== */
+  --dim-activity-horizontal-margin: 20px;
+  --dim-activity-vertical-margin: 20px;
+  --dim-card-margin: 10px;
+  --dim-card-elevation: 3px;
+  --dim-card-corner-radius: 20px;
+  --dim-card-corner-radius-large: 24px;
+  --dim-card-corner-radius-small: 12px;
+  --dim-button-corner-radius: 28px;
+  --dim-hero-padding: 24px;
+  --dim-section-spacing: 20px;
+  --dim-icon-bubble-size: 56px;
+  --dim-icon-bubble-size-large: 64px;
+
+  /* ---------- App-shell metrics (from activity_main.xml) ---------- */
+  --dim-copyright-bar-text: 8px;       /* 8sp */
+  --dim-copyright-bar-pad-y: 2px;      /* 2dp */
+  --dim-bottom-rule: 2px;              /* 2dp */
+  --dim-bottom-nav-height: 96px;       /* 96dp */
+  --dim-bottom-nav-icon: 64px;         /* 64dp */
+
+  /* ---------- Header metrics (from fragment_*.xml) ---------- */
+  --dim-header-height: 96px;
+  --dim-header-pad-x: 20px;
+  --dim-stats-chip-h: 32px;
+
+  /* ---------- Typography sizes (from various layouts) ---------- */
+  --font-size-display: 40px;
+  --font-size-score: 52px;
+  --font-size-app-title: 24px;
+  --font-size-screen-title: 20px;
+  --font-size-screen-subtitle: 12px;
+  --font-size-card-title: 17px;
+  --font-size-stat-num-large: 26px;
+  --font-size-body: 15px;
+  --font-size-label: 13px;
+  --font-size-caption: 12px;
+
+  /* ---------- Z-index scale ---------- */
+  --z-bg: 0;
+  --z-content: 1;
+  --z-bottom-nav: 5;
+  --z-modal: 50;
+  --z-toast: 100;
 }
