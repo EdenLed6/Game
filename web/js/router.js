@@ -1,36 +1,28 @@
 // router.js — minimal hash router.
 //
-// Routes:
-//   #/learn                          (Learn tab — default)
-//   #/media                          (Media tab)
-//   #/profile                        (Profile tab)
-//   #/lesson/:id                     (LessonDetail full-screen)
-//   #/lesson/:id/quiz
-//   #/lesson/:id/flashcards
-//   #/lesson/:id/matching
-//   #/lesson/:id/number-game
-//   #/lesson/:id/sentence-builder
-//   #/lesson/:id/workbook
-//   #/lesson/:id/video
-//   #/challenge
+// Routes (mirroring the APK's bottom-nav UI):
+//   #/learn                     (Learn tab — default)
+//   #/media                     (Media tab)
+//   #/profile                   (Profile tab)
+//   #/lesson/:id                (LessonJourney — starts at INTRO step)
+//   #/lesson/:id/:step          (LessonJourney — jumps to step
+//                                intro|teach|vocab|practice|quiz|complete)
+//
+// Anything else falls back to #/learn — the APK doesn't expose standalone
+// game/practice screens through the UI, so neither does the web.
+
+const VALID_STEPS = new Set(["intro", "teach", "vocab", "practice", "quiz", "complete"]);
 
 const ROUTES = [
   // Tab routes — bottom nav visible on these
-  { pattern: /^\/?$/,            name: "learn",        tab: "learn",   showNav: true,  redirect: "#/learn" },
-  { pattern: /^\/learn$/,        name: "learn",        tab: "learn",   showNav: true  },
-  { pattern: /^\/media$/,        name: "media",        tab: "media",   showNav: true  },
-  { pattern: /^\/profile$/,      name: "profile",      tab: "profile", showNav: true  },
+  { pattern: /^\/?$/,       name: "learn",  tab: "learn",   showNav: true,  redirect: "#/learn" },
+  { pattern: /^\/learn$/,   name: "learn",  tab: "learn",   showNav: true  },
+  { pattern: /^\/media$/,   name: "media",  tab: "media",   showNav: true  },
+  { pattern: /^\/profile$/, name: "profile", tab: "profile", showNav: true },
 
-  // Full-screen sub-routes — bottom nav hidden
-  { pattern: /^\/lesson\/(\d+)$/,                    name: "lesson-detail",     showNav: false, params: ["id"] },
-  { pattern: /^\/lesson\/(\d+)\/quiz$/,              name: "quiz",              showNav: false, params: ["id"] },
-  { pattern: /^\/lesson\/(\d+)\/flashcards$/,        name: "flashcards",        showNav: false, params: ["id"] },
-  { pattern: /^\/lesson\/(\d+)\/matching$/,          name: "matching",          showNav: false, params: ["id"] },
-  { pattern: /^\/lesson\/(\d+)\/number-game$/,       name: "number-game",       showNav: false, params: ["id"] },
-  { pattern: /^\/lesson\/(\d+)\/sentence-builder$/,  name: "sentence-builder",  showNav: false, params: ["id"] },
-  { pattern: /^\/lesson\/(\d+)\/workbook$/,          name: "workbook",          showNav: false, params: ["id"] },
-  { pattern: /^\/lesson\/(\d+)\/video$/,             name: "video",             showNav: false, params: ["id"] },
-  { pattern: /^\/challenge$/,                        name: "challenge",         showNav: false },
+  // Lesson journey — bottom nav hidden
+  { pattern: /^\/lesson\/(\d+)$/,                    name: "lesson-journey", showNav: false, params: ["id"] },
+  { pattern: /^\/lesson\/(\d+)\/([a-z]+)$/,          name: "lesson-journey", showNav: false, params: ["id", "step"] },
 ];
 
 export class Router {
@@ -78,6 +70,12 @@ export class Router {
       if (!m) continue;
       const params = {};
       if (r.params) r.params.forEach((p, i) => { params[p] = m[i + 1]; });
+      // Validate journey step name; an invalid step falls through to the
+      // generic "lesson without a step" handler and the journey starts at
+      // INTRO.
+      if (params.step && !VALID_STEPS.has(params.step)) {
+        return null;
+      }
       return {
         name: r.name,
         tab: r.tab || null,
