@@ -1,0 +1,297 @@
+/* ============================================================
+ * Kimura — Game Challenge ("אתגר נינג׳ה")
+ * Port of activity_game_challenge.xml + GameChallengeActivity.kt.
+ * ========================================================== */
+
+.ch-screen {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: transparent;
+}
+
+/* ---------- Header ---------- */
+.ch-header {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 20px 16px 20px;
+  color: #FFFFFF;
+  position: relative;
+}
+
+.ch-header__back {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  transform: scaleX(-1);
+}
+.ch-header__back img { width: 24px; height: 24px; }
+
+.ch-header__title {
+  margin: 0;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-top: -32px;
+  pointer-events: none;
+  margin-bottom: 12px;
+}
+
+/* Stats row: high-score (1fr) + main (2fr) ---------- */
+.ch-stats-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+/* Override the default .bg-stats-chip flex-row pill — challenge uses
+   a vertical pill (ico/value stacked, multiline center). */
+.ch-stats-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 10px;
+  height: auto;
+  font-weight: 700;
+  border-radius: 999px;
+}
+
+.ch-stats-chip--main { flex-direction: column; }
+
+.ch-stats-chip__icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.ch-stats-chip__value {
+  font-size: 12px;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.ch-stats-chip--high .ch-stats-chip__value {
+  color: var(--color-secondary);
+  font-size: 12px;
+}
+
+.ch-stats-chip--main .ch-stats-chip__value {
+  font-size: 14px;
+  color: #FFFFFF;
+}
+
+.ch-hearts {
+  display: inline-flex;
+  gap: 4px;
+  margin-top: 2px;
+  /* Hearts are LTR by nature */
+  direction: ltr;
+}
+.ch-heart {
+  color: var(--color-wrong);
+  font-size: 16px;
+  line-height: 1;
+}
+.ch-heart--empty { color: rgba(255, 255, 255, 0.25); }
+
+@keyframes ch-heart-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-3px); }
+  40% { transform: translateX(3px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(3px); }
+}
+.ch-heart--shake { animation: ch-heart-shake 0.6s ease both; }
+
+/* Progress indicator — gold on dark espresso track */
+.ch-progress {
+  height: 6px;
+  background: #4A1A16;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+.ch-progress__bar {
+  height: 100%;
+  width: 0%;
+  background: var(--color-secondary);
+  transition: width 0.3s ease;
+}
+
+.ch-counter {
+  text-align: center;
+  margin: 4px 0 0 0;
+  color: #FFFFFF;
+  opacity: 0.75;
+  font-size: 11px;
+}
+
+/* ---------- Body ---------- */
+.ch-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 16px;
+}
+
+.ch-card {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface);
+  border-radius: 24px;
+  border: 1px solid var(--color-card-stroke);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  min-height: 0;
+}
+
+.ch-prompt-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.ch-prompt {
+  flex: 1 1 auto;
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-on-surface);
+  min-height: calc(22px * 1.4 * 2);
+  line-height: 1.4;
+}
+
+.ch-speak {
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  border: 2px solid var(--color-primary);
+  background: var(--color-surface);
+  border-radius: 24px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+.ch-speak img {
+  width: 24px;
+  height: 24px;
+  filter: invert(22%) sepia(78%) saturate(2080%) hue-rotate(354deg) brightness(82%) contrast(91%);
+  /* approximate primary-red tint */
+}
+
+/* Option buttons. App.Button.Option = surface bg, 2dp primary stroke,
+   16dp radius, 54dp min-height. Kotlin overrides per round to white. */
+.ch-option {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: start;
+  background: var(--color-white);
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  border-radius: 16px;
+  min-height: 54px;
+  padding: 0 16px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 8px;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.ch-option:last-of-type { margin-bottom: 0; }
+.ch-option:disabled { cursor: default; }
+.ch-option:active:not(:disabled) { transform: scale(0.99); }
+
+.ch-option--correct {
+  background: var(--color-correct);
+  color: #FFFFFF;
+  border-color: var(--color-correct);
+}
+.ch-option--wrong {
+  background: var(--color-wrong);
+  color: #FFFFFF;
+  border-color: var(--color-wrong);
+}
+
+.ch-feedback {
+  margin: 14px 0 0 0;
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-on-surface-muted);
+  visibility: hidden;
+  min-height: calc(14px * 1.4 * 2);
+}
+.ch-feedback--visible {
+  visibility: visible;
+  animation: ch-fade-in 0.2s ease both;
+}
+.ch-feedback--correct { color: var(--color-correct); }
+.ch-feedback--wrong   { color: var(--color-wrong); }
+
+@keyframes ch-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ---------- Result ---------- */
+.ch-result {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 32px;
+  gap: 12px;
+}
+
+.ch-result__title {
+  margin: 0 0 8px 0;
+  text-align: center;
+  color: var(--color-primary);
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.ch-result__score {
+  text-align: center;
+  color: var(--color-on-surface);
+  font-size: 64px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.ch-result--in .ch-result__score {
+  animation: ch-scale-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes ch-scale-in {
+  0%   { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.ch-result__msg {
+  text-align: center;
+  color: var(--color-on-surface-muted);
+  font-size: 16px;
+  margin: 0 0 32px 0;
+}

@@ -1,0 +1,251 @@
+/* ============================================================
+ * Kimura — Workbook
+ * Port of WorkbookActivity.kt programmatic layout.
+ * Toolbar is white (setBackgroundColor(white) + titleTextColor(primary))
+ * — different from other game screens which use bg_gradient_hero.
+ * ========================================================== */
+
+.wb-screen {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--color-surface);
+}
+
+/* ---------- Toolbar ---------- */
+.wb-toolbar {
+  flex: 0 0 auto;
+  height: 56px;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  border-bottom: 1px solid var(--color-divider-soft);
+}
+
+.wb-toolbar__back {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* RTL: arrow is mirrored to point right (Hebrew "back") */
+  transform: scaleX(-1);
+}
+.wb-toolbar__back img {
+  width: 24px;
+  height: 24px;
+  /* tint to primary red */
+  filter: invert(22%) sepia(78%) saturate(2080%) hue-rotate(354deg) brightness(82%) contrast(91%);
+}
+
+.wb-toolbar__title {
+  margin: 0 8px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-primary);
+  flex: 1 1 auto;
+}
+
+/* ---------- Progress ---------- */
+.wb-progress__label {
+  margin: 0;
+  padding: 10px 16px 4px 16px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-on-surface);
+}
+
+.wb-progress {
+  margin: 0 18px;
+  height: 8px;
+  background: var(--color-divider-soft);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.wb-progress__bar {
+  height: 100%;
+  width: 0%;
+  background: var(--color-primary);
+  transition: width 0.3s ease;
+}
+
+/* ---------- Scrolling content ---------- */
+.wb-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.wb-content {
+  padding: 16px 18px 18px 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Cards ----------
+   Kotlin uses surfaceAlt bg, 5dp radius (yes — small), 1dp elev,
+   1dp black stroke. We mirror that. */
+.wb-card {
+  background: var(--color-surface-alt);
+  border-radius: 5px;
+  border: 1px solid var(--color-black);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  padding: 16px;
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.wb-label {
+  margin: 0;
+  padding: 4px 0;
+  color: var(--color-on-surface);
+  line-height: 1.35;
+}
+
+.wb-label--13 { font-size: 13px; }
+.wb-label--14 { font-size: 14px; }
+.wb-label--15 { font-size: 15px; }
+.wb-label--16 { font-size: 16px; }
+.wb-label--18 { font-size: 18px; }
+.wb-label--24 { font-size: 24px; }
+
+.wb-pre {
+  margin: 0;
+  white-space: pre-wrap;
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--color-on-surface);
+}
+
+/* Answer textarea */
+.wb-input {
+  width: 100%;
+  min-height: 88px;
+  margin: 8px 0 12px 0;
+  border-radius: 12px;
+  border: 1.5px solid var(--color-card-stroke);
+  background: var(--color-white);
+  padding: 12px;
+  font: inherit;
+  font-size: 15px;
+  color: var(--color-on-surface);
+  resize: vertical;
+  -webkit-appearance: none;
+}
+.wb-input::placeholder { color: var(--color-on-surface-muted); }
+
+.wb-card__actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.wb-card__btn {
+  flex: 1 1 0;
+  /* small button overrides handled by .btn--small */
+}
+
+/* ---------- Bottom nav (Back / Next) ---------- */
+.wb-nav {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 12px;
+  padding: 8px 12px 12px 12px;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-divider-soft);
+}
+
+.wb-nav__btn {
+  flex: 1 1 0;
+}
+
+.wb-nav__btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---------- Empty / dialog ---------- */
+.wb-empty {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--color-on-surface-muted);
+  font-size: 16px;
+}
+
+.wb-dialog__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: wb-overlay-in 0.18s ease both;
+}
+
+@keyframes wb-overlay-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.wb-dialog__card {
+  background: var(--color-white);
+  border-radius: 16px;
+  padding: 20px;
+  max-width: 480px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  animation: wb-card-in 0.22s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes wb-card-in {
+  from { transform: scale(0.94); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+.wb-dialog__title {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-on-surface);
+}
+
+.wb-dialog__body {
+  font-size: 15px;
+  color: var(--color-on-surface);
+  line-height: 1.4;
+  margin-bottom: 16px;
+}
+
+.wb-dialog__pre {
+  margin: 0;
+  white-space: pre-wrap;
+  font: inherit;
+  font-size: 14px;
+}
+
+.wb-dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.wb-dialog__btn {
+  min-width: 88px;
+}
