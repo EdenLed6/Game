@@ -149,6 +149,8 @@ export function NumberGame({ host, ctx, params }) {
         "aria-label": "חזור",
         onClick: () => router.go(backTo),
       }, el("img", { src: "assets/icons/ic_arrow_back.svg", alt: "" })),
+      // Toolbar in activity_number_game.xml has no app:title set, so the
+      // toolbar inherits the application label ("Kimura").
       el("h1", { class: "ng-header__title" }, "Kimura"),
       el("div", { class: "ng-header__score-row" }, tvScore),
     ),

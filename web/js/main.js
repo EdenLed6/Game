@@ -94,8 +94,9 @@ function showError(host, message) {
     return;
   }
 
-  // Record activity once per app open (matches Android behavior of ticking the streak)
-  try { store.recordActivity(); } catch {}
+  // NOTE: Android's ProgressManager.recordActivity() is only invoked from
+  // LessonJourneyActivity.onQuizComplete() after a passing score (>=80%).
+  // We do not call it on app open to mirror that behavior.
 
   const router = new Router({ onChange: (route) => render(route) });
 

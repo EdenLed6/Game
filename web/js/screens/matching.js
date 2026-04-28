@@ -103,7 +103,9 @@ export function Matching({ host, ctx, params }) {
           },
           el("img", { src: "assets/icons/ic_arrow_back.svg", alt: "" })
         ),
-        el("h1", { class: "matching-header__title" }, "התאמת מילים")
+        // MatchingGameActivity layout has no app:title — toolbar inherits the
+        // application label ("Kimura").
+        el("h1", { class: "matching-header__title" }, "Kimura")
       ),
       el(
         "div",

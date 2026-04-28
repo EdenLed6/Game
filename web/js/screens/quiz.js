@@ -19,16 +19,17 @@
 //        - 72sp emoji
 //        - 52sp red final score "score / total"
 //        - 18sp bold message
-//        - 14sp muted summary ("דיוק: X% · נדרש 70% כדי להשלים את השיעור")
+//        - 14sp muted summary ("דיוק: X% · נדרש 80% כדי להשלים את השיעור")
 //        - achievement pill
 //        - "שחק שוב" + "חזור לשיעור" buttons
 //
 // Speaker buttons next to the question and each option play the text via
-// Speaker.speak(). On a passing score (>=70%) the lesson is marked complete.
+// Speaker.speak(). On a passing score (>=80%) the lesson is marked complete.
 
 import { el, mount } from "../dom.js";
 
-const PASS_THRESHOLD = 70;
+// Mirrors QuizActivity.kt — `if (percent >= 80)` everywhere.
+const PASS_THRESHOLD = 80;
 
 // Inline ic_volume.svg — red speaker glyph; we recolor via fill="currentColor".
 function volumeIconWhite() {
@@ -104,9 +105,10 @@ export function Quiz({ host, ctx, params }) {
 
   function renderHeader() {
     const total = state.questions.length;
+    // Mirror QuizActivity: progressBarQuiz.progress = currentIndex * 100 / total (Kotlin int div).
     const percent = state.finished
       ? 100
-      : Math.round((state.index / total) * 100);
+      : Math.floor((state.index * 100) / total);
 
     return el(
       "header",
@@ -124,7 +126,9 @@ export function Quiz({ host, ctx, params }) {
           },
           el("img", { src: "assets/icons/ic_arrow_back.svg", alt: "" })
         ),
-        el("h1", { class: "quiz-header__title" }, "חידון")
+        // QuizActivity layout has no app:title — toolbar inherits the
+        // application label ("Kimura" from <application android:label="…">).
+        el("h1", { class: "quiz-header__title" }, "Kimura")
       ),
       // LinearProgressIndicator (gold over dark-red track)
       !state.finished
@@ -176,18 +180,22 @@ export function Quiz({ host, ctx, params }) {
       ),
       // Option rows: option button + circular speaker button (only if not Hebrew)
       ...options.map((opt, i) => renderOptionRow(opt, i)),
-      // Feedback card — visible only after submit
+      // Feedback card — visible only after submit. Fallback strings match
+      // QuizActivity.submitAnswer():
+      //   if (selected == correctIndex) "Correct." else "Review the lesson notes and try the next one."
       state.submitted
         ? el(
             "div",
             { class: "quiz-feedback" },
             (q.explanation && q.explanation.trim()) ||
               (state.selected === q.correctIndex
-                ? "תשובה נכונה."
-                : "סקור את הסיכום ונסה את השאלה הבאה.")
+                ? "Correct."
+                : "Review the lesson notes and try the next one.")
           )
         : null,
-      // Submit / Next button
+      // Submit / Next button — Kotlin layout literals: btnSubmit="בדיקת תשובה",
+      // btnNext="השאלה הבאה ▶". The Next button text never changes on the
+      // last question.
       state.submitted
         ? el(
             "button",
@@ -196,9 +204,7 @@ export function Quiz({ host, ctx, params }) {
               class: "btn btn--block quiz-action quiz-action--next",
               onClick: onNext,
             },
-            state.index + 1 < state.questions.length
-              ? "השאלה הבאה ▶"
-              : "סיום ✓"
+            "השאלה הבאה ▶"
           )
         : el(
             "button",
@@ -208,7 +214,7 @@ export function Quiz({ host, ctx, params }) {
               disabled: state.selected == null,
               onClick: onSubmit,
             },
-            "בדוק ✓"
+            "בדיקת תשובה"
           )
     );
   }
@@ -256,7 +262,8 @@ export function Quiz({ host, ctx, params }) {
 
   function renderResults() {
     const total = state.questions.length;
-    const percent = Math.round((state.score / total) * 100);
+    // Mirror QuizActivity: val percent = score * 100 / total (Kotlin int div).
+    const percent = Math.floor((state.score * 100) / total);
     const passed = percent >= PASS_THRESHOLD;
     return el(
       "main",
@@ -266,7 +273,7 @@ export function Quiz({ host, ctx, params }) {
       el(
         "p",
         { class: "quiz-results__message" },
-        passed ? "כל הכבוד! עברת את השיעור!" : "נסה שוב כדי לעבור את השיעור (70% נדרש)"
+        passed ? "כל הכבוד! עברת את השיעור!" : "נסה שוב כדי לעבור את השיעור (80% נדרש)"
       ),
       el(
         "p",
@@ -324,11 +331,12 @@ export function Quiz({ host, ctx, params }) {
       render();
     } else {
       // Quiz finished — mark completion if passed.
+      // Mirror QuizActivity.kt exactly: only ProgressManager.markLessonCompleted
+      // is called; no XP and no recordActivity (those live in LessonJourneyActivity).
       const total = state.questions.length;
-      const percent = Math.round((state.score / total) * 100);
+      const percent = Math.floor((state.score * 100) / total);
       if (percent >= PASS_THRESHOLD && !state.completedThisRun) {
         try { store.markLessonCompleted(lessonId); } catch {}
-        try { store.addXP(10); } catch {}
         state.completedThisRun = true;
       }
       state.finished = true;

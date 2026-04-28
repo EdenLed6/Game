@@ -33,14 +33,15 @@ function backArrowSVG() {
 }
 
 // Build the full Vimeo embed URL — mirrors the WebView call in
-// VideoPlayerActivity.onCreate().
+// VideoPlayerActivity.onCreate(). Kotlin literal:
+//   webView.loadUrl("https://player.vimeo.com/video/$videoId?autoplay=0&title=0&byline=0&portrait=0&share=0&pip=0&vimeo_logo=0")
 function buildVimeoSrc(rawUrl) {
   if (!rawUrl) return null;
   // The Android code parses videoId = url.substringAfterLast("/").substringBefore("?")
   // — but our JSON URLs already point at https://player.vimeo.com/video/<id>,
   // so we can just append the params directly.
   const base = rawUrl.split("?")[0];
-  const params = "autoplay=1&title=0&byline=0&portrait=0&share=0&pip=0&vimeo_logo=0&dnt=1";
+  const params = "autoplay=0&title=0&byline=0&portrait=0&share=0&pip=0&vimeo_logo=0";
   return `${base}?${params}`;
 }
 

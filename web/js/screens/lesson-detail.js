@@ -193,8 +193,9 @@ function renderSectionHeader(title, accentColor) {
 // ---------- vimeo embed (iframe) ----------
 function renderVideoCard(videoUrl, lesson, router) {
   if (!videoUrl) return null;
-  // videoUrl is e.g. https://player.vimeo.com/video/1032805127
-  const params = "autoplay=0&title=0&byline=0&portrait=0&share=0&pip=0&vimeo_logo=0&dnt=1";
+  // videoUrl is e.g. https://player.vimeo.com/video/1032805127. Param string
+  // mirrors LessonJourneyActivity.kt's WebView.loadUrl exactly.
+  const params = "autoplay=0&title=0&byline=0&portrait=0&share=0&pip=0&vimeo_logo=0";
   const src = `${videoUrl}?${params}`;
 
   return el(

@@ -63,7 +63,9 @@ export function Flashcards({ host, ctx, params }) {
           },
           el("img", { src: "assets/icons/ic_arrow_back.svg", alt: "" })
         ),
-        el("h1", { class: "flashcard-header__title" }, "כרטיסיות")
+        // FlashcardActivity layout has no app:title — toolbar inherits the
+        // application label ("Kimura").
+        el("h1", { class: "flashcard-header__title" }, "Kimura")
       ),
       el(
         "p",

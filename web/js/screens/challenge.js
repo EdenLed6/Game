@@ -247,8 +247,12 @@ export function Challenge({ host, ctx }) {
   }
 
   function updateStatsRow() {
-    tvHigh.textContent  = `שיא: ${state.highScore}`;
-    tvStats.textContent = `ניקוד: ${state.score}   רצף: ${state.streak}`;
+    // Mirror GameChallengeActivity.kt verbatim:
+    //   tvChallengeHighScore.text = "שיא: $highScore"
+    //   tvChallengeStats.text     = "ניקוד: $score   חיים: ${"♥".repeat(lives)}   רצף: $streak"
+    tvHigh.textContent = `שיא: ${state.highScore}`;
+    const hearts = "♥".repeat(Math.max(0, state.lives));
+    tvStats.textContent = `ניקוד: ${state.score}   חיים: ${hearts}   רצף: ${state.streak}`;
   }
 
   function showQuestion() {

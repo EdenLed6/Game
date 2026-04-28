@@ -39,7 +39,8 @@ export function SentenceBuilder({ host, ctx, params }) {
           "aria-label": "חזור",
           onClick: () => router.go(backTo),
         }, el("img", { src: "assets/icons/ic_arrow_back.svg", alt: "" })),
-        el("h1", { class: "sb-header__title" }, "Kimura"),
+        // Toolbar in activity_sentence_builder.xml has no app:title set — leave empty.
+        el("h1", { class: "sb-header__title" }, ""),
       ),
       el("div", { class: "stub-screen" }, "לא נמצאו תרגילי משפטים בשיעור הזה."),
     ));
@@ -109,6 +110,8 @@ export function SentenceBuilder({ host, ctx, params }) {
         "aria-label": "חזור",
         onClick: () => router.go(backTo),
       }, el("img", { src: "assets/icons/ic_arrow_back.svg", alt: "" })),
+      // activity_sentence_builder.xml has no app:title — toolbar inherits the
+      // application label ("Kimura").
       el("h1", { class: "sb-header__title" }, "Kimura"),
       el("div", { class: "sb-header__score-row" }, tvScore),
     ),
