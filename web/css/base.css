@@ -13,6 +13,49 @@ html, body {
   overflow: hidden;
 }
 
+/* Responsive size bumps for wider phones / foldables / tablets — the base
+ * design targets 360–414 CSS px; on bigger viewports we scale the key
+ * tokens proportionally so the UI doesn't look tiny in a wide canvas.
+ * (Uses the same px-based tokens so flex math stays predictable; no
+ * page-level zoom that could push the bottom nav off-screen.) */
+@media (min-width: 480px) {
+  :root {
+    --dim-bottom-nav-height: 110px;
+    --dim-bottom-nav-icon: 76px;
+    --dim-header-height: 116px;
+    --font-size-app-title: 30px;
+    --font-size-screen-title: 24px;
+    --font-size-screen-subtitle: 14px;
+    --font-size-card-title: 20px;
+    --font-size-stat-num-large: 32px;
+    --font-size-body: 17px;
+    --font-size-label: 15px;
+    --font-size-caption: 14px;
+    --dim-hero-padding: 28px;
+    --dim-icon-bubble-size: 64px;
+    --dim-icon-bubble-size-large: 76px;
+  }
+}
+
+@media (min-width: 640px) {
+  :root {
+    --dim-bottom-nav-height: 130px;
+    --dim-bottom-nav-icon: 92px;
+    --dim-header-height: 136px;
+    --font-size-app-title: 36px;
+    --font-size-screen-title: 28px;
+    --font-size-screen-subtitle: 16px;
+    --font-size-card-title: 22px;
+    --font-size-stat-num-large: 38px;
+    --font-size-body: 19px;
+    --font-size-label: 16px;
+    --font-size-caption: 15px;
+    --dim-hero-padding: 32px;
+    --dim-icon-bubble-size: 72px;
+    --dim-icon-bubble-size-large: 88px;
+  }
+}
+
 html {
   /* match Android's adjustResize behavior */
   height: 100%;
@@ -90,7 +133,13 @@ body {
   display: flex;
   align-items: stretch;
   justify-content: space-evenly;
-  background: var(--color-background, #FDF5F4);
+  /* Transparent — bg_bottom_nav.png watercolor strip from .bottom-nav-backdrop
+   * (rendered as a sibling underlay) shows through, matching the APK. */
+  background: transparent;
+  background-image: url("../assets/bg_bottom_nav.png");
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
   z-index: var(--z-bottom-nav);
   padding-bottom: env(safe-area-inset-bottom);
 }

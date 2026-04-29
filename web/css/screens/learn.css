@@ -255,6 +255,52 @@
 @media (max-width: 380px) {
   .lesson-node { --node-shift: 44px; }
 }
+
+/* Wider phones / foldables / tablets — bump node circle, label text and
+ * zigzag offset so the lesson path doesn't look tiny in a wide canvas. */
+@media (min-width: 480px) {
+  .lesson-node {
+    --node-shift: 90px;
+  }
+  .lesson-node__circle {
+    width: 116px;
+    height: 116px;
+  }
+  .lesson-node__emoji {
+    font-size: 50px;
+  }
+  .lesson-node__title {
+    font-size: 16px;
+  }
+  .lesson-node__number {
+    font-size: 13px;
+  }
+  .lesson-node__connector {
+    height: 28px;
+  }
+}
+
+@media (min-width: 640px) {
+  .lesson-node {
+    --node-shift: 130px;
+  }
+  .lesson-node__circle {
+    width: 144px;
+    height: 144px;
+  }
+  .lesson-node__emoji {
+    font-size: 60px;
+  }
+  .lesson-node__title {
+    font-size: 18px;
+  }
+  .lesson-node__number {
+    font-size: 14px;
+  }
+  .lesson-node__connector {
+    height: 36px;
+  }
+}
 @media (max-width: 320px) {
   .lesson-node { --node-shift: 32px; }
 }
