@@ -122,34 +122,47 @@ function showError(host, message) {
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     let deferredPrompt = null;
 
+    // Always reveal the button for non-PWA visitors. We can't rely on
+    // `beforeinstallprompt` to gate visibility because that event only
+    // fires when a service worker is registered, and we unregister all
+    // service workers on boot (to avoid stale-cache problems). Without
+    // an SW the event never fires → button never shows → user can't
+    // discover the install option. By showing it unconditionally and
+    // providing fallback instructions on click, we guarantee a usable
+    // install path on every browser.
+    installBtn.hidden = false;
+
     window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();
       deferredPrompt = e;
-      installBtn.hidden = false;
     });
-
-    if (isIOS) {
-      // Safari iOS has no install prompt API; show the button so the
-      // user gets guided instructions on tap.
-      installBtn.hidden = false;
-    }
 
     installBtn.addEventListener("click", async () => {
       if (deferredPrompt) {
         deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        deferredPrompt = null;
-        if (outcome === "accepted") installBtn.hidden = true;
+        try {
+          const { outcome } = await deferredPrompt.userChoice;
+          deferredPrompt = null;
+          if (outcome === "accepted") installBtn.hidden = true;
+        } catch (_) { /* user dismissed — keep button visible */ }
         return;
       }
+      // No native prompt available → guide the user manually. iOS
+      // Safari and many Android browsers (Firefox, in-app webviews)
+      // never fire beforeinstallprompt; the menu path always works.
       if (isIOS) {
-        // The native iOS Share Sheet has the "Add to Home Screen"
-        // option — direct the user there. RTL Hebrew copy.
         alert(
           "כדי להתקין את האפליקציה:\n" +
           "1. לחצו על כפתור השיתוף בתחתית הדפדפן\n" +
           "2. גללו ובחרו “הוסף למסך הבית”\n" +
           "3. לחצו “הוסף”"
+        );
+      } else {
+        alert(
+          "כדי להתקין את האפליקציה:\n" +
+          "1. לחצו על תפריט הדפדפן (⋮ בפינה)\n" +
+          "2. בחרו “התקן אפליקציה” או “הוסף למסך הבית”\n" +
+          "3. אשרו את ההתקנה"
         );
       }
     });
