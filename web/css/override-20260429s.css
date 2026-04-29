@@ -172,14 +172,20 @@
 .lj-back img { width: clamp(20px, 5.5vw, 40px) !important; height: clamp(20px, 5.5vw, 40px) !important; }
 .lj-title { font-size: clamp(18px, 5vw, 36px) !important; }
 .lj-toolbar__spacer { width: clamp(36px, 10vw, 72px) !important; height: clamp(36px, 10vw, 72px) !important; }
+/* Match APK screenshot 019dd9ec-89328: nearly full-width pill,
+ * ~24px side margins, ~64-72px tall, classic half-height pill radius,
+ * sits ~24px above the safe-area inset. Tight clamp caps prevent the
+ * button from blowing up on wide PWA viewports. */
 .lj-continue {
-  height: clamp(48px, 13vw, 60px) !important;
-  font-size: clamp(16px, 4.5vw, 22px) !important;
+  height: clamp(56px, 10vw, 72px) !important;
+  font-size: clamp(18px, 5vw, 24px) !important;
   font-weight: 700 !important;
-  bottom: calc(16px + env(safe-area-inset-bottom)) !important;
-  left: clamp(20px, 6vw, 36px) !important;
-  right: clamp(20px, 6vw, 36px) !important;
-  border-radius: clamp(24px, 6.5vw, 30px) !important;
+  bottom: calc(24px + env(safe-area-inset-bottom)) !important;
+  left: clamp(20px, 5vw, 28px) !important;
+  right: clamp(20px, 5vw, 28px) !important;
+  border-radius: clamp(28px, 5.5vw, 36px) !important;
+  max-width: none !important;
+  box-sizing: border-box !important;
 }
 
 /* ──────────────────────────────────────────────────────────
