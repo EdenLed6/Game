@@ -185,69 +185,69 @@
  * Journey step shared
  * ────────────────────────────────────────────────────────── */
 
-.lj-step { padding: clamp(16px, 5vw, 36px) clamp(16px, 5vw, 32px) clamp(20px, 6vw, 44px) clamp(16px, 5vw, 32px) !important; gap: clamp(14px, 4vw, 28px) !important; }
-.lj-section { font-size: clamp(18px, 5vw, 34px) !important; gap: clamp(8px, 2vw, 14px) !important; }
-.lj-section__bar { width: clamp(4px, 1.5vw, 8px) !important; height: clamp(20px, 6vw, 40px) !important; }
-.lj-card { padding: clamp(14px, 4.5vw, 28px) !important; border-radius: clamp(16px, 4.5vw, 30px) !important; }
-.lj-card__title { font-size: clamp(16px, 4.5vw, 30px) !important; margin-bottom: clamp(8px, 2vw, 14px) !important; }
-.lj-card__body { font-size: clamp(15px, 4.2vw, 28px) !important; line-height: 1.55 !important; }
-.lj-counter { font-size: clamp(13px, 3.5vw, 24px) !important; }
-.lj-speaker { width: clamp(40px, 11vw, 80px) !important; height: clamp(40px, 11vw, 80px) !important; }
-.lj-speaker--lg { width: clamp(46px, 12vw, 90px) !important; height: clamp(46px, 12vw, 90px) !important; }
-.lj-speaker svg { width: clamp(20px, 5.5vw, 40px) !important; height: clamp(20px, 5.5vw, 40px) !important; }
+.lj-step { padding: clamp(23px, 6.0vw, 52px) clamp(23px, 6.0vw, 46px) clamp(29px, 7.2vw, 64px) clamp(23px, 6.0vw, 46px) !important; gap: clamp(20px, 4.8vw, 41px) !important; }
+.lj-section { font-size: clamp(26px, 6.0vw, 49px) !important; gap: clamp(12px, 2.4vw, 20px) !important; }
+.lj-section__bar { width: clamp(6px, 1.8vw, 12px) !important; height: clamp(29px, 7.2vw, 58px) !important; }
+.lj-card { padding: clamp(20px, 5.4vw, 41px) !important; border-radius: clamp(23px, 5.4vw, 43px) !important; }
+.lj-card__title { font-size: clamp(23px, 5.4vw, 43px) !important; margin-bottom: clamp(12px, 2.4vw, 20px) !important; }
+.lj-card__body { font-size: clamp(22px, 5.0vw, 41px) !important; line-height: 1.55 !important; }
+.lj-counter { font-size: clamp(19px, 4.2vw, 35px) !important; }
+.lj-speaker { width: clamp(58px, 13.2vw, 115px) !important; height: clamp(58px, 13.2vw, 115px) !important; }
+.lj-speaker--lg { width: clamp(66px, 14.4vw, 130px) !important; height: clamp(66px, 14.4vw, 130px) !important; }
+.lj-speaker svg { width: clamp(29px, 6.6vw, 58px) !important; height: clamp(29px, 6.6vw, 58px) !important; }
 
 /* Intro */
-.lj-intro__emoji { font-size: clamp(56px, 16vw, 140px) !important; }
-.lj-intro__title { font-size: clamp(24px, 6.5vw, 50px) !important; }
-.lj-intro__subtitle { font-size: clamp(15px, 4vw, 28px) !important; }
-.lj-intro__video { height: clamp(160px, 44vw, 380px) !important; border-radius: clamp(14px, 4vw, 28px) !important; }
-.lj-intro__preview-title { font-size: clamp(15px, 4vw, 28px) !important; }
-.lj-intro__preview-item { font-size: clamp(14px, 4vw, 27px) !important; }
-.lj-intro__video-overlay { height: clamp(50px, 14vw, 110px) !important; }
+.lj-intro__emoji { font-size: clamp(80px, 19.2vw, 202px) !important; }
+.lj-intro__title { font-size: clamp(35px, 7.8vw, 72px) !important; }
+.lj-intro__subtitle { font-size: clamp(22px, 4.8vw, 41px) !important; }
+.lj-intro__video { height: clamp(230px, 52.8vw, 547px) !important; border-radius: clamp(20px, 4.8vw, 41px) !important; }
+.lj-intro__preview-title { font-size: clamp(22px, 4.8vw, 41px) !important; }
+.lj-intro__preview-item { font-size: clamp(20px, 4.8vw, 38px) !important; }
+.lj-intro__video-overlay { height: clamp(72px, 16.8vw, 158px) !important; }
 
 /* Teach */
-.lj-teach-grammar .lj-card__title { font-size: clamp(16px, 4.5vw, 30px) !important; }
-.lj-teach-grammar .lj-card__body { font-size: clamp(15px, 4.2vw, 28px) !important; line-height: 1.55 !important; }
-.lj-grammar-pattern { font-size: clamp(13px, 3.5vw, 24px) !important; padding: clamp(10px, 3vw, 20px) !important; }
-.lj-example-romaji { font-size: clamp(17px, 4.8vw, 32px) !important; }
-.lj-example-japanese { font-size: clamp(15px, 4.2vw, 28px) !important; }
-.lj-card-hebrew { font-size: clamp(14px, 4vw, 26px) !important; padding: clamp(8px, 2.4vw, 16px) clamp(10px, 3vw, 20px) !important; }
+.lj-teach-grammar .lj-card__title { font-size: clamp(23px, 5.4vw, 43px) !important; }
+.lj-teach-grammar .lj-card__body { font-size: clamp(22px, 5.0vw, 41px) !important; line-height: 1.55 !important; }
+.lj-grammar-pattern { font-size: clamp(19px, 4.2vw, 35px) !important; padding: clamp(14px, 3.6vw, 29px) !important; }
+.lj-example-romaji { font-size: clamp(24px, 5.8vw, 46px) !important; }
+.lj-example-japanese { font-size: clamp(22px, 5.0vw, 41px) !important; }
+.lj-card-hebrew { font-size: clamp(20px, 4.8vw, 37px) !important; padding: clamp(12px, 2.9vw, 23px) clamp(14px, 3.6vw, 29px) !important; }
 
 /* Vocab */
-.lj-vocab__emoji-box { width: clamp(60px, 16vw, 130px) !important; height: clamp(60px, 16vw, 130px) !important; border-radius: clamp(14px, 4vw, 28px) !important; }
-.lj-vocab__emoji { font-size: clamp(36px, 10vw, 80px) !important; }
-.lj-vocab__jp { font-size: clamp(20px, 5.5vw, 42px) !important; }
-.lj-vocab__romaji { font-size: clamp(13px, 3.5vw, 24px) !important; }
-.lj-vocab__hebrew { font-size: clamp(15px, 4vw, 28px) !important; }
-.lj-vocab__speaker { width: clamp(44px, 12vw, 86px) !important; height: clamp(44px, 12vw, 86px) !important; }
+.lj-vocab__emoji-box { width: clamp(86px, 19.2vw, 187px) !important; height: clamp(86px, 19.2vw, 187px) !important; border-radius: clamp(20px, 4.8vw, 41px) !important; }
+.lj-vocab__emoji { font-size: clamp(52px, 12.0vw, 115px) !important; }
+.lj-vocab__jp { font-size: clamp(29px, 6.6vw, 60px) !important; }
+.lj-vocab__romaji { font-size: clamp(19px, 4.2vw, 35px) !important; }
+.lj-vocab__hebrew { font-size: clamp(22px, 4.8vw, 41px) !important; }
+.lj-vocab__speaker { width: clamp(64px, 14.4vw, 124px) !important; height: clamp(64px, 14.4vw, 124px) !important; }
 
 /* Practice */
-.lj-practice__counter { font-size: clamp(13px, 3.5vw, 24px) !important; }
-.lj-practice__label { font-size: clamp(15px, 4.2vw, 28px) !important; }
-.lj-practice__prompt-text { font-size: clamp(20px, 5.5vw, 42px) !important; }
-.lj-practice__input { font-size: clamp(15px, 4.2vw, 28px) !important; padding: clamp(10px, 3vw, 20px) !important; min-height: clamp(80px, 22vw, 180px) !important; border-radius: clamp(12px, 3.5vw, 22px) !important; }
-.lj-practice__answer-text { font-size: clamp(17px, 4.8vw, 32px) !important; }
-.lj-practice__answer-sub { font-size: clamp(15px, 4vw, 28px) !important; }
+.lj-practice__counter { font-size: clamp(19px, 4.2vw, 35px) !important; }
+.lj-practice__label { font-size: clamp(22px, 5.0vw, 41px) !important; }
+.lj-practice__prompt-text { font-size: clamp(29px, 6.6vw, 60px) !important; }
+.lj-practice__input { font-size: clamp(22px, 5.0vw, 41px) !important; padding: clamp(14px, 3.6vw, 29px) !important; min-height: clamp(115px, 26.4vw, 259px) !important; border-radius: clamp(17px, 4.2vw, 31px) !important; }
+.lj-practice__answer-text { font-size: clamp(24px, 5.8vw, 46px) !important; }
+.lj-practice__answer-sub { font-size: clamp(22px, 4.8vw, 41px) !important; }
 
 /* Quiz */
-.lj-quiz__counter { font-size: clamp(13px, 3.5vw, 24px) !important; }
-.lj-quiz__question-text { font-size: clamp(16px, 4.5vw, 30px) !important; line-height: 1.4 !important; }
-.lj-quiz__option { min-height: clamp(54px, 14vw, 100px) !important; padding: clamp(10px, 3vw, 22px) clamp(12px, 4vw, 26px) !important; font-size: clamp(15px, 4.2vw, 28px) !important; border-radius: clamp(14px, 4vw, 28px) !important; }
-.lj-quiz__option-label { font-size: clamp(15px, 4.2vw, 28px) !important; }
-.lj-quiz__feedback { font-size: clamp(14px, 4vw, 26px) !important; }
-.lj-quiz__hint { padding: clamp(12px, 3.5vw, 24px) !important; font-size: clamp(13px, 3.5vw, 24px) !important; }
+.lj-quiz__counter { font-size: clamp(19px, 4.2vw, 35px) !important; }
+.lj-quiz__question-text { font-size: clamp(23px, 5.4vw, 43px) !important; line-height: 1.4 !important; }
+.lj-quiz__option { min-height: clamp(78px, 16.8vw, 144px) !important; padding: clamp(14px, 3.6vw, 31px) clamp(17px, 4.8vw, 37px) !important; font-size: clamp(22px, 5.0vw, 41px) !important; border-radius: clamp(20px, 4.8vw, 41px) !important; }
+.lj-quiz__option-label { font-size: clamp(22px, 5.0vw, 41px) !important; }
+.lj-quiz__feedback { font-size: clamp(20px, 4.8vw, 37px) !important; }
+.lj-quiz__hint { padding: clamp(17px, 4.2vw, 35px) !important; font-size: clamp(19px, 4.2vw, 35px) !important; }
 
 /* Complete */
-.lj-complete__emoji { font-size: clamp(56px, 16vw, 130px) !important; }
-.lj-complete__title { font-size: clamp(22px, 6vw, 46px) !important; }
-.lj-complete__subtitle { font-size: clamp(15px, 4vw, 28px) !important; }
-.lj-complete__xp-text { font-size: clamp(20px, 5.5vw, 42px) !important; }
-.lj-complete__xp-card { padding: clamp(14px, 4vw, 28px) clamp(20px, 6vw, 40px) !important; border-radius: clamp(16px, 5vw, 36px) !important; }
+.lj-complete__emoji { font-size: clamp(80px, 19.2vw, 187px) !important; }
+.lj-complete__title { font-size: clamp(31px, 7.2vw, 66px) !important; }
+.lj-complete__subtitle { font-size: clamp(22px, 4.8vw, 41px) !important; }
+.lj-complete__xp-text { font-size: clamp(29px, 6.6vw, 60px) !important; }
+.lj-complete__xp-card { padding: clamp(20px, 4.8vw, 41px) clamp(29px, 7.2vw, 58px) !important; border-radius: clamp(23px, 6.0vw, 52px) !important; }
 
 /* ──────────────────────────────────────────────────────────
  * Generic buttons
  * ────────────────────────────────────────────────────────── */
 
-.btn, .btn--block { font-size: clamp(15px, 4.5vw, 30px) !important; padding: clamp(12px, 3.5vw, 22px) clamp(16px, 5vw, 32px) !important; border-radius: clamp(20px, 5.5vw, 40px) !important; min-height: clamp(48px, 14vw, 100px) !important; }
-.btn--small { min-height: clamp(40px, 11vw, 80px) !important; padding: 0 clamp(14px, 4vw, 28px) !important; font-size: clamp(14px, 4vw, 26px) !important; border-radius: clamp(18px, 5vw, 36px) !important; }
-.btn--option { min-height: clamp(54px, 14vw, 100px) !important; padding: 0 clamp(16px, 5vw, 32px) !important; font-size: clamp(15px, 4.2vw, 28px) !important; border-radius: clamp(14px, 4vw, 28px) !important; }
+.btn, .btn--block { font-size: clamp(22px, 5.4vw, 43px) !important; padding: clamp(17px, 4.2vw, 31px) clamp(23px, 6.0vw, 46px) !important; border-radius: clamp(29px, 6.6vw, 58px) !important; min-height: clamp(70px, 16.8vw, 144px) !important; }
+.btn--small { min-height: clamp(58px, 13.2vw, 115px) !important; padding: 0 clamp(20px, 4.8vw, 41px) !important; font-size: clamp(20px, 4.8vw, 37px) !important; border-radius: clamp(26px, 6.0vw, 52px) !important; }
+.btn--option { min-height: clamp(78px, 16.8vw, 144px) !important; padding: 0 clamp(23px, 6.0vw, 46px) !important; font-size: clamp(22px, 5.0vw, 41px) !important; border-radius: clamp(20px, 4.8vw, 41px) !important; }
