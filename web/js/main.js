@@ -53,17 +53,31 @@ function showError(host, message) {
   // Kill any service worker + cache from the previous web port. The earlier
   // version registered web/sw.js; that file no longer exists but the browser
   // keeps serving the stale cached HTML/CSS/JS until the SW is unregistered.
+  // CRITICAL: if a SW was actually controlling this page, the HTML/CSS/JS
+  // we're currently running are themselves cached. Unregistering does NOT
+  // re-fetch — only a reload does. So we force one (gated by sessionStorage
+  // to avoid an infinite loop in the rare case unregister fails).
+  let killedSW = false;
   if ("serviceWorker" in navigator) {
     try {
       const regs = await navigator.serviceWorker.getRegistrations();
+      if (regs.length > 0) killedSW = true;
       await Promise.all(regs.map((r) => r.unregister()));
     } catch {}
   }
   if (typeof caches !== "undefined") {
     try {
       const keys = await caches.keys();
+      if (keys.length > 0) killedSW = true;
       await Promise.all(keys.map((k) => caches.delete(k)));
     } catch {}
+  }
+  if (killedSW && !sessionStorage.getItem("kimura-sw-killed")) {
+    sessionStorage.setItem("kimura-sw-killed", "1");
+    const u = new URL(location.href);
+    u.searchParams.set("_t", String(Date.now()));
+    location.replace(u.toString());
+    return;
   }
 
   // PWA stale-CSS detector: if any <link rel="stylesheet"> in the cached
