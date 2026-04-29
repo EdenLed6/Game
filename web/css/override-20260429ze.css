@@ -217,14 +217,18 @@
 /* Speakers: circle ~60-76px, emoji 🔊 glyph ~50% of circle (28-36px).
  * The zc-pass over-corrected the emoji to ~44-56px, making the buttons
  * read as oversized. Smaller, balanced proportion below. */
-.lj-speaker { width: clamp(56px, 9vw, 68px) !important; height: clamp(56px, 9vw, 68px) !important; color: #fff !important; font-size: clamp(26px, 4.5vw, 34px) !important; line-height: 1 !important; }
-.lj-speaker--lg { width: clamp(64px, 10vw, 76px) !important; height: clamp(64px, 10vw, 76px) !important; font-size: clamp(30px, 5vw, 38px) !important; }
-.lj-speaker svg { width: clamp(26px, 4.5vw, 34px) !important; height: clamp(26px, 4.5vw, 34px) !important; fill: #fff !important; }
+/* Bigger circle (back to zc size) + medium emoji (between zc's 44-56
+ * and zd's 26-34). User confirmed circle was right at ~80-100px but
+ * the 🔊 glyph was too big at 44-56px. Aim for ~36-44px glyph in the
+ * 80-100 circle (≈45% — feels natural). */
+.lj-speaker { width: clamp(72px, 12vw, 90px) !important; height: clamp(72px, 12vw, 90px) !important; color: #fff !important; font-size: clamp(34px, 5.8vw, 42px) !important; line-height: 1 !important; }
+.lj-speaker--lg { width: clamp(80px, 13.5vw, 100px) !important; height: clamp(80px, 13.5vw, 100px) !important; font-size: clamp(38px, 6.4vw, 48px) !important; }
+.lj-speaker svg { width: clamp(34px, 5.8vw, 42px) !important; height: clamp(34px, 5.8vw, 42px) !important; fill: #fff !important; }
 .lj-speaker > span,
 .lj-speaker > * { font-size: inherit !important; line-height: 1 !important; }
-.lj-vocab__speaker { font-size: clamp(30px, 5vw, 38px) !important; }
-.lj-practice__speaker { font-size: clamp(26px, 4.5vw, 34px) !important; }
-.lj-quiz__speaker { font-size: clamp(26px, 4.5vw, 34px) !important; }
+.lj-vocab__speaker { font-size: clamp(38px, 6.4vw, 48px) !important; }
+.lj-practice__speaker { font-size: clamp(34px, 5.8vw, 42px) !important; }
+.lj-quiz__speaker { font-size: clamp(34px, 5.8vw, 42px) !important; }
 
 /* Intro */
 .lj-intro__emoji { font-size: clamp(80px, 19.2vw, 202px) !important; }
@@ -260,7 +264,7 @@
 .lj-vocab__jp { font-size: clamp(29px, 6.6vw, 60px) !important; }
 .lj-vocab__romaji { font-size: clamp(19px, 4.2vw, 35px) !important; }
 .lj-vocab__hebrew { font-size: clamp(22px, 4.8vw, 41px) !important; }
-.lj-vocab__speaker { width: clamp(64px, 10vw, 76px) !important; height: clamp(64px, 10vw, 76px) !important; }
+.lj-vocab__speaker { width: clamp(80px, 13.5vw, 100px) !important; height: clamp(80px, 13.5vw, 100px) !important; }
 
 /* More breathing room between vocab cards + bigger internal padding */
 .lj-vocab__cards { gap: clamp(14px, 3.5vw, 22px) !important; }
@@ -331,8 +335,8 @@
 .lj-quiz__option-row .lj-quiz__option { flex: 1 1 0 !important; }
 .lj-quiz__option-row .lj-speaker,
 .lj-quiz__option-row .lj-quiz__option-speaker {
-  width: clamp(56px, 9vw, 68px) !important;
-  height: clamp(56px, 9vw, 68px) !important;
+  width: clamp(72px, 12vw, 90px) !important;
+  height: clamp(72px, 12vw, 90px) !important;
   flex: 0 0 auto !important;
   border-radius: 50% !important;
 }
