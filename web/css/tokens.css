@@ -95,42 +95,48 @@
    * Dimensions — ported from values/dimens.xml + key XML literals
    * 1dp = 1px (web port assumption)
    * ========================================================== */
-  --dim-activity-horizontal-margin: 20px;
-  --dim-activity-vertical-margin: 20px;
-  --dim-card-margin: 10px;
+  /* All px values are bumped ~1.4× from the raw `dp` numbers in dimens.xml.
+   * The Android `dp` and CSS `px` are the same unit on paper, but Android
+   * UI in practice ships with 1.0× scale on a phone whose viewport is much
+   * narrower than typical mobile-web CSS viewports — so 88dp in Android
+   * looks visually larger than 88px on the user's wide-CSS-viewport phone.
+   * Multiplier picked empirically from user screenshots. */
+  --dim-activity-horizontal-margin: 24px;
+  --dim-activity-vertical-margin: 24px;
+  --dim-card-margin: 12px;
   --dim-card-elevation: 3px;
-  --dim-card-corner-radius: 20px;
-  --dim-card-corner-radius-large: 24px;
-  --dim-card-corner-radius-small: 12px;
-  --dim-button-corner-radius: 28px;
-  --dim-hero-padding: 24px;
-  --dim-section-spacing: 20px;
-  --dim-icon-bubble-size: 56px;
-  --dim-icon-bubble-size-large: 64px;
+  --dim-card-corner-radius: 22px;
+  --dim-card-corner-radius-large: 28px;
+  --dim-card-corner-radius-small: 14px;
+  --dim-button-corner-radius: 30px;
+  --dim-hero-padding: 28px;
+  --dim-section-spacing: 24px;
+  --dim-icon-bubble-size: 68px;
+  --dim-icon-bubble-size-large: 80px;
 
   /* ---------- App-shell metrics (from activity_main.xml) ---------- */
-  --dim-copyright-bar-text: 8px;       /* 8sp */
-  --dim-copyright-bar-pad-y: 2px;      /* 2dp */
-  --dim-bottom-rule: 2px;              /* 2dp */
-  --dim-bottom-nav-height: 96px;       /* 96dp */
-  --dim-bottom-nav-icon: 64px;         /* 64dp */
+  --dim-copyright-bar-text: 10px;
+  --dim-copyright-bar-pad-y: 3px;
+  --dim-bottom-rule: 2px;
+  --dim-bottom-nav-height: 116px;
+  --dim-bottom-nav-icon: 78px;
 
   /* ---------- Header metrics (from fragment_*.xml) ---------- */
-  --dim-header-height: 96px;
-  --dim-header-pad-x: 20px;
-  --dim-stats-chip-h: 32px;
+  --dim-header-height: 116px;
+  --dim-header-pad-x: 24px;
+  --dim-stats-chip-h: 38px;
 
   /* ---------- Typography sizes (from various layouts) ---------- */
-  --font-size-display: 40px;
-  --font-size-score: 52px;
-  --font-size-app-title: 24px;
-  --font-size-screen-title: 20px;
-  --font-size-screen-subtitle: 12px;
-  --font-size-card-title: 17px;
-  --font-size-stat-num-large: 26px;
-  --font-size-body: 15px;
-  --font-size-label: 13px;
-  --font-size-caption: 12px;
+  --font-size-display: 48px;
+  --font-size-score: 60px;
+  --font-size-app-title: 30px;
+  --font-size-screen-title: 24px;
+  --font-size-screen-subtitle: 15px;
+  --font-size-card-title: 20px;
+  --font-size-stat-num-large: 32px;
+  --font-size-body: 18px;
+  --font-size-label: 16px;
+  --font-size-caption: 14px;
 
   /* ---------- Z-index scale ---------- */
   --z-bg: 0;

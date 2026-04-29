@@ -150,8 +150,8 @@
 /* Bottom connector — solid vertical rule between consecutive nodes
  * (matches item_lesson_node.xml: View 3dp×20dp, background @color/cardStroke). */
 .lesson-node__connector {
-  width: 3px;
-  height: 20px;
+  width: 4px;
+  height: 32px;
   background: var(--color-card-stroke);
   flex: 0 0 auto;
 }
@@ -163,8 +163,8 @@
 /* Circle frame */
 .lesson-node__circle {
   position: relative;
-  width: 88px;
-  height: 88px;
+  width: 120px;
+  height: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -172,7 +172,7 @@
 }
 
 .lesson-node__emoji {
-  font-size: 36px;
+  font-size: 50px;
   line-height: 1;
   /* Center using flex alignment of the parent */
 }
@@ -193,8 +193,8 @@
   position: absolute;
   bottom: 4px;
   inset-inline-end: 4px;
-  width: 28px;
-  height: 28px;
+  width: 38px;
+  height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -202,22 +202,22 @@
 }
 
 .lesson-node__badge img {
-  width: 28px;
-  height: 28px;
+  width: 38px;
+  height: 38px;
   display: block;
 }
 
 /* Locked overlay: dark pill behind the lock icon */
 .lesson-node__badge--lock {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   background: var(--color-node-locked-stroke);
   border-radius: 50%;
 }
 
 .lesson-node__badge--lock img {
-  width: 14px;
-  height: 14px;
+  width: 18px;
+  height: 18px;
 }
 
 /* Label area below circle */
@@ -225,26 +225,26 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 6px;
-  max-width: 160px;
+  margin-top: 8px;
+  max-width: 200px;
 }
 
 .lesson-node__title {
-  font-size: 13px;
+  font-size: 17px;
   font-weight: 700;
   color: var(--color-on-surface);
   line-height: 1.2;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 160px;
+  max-width: 200px;
 }
 
 .lesson-node__number {
-  font-size: 11px;
+  font-size: 14px;
   color: var(--color-on-surface-muted);
   line-height: 1.2;
-  margin-top: 1px;
+  margin-top: 2px;
 }
 
 .lesson-node--locked .lesson-node__title {
