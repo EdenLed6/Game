@@ -158,3 +158,243 @@
 .profile-progress__label { font-size: 21px !important; }
 .media-card__title { font-size: 24px !important; }
 .media-card__body { font-size: 19px !important; }
+
+/* ================================================================
+ * APPENDED 2026-04-29 — global ~1.4× bump pass.
+ * Methodically walks every visible class on every screen so the
+ * sizes match the lesson nodes (which were already bumped above).
+ * Every rule uses !important to win over the per-screen sheets.
+ * Only unconditional rules — @media (max-width: 380px) preserved.
+ * ============================================================== */
+
+/* ---------- Foundation: header bar (HeaderLinearLayout port) ---- */
+.header { flex: 0 0 200px !important; height: 200px !important; padding: 0 40px !important; }
+.header--vertical { gap: 8px !important; }
+.header__title { font-size: 56px !important; }
+.header__screen-title { font-size: 42px !important; }
+.header__subtitle { font-size: 28px !important; }
+
+/* ---------- Foundation: copyright bar + bottom-rule -------------- */
+.copyright-bar { font-size: 22px !important; padding: 10px 0 !important; }
+.bottom-nav-divider { height: 6px !important; }
+
+/* ---------- Foundation: bottom-nav buttons ---------------------- */
+.bottom-nav__btn { padding: 0 12px !important; gap: 8px !important; }
+
+/* ---------- Foundation: stats chip (.bg-stats-chip) -------------- */
+.bg-stats-chip {
+  height: 70px !important;
+  padding: 0 22px !important;
+  font-size: 26px !important;
+  gap: 8px !important;
+}
+.bg-stats-chip .chip-emoji { font-size: 26px !important; }
+.bg-stats-chip .chip-count { font-size: 26px !important; }
+
+/* ---------- Foundation: cards / surfaces ------------------------- */
+.bg-card-modern { border-radius: 28px !important; }
+.bg-flashcard-back { border-radius: 32px !important; }
+.bg-flashcard-front { border-radius: 32px !important; }
+.bg-grammar-pattern { border-radius: 14px !important; }
+.bg-icon-bubble { border-radius: 22px !important; }
+.bg-lesson-card-completed { border-radius: 28px !important; }
+.bg-lesson-card-default { border-radius: 28px !important; }
+.bg-option-correct,
+.bg-option-default,
+.bg-option-selected,
+.bg-option-wrong { border-radius: 22px !important; }
+.bg-progress-hero { border-radius: 22px !important; }
+.bg-score-badge { border-radius: 22px !important; }
+.bg-section-header { border-radius: 12px !important; }
+.bg-unit-banner { border-radius: 22px !important; }
+.bg-white-round { border-radius: 28px !important; }
+
+/* ---------- Foundation: buttons (components.css) ---------------- */
+.btn { min-height: 76px !important; padding: 0 34px !important; font-size: 28px !important; border-radius: 50px !important; }
+.btn--gold { min-height: 80px !important; padding: 0 44px !important; font-size: 24px !important; border-radius: 40px !important; }
+.btn--small { min-height: 56px !important; padding: 0 22px !important; font-size: 20px !important; border-radius: 28px !important; }
+.btn--audio { width: 62px !important; height: 62px !important; border-radius: 32px !important; }
+.btn--option { min-height: 82px !important; padding: 0 28px !important; font-size: 22px !important; border-radius: 22px !important; }
+
+/* ---------- Foundation: generic .card ---------------------------- */
+.card { padding: 28px !important; border-radius: 22px !important; }
+
+/* ---------- Foundation: stack spacing helpers ------------------- */
+.stack-sm > * + * { margin-top: 12px !important; }
+.stack-md > * + * { margin-top: 18px !important; }
+
+/* ---------- Foundation: text utilities -------------------------- */
+.t-display { font-size: 84px !important; }
+.t-score { font-size: 104px !important; }
+.t-title { font-size: 32px !important; }
+.stub-screen { font-size: 26px !important; padding: 56px 28px !important; }
+
+/* ================================================================
+ * Learn screen — header + chips already partly above, fill rest.
+ * ============================================================== */
+.learn-header__chips { gap: 12px !important; }
+
+/* Unit header card (item_unit_header.xml port) */
+.unit-header__emoji { font-size: 56px !important; }
+.unit-header__title { font-size: 30px !important; }
+.unit-header__subtitle { font-size: 22px !important; margin-top: 4px !important; }
+
+/* Lesson node label area (the inner pieces are already bumped above) */
+.lesson-node__label { margin-top: 14px !important; max-width: 380px !important; }
+.lesson-node__badge--lock { width: 50px !important; height: 50px !important; }
+.lesson-node__badge--lock img { width: 28px !important; height: 28px !important; }
+
+/* Learn path scroll container — bigger top/bottom breathing room */
+.learn-path { padding-top: 14px !important; padding-bottom: calc(40px + env(safe-area-inset-bottom)) !important; }
+
+/* ================================================================
+ * Media screen — schooler / podcast / pdfs cards.
+ * ============================================================== */
+.media-screen__content { gap: 22px !important; padding: 22px !important; padding-bottom: calc(22px + env(safe-area-inset-bottom)) !important; }
+.media-card { padding: 28px !important; border-radius: 22px !important; }
+.media-card__head { gap: 16px !important; margin-bottom: 16px !important; }
+.media-card--pdfs .media-card__head { margin-bottom: 22px !important; }
+.media-card__emoji { font-size: 40px !important; }
+.media-card__title { font-size: 24px !important; }
+.media-card__subtitle { font-size: 19px !important; margin: 4px 0 0 !important; }
+.media-card__pdf-list { gap: 14px !important; }
+.media-card__embed { height: 220px !important; border-radius: 12px !important; margin-bottom: 16px !important; }
+
+/* ================================================================
+ * Profile screen — identity / stats / progress / reset.
+ * ============================================================== */
+.profile-identity {
+  gap: 22px !important;
+  margin: 28px 28px 12px !important;
+  padding: 28px !important;
+  border-radius: 22px !important;
+}
+.profile-identity__avatar-wrap { width: 96px !important; height: 96px !important; flex: 0 0 96px !important; }
+.profile-identity__avatar { width: 96px !important; height: 96px !important; font-size: 36px !important; }
+.profile-identity__photo-edit { width: 34px !important; height: 34px !important; padding: 6px !important; border-radius: 6px !important; }
+.profile-identity__name-edit { flex: 0 0 50px !important; width: 50px !important; height: 50px !important; padding: 8px !important; border-radius: 25px !important; }
+
+.profile-stats { gap: 16px !important; padding: 22px 22px 12px !important; }
+.profile-stats__cell { padding: 18px 12px !important; border-radius: 22px !important; }
+.profile-stats__icon { width: 110px !important; height: 110px !important; }
+.profile-stats__value { font-size: 36px !important; margin-top: 8px !important; }
+.profile-stats__value--lessons { font-size: 30px !important; }
+.profile-stats__label { font-size: 17px !important; margin-top: 4px !important; }
+
+.profile-progress {
+  margin: 0 28px 22px !important;
+  padding: 28px !important;
+  border-radius: 22px !important;
+}
+.profile-progress__row { margin-bottom: 14px !important; }
+.profile-progress__label { font-size: 22px !important; }
+.profile-progress__percent { font-size: 22px !important; }
+.profile-progress__bar { height: 8px !important; border-radius: 8px !important; }
+.profile-progress__fill { border-radius: 8px !important; }
+
+.profile-reset { margin: 0 28px 44px !important; }
+
+/* ================================================================
+ * Lesson-journey shell — header / progress / toolbar / continue.
+ * (Header / progress / toolbar already covered above; bump remaining.)
+ * ============================================================== */
+.lj-step--stub { padding: 34px 28px !important; font-size: 22px !important; }
+.lj-error { padding: 34px 28px !important; font-size: 22px !important; }
+
+/* Lesson-journey continue button: already given a height, also bump
+ * its margin so the fixed button has comfortable inset breathing
+ * room on bigger viewports. */
+.lj-continue { left: 28px !important; right: 28px !important; }
+
+/* ================================================================
+ * Journey shared step primitives.
+ * ============================================================== */
+.lj-card { padding: 24px !important; border-radius: 22px !important; }
+
+/* Section heading row */
+.lj-section { margin: 12px 0 6px 0 !important; }
+
+/* ================================================================
+ * Journey step: INTRO.
+ * ============================================================== */
+.lj-step--intro { padding-top: 34px !important; gap: 16px !important; }
+.lj-intro__preview { margin-top: 22px !important; }
+
+/* ================================================================
+ * Journey step: TEACH (grammar + example cards).
+ * ============================================================== */
+.lj-step--teach { gap: 18px !important; }
+.lj-teach-grammar { border-inline-start-width: 6px !important; }
+.lj-teach-example { border-inline-start-width: 6px !important; gap: 6px !important; }
+.lj-teach-grammar .lj-card__title { margin: 0 0 12px 0 !important; }
+.lj-grammar-pattern { margin-top: 16px !important; padding: 18px !important; font-size: 19px !important; border-radius: 8px !important; }
+
+/* ================================================================
+ * Journey step: VOCAB (per-item card).
+ * ============================================================== */
+.lj-step--vocab { padding: 16px 22px 32px 22px !important; }
+.lj-vocab__section { margin: 8px 0 10px 0 !important; font-size: 19px !important; }
+.lj-vocab__cards { gap: 14px !important; }
+.lj-vocab__card { border-radius: 22px !important; }
+.lj-vocab__row { gap: 22px !important; padding: 20px 20px 20px 14px !important; }
+.lj-vocab__emoji-box { flex: 0 0 100px !important; }
+.lj-vocab__romaji { font-size: 20px !important; margin-top: 2px !important; }
+.lj-vocab__hebrew { font-size: 24px !important; margin-top: 4px !important; }
+
+/* ================================================================
+ * Journey step: PRACTICE (prompt / input / answer / buttons).
+ * ============================================================== */
+.lj-step--practice { gap: 20px !important; }
+.lj-practice__prompt { padding: 34px 28px !important; }
+.lj-practice__input {
+  padding: 22px 22px !important;
+  font-size: 24px !important;
+  border-radius: 16px !important;
+  min-height: 160px !important;
+}
+.lj-practice__feedback { font-size: 22px !important; }
+.lj-practice__answer { gap: 8px !important; padding: 22px !important; }
+.lj-practice__btn-row { gap: 12px !important; margin-top: 6px !important; }
+.lj-practice__btn {
+  height: 68px !important;
+  padding: 0 18px !important;
+  font-size: 21px !important;
+  border-radius: 20px !important;
+}
+.lj-practice__speaker { margin-top: 6px !important; }
+
+/* ================================================================
+ * Journey step: QUIZ (question / options / hint / retry).
+ * ============================================================== */
+.lj-step--quiz { padding: 22px 28px 34px 28px !important; gap: 18px !important; }
+.lj-quiz__question-card { padding: 28px !important; margin-bottom: 6px !important; }
+.lj-quiz__question-row { gap: 16px !important; }
+.lj-quiz__feedback { min-height: 32px !important; }
+.lj-quiz__hint {
+  gap: 14px !important;
+  padding: 18px 20px !important;
+  border-radius: 16px !important;
+}
+.lj-quiz__hint-icon { font-size: 26px !important; }
+.lj-quiz__hint-text { font-size: 19px !important; }
+.lj-quiz__options { gap: 14px !important; margin: 6px 0 12px 0 !important; }
+.lj-quiz__option-row { gap: 12px !important; }
+.lj-quiz__check, .lj-quiz__next { margin-top: 6px !important; }
+
+/* Quiz failure retry card */
+.lj-quiz__retry { padding: 64px 44px !important; }
+.lj-quiz__retry-emoji { font-size: 88px !important; margin-bottom: 22px !important; }
+.lj-quiz__retry-score { font-size: 64px !important; margin-bottom: 12px !important; }
+.lj-quiz__retry-percent { font-size: 24px !important; margin-bottom: 16px !important; }
+.lj-quiz__retry-hint { font-size: 21px !important; margin: 0 0 44px 0 !important; }
+.lj-quiz__retry-btn { margin-bottom: 16px !important; }
+
+/* ================================================================
+ * Journey step: COMPLETE (emoji / title / subtitle / XP card).
+ * ============================================================== */
+.lj-step--complete { padding: 44px 28px !important; gap: 28px !important; }
+.lj-complete__xp-card {
+  margin-top: 12px !important;
+  border-radius: 28px !important;
+  padding: 22px 44px !important;
+}
