@@ -14,7 +14,13 @@ export function el(tag, props, ...children) {
       if (k === "class" || k === "className") {
         node.className = Array.isArray(v) ? v.filter(Boolean).join(" ") : String(v);
       } else if (k === "style" && typeof v === "object") {
-        Object.assign(node.style, v);
+        // Object.assign(node.style, ...) silently drops CSS custom
+        // properties (--foo). Iterate so we can use setProperty for them.
+        for (const [sk, sv] of Object.entries(v)) {
+          if (sv == null) continue;
+          if (sk.startsWith("--")) node.style.setProperty(sk, String(sv));
+          else node.style[sk] = sv;
+        }
       } else if (k === "dataset" && typeof v === "object") {
         for (const [dk, dv] of Object.entries(v)) node.dataset[dk] = String(dv);
       } else if (k.startsWith("on") && typeof v === "function") {
