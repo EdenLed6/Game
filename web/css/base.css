@@ -133,13 +133,11 @@ body {
   display: flex;
   align-items: stretch;
   justify-content: space-evenly;
-  /* Transparent — bg_bottom_nav.png watercolor strip from .bottom-nav-backdrop
-   * (rendered as a sibling underlay) shows through, matching the APK. */
+  /* Fully transparent — the body's bg_japanese.png watercolor shows
+   * through, matching the APK's "transparent nav over Japanese
+   * landscape" look. (We deliberately do NOT use bg_bottom_nav.png
+   * here because that PNG is opaque cream and looks like a solid bar.) */
   background: transparent;
-  background-image: url("../assets/bg_bottom_nav.png");
-  background-repeat: no-repeat;
-  background-position: center bottom;
-  background-size: cover;
   z-index: var(--z-bottom-nav);
   padding-bottom: env(safe-area-inset-bottom);
 }
