@@ -1,0 +1,253 @@
+/* override-20260428b.css — viewport-relative size override.
+ *
+ * The user's phone has a wide CSS viewport so static px values rendered
+ * tiny relative to the screen. Switch every visible size to viewport-
+ * relative units (`vw`) bracketed by `clamp(min, vw, max)` so the UI
+ * automatically scales to whatever viewport width Chrome/PWA gives us
+ * AND matches the APK's proportions on the same device.
+ *
+ * APK proportions sampled from screenshots 019dd6ee-88955 (Media) and
+ * 019dd6ee-88957 (Profile) the user provided.
+ *
+ *   App title (Kimura / מדיה / פרופיל)  ~ 7vw
+ *   Subtitle                            ~ 4vw
+ *   Card title                          ~ 5.5vw
+ *   Body text                           ~ 4.5vw
+ *   Button text                         ~ 5vw
+ *   Bottom nav label                    ~ 3.5vw
+ *   Stat numbers                        ~ 9vw
+ *
+ * Loaded LAST in index.html so its rules override base.css / per-screen
+ * sheets. Every rule uses !important — these are the source of truth.
+ */
+
+/* ──────────────────────────────────────────────────────────
+ * Design tokens — every CSS variable in tokens.css that drives
+ * visible sizes gets a vw / clamp value here.
+ * ────────────────────────────────────────────────────────── */
+
+:root {
+  /* Header / bottom nav / shells */
+  --dim-bottom-nav-height: clamp(96px, 22vw, 200px) !important;
+  --dim-bottom-nav-icon: clamp(60px, 14vw, 130px) !important;
+  --dim-header-height: clamp(120px, 26vw, 240px) !important;
+  --dim-header-pad-x: clamp(16px, 5vw, 40px) !important;
+  --dim-stats-chip-h: clamp(40px, 9vw, 80px) !important;
+  --dim-copyright-bar-text: clamp(11px, 2.6vw, 22px) !important;
+  --dim-copyright-bar-pad-y: clamp(3px, 1vw, 8px) !important;
+  --dim-bottom-rule: 3px !important;
+
+  /* Typography (used via var() in many screen sheets) */
+  --font-size-display: clamp(36px, 9vw, 90px) !important;
+  --font-size-score: clamp(40px, 11vw, 110px) !important;
+  --font-size-app-title: clamp(28px, 7vw, 60px) !important;
+  --font-size-screen-title: clamp(22px, 5.5vw, 46px) !important;
+  --font-size-screen-subtitle: clamp(14px, 3.6vw, 28px) !important;
+  --font-size-card-title: clamp(20px, 5.5vw, 42px) !important;
+  --font-size-stat-num-large: clamp(28px, 7vw, 60px) !important;
+  --font-size-body: clamp(16px, 4.5vw, 34px) !important;
+  --font-size-label: clamp(14px, 3.8vw, 28px) !important;
+  --font-size-caption: clamp(13px, 3.3vw, 24px) !important;
+
+  /* Spacing tokens */
+  --dim-activity-horizontal-margin: clamp(16px, 5vw, 40px) !important;
+  --dim-activity-vertical-margin: clamp(16px, 5vw, 40px) !important;
+  --dim-card-margin: clamp(8px, 2.5vw, 20px) !important;
+  --dim-card-corner-radius: clamp(16px, 4.5vw, 32px) !important;
+  --dim-card-corner-radius-large: clamp(20px, 5.5vw, 40px) !important;
+  --dim-card-corner-radius-small: clamp(12px, 3.5vw, 24px) !important;
+  --dim-button-corner-radius: clamp(20px, 5.5vw, 40px) !important;
+  --dim-hero-padding: clamp(20px, 6vw, 50px) !important;
+  --dim-section-spacing: clamp(16px, 5vw, 40px) !important;
+  --dim-icon-bubble-size: clamp(56px, 14vw, 130px) !important;
+  --dim-icon-bubble-size-large: clamp(72px, 17vw, 160px) !important;
+}
+
+/* ──────────────────────────────────────────────────────────
+ * App shell
+ * ────────────────────────────────────────────────────────── */
+
+.copyright-bar {
+  font-size: clamp(10px, 2.5vw, 18px) !important;
+  padding: clamp(2px, 0.8vw, 8px) 0 !important;
+}
+
+.bottom-nav__btn img {
+  width: clamp(48px, 13vw, 120px) !important;
+  height: clamp(48px, 13vw, 120px) !important;
+}
+.bottom-nav__btn span {
+  font-size: clamp(11px, 3vw, 22px) !important;
+}
+
+/* ──────────────────────────────────────────────────────────
+ * Learn tab
+ * ────────────────────────────────────────────────────────── */
+
+.learn-header {
+  flex: 0 0 clamp(120px, 26vw, 240px) !important;
+  height: clamp(120px, 26vw, 240px) !important;
+  padding: 0 clamp(16px, 5vw, 32px) !important;
+  gap: clamp(8px, 2vw, 16px) !important;
+}
+.learn-header__title { font-size: clamp(24px, 7vw, 56px) !important; }
+.learn-header .bg-stats-chip {
+  padding: clamp(6px, 2vw, 14px) clamp(10px, 3vw, 22px) !important;
+  font-size: clamp(14px, 4vw, 28px) !important;
+  border-radius: clamp(20px, 6vw, 50px) !important;
+}
+.learn-header .bg-stats-chip .chip-emoji { font-size: clamp(14px, 4vw, 28px) !important; }
+.learn-header .bg-stats-chip .chip-count { font-size: clamp(14px, 4vw, 28px) !important; }
+
+.unit-header {
+  padding: clamp(14px, 4.5vw, 30px) clamp(16px, 5vw, 32px) !important;
+  border-radius: clamp(14px, 4vw, 28px) !important;
+  margin: clamp(6px, 2vw, 14px) clamp(12px, 4vw, 28px) !important;
+  gap: clamp(10px, 3vw, 22px) !important;
+}
+.unit-header__emoji { font-size: clamp(28px, 8vw, 64px) !important; }
+.unit-header__title { font-size: clamp(20px, 5.5vw, 42px) !important; }
+.unit-header__subtitle { font-size: clamp(13px, 3.6vw, 26px) !important; margin-top: 4px !important; }
+
+.lesson-node__circle {
+  width: clamp(96px, 24vw, 220px) !important;
+  height: clamp(96px, 24vw, 220px) !important;
+}
+.lesson-node__emoji { font-size: clamp(40px, 10vw, 90px) !important; }
+.lesson-node__title { font-size: clamp(16px, 4.5vw, 34px) !important; max-width: clamp(180px, 50vw, 460px) !important; }
+.lesson-node__number { font-size: clamp(13px, 3.5vw, 26px) !important; margin-top: 4px !important; }
+.lesson-node__connector { height: clamp(20px, 6vw, 50px) !important; width: 4px !important; }
+.lesson-node__badge { width: clamp(28px, 7vw, 56px) !important; height: clamp(28px, 7vw, 56px) !important; }
+.lesson-node__badge img { width: clamp(28px, 7vw, 56px) !important; height: clamp(28px, 7vw, 56px) !important; }
+.lesson-node__badge--lock { width: clamp(22px, 6vw, 44px) !important; height: clamp(22px, 6vw, 44px) !important; }
+.lesson-node__badge--lock img { width: clamp(13px, 3.5vw, 24px) !important; height: clamp(13px, 3.5vw, 24px) !important; }
+.lesson-node { --node-shift: clamp(40px, 11vw, 110px) !important; }
+
+/* ──────────────────────────────────────────────────────────
+ * Media tab
+ * ────────────────────────────────────────────────────────── */
+
+.media-card { margin-bottom: clamp(14px, 4vw, 28px) !important; padding: clamp(16px, 5vw, 32px) !important; border-radius: clamp(16px, 4.5vw, 32px) !important; }
+.media-card__head { gap: clamp(8px, 3vw, 20px) !important; margin-bottom: clamp(10px, 3vw, 20px) !important; }
+.media-card__emoji { font-size: clamp(28px, 8vw, 64px) !important; }
+.media-card__title { font-size: clamp(20px, 5vw, 38px) !important; }
+.media-card__subtitle { font-size: clamp(13px, 3.5vw, 24px) !important; margin-top: 4px !important; }
+.media-card__pdf-list { gap: clamp(8px, 2.5vw, 18px) !important; }
+.media-card__embed { height: clamp(140px, 38vw, 320px) !important; }
+
+/* ──────────────────────────────────────────────────────────
+ * Profile tab
+ * ────────────────────────────────────────────────────────── */
+
+.profile-identity { padding: clamp(16px, 5vw, 32px) !important; gap: clamp(12px, 4vw, 28px) !important; border-radius: clamp(16px, 4.5vw, 32px) !important; }
+.profile-identity__avatar-wrap { width: clamp(60px, 16vw, 140px) !important; height: clamp(60px, 16vw, 140px) !important; }
+.profile-identity__avatar { width: clamp(60px, 16vw, 140px) !important; height: clamp(60px, 16vw, 140px) !important; }
+.profile-identity__name { font-size: clamp(22px, 6vw, 44px) !important; }
+.profile-identity__role { font-size: clamp(14px, 4vw, 28px) !important; }
+.profile-identity__photo-edit { width: clamp(28px, 7vw, 52px) !important; height: clamp(28px, 7vw, 52px) !important; }
+.profile-identity__name-edit { width: clamp(24px, 6vw, 44px) !important; height: clamp(24px, 6vw, 44px) !important; }
+
+.profile-stats { gap: clamp(8px, 3vw, 20px) !important; padding: 0 clamp(16px, 4vw, 28px) !important; }
+.profile-stats__cell { padding: clamp(10px, 3vw, 22px) clamp(8px, 2vw, 14px) !important; border-radius: clamp(12px, 3.5vw, 24px) !important; }
+.profile-stats__icon { width: clamp(50px, 14vw, 120px) !important; height: clamp(50px, 14vw, 120px) !important; }
+.profile-stats__value { font-size: clamp(22px, 6vw, 46px) !important; margin-top: 6px !important; }
+.profile-stats__value--lessons { font-size: clamp(22px, 6vw, 46px) !important; }
+.profile-stats__label { font-size: clamp(12px, 3.2vw, 22px) !important; margin-top: 2px !important; }
+
+.profile-progress { padding: clamp(14px, 4vw, 28px) !important; border-radius: clamp(14px, 4vw, 28px) !important; }
+.profile-progress__row { gap: clamp(8px, 2vw, 14px) !important; margin-bottom: clamp(8px, 2vw, 14px) !important; }
+.profile-progress__label { font-size: clamp(15px, 4.2vw, 30px) !important; }
+.profile-progress__percent { font-size: clamp(15px, 4.2vw, 30px) !important; }
+.profile-progress__bar { height: clamp(8px, 2vw, 14px) !important; border-radius: 6px !important; }
+
+.profile-reset { font-size: clamp(16px, 4.5vw, 32px) !important; padding: clamp(12px, 3.5vw, 24px) !important; border-radius: clamp(16px, 5vw, 36px) !important; min-height: clamp(50px, 14vw, 110px) !important; }
+
+/* ──────────────────────────────────────────────────────────
+ * Lesson Journey shell
+ * ────────────────────────────────────────────────────────── */
+
+.lj-progress { height: clamp(5px, 1.5vw, 10px) !important; margin-top: clamp(28px, 8vw, 60px) !important; }
+.lj-toolbar { height: clamp(48px, 12vw, 90px) !important; padding: 0 clamp(8px, 2vw, 16px) !important; }
+.lj-back { width: clamp(36px, 10vw, 72px) !important; height: clamp(36px, 10vw, 72px) !important; }
+.lj-back img { width: clamp(20px, 5.5vw, 40px) !important; height: clamp(20px, 5.5vw, 40px) !important; }
+.lj-title { font-size: clamp(18px, 5vw, 36px) !important; }
+.lj-toolbar__spacer { width: clamp(36px, 10vw, 72px) !important; height: clamp(36px, 10vw, 72px) !important; }
+.lj-continue {
+  height: clamp(54px, 14vw, 100px) !important;
+  font-size: clamp(18px, 5vw, 36px) !important;
+  bottom: calc(clamp(14px, 4vw, 28px) + env(safe-area-inset-bottom)) !important;
+  left: clamp(12px, 4vw, 28px) !important;
+  right: clamp(12px, 4vw, 28px) !important;
+  border-radius: clamp(20px, 5.5vw, 40px) !important;
+}
+
+/* ──────────────────────────────────────────────────────────
+ * Journey step shared
+ * ────────────────────────────────────────────────────────── */
+
+.lj-step { padding: clamp(16px, 5vw, 36px) clamp(16px, 5vw, 32px) clamp(20px, 6vw, 44px) clamp(16px, 5vw, 32px) !important; gap: clamp(14px, 4vw, 28px) !important; }
+.lj-section { font-size: clamp(18px, 5vw, 34px) !important; gap: clamp(8px, 2vw, 14px) !important; }
+.lj-section__bar { width: clamp(4px, 1.5vw, 8px) !important; height: clamp(20px, 6vw, 40px) !important; }
+.lj-card { padding: clamp(14px, 4.5vw, 28px) !important; border-radius: clamp(16px, 4.5vw, 30px) !important; }
+.lj-card__title { font-size: clamp(16px, 4.5vw, 30px) !important; margin-bottom: clamp(8px, 2vw, 14px) !important; }
+.lj-card__body { font-size: clamp(15px, 4.2vw, 28px) !important; line-height: 1.55 !important; }
+.lj-counter { font-size: clamp(13px, 3.5vw, 24px) !important; }
+.lj-speaker { width: clamp(40px, 11vw, 80px) !important; height: clamp(40px, 11vw, 80px) !important; }
+.lj-speaker--lg { width: clamp(46px, 12vw, 90px) !important; height: clamp(46px, 12vw, 90px) !important; }
+.lj-speaker svg { width: clamp(20px, 5.5vw, 40px) !important; height: clamp(20px, 5.5vw, 40px) !important; }
+
+/* Intro */
+.lj-intro__emoji { font-size: clamp(56px, 16vw, 140px) !important; }
+.lj-intro__title { font-size: clamp(24px, 6.5vw, 50px) !important; }
+.lj-intro__subtitle { font-size: clamp(15px, 4vw, 28px) !important; }
+.lj-intro__video { height: clamp(160px, 44vw, 380px) !important; border-radius: clamp(14px, 4vw, 28px) !important; }
+.lj-intro__preview-title { font-size: clamp(15px, 4vw, 28px) !important; }
+.lj-intro__preview-item { font-size: clamp(14px, 4vw, 27px) !important; }
+.lj-intro__video-overlay { height: clamp(50px, 14vw, 110px) !important; }
+
+/* Teach */
+.lj-teach-grammar .lj-card__title { font-size: clamp(16px, 4.5vw, 30px) !important; }
+.lj-teach-grammar .lj-card__body { font-size: clamp(15px, 4.2vw, 28px) !important; line-height: 1.55 !important; }
+.lj-grammar-pattern { font-size: clamp(13px, 3.5vw, 24px) !important; padding: clamp(10px, 3vw, 20px) !important; }
+.lj-example-romaji { font-size: clamp(17px, 4.8vw, 32px) !important; }
+.lj-example-japanese { font-size: clamp(15px, 4.2vw, 28px) !important; }
+.lj-card-hebrew { font-size: clamp(14px, 4vw, 26px) !important; padding: clamp(8px, 2.4vw, 16px) clamp(10px, 3vw, 20px) !important; }
+
+/* Vocab */
+.lj-vocab__emoji-box { width: clamp(60px, 16vw, 130px) !important; height: clamp(60px, 16vw, 130px) !important; border-radius: clamp(14px, 4vw, 28px) !important; }
+.lj-vocab__emoji { font-size: clamp(36px, 10vw, 80px) !important; }
+.lj-vocab__jp { font-size: clamp(20px, 5.5vw, 42px) !important; }
+.lj-vocab__romaji { font-size: clamp(13px, 3.5vw, 24px) !important; }
+.lj-vocab__hebrew { font-size: clamp(15px, 4vw, 28px) !important; }
+.lj-vocab__speaker { width: clamp(44px, 12vw, 86px) !important; height: clamp(44px, 12vw, 86px) !important; }
+
+/* Practice */
+.lj-practice__counter { font-size: clamp(13px, 3.5vw, 24px) !important; }
+.lj-practice__label { font-size: clamp(15px, 4.2vw, 28px) !important; }
+.lj-practice__prompt-text { font-size: clamp(20px, 5.5vw, 42px) !important; }
+.lj-practice__input { font-size: clamp(15px, 4.2vw, 28px) !important; padding: clamp(10px, 3vw, 20px) !important; min-height: clamp(80px, 22vw, 180px) !important; border-radius: clamp(12px, 3.5vw, 22px) !important; }
+.lj-practice__answer-text { font-size: clamp(17px, 4.8vw, 32px) !important; }
+.lj-practice__answer-sub { font-size: clamp(15px, 4vw, 28px) !important; }
+
+/* Quiz */
+.lj-quiz__counter { font-size: clamp(13px, 3.5vw, 24px) !important; }
+.lj-quiz__question-text { font-size: clamp(16px, 4.5vw, 30px) !important; line-height: 1.4 !important; }
+.lj-quiz__option { min-height: clamp(54px, 14vw, 100px) !important; padding: clamp(10px, 3vw, 22px) clamp(12px, 4vw, 26px) !important; font-size: clamp(15px, 4.2vw, 28px) !important; border-radius: clamp(14px, 4vw, 28px) !important; }
+.lj-quiz__option-label { font-size: clamp(15px, 4.2vw, 28px) !important; }
+.lj-quiz__feedback { font-size: clamp(14px, 4vw, 26px) !important; }
+.lj-quiz__hint { padding: clamp(12px, 3.5vw, 24px) !important; font-size: clamp(13px, 3.5vw, 24px) !important; }
+
+/* Complete */
+.lj-complete__emoji { font-size: clamp(56px, 16vw, 130px) !important; }
+.lj-complete__title { font-size: clamp(22px, 6vw, 46px) !important; }
+.lj-complete__subtitle { font-size: clamp(15px, 4vw, 28px) !important; }
+.lj-complete__xp-text { font-size: clamp(20px, 5.5vw, 42px) !important; }
+.lj-complete__xp-card { padding: clamp(14px, 4vw, 28px) clamp(20px, 6vw, 40px) !important; border-radius: clamp(16px, 5vw, 36px) !important; }
+
+/* ──────────────────────────────────────────────────────────
+ * Generic buttons
+ * ────────────────────────────────────────────────────────── */
+
+.btn, .btn--block { font-size: clamp(15px, 4.5vw, 30px) !important; padding: clamp(12px, 3.5vw, 22px) clamp(16px, 5vw, 32px) !important; border-radius: clamp(20px, 5.5vw, 40px) !important; min-height: clamp(48px, 14vw, 100px) !important; }
+.btn--small { min-height: clamp(40px, 11vw, 80px) !important; padding: 0 clamp(14px, 4vw, 28px) !important; font-size: clamp(14px, 4vw, 26px) !important; border-radius: clamp(18px, 5vw, 36px) !important; }
+.btn--option { min-height: clamp(54px, 14vw, 100px) !important; padding: 0 clamp(16px, 5vw, 32px) !important; font-size: clamp(15px, 4.2vw, 28px) !important; border-radius: clamp(14px, 4vw, 28px) !important; }
