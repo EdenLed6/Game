@@ -19,16 +19,16 @@
   --dim-copyright-bar-pad-y: 8px !important;
   --dim-bottom-rule: 5px !important;
 
-  --font-size-display: 84px !important;
-  --font-size-score: 104px !important;
-  --font-size-app-title: 56px !important;
-  --font-size-screen-title: 42px !important;
-  --font-size-screen-subtitle: 28px !important;
-  --font-size-card-title: 32px !important;
-  --font-size-stat-num-large: 56px !important;
-  --font-size-body: 32px !important;
-  --font-size-label: 26px !important;
-  --font-size-caption: 24px !important;
+  --font-size-display: 126px !important;
+  --font-size-score: 156px !important;
+  --font-size-app-title: 84px !important;
+  --font-size-screen-title: 63px !important;
+  --font-size-screen-subtitle: 42px !important;
+  --font-size-card-title: 48px !important;
+  --font-size-stat-num-large: 84px !important;
+  --font-size-body: 48px !important;
+  --font-size-label: 39px !important;
+  --font-size-caption: 36px !important;
 
   --dim-activity-horizontal-margin: 40px !important;
   --dim-activity-vertical-margin: 40px !important;
@@ -48,9 +48,9 @@
   width: 240px !important;
   height: 240px !important;
 }
-.lesson-node__emoji { font-size: 100px !important; }
-.lesson-node__title { font-size: 32px !important; max-width: 380px !important; }
-.lesson-node__number { font-size: 26px !important; margin-top: 6px !important; }
+.lesson-node__emoji { font-size: 150px !important; }
+.lesson-node__title { font-size: 48px !important; max-width: 380px !important; }
+.lesson-node__number { font-size: 39px !important; margin-top: 6px !important; }
 .lesson-node__connector { height: 44px !important; width: 5px !important; }
 .lesson-node__badge { width: 50px !important; height: 50px !important; }
 .lesson-node__badge img { width: 50px !important; height: 50px !important; }
@@ -63,20 +63,20 @@
   margin: 12px 20px !important;
   gap: 22px !important;
 }
-.unit-header__emoji { font-size: 56px !important; }
-.unit-header__title { font-size: 30px !important; }
-.unit-header__subtitle { font-size: 22px !important; }
+.unit-header__emoji { font-size: 84px !important; }
+.unit-header__title { font-size: 45px !important; }
+.unit-header__subtitle { font-size: 33px !important; }
 
 /* Learn header */
 .learn-header { flex: 0 0 200px !important; height: 200px !important; padding: 0 28px !important; gap: 14px !important; }
-.learn-header__title { font-size: 44px !important; }
-.learn-header .bg-stats-chip { padding: 12px 20px !important; font-size: 24px !important; }
-.learn-header .bg-stats-chip .chip-emoji { font-size: 24px !important; }
-.learn-header .bg-stats-chip .chip-count { font-size: 24px !important; }
+.learn-header__title { font-size: 66px !important; }
+.learn-header .bg-stats-chip { padding: 12px 20px !important; font-size: 36px !important; }
+.learn-header .bg-stats-chip .chip-emoji { font-size: 36px !important; }
+.learn-header .bg-stats-chip .chip-count { font-size: 36px !important; }
 
 /* Bottom nav buttons */
 .bottom-nav__btn img { width: 100px !important; height: 100px !important; }
-.bottom-nav__btn span { font-size: 22px !important; }
+.bottom-nav__btn span { font-size: 33px !important; }
 
 /* Lesson journey shell */
 .lj-header { background-size: cover !important; }
@@ -84,80 +84,80 @@
 .lj-toolbar { height: 80px !important; padding: 0 14px !important; }
 .lj-back { width: 60px !important; height: 60px !important; }
 .lj-back img { width: 32px !important; height: 32px !important; }
-.lj-title { font-size: 24px !important; }
+.lj-title { font-size: 36px !important; }
 .lj-toolbar__spacer { width: 60px !important; height: 60px !important; }
-.lj-continue { height: 80px !important; font-size: 28px !important; bottom: calc(28px + env(safe-area-inset-bottom)) !important; }
+.lj-continue { height: 80px !important; font-size: 42px !important; bottom: calc(28px + env(safe-area-inset-bottom)) !important; }
 
 /* Journey step content */
 .lj-step { padding: 24px 28px 36px 28px !important; gap: 24px !important; }
-.lj-section { font-size: 26px !important; gap: 12px !important; }
+.lj-section { font-size: 39px !important; gap: 12px !important; }
 .lj-section__bar { width: 6px !important; height: 30px !important; }
 .lj-card { padding: 24px !important; border-radius: 22px !important; }
-.lj-card__title { font-size: 22px !important; margin-bottom: 12px !important; }
-.lj-card__body { font-size: 21px !important; line-height: 1.55 !important; }
-.lj-counter { font-size: 22px !important; }
+.lj-card__title { font-size: 33px !important; margin-bottom: 12px !important; }
+.lj-card__body { font-size: 32px !important; line-height: 1.55 !important; }
+.lj-counter { font-size: 33px !important; }
 .lj-speaker { width: 60px !important; height: 60px !important; }
 .lj-speaker--lg { width: 68px !important; height: 68px !important; }
 .lj-speaker svg { width: 32px !important; height: 32px !important; }
 
 /* Intro step */
-.lj-intro__emoji { font-size: 100px !important; }
-.lj-intro__title { font-size: 40px !important; }
-.lj-intro__subtitle { font-size: 22px !important; }
+.lj-intro__emoji { font-size: 150px !important; }
+.lj-intro__title { font-size: 60px !important; }
+.lj-intro__subtitle { font-size: 33px !important; }
 .lj-intro__video { height: 280px !important; border-radius: 22px !important; }
-.lj-intro__preview-title { font-size: 22px !important; }
-.lj-intro__preview-item { font-size: 21px !important; }
+.lj-intro__preview-title { font-size: 33px !important; }
+.lj-intro__preview-item { font-size: 32px !important; }
 .lj-intro__video-overlay { height: 100px !important; }
 
 /* Teach step */
-.lj-teach-grammar .lj-card__title { font-size: 22px !important; }
-.lj-teach-grammar .lj-card__body { font-size: 21px !important; line-height: 1.55 !important; }
-.lj-grammar-pattern { font-size: 19px !important; padding: 18px !important; }
-.lj-example-romaji { font-size: 26px !important; }
-.lj-example-japanese { font-size: 23px !important; }
-.lj-card-hebrew { font-size: 21px !important; padding: 12px 16px !important; }
+.lj-teach-grammar .lj-card__title { font-size: 33px !important; }
+.lj-teach-grammar .lj-card__body { font-size: 32px !important; line-height: 1.55 !important; }
+.lj-grammar-pattern { font-size: 28px !important; padding: 18px !important; }
+.lj-example-romaji { font-size: 39px !important; }
+.lj-example-japanese { font-size: 34px !important; }
+.lj-card-hebrew { font-size: 32px !important; padding: 12px 16px !important; }
 
 /* Vocab step */
 .lj-vocab__emoji-box { width: 92px !important; height: 92px !important; border-radius: 22px !important; }
-.lj-vocab__emoji { font-size: 56px !important; }
-.lj-vocab__jp { font-size: 30px !important; }
-.lj-vocab__romaji { font-size: 19px !important; }
-.lj-vocab__hebrew { font-size: 22px !important; }
+.lj-vocab__emoji { font-size: 84px !important; }
+.lj-vocab__jp { font-size: 45px !important; }
+.lj-vocab__romaji { font-size: 28px !important; }
+.lj-vocab__hebrew { font-size: 33px !important; }
 .lj-vocab__speaker { width: 64px !important; height: 64px !important; }
 
 /* Practice step */
-.lj-practice__counter { font-size: 22px !important; }
-.lj-practice__label { font-size: 22px !important; }
-.lj-practice__prompt-text { font-size: 32px !important; }
-.lj-practice__input { font-size: 21px !important; padding: 16px !important; min-height: 120px !important; }
-.lj-practice__answer-text { font-size: 26px !important; }
-.lj-practice__answer-sub { font-size: 21px !important; }
+.lj-practice__counter { font-size: 33px !important; }
+.lj-practice__label { font-size: 33px !important; }
+.lj-practice__prompt-text { font-size: 48px !important; }
+.lj-practice__input { font-size: 32px !important; padding: 16px !important; min-height: 120px !important; }
+.lj-practice__answer-text { font-size: 39px !important; }
+.lj-practice__answer-sub { font-size: 32px !important; }
 
 /* Quiz step */
-.lj-quiz__counter { font-size: 22px !important; }
-.lj-quiz__question-text { font-size: 24px !important; line-height: 1.4 !important; }
-.lj-quiz__option { min-height: 76px !important; padding: 16px 20px !important; font-size: 22px !important; border-radius: 22px !important; }
-.lj-quiz__option-label { font-size: 22px !important; }
-.lj-quiz__feedback { font-size: 21px !important; }
-.lj-quiz__hint { padding: 18px !important; font-size: 19px !important; }
+.lj-quiz__counter { font-size: 33px !important; }
+.lj-quiz__question-text { font-size: 36px !important; line-height: 1.4 !important; }
+.lj-quiz__option { min-height: 76px !important; padding: 16px 20px !important; font-size: 33px !important; border-radius: 22px !important; }
+.lj-quiz__option-label { font-size: 33px !important; }
+.lj-quiz__feedback { font-size: 32px !important; }
+.lj-quiz__hint { padding: 18px !important; font-size: 28px !important; }
 
 /* Complete step */
-.lj-complete__emoji { font-size: 96px !important; }
-.lj-complete__title { font-size: 36px !important; }
-.lj-complete__subtitle { font-size: 22px !important; }
-.lj-complete__xp-text { font-size: 32px !important; }
+.lj-complete__emoji { font-size: 144px !important; }
+.lj-complete__title { font-size: 54px !important; }
+.lj-complete__subtitle { font-size: 33px !important; }
+.lj-complete__xp-text { font-size: 48px !important; }
 
 /* Generic buttons */
-.btn, .btn--block { font-size: 22px !important; padding: 16px 24px !important; }
+.btn, .btn--block { font-size: 33px !important; padding: 16px 24px !important; }
 
 /* Profile / Media tab basics */
-.profile-identity__name { font-size: 26px !important; }
-.profile-identity__role { font-size: 19px !important; }
-.profile-stats__num { font-size: 36px !important; }
-.profile-stats__label { font-size: 19px !important; }
-.profile-progress__label { font-size: 21px !important; }
-.media-card__title { font-size: 24px !important; }
-.media-card__body { font-size: 19px !important; }
+.profile-identity__name { font-size: 39px !important; }
+.profile-identity__role { font-size: 28px !important; }
+.profile-stats__num { font-size: 54px !important; }
+.profile-stats__label { font-size: 28px !important; }
+.profile-progress__label { font-size: 32px !important; }
+.media-card__title { font-size: 36px !important; }
+.media-card__body { font-size: 28px !important; }
 
 /* ================================================================
  * APPENDED 2026-04-29 — global ~1.4× bump pass.
@@ -170,12 +170,12 @@
 /* ---------- Foundation: header bar (HeaderLinearLayout port) ---- */
 .header { flex: 0 0 200px !important; height: 200px !important; padding: 0 40px !important; }
 .header--vertical { gap: 8px !important; }
-.header__title { font-size: 56px !important; }
-.header__screen-title { font-size: 42px !important; }
-.header__subtitle { font-size: 28px !important; }
+.header__title { font-size: 84px !important; }
+.header__screen-title { font-size: 63px !important; }
+.header__subtitle { font-size: 42px !important; }
 
 /* ---------- Foundation: copyright bar + bottom-rule -------------- */
-.copyright-bar { font-size: 22px !important; padding: 10px 0 !important; }
+.copyright-bar { font-size: 33px !important; padding: 10px 0 !important; }
 .bottom-nav-divider { height: 6px !important; }
 
 /* ---------- Foundation: bottom-nav buttons ---------------------- */
@@ -185,11 +185,11 @@
 .bg-stats-chip {
   height: 70px !important;
   padding: 0 22px !important;
-  font-size: 26px !important;
+  font-size: 39px !important;
   gap: 8px !important;
 }
-.bg-stats-chip .chip-emoji { font-size: 26px !important; }
-.bg-stats-chip .chip-count { font-size: 26px !important; }
+.bg-stats-chip .chip-emoji { font-size: 39px !important; }
+.bg-stats-chip .chip-count { font-size: 39px !important; }
 
 /* ---------- Foundation: cards / surfaces ------------------------- */
 .bg-card-modern { border-radius: 28px !important; }
@@ -210,11 +210,11 @@
 .bg-white-round { border-radius: 28px !important; }
 
 /* ---------- Foundation: buttons (components.css) ---------------- */
-.btn { min-height: 76px !important; padding: 0 34px !important; font-size: 28px !important; border-radius: 50px !important; }
-.btn--gold { min-height: 80px !important; padding: 0 44px !important; font-size: 24px !important; border-radius: 40px !important; }
-.btn--small { min-height: 56px !important; padding: 0 22px !important; font-size: 20px !important; border-radius: 28px !important; }
+.btn { min-height: 76px !important; padding: 0 34px !important; font-size: 42px !important; border-radius: 50px !important; }
+.btn--gold { min-height: 80px !important; padding: 0 44px !important; font-size: 36px !important; border-radius: 40px !important; }
+.btn--small { min-height: 56px !important; padding: 0 22px !important; font-size: 30px !important; border-radius: 28px !important; }
 .btn--audio { width: 62px !important; height: 62px !important; border-radius: 32px !important; }
-.btn--option { min-height: 82px !important; padding: 0 28px !important; font-size: 22px !important; border-radius: 22px !important; }
+.btn--option { min-height: 82px !important; padding: 0 28px !important; font-size: 33px !important; border-radius: 22px !important; }
 
 /* ---------- Foundation: generic .card ---------------------------- */
 .card { padding: 28px !important; border-radius: 22px !important; }
@@ -224,10 +224,10 @@
 .stack-md > * + * { margin-top: 18px !important; }
 
 /* ---------- Foundation: text utilities -------------------------- */
-.t-display { font-size: 84px !important; }
-.t-score { font-size: 104px !important; }
-.t-title { font-size: 32px !important; }
-.stub-screen { font-size: 26px !important; padding: 56px 28px !important; }
+.t-display { font-size: 126px !important; }
+.t-score { font-size: 156px !important; }
+.t-title { font-size: 48px !important; }
+.stub-screen { font-size: 39px !important; padding: 56px 28px !important; }
 
 /* ================================================================
  * Learn screen — header + chips already partly above, fill rest.
@@ -235,9 +235,9 @@
 .learn-header__chips { gap: 12px !important; }
 
 /* Unit header card (item_unit_header.xml port) */
-.unit-header__emoji { font-size: 56px !important; }
-.unit-header__title { font-size: 30px !important; }
-.unit-header__subtitle { font-size: 22px !important; margin-top: 4px !important; }
+.unit-header__emoji { font-size: 84px !important; }
+.unit-header__title { font-size: 45px !important; }
+.unit-header__subtitle { font-size: 33px !important; margin-top: 4px !important; }
 
 /* Lesson node label area (the inner pieces are already bumped above) */
 .lesson-node__label { margin-top: 14px !important; max-width: 380px !important; }
@@ -254,9 +254,9 @@
 .media-card { padding: 28px !important; border-radius: 22px !important; }
 .media-card__head { gap: 16px !important; margin-bottom: 16px !important; }
 .media-card--pdfs .media-card__head { margin-bottom: 22px !important; }
-.media-card__emoji { font-size: 40px !important; }
-.media-card__title { font-size: 24px !important; }
-.media-card__subtitle { font-size: 19px !important; margin: 4px 0 0 !important; }
+.media-card__emoji { font-size: 60px !important; }
+.media-card__title { font-size: 36px !important; }
+.media-card__subtitle { font-size: 28px !important; margin: 4px 0 0 !important; }
 .media-card__pdf-list { gap: 14px !important; }
 .media-card__embed { height: 220px !important; border-radius: 12px !important; margin-bottom: 16px !important; }
 
@@ -270,16 +270,16 @@
   border-radius: 22px !important;
 }
 .profile-identity__avatar-wrap { width: 96px !important; height: 96px !important; flex: 0 0 96px !important; }
-.profile-identity__avatar { width: 96px !important; height: 96px !important; font-size: 36px !important; }
+.profile-identity__avatar { width: 96px !important; height: 96px !important; font-size: 54px !important; }
 .profile-identity__photo-edit { width: 34px !important; height: 34px !important; padding: 6px !important; border-radius: 6px !important; }
 .profile-identity__name-edit { flex: 0 0 50px !important; width: 50px !important; height: 50px !important; padding: 8px !important; border-radius: 25px !important; }
 
 .profile-stats { gap: 16px !important; padding: 22px 22px 12px !important; }
 .profile-stats__cell { padding: 18px 12px !important; border-radius: 22px !important; }
 .profile-stats__icon { width: 110px !important; height: 110px !important; }
-.profile-stats__value { font-size: 36px !important; margin-top: 8px !important; }
-.profile-stats__value--lessons { font-size: 30px !important; }
-.profile-stats__label { font-size: 17px !important; margin-top: 4px !important; }
+.profile-stats__value { font-size: 54px !important; margin-top: 8px !important; }
+.profile-stats__value--lessons { font-size: 45px !important; }
+.profile-stats__label { font-size: 26px !important; margin-top: 4px !important; }
 
 .profile-progress {
   margin: 0 28px 22px !important;
@@ -287,8 +287,8 @@
   border-radius: 22px !important;
 }
 .profile-progress__row { margin-bottom: 14px !important; }
-.profile-progress__label { font-size: 22px !important; }
-.profile-progress__percent { font-size: 22px !important; }
+.profile-progress__label { font-size: 33px !important; }
+.profile-progress__percent { font-size: 33px !important; }
 .profile-progress__bar { height: 8px !important; border-radius: 8px !important; }
 .profile-progress__fill { border-radius: 8px !important; }
 
@@ -298,8 +298,8 @@
  * Lesson-journey shell — header / progress / toolbar / continue.
  * (Header / progress / toolbar already covered above; bump remaining.)
  * ============================================================== */
-.lj-step--stub { padding: 34px 28px !important; font-size: 22px !important; }
-.lj-error { padding: 34px 28px !important; font-size: 22px !important; }
+.lj-step--stub { padding: 34px 28px !important; font-size: 33px !important; }
+.lj-error { padding: 34px 28px !important; font-size: 33px !important; }
 
 /* Lesson-journey continue button: already given a height, also bump
  * its margin so the fixed button has comfortable inset breathing
@@ -327,19 +327,19 @@
 .lj-teach-grammar { border-inline-start-width: 6px !important; }
 .lj-teach-example { border-inline-start-width: 6px !important; gap: 6px !important; }
 .lj-teach-grammar .lj-card__title { margin: 0 0 12px 0 !important; }
-.lj-grammar-pattern { margin-top: 16px !important; padding: 18px !important; font-size: 19px !important; border-radius: 8px !important; }
+.lj-grammar-pattern { margin-top: 16px !important; padding: 18px !important; font-size: 28px !important; border-radius: 8px !important; }
 
 /* ================================================================
  * Journey step: VOCAB (per-item card).
  * ============================================================== */
 .lj-step--vocab { padding: 16px 22px 32px 22px !important; }
-.lj-vocab__section { margin: 8px 0 10px 0 !important; font-size: 19px !important; }
+.lj-vocab__section { margin: 8px 0 10px 0 !important; font-size: 28px !important; }
 .lj-vocab__cards { gap: 14px !important; }
 .lj-vocab__card { border-radius: 22px !important; }
 .lj-vocab__row { gap: 22px !important; padding: 20px 20px 20px 14px !important; }
 .lj-vocab__emoji-box { flex: 0 0 100px !important; }
-.lj-vocab__romaji { font-size: 20px !important; margin-top: 2px !important; }
-.lj-vocab__hebrew { font-size: 24px !important; margin-top: 4px !important; }
+.lj-vocab__romaji { font-size: 30px !important; margin-top: 2px !important; }
+.lj-vocab__hebrew { font-size: 36px !important; margin-top: 4px !important; }
 
 /* ================================================================
  * Journey step: PRACTICE (prompt / input / answer / buttons).
@@ -348,17 +348,17 @@
 .lj-practice__prompt { padding: 34px 28px !important; }
 .lj-practice__input {
   padding: 22px 22px !important;
-  font-size: 24px !important;
+  font-size: 36px !important;
   border-radius: 16px !important;
   min-height: 160px !important;
 }
-.lj-practice__feedback { font-size: 22px !important; }
+.lj-practice__feedback { font-size: 33px !important; }
 .lj-practice__answer { gap: 8px !important; padding: 22px !important; }
 .lj-practice__btn-row { gap: 12px !important; margin-top: 6px !important; }
 .lj-practice__btn {
   height: 68px !important;
   padding: 0 18px !important;
-  font-size: 21px !important;
+  font-size: 32px !important;
   border-radius: 20px !important;
 }
 .lj-practice__speaker { margin-top: 6px !important; }
@@ -375,18 +375,18 @@
   padding: 18px 20px !important;
   border-radius: 16px !important;
 }
-.lj-quiz__hint-icon { font-size: 26px !important; }
-.lj-quiz__hint-text { font-size: 19px !important; }
+.lj-quiz__hint-icon { font-size: 39px !important; }
+.lj-quiz__hint-text { font-size: 28px !important; }
 .lj-quiz__options { gap: 14px !important; margin: 6px 0 12px 0 !important; }
 .lj-quiz__option-row { gap: 12px !important; }
 .lj-quiz__check, .lj-quiz__next { margin-top: 6px !important; }
 
 /* Quiz failure retry card */
 .lj-quiz__retry { padding: 64px 44px !important; }
-.lj-quiz__retry-emoji { font-size: 88px !important; margin-bottom: 22px !important; }
-.lj-quiz__retry-score { font-size: 64px !important; margin-bottom: 12px !important; }
-.lj-quiz__retry-percent { font-size: 24px !important; margin-bottom: 16px !important; }
-.lj-quiz__retry-hint { font-size: 21px !important; margin: 0 0 44px 0 !important; }
+.lj-quiz__retry-emoji { font-size: 132px !important; margin-bottom: 22px !important; }
+.lj-quiz__retry-score { font-size: 96px !important; margin-bottom: 12px !important; }
+.lj-quiz__retry-percent { font-size: 36px !important; margin-bottom: 16px !important; }
+.lj-quiz__retry-hint { font-size: 32px !important; margin: 0 0 44px 0 !important; }
 .lj-quiz__retry-btn { margin-bottom: 16px !important; }
 
 /* ================================================================
