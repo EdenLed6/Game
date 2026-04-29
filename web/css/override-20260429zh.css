@@ -234,15 +234,19 @@
 .lj-intro__emoji { font-size: clamp(80px, 19.2vw, 202px) !important; }
 .lj-intro__title { font-size: clamp(35px, 7.8vw, 72px) !important; }
 .lj-intro__subtitle { font-size: clamp(22px, 4.8vw, 41px) !important; }
-/* Video — clean iframe at 100% × 100%, no scaling, no clipping. The
- * scale-up cropped video content; clip-path cropped video content; both
- * are unacceptable trade-offs. Without Vimeo Pro (server-side disable
- * of the share suite) or self-hosted video files, the corner icons
- * have to stay. */
+/* Video container — bigger AND extends edge-to-edge past the .lj-step
+ * 24px side padding. The play / scrub / fullscreen control bar that
+ * Vimeo paints into its iframe is responsive to the iframe's rendered
+ * size: bigger iframe = bigger UI variant. Increasing the container
+ * width past the surrounding padding (negative margin trick) plus
+ * height gets us the large-player control set. */
 .lj-intro__video {
-  height: clamp(230px, 52.8vw, 547px) !important;
+  height: clamp(320px, 64vw, 720px) !important;
   border-radius: clamp(20px, 4.8vw, 41px) !important;
   position: relative !important;
+  margin-left: calc(-1 * clamp(16px, 5vw, 32px)) !important;
+  margin-right: calc(-1 * clamp(16px, 5vw, 32px)) !important;
+  width: auto !important;
 }
 .lj-intro__video-iframe {
   position: static !important;
