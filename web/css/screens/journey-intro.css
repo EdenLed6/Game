@@ -85,21 +85,12 @@
  * (Vimeo's player UI is left-to-right regardless of host direction). We
  * pin to top/right with logical fallbacks. */
 .lj-intro__video-overlay {
-  position: absolute;
-  top: 0;
-  right: 0;
-  /* Vimeo renders heart / watch-later / share / "..." in the top-right
-   * corner of the player. Cross-origin sandboxing prevents injecting
-   * CSS into the iframe to display:none them, so we mask that corner
-   * with an opaque box matching the player's dark frame. The mask is
-   * narrow (28% × 50%) so most of the video stays visible while every
-   * Vimeo top-bar icon sits behind a solid block. */
-  width: 28%;
-  height: 50%;
-  background: #000000;
-  pointer-events: auto;
-  z-index: 999;
-  border-top-right-radius: 16px;
+  /* Hidden — we can't inject CSS into Vimeo's iframe (cross-origin),
+   * and an opaque mask would still leave the share UI reachable in
+   * fullscreen. Real fixes: self-host the video, or enable Vimeo
+   * Pro's Embed Privacy + custom player to suppress share controls
+   * server-side. */
+  display: none;
 }
 
 /* ── Preview card (Kotlin :322–364) ─────────────────────────────── */
