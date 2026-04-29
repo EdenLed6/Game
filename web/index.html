@@ -51,12 +51,16 @@
   <!-- A02820 copyright bar — exact line from activity_main.xml -->
   <div class="copyright-bar">© קימורה בית הספר לשפה היפנית</div>
 
-  <!-- TEMPORARY DEPLOY-VERIFY BANNER. If the user can see this magenta strip
-       below the copyright bar, the latest build IS reaching her phone and
-       the size complaint is purely a CSS-tuning question. If she doesn't
-       see it, the GitHub Pages workflow isn't deploying our changes at all
-       and we need to debug the pipeline rather than the styles. Will be
-       removed once the size issue is resolved. -->
+  <!-- Build verification stamp. The build version (`s` here) updates
+       on every meaningful UI deploy; if the badge in the bottom-left
+       corner shows the latest letter, the user is on the latest build.
+       If it shows an older letter, the PWA / browser is still serving
+       a cached HTML and won't reflect any new CSS until that resolves. -->
+  <div id="build-stamp" style="position:fixed;left:4px;bottom:4px;z-index:9999;
+       font:10px/1 monospace;color:rgba(0,0,0,0.35);pointer-events:none;
+       background:rgba(255,255,255,0.6);padding:2px 5px;border-radius:4px;">
+    build s
+  </div>
 
   <!-- Fragment container — current screen mounts here -->
   <main id="screen-host" class="screen-host" role="main"></main>
