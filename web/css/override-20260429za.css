@@ -208,9 +208,9 @@
 .lj-card__title { font-size: clamp(23px, 5.4vw, 43px) !important; margin-bottom: clamp(12px, 2.4vw, 20px) !important; }
 .lj-card__body { font-size: clamp(22px, 5.0vw, 41px) !important; line-height: 1.55 !important; }
 .lj-counter { font-size: clamp(19px, 4.2vw, 35px) !important; }
-.lj-speaker { width: clamp(60px, 10vw, 72px) !important; height: clamp(60px, 10vw, 72px) !important; color: #fff !important; }
-.lj-speaker--lg { width: clamp(68px, 11.5vw, 84px) !important; height: clamp(68px, 11.5vw, 84px) !important; }
-.lj-speaker svg { width: clamp(34px, 6vw, 44px) !important; height: clamp(34px, 6vw, 44px) !important; fill: #fff !important; }
+.lj-speaker { width: clamp(80px, 13.5vw, 100px) !important; height: clamp(80px, 13.5vw, 100px) !important; color: #fff !important; }
+.lj-speaker--lg { width: clamp(88px, 15vw, 112px) !important; height: clamp(88px, 15vw, 112px) !important; }
+.lj-speaker svg { width: clamp(44px, 7.5vw, 56px) !important; height: clamp(44px, 7.5vw, 56px) !important; fill: #fff !important; }
 
 /* Intro */
 .lj-intro__emoji { font-size: clamp(80px, 19.2vw, 202px) !important; }
@@ -235,7 +235,11 @@
 .lj-vocab__jp { font-size: clamp(29px, 6.6vw, 60px) !important; }
 .lj-vocab__romaji { font-size: clamp(19px, 4.2vw, 35px) !important; }
 .lj-vocab__hebrew { font-size: clamp(22px, 4.8vw, 41px) !important; }
-.lj-vocab__speaker { width: clamp(60px, 10vw, 72px) !important; height: clamp(60px, 10vw, 72px) !important; }
+.lj-vocab__speaker { width: clamp(80px, 13.5vw, 100px) !important; height: clamp(80px, 13.5vw, 100px) !important; }
+
+/* More breathing room between vocab cards + bigger internal padding */
+.lj-vocab__cards { gap: clamp(14px, 3.5vw, 22px) !important; }
+.lj-vocab__row { gap: clamp(18px, 4.5vw, 30px) !important; padding: clamp(16px, 4.2vw, 26px) clamp(16px, 4vw, 26px) clamp(16px, 4.2vw, 26px) clamp(12px, 3vw, 20px) !important; }
 
 /* Practice */
 .lj-practice__counter { font-size: clamp(19px, 4.2vw, 35px) !important; }
@@ -302,8 +306,8 @@
 .lj-quiz__option-row .lj-quiz__option { flex: 1 1 0 !important; }
 .lj-quiz__option-row .lj-speaker,
 .lj-quiz__option-row .lj-quiz__option-speaker {
-  width: clamp(60px, 10vw, 72px) !important;
-  height: clamp(60px, 10vw, 72px) !important;
+  width: clamp(80px, 13.5vw, 100px) !important;
+  height: clamp(80px, 13.5vw, 100px) !important;
   flex: 0 0 auto !important;
   border-radius: 50% !important;
 }
