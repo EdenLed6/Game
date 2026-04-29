@@ -252,3 +252,54 @@
 .btn, .btn--block { font-size: clamp(22px, 5.4vw, 43px) !important; padding: clamp(17px, 4.2vw, 31px) clamp(23px, 6.0vw, 46px) !important; border-radius: clamp(29px, 6.6vw, 58px) !important; min-height: clamp(70px, 16.8vw, 144px) !important; }
 .btn--small { min-height: clamp(58px, 13.2vw, 115px) !important; padding: 0 clamp(20px, 4.8vw, 41px) !important; font-size: clamp(20px, 4.8vw, 37px) !important; border-radius: clamp(26px, 6.0vw, 52px) !important; }
 .btn--option { min-height: clamp(78px, 16.8vw, 144px) !important; padding: 0 clamp(23px, 6.0vw, 46px) !important; font-size: clamp(22px, 5.0vw, 41px) !important; border-radius: clamp(20px, 4.8vw, 41px) !important; }
+
+/* ──────────────────────────────────────────────────────────
+ * APPENDED 2026-04-29 — Practice + Quiz button layout to match APK.
+ * APK screenshots 88965/88967 show Check+Peek as two equal-width
+ * pill buttons side-by-side; APK 88969 shows Quiz options each as
+ * a wide pill with a separate red round speaker on the leading side.
+ * ────────────────────────────────────────────────────────── */
+
+/* Practice Check / Peek row */
+.lj-practice__btn-row {
+  display: flex !important;
+  gap: clamp(8px, 2.5vw, 18px) !important;
+  margin-top: clamp(4px, 1.5vw, 10px) !important;
+  margin-bottom: clamp(8px, 2vw, 14px) !important;
+}
+.lj-practice__btn {
+  flex: 1 1 0 !important;
+  height: clamp(54px, 14vw, 100px) !important;
+  font-size: clamp(18px, 5vw, 36px) !important;
+  font-weight: 700 !important;
+  border-radius: clamp(28px, 8vw, 48px) !important;
+  border-width: 2px !important;
+  padding: 0 clamp(14px, 4vw, 28px) !important;
+}
+
+/* Quiz option row — speaker (44dp) sits beside the option button */
+.lj-quiz__option-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: clamp(8px, 2.5vw, 18px) !important;
+  margin-bottom: clamp(8px, 2vw, 14px) !important;
+}
+.lj-quiz__option-row .lj-quiz__option { flex: 1 1 0 !important; }
+.lj-quiz__option-row .lj-speaker,
+.lj-quiz__option-row .lj-quiz__option-speaker {
+  width: clamp(48px, 12vw, 90px) !important;
+  height: clamp(48px, 12vw, 90px) !important;
+  flex: 0 0 auto !important;
+  border-radius: 50% !important;
+}
+
+/* Quiz Check / Next at the bottom (full-width pills, like the
+ * lj-continue style — APK uses the same App.Button) */
+.lj-quiz__check, .lj-quiz__next {
+  height: clamp(56px, 16vw, 96px) !important;
+  font-size: clamp(18px, 5.5vw, 36px) !important;
+  font-weight: 700 !important;
+  border-radius: clamp(28px, 8vw, 48px) !important;
+  width: 100% !important;
+  margin-top: clamp(8px, 2vw, 16px) !important;
+}
