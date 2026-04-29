@@ -72,28 +72,18 @@
   padding: clamp(2px, 0.8vw, 8px) 0 !important;
 }
 
-/* PWA install bar — sits right below the copyright bar in the web,
- * fully hidden inside the installed PWA. Layout: install button takes
- * the bulk of the width, ✕ dismiss on the leading side. */
-.pwa-install-bar {
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: stretch !important;
-  width: 100% !important;
-  background: linear-gradient(180deg, var(--color-primary, #C0362A), var(--color-primary-dark, #8A1F16)) !important;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.18) !important;
-}
-.pwa-install-bar[hidden] { display: none !important; }
-
+/* PWA install button — full-width red banner under the copyright bar.
+ * Always visible in the regular web (per user: show all the time, no
+ * dismiss). Hidden only inside the installed PWA via display-mode. */
 .pwa-install-btn {
   display: flex !important;
-  flex: 1 1 auto !important;
   align-items: center !important;
   justify-content: center !important;
   gap: clamp(8px, 2vw, 12px) !important;
+  width: 100% !important;
   margin: 0 !important;
   padding: clamp(10px, 2.6vw, 16px) clamp(16px, 4vw, 24px) !important;
-  background: transparent !important;
+  background: linear-gradient(180deg, var(--color-primary, #C0362A), var(--color-primary-dark, #8A1F16)) !important;
   color: #fff !important;
   font-size: clamp(15px, 4vw, 20px) !important;
   font-weight: 700 !important;
@@ -102,33 +92,14 @@
   cursor: pointer !important;
   -webkit-tap-highlight-color: transparent !important;
   text-decoration: none !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.18) !important;
 }
-.pwa-install-btn:active { opacity: 0.85 !important; }
+.pwa-install-btn:active { opacity: 0.9 !important; }
 .pwa-install-btn__icon { font-size: 1.15em !important; line-height: 1 !important; }
-
-/* ✕ dismiss — narrow tap target. User can hide the banner if they're
- * already installed via another route (browser menu / different
- * device). The choice is persisted in localStorage. */
-.pwa-install-dismiss {
-  display: flex !important;
-  flex: 0 0 auto !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: clamp(40px, 11vw, 56px) !important;
-  background: transparent !important;
-  color: rgba(255,255,255,0.85) !important;
-  font-size: clamp(16px, 4vw, 22px) !important;
-  font-weight: 700 !important;
-  border: 0 !important;
-  border-inline-start: 1px solid rgba(255,255,255,0.18) !important;
-  cursor: pointer !important;
-  -webkit-tap-highlight-color: transparent !important;
-}
-.pwa-install-dismiss:active { opacity: 0.7 !important; }
 
 /* Hide entirely when running as the installed PWA. */
 @media (display-mode: standalone) {
-  .pwa-install-bar { display: none !important; }
+  .pwa-install-btn { display: none !important; }
 }
 
 .bottom-nav__btn img {

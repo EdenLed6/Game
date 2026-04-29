@@ -128,41 +128,18 @@ function showError(host, message) {
   // user clicks. iOS Safari does not fire this event — we detect iOS
   // and instead show inline instructions ("Share → Add to Home Screen").
   (function setupPwaInstall() {
-    const installBar = document.getElementById("pwa-install-bar");
     const installBtn = document.getElementById("pwa-install-btn");
-    const dismissBtn = document.getElementById("pwa-install-dismiss");
-    if (!installBar || !installBtn) return;
+    if (!installBtn) return;
 
-    const isStandalone = window.matchMedia("(display-mode: standalone)").matches
-      || window.navigator.standalone === true;
-    if (isStandalone) {
-      // We're inside the installed PWA — record it so the regular
-      // browser tab the user might open later also hides the banner.
-      try { localStorage.setItem("kimura-pwa-installed", "1"); } catch {}
-      return;
-    }
-
-    // If a previous launch (here or in the PWA) already recorded that
-    // the user installed, don't show the banner at all. The user can
-    // re-show it by clearing site data; that's fine.
-    let dismissedOrInstalled = false;
-    try {
-      dismissedOrInstalled =
-        localStorage.getItem("kimura-pwa-installed") === "1" ||
-        localStorage.getItem("kimura-pwa-dismissed") === "1";
-    } catch {}
-    if (dismissedOrInstalled) return;
+    // Hidden inside the installed PWA via the standalone media query
+    // in CSS — no JS check needed. In the regular web the button
+    // stays visible at all times (per user request: always show, no
+    // auto-hide, no dismiss). If the user already installed via the
+    // browser menu or our button, the banner remains in the web tab
+    // — they can install again or just ignore it.
 
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     let deferredPrompt = null;
-
-    // Show the banner for non-PWA visitors. We can't rely on
-    // `beforeinstallprompt` to gate visibility because that event
-    // requires browser-specific heuristics that may not have triggered
-    // yet. By showing it unconditionally and falling back to manual
-    // instructions on click when no prompt is available, we guarantee
-    // a usable install path.
-    installBar.hidden = false;
 
     window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();
@@ -173,13 +150,9 @@ function showError(host, message) {
       if (deferredPrompt) {
         deferredPrompt.prompt();
         try {
-          const { outcome } = await deferredPrompt.userChoice;
-          deferredPrompt = null;
-          if (outcome === "accepted") {
-            try { localStorage.setItem("kimura-pwa-installed", "1"); } catch {}
-            installBar.hidden = true;
-          }
-        } catch (_) { /* user dismissed — keep banner visible */ }
+          await deferredPrompt.userChoice;
+        } catch (_) { /* ignore */ }
+        deferredPrompt = null;
         return;
       }
       // No native prompt available → guide the user manually.
@@ -198,22 +171,6 @@ function showError(host, message) {
           "3. אשרו את ההתקנה"
         );
       }
-    });
-
-    if (dismissBtn) {
-      dismissBtn.addEventListener("click", () => {
-        try { localStorage.setItem("kimura-pwa-dismissed", "1"); } catch {}
-        installBar.hidden = true;
-      });
-    }
-
-    // Catches installs that happen via the browser's own menu (the
-    // user adding to home screen without using our button). The event
-    // fires once the install completes; we record the flag and hide.
-    window.addEventListener("appinstalled", () => {
-      try { localStorage.setItem("kimura-pwa-installed", "1"); } catch {}
-      installBar.hidden = true;
-      deferredPrompt = null;
     });
   })();
 
