@@ -66,6 +66,23 @@ function showError(host, message) {
     } catch {}
   }
 
+  // Lock zoom — the meta viewport already says user-scalable=no but some
+  // Android browsers (Samsung Internet, sometimes Chrome) ignore that flag
+  // for accessibility. Block the pinch + double-tap gestures at the JS
+  // level too so the page can't be zoomed regardless of browser policy.
+  document.addEventListener("gesturestart", (e) => e.preventDefault(), { passive: false });
+  document.addEventListener("gesturechange", (e) => e.preventDefault(), { passive: false });
+  document.addEventListener("gestureend", (e) => e.preventDefault(), { passive: false });
+  let lastTap = 0;
+  document.addEventListener("touchend", (e) => {
+    const now = Date.now();
+    if (now - lastTap < 350) e.preventDefault();
+    lastTap = now;
+  }, { passive: false });
+  document.addEventListener("wheel", (e) => {
+    if (e.ctrlKey) e.preventDefault();
+  }, { passive: false });
+
   const host    = document.getElementById("screen-host");
   const navHost = document.getElementById("bottom-nav");
 
