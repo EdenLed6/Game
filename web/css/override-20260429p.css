@@ -173,13 +173,13 @@
 .lj-title { font-size: clamp(18px, 5vw, 36px) !important; }
 .lj-toolbar__spacer { width: clamp(36px, 10vw, 72px) !important; height: clamp(36px, 10vw, 72px) !important; }
 .lj-continue {
-  height: clamp(54px, 14vw, 78px) !important;
-  font-size: clamp(18px, 5vw, 28px) !important;
+  height: clamp(48px, 13vw, 60px) !important;
+  font-size: clamp(16px, 4.5vw, 22px) !important;
   font-weight: 700 !important;
-  bottom: calc(10px + env(safe-area-inset-bottom)) !important;
-  left: clamp(12px, 4vw, 24px) !important;
-  right: clamp(12px, 4vw, 24px) !important;
-  border-radius: clamp(28px, 8vw, 44px) !important;
+  bottom: calc(16px + env(safe-area-inset-bottom)) !important;
+  left: clamp(20px, 6vw, 36px) !important;
+  right: clamp(20px, 6vw, 36px) !important;
+  border-radius: clamp(24px, 6.5vw, 30px) !important;
 }
 
 /* ──────────────────────────────────────────────────────────
