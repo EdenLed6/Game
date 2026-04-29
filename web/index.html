@@ -16,20 +16,23 @@
   <link rel="preload" as="image" href="assets/bg_japanese.png" />
   <link rel="preload" as="image" href="assets/bg_header.png" />
 
-  <link rel="stylesheet" href="css/tokens.css" />
-  <link rel="stylesheet" href="css/base.css" />
-  <link rel="stylesheet" href="css/components.css" />
-  <link rel="stylesheet" href="css/screens/learn.css" />
-  <link rel="stylesheet" href="css/screens/media.css" />
-  <link rel="stylesheet" href="css/screens/profile.css" />
-  <link rel="stylesheet" href="css/screens/lesson-journey.css" />
-  <link rel="stylesheet" href="css/screens/journey-step.css" />
-  <link rel="stylesheet" href="css/screens/journey-intro.css" />
-  <link rel="stylesheet" href="css/screens/journey-teach.css" />
-  <link rel="stylesheet" href="css/screens/journey-vocab.css" />
-  <link rel="stylesheet" href="css/screens/journey-practice.css" />
-  <link rel="stylesheet" href="css/screens/journey-quiz.css" />
-  <link rel="stylesheet" href="css/screens/journey-complete.css" />
+  <!-- ?v=20260428a busts the GitHub Pages CDN's 10-minute cache for CSS
+       and JS so users see new builds without waiting for the TTL. Bump
+       this query string on every meaningful UI change. -->
+  <link rel="stylesheet" href="css/tokens.css?v=20260428a" />
+  <link rel="stylesheet" href="css/base.css?v=20260428a" />
+  <link rel="stylesheet" href="css/components.css?v=20260428a" />
+  <link rel="stylesheet" href="css/screens/learn.css?v=20260428a" />
+  <link rel="stylesheet" href="css/screens/media.css?v=20260428a" />
+  <link rel="stylesheet" href="css/screens/profile.css?v=20260428a" />
+  <link rel="stylesheet" href="css/screens/lesson-journey.css?v=20260428a" />
+  <link rel="stylesheet" href="css/screens/journey-step.css?v=20260428a" />
+  <link rel="stylesheet" href="css/screens/journey-intro.css?v=20260428a" />
+  <link rel="stylesheet" href="css/screens/journey-teach.css?v=20260428a" />
+  <link rel="stylesheet" href="css/screens/journey-vocab.css?v=20260428a" />
+  <link rel="stylesheet" href="css/screens/journey-practice.css?v=20260428a" />
+  <link rel="stylesheet" href="css/screens/journey-quiz.css?v=20260428a" />
+  <link rel="stylesheet" href="css/screens/journey-complete.css?v=20260428a" />
 </head>
 <body>
 
@@ -45,6 +48,6 @@
   <!-- BottomNavigationView port (3 tabs, 96dp tall, 64dp icons) -->
   <nav id="bottom-nav" class="bottom-nav" aria-label="ניווט ראשי"></nav>
 
-  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/main.js?v=20260428a"></script>
 </body>
 </html>
