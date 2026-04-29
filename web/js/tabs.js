@@ -1,15 +1,16 @@
 // tabs.js — renders the 3 BottomNavigationView tabs.
 //
-// Order in bottom_nav_menu.xml: media → learn → profile.
-// In Hebrew RTL the visual layout is right-to-left, but the DOM order
-// from menu/bottom_nav_menu.xml is preserved.
+// Order: profile → learn → media (per user request — swapped media and
+// profile from the original Android bottom_nav_menu.xml ordering of
+// media → learn → profile). In Hebrew RTL this means visually media is
+// now on the LEFT, profile on the RIGHT, learn stays centered.
 
 import { el, mount } from "./dom.js";
 
 const TABS = [
-  { id: "media",   label: "מדיה",   icon: "assets/ic_media_jp.png"   },
-  { id: "learn",   label: "למד",    icon: "assets/ic_learn_jp.png"   },
   { id: "profile", label: "פרופיל", icon: "assets/ic_profile_jp.png" },
+  { id: "learn",   label: "למד",    icon: "assets/ic_learn_jp.png"   },
+  { id: "media",   label: "מדיה",   icon: "assets/ic_media_jp.png"   },
 ];
 
 export function renderBottomNav(host, { router, current }) {
