@@ -131,31 +131,27 @@ function showError(host, message) {
     const installBtn = document.getElementById("pwa-install-btn");
     if (!installBtn) return;
 
-    // Hidden inside the installed PWA via the standalone media query
-    // in CSS — no JS check needed. In the regular web the button
-    // stays visible at all times (per user request: always show, no
-    // auto-hide, no dismiss). If the user already installed via the
-    // browser menu or our button, the banner remains in the web tab
-    // — they can install again or just ignore it.
-
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    let deferredPrompt = null;
 
+    // The earliest `beforeinstallprompt` may have fired before this
+    // script ran — the inline <head> script captures it into
+    // window.__pwaPrompt. Keep that as our source of truth so the
+    // listener and the early capture always agree.
+    function getPrompt() { return window.__pwaPrompt; }
+    function setPrompt(e) { window.__pwaPrompt = e; }
+
+    // Listener stays attached for the lifetime of the page so that
+    // re-fires (e.g. after the user uninstalls the PWA and revisits
+    // the web tab) are also caught.
     window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();
-      deferredPrompt = e;
+      setPrompt(e);
+    });
+    window.addEventListener("appinstalled", () => {
+      setPrompt(null);
     });
 
-    installBtn.addEventListener("click", async () => {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        try {
-          await deferredPrompt.userChoice;
-        } catch (_) { /* ignore */ }
-        deferredPrompt = null;
-        return;
-      }
-      // No native prompt available → guide the user manually.
+    function showManualInstructions() {
       if (isIOS) {
         alert(
           "כדי להתקין את האפליקציה:\n" +
@@ -171,6 +167,62 @@ function showError(host, message) {
           "3. אשרו את ההתקנה"
         );
       }
+    }
+
+    // If no prompt is currently buffered when the user clicks (common
+    // right after uninstall — Chrome takes a moment before refiring
+    // beforeinstallprompt), nudge the SW with `update()` and wait up
+    // to 1.5s for the event to arrive. This recovers the auto-install
+    // path for the typical "reinstalled the app" flow without forcing
+    // the user back to manual instructions.
+    function waitForPrompt(timeoutMs) {
+      return new Promise(async (resolve) => {
+        if (getPrompt()) { resolve(getPrompt()); return; }
+        let done = false;
+        const onPrompt = (e) => {
+          if (done) return;
+          done = true;
+          e.preventDefault();
+          setPrompt(e);
+          window.removeEventListener("beforeinstallprompt", onPrompt);
+          resolve(e);
+        };
+        window.addEventListener("beforeinstallprompt", onPrompt);
+        // Force the SW registration to refresh — sometimes nudges
+        // Chrome's installability heuristics post-uninstall.
+        if ("serviceWorker" in navigator) {
+          try {
+            const reg = await navigator.serviceWorker.getRegistration();
+            if (reg && typeof reg.update === "function") await reg.update();
+          } catch {}
+        }
+        setTimeout(() => {
+          if (done) return;
+          done = true;
+          window.removeEventListener("beforeinstallprompt", onPrompt);
+          resolve(null);
+        }, timeoutMs);
+      });
+    }
+
+    installBtn.addEventListener("click", async () => {
+      let prompt = getPrompt();
+      if (!prompt) {
+        // Try once to recover a fresh prompt event before falling back
+        // to manual instructions.
+        prompt = await waitForPrompt(1500);
+      }
+      if (prompt) {
+        try {
+          prompt.prompt();
+          await prompt.userChoice;
+        } catch (_) { /* user dismissed — ok */ }
+        // The prompt object is one-shot; clear so a future
+        // beforeinstallprompt (e.g. after uninstall) replaces it.
+        setPrompt(null);
+        return;
+      }
+      showManualInstructions();
     });
   })();
 
