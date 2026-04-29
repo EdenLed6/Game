@@ -230,8 +230,19 @@
 .lj-card-hebrew { font-size: clamp(20px, 4.8vw, 37px) !important; padding: clamp(12px, 2.9vw, 23px) clamp(14px, 3.6vw, 29px) !important; }
 
 /* Vocab */
-.lj-vocab__emoji-box { width: clamp(86px, 19.2vw, 187px) !important; height: clamp(86px, 19.2vw, 187px) !important; border-radius: clamp(20px, 4.8vw, 41px) !important; }
-.lj-vocab__emoji { font-size: clamp(52px, 12.0vw, 115px) !important; }
+/* journey-vocab.css sets `flex: 0 0 72px` on the emoji box, which is
+ * flex-basis: 72px. In flex layout flex-basis wins over `width:
+ * !important`, so the box stays 72px no matter what width we declare.
+ * Force flex to auto + spell out flex-basis so the width clamp takes
+ * effect. */
+.lj-vocab__emoji-box {
+  flex: 0 0 auto !important;
+  flex-basis: auto !important;
+  width: clamp(96px, 16vw, 120px) !important;
+  height: clamp(96px, 16vw, 120px) !important;
+  border-radius: clamp(20px, 4vw, 28px) !important;
+}
+.lj-vocab__emoji { font-size: clamp(56px, 10vw, 76px) !important; line-height: 1 !important; }
 .lj-vocab__jp { font-size: clamp(29px, 6.6vw, 60px) !important; }
 .lj-vocab__romaji { font-size: clamp(19px, 4.2vw, 35px) !important; }
 .lj-vocab__hebrew { font-size: clamp(22px, 4.8vw, 41px) !important; }
