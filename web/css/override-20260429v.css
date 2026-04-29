@@ -172,11 +172,17 @@
 .lj-back img { width: clamp(20px, 5.5vw, 40px) !important; height: clamp(20px, 5.5vw, 40px) !important; }
 .lj-title { font-size: clamp(18px, 5vw, 36px) !important; }
 .lj-toolbar__spacer { width: clamp(36px, 10vw, 72px) !important; height: clamp(36px, 10vw, 72px) !important; }
-/* APK uses 56dp buttons throughout (App.Button style). Tight caps so
- * even on a wide CSS viewport the buttons stay button-sized, not banner-
- * sized. All max heights ≤ 56-64px, all max font sizes ≤ 18-20px. */
+/* CRITICAL: .lj-continue carries class "lj-continue btn btn--block" and
+ * .btn--block sets width:100%. With position:fixed + left:24 + right:24
+ * + width:100%, CSS spec says one of left/right is treated as `auto` —
+ * in RTL it's `left`. The button then renders 100vw wide pinned to
+ * right:24px, overflowing the LEFT edge by 24px (= the "cut on the
+ * left" symptom). Forcing `width: auto` makes the left+right pair
+ * compute the width correctly so the pill is centered with 24px on
+ * each side. */
 .lj-continue {
   height: clamp(56px, 9vw, 64px) !important;
+  min-height: clamp(56px, 9vw, 64px) !important;
   font-size: clamp(17px, 4.5vw, 20px) !important;
   font-weight: 700 !important;
   bottom: calc(24px + env(safe-area-inset-bottom)) !important;
@@ -184,8 +190,10 @@
   right: 24px !important;
   inset-inline-start: 24px !important;
   inset-inline-end: 24px !important;
-  border-radius: clamp(28px, 4.5vw, 32px) !important;
+  width: auto !important;
+  min-width: 0 !important;
   max-width: none !important;
+  border-radius: clamp(28px, 4.5vw, 32px) !important;
   box-sizing: border-box !important;
 }
 
