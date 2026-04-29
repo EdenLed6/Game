@@ -11,6 +11,22 @@ html, body {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  /* Disable pinch-to-zoom and double-tap-to-zoom; the meta-viewport
+   * already says no scaling, and touch-action: manipulation suppresses
+   * the iOS double-tap-to-zoom delay even when scaling is allowed. */
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Re-allow text selection inside text-heavy regions where copy/paste
+ * is genuinely useful (workbook answer textarea, lesson reference
+ * content, etc.). The journey screens are read-only so they keep the
+ * locked behavior. */
+input, textarea, [contenteditable="true"] {
+  -webkit-user-select: text;
+  user-select: text;
 }
 
 /* Responsive size bumps for wider phones / foldables / tablets — the base
