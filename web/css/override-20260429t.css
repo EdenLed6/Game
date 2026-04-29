@@ -172,18 +172,17 @@
 .lj-back img { width: clamp(20px, 5.5vw, 40px) !important; height: clamp(20px, 5.5vw, 40px) !important; }
 .lj-title { font-size: clamp(18px, 5vw, 36px) !important; }
 .lj-toolbar__spacer { width: clamp(36px, 10vw, 72px) !important; height: clamp(36px, 10vw, 72px) !important; }
-/* Match APK screenshot 019dd9ec-89328: nearly full-width pill,
- * ~24px side margins, ~64-72px tall, classic half-height pill radius,
- * sits ~24px above the safe-area inset. Tight clamp caps prevent the
- * button from blowing up on wide PWA viewports. */
+/* APK uses 56dp buttons throughout (App.Button style). Tight caps so
+ * even on a wide CSS viewport the buttons stay button-sized, not banner-
+ * sized. All max heights ≤ 56-64px, all max font sizes ≤ 18-20px. */
 .lj-continue {
-  height: clamp(56px, 10vw, 72px) !important;
-  font-size: clamp(18px, 5vw, 24px) !important;
+  height: clamp(48px, 7.5vw, 56px) !important;
+  font-size: clamp(15px, 3.6vw, 18px) !important;
   font-weight: 700 !important;
-  bottom: calc(24px + env(safe-area-inset-bottom)) !important;
-  left: clamp(20px, 5vw, 28px) !important;
-  right: clamp(20px, 5vw, 28px) !important;
-  border-radius: clamp(28px, 5.5vw, 36px) !important;
+  bottom: calc(20px + env(safe-area-inset-bottom)) !important;
+  left: clamp(16px, 4vw, 24px) !important;
+  right: clamp(16px, 4vw, 24px) !important;
+  border-radius: clamp(24px, 4vw, 28px) !important;
   max-width: none !important;
   box-sizing: border-box !important;
 }
@@ -199,9 +198,9 @@
 .lj-card__title { font-size: clamp(23px, 5.4vw, 43px) !important; margin-bottom: clamp(12px, 2.4vw, 20px) !important; }
 .lj-card__body { font-size: clamp(22px, 5.0vw, 41px) !important; line-height: 1.55 !important; }
 .lj-counter { font-size: clamp(19px, 4.2vw, 35px) !important; }
-.lj-speaker { width: clamp(58px, 13.2vw, 115px) !important; height: clamp(58px, 13.2vw, 115px) !important; }
-.lj-speaker--lg { width: clamp(66px, 14.4vw, 130px) !important; height: clamp(66px, 14.4vw, 130px) !important; }
-.lj-speaker svg { width: clamp(29px, 6.6vw, 58px) !important; height: clamp(29px, 6.6vw, 58px) !important; }
+.lj-speaker { width: clamp(40px, 6.5vw, 48px) !important; height: clamp(40px, 6.5vw, 48px) !important; }
+.lj-speaker--lg { width: clamp(48px, 8vw, 56px) !important; height: clamp(48px, 8vw, 56px) !important; }
+.lj-speaker svg { width: clamp(20px, 3.5vw, 24px) !important; height: clamp(20px, 3.5vw, 24px) !important; }
 
 /* Intro */
 .lj-intro__emoji { font-size: clamp(80px, 19.2vw, 202px) !important; }
@@ -226,7 +225,7 @@
 .lj-vocab__jp { font-size: clamp(29px, 6.6vw, 60px) !important; }
 .lj-vocab__romaji { font-size: clamp(19px, 4.2vw, 35px) !important; }
 .lj-vocab__hebrew { font-size: clamp(22px, 4.8vw, 41px) !important; }
-.lj-vocab__speaker { width: clamp(64px, 14.4vw, 124px) !important; height: clamp(64px, 14.4vw, 124px) !important; }
+.lj-vocab__speaker { width: clamp(40px, 6.5vw, 48px) !important; height: clamp(40px, 6.5vw, 48px) !important; }
 
 /* Practice */
 .lj-practice__counter { font-size: clamp(19px, 4.2vw, 35px) !important; }
@@ -239,8 +238,8 @@
 /* Quiz */
 .lj-quiz__counter { font-size: clamp(19px, 4.2vw, 35px) !important; }
 .lj-quiz__question-text { font-size: clamp(23px, 5.4vw, 43px) !important; line-height: 1.4 !important; }
-.lj-quiz__option { min-height: clamp(78px, 16.8vw, 144px) !important; padding: clamp(14px, 3.6vw, 31px) clamp(17px, 4.8vw, 37px) !important; font-size: clamp(22px, 5.0vw, 41px) !important; border-radius: clamp(20px, 4.8vw, 41px) !important; }
-.lj-quiz__option-label { font-size: clamp(22px, 5.0vw, 41px) !important; }
+.lj-quiz__option { min-height: clamp(48px, 8vw, 60px) !important; padding: 8px 14px !important; font-size: clamp(14px, 3.5vw, 17px) !important; border-radius: clamp(20px, 3.5vw, 26px) !important; }
+.lj-quiz__option-label { font-size: clamp(14px, 3.5vw, 17px) !important; }
 .lj-quiz__feedback { font-size: clamp(20px, 4.8vw, 37px) !important; }
 .lj-quiz__hint { padding: clamp(17px, 4.2vw, 35px) !important; font-size: clamp(19px, 4.2vw, 35px) !important; }
 
@@ -255,9 +254,9 @@
  * Generic buttons
  * ────────────────────────────────────────────────────────── */
 
-.btn, .btn--block { font-size: clamp(22px, 5.4vw, 43px) !important; padding: clamp(17px, 4.2vw, 31px) clamp(23px, 6.0vw, 46px) !important; border-radius: clamp(29px, 6.6vw, 58px) !important; min-height: clamp(70px, 16.8vw, 144px) !important; }
-.btn--small { min-height: clamp(58px, 13.2vw, 115px) !important; padding: 0 clamp(20px, 4.8vw, 41px) !important; font-size: clamp(20px, 4.8vw, 37px) !important; border-radius: clamp(26px, 6.0vw, 52px) !important; }
-.btn--option { min-height: clamp(78px, 16.8vw, 144px) !important; padding: 0 clamp(23px, 6.0vw, 46px) !important; font-size: clamp(22px, 5.0vw, 41px) !important; border-radius: clamp(20px, 4.8vw, 41px) !important; }
+.btn, .btn--block { font-size: clamp(15px, 3.6vw, 18px) !important; padding: 12px 20px !important; border-radius: clamp(24px, 4vw, 28px) !important; min-height: clamp(48px, 7.5vw, 56px) !important; }
+.btn--small { min-height: clamp(40px, 6.5vw, 48px) !important; padding: 0 16px !important; font-size: clamp(13px, 3.2vw, 16px) !important; border-radius: clamp(20px, 3.5vw, 24px) !important; }
+.btn--option { min-height: clamp(48px, 8vw, 60px) !important; padding: 0 18px !important; font-size: clamp(14px, 3.5vw, 17px) !important; border-radius: clamp(20px, 3.5vw, 26px) !important; }
 
 /* ──────────────────────────────────────────────────────────
  * APPENDED 2026-04-29 — Practice + Quiz button layout to match APK.
@@ -275,12 +274,12 @@
 }
 .lj-practice__btn {
   flex: 1 1 0 !important;
-  height: clamp(54px, 14vw, 100px) !important;
-  font-size: clamp(18px, 5vw, 36px) !important;
+  height: clamp(44px, 7vw, 52px) !important;
+  font-size: clamp(14px, 3.4vw, 17px) !important;
   font-weight: 700 !important;
-  border-radius: clamp(28px, 8vw, 48px) !important;
+  border-radius: clamp(22px, 3.5vw, 26px) !important;
   border-width: 2px !important;
-  padding: 0 clamp(14px, 4vw, 28px) !important;
+  padding: 0 12px !important;
 }
 
 /* Quiz option row — speaker (44dp) sits beside the option button */
@@ -293,19 +292,18 @@
 .lj-quiz__option-row .lj-quiz__option { flex: 1 1 0 !important; }
 .lj-quiz__option-row .lj-speaker,
 .lj-quiz__option-row .lj-quiz__option-speaker {
-  width: clamp(48px, 12vw, 90px) !important;
-  height: clamp(48px, 12vw, 90px) !important;
+  width: clamp(40px, 6.5vw, 48px) !important;
+  height: clamp(40px, 6.5vw, 48px) !important;
   flex: 0 0 auto !important;
   border-radius: 50% !important;
 }
 
-/* Quiz Check / Next at the bottom (full-width pills, like the
- * lj-continue style — APK uses the same App.Button) */
+/* Quiz Check / Next at the bottom (full-width pills, matches lj-continue) */
 .lj-quiz__check, .lj-quiz__next {
-  height: clamp(56px, 16vw, 96px) !important;
-  font-size: clamp(18px, 5.5vw, 36px) !important;
+  height: clamp(48px, 7.5vw, 56px) !important;
+  font-size: clamp(15px, 3.6vw, 18px) !important;
   font-weight: 700 !important;
-  border-radius: clamp(28px, 8vw, 48px) !important;
+  border-radius: clamp(24px, 4vw, 28px) !important;
   width: 100% !important;
-  margin-top: clamp(8px, 2vw, 16px) !important;
+  margin-top: 12px !important;
 }
