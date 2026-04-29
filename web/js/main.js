@@ -50,19 +50,34 @@ function showError(host, message) {
 }
 
 (async function boot() {
-  // Kill any service worker + cache from the previous web port. The earlier
-  // version registered web/sw.js; that file no longer exists but the browser
-  // keeps serving the stale cached HTML/CSS/JS until the SW is unregistered.
-  // CRITICAL: if a SW was actually controlling this page, the HTML/CSS/JS
-  // we're currently running are themselves cached. Unregistering does NOT
-  // re-fetch — only a reload does. So we force one (gated by sessionStorage
-  // to avoid an infinite loop in the rare case unregister fails).
+  // Service worker handling. We need a registered SW so the browser
+  // fires `beforeinstallprompt` and our PWA install button can trigger
+  // a one-tap install. The current `sw.js` is a deliberate no-op
+  // pass-through (no caching), but old SW versions in the wild may
+  // still be aggressively caching. So:
+  //   1. Walk every existing SW registration; unregister any whose
+  //      scriptURL doesn't point to OUR sw.js.
+  //   2. Register our pass-through sw.js. If it's already registered,
+  //      this is a no-op.
+  //   3. Clear any stale caches left by a prior SW.
+  //   4. If we had to clean up something, force a one-time reload so
+  //      the page isn't being served by the now-defunct old SW.
   let killedSW = false;
   if ("serviceWorker" in navigator) {
     try {
+      const ourSwUrl = new URL("sw.js", location.href).href;
       const regs = await navigator.serviceWorker.getRegistrations();
-      if (regs.length > 0) killedSW = true;
-      await Promise.all(regs.map((r) => r.unregister()));
+      for (const reg of regs) {
+        const swObj = reg.active || reg.waiting || reg.installing;
+        const swUrl = swObj ? swObj.scriptURL : "";
+        // Unregister anything that isn't our current SW. The check uses
+        // startsWith to ignore query strings on the registered URL.
+        if (swUrl && !swUrl.startsWith(ourSwUrl)) {
+          try { await reg.unregister(); killedSW = true; } catch {}
+        }
+      }
+      // Register our pass-through SW (no-op if already registered).
+      try { await navigator.serviceWorker.register("sw.js"); } catch {}
     } catch {}
   }
   if (typeof caches !== "undefined") {
