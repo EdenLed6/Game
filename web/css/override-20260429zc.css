@@ -208,9 +208,20 @@
 .lj-card__title { font-size: clamp(23px, 5.4vw, 43px) !important; margin-bottom: clamp(12px, 2.4vw, 20px) !important; }
 .lj-card__body { font-size: clamp(22px, 5.0vw, 41px) !important; line-height: 1.55 !important; }
 .lj-counter { font-size: clamp(19px, 4.2vw, 35px) !important; }
-.lj-speaker { width: clamp(80px, 13.5vw, 100px) !important; height: clamp(80px, 13.5vw, 100px) !important; color: #fff !important; }
-.lj-speaker--lg { width: clamp(88px, 15vw, 112px) !important; height: clamp(88px, 15vw, 112px) !important; }
+/* Every speaker button (vocab / practice / quiz) is rendered with a 🔊
+ * emoji as TEXT content, not an SVG icon. So sizing `.lj-speaker svg`
+ * had no effect — what matters is `font-size`. The per-screen sheets
+ * pin font-size: 18px on the speaker variants, which made the glyph
+ * read as a small speck in our 100px circle. Force a big font-size on
+ * every speaker selector so the 🔊 emoji actually fills the button. */
+.lj-speaker { width: clamp(80px, 13.5vw, 100px) !important; height: clamp(80px, 13.5vw, 100px) !important; color: #fff !important; font-size: clamp(44px, 7.5vw, 56px) !important; line-height: 1 !important; }
+.lj-speaker--lg { width: clamp(88px, 15vw, 112px) !important; height: clamp(88px, 15vw, 112px) !important; font-size: clamp(50px, 8.5vw, 64px) !important; }
 .lj-speaker svg { width: clamp(44px, 7.5vw, 56px) !important; height: clamp(44px, 7.5vw, 56px) !important; fill: #fff !important; }
+.lj-speaker > span,
+.lj-speaker > * { font-size: inherit !important; line-height: 1 !important; }
+.lj-vocab__speaker { font-size: clamp(50px, 8.5vw, 64px) !important; }
+.lj-practice__speaker { font-size: clamp(44px, 7.5vw, 56px) !important; }
+.lj-quiz__speaker { font-size: clamp(44px, 7.5vw, 56px) !important; }
 
 /* Intro */
 .lj-intro__emoji { font-size: clamp(80px, 19.2vw, 202px) !important; }
