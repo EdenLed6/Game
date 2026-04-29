@@ -88,18 +88,18 @@
   position: absolute;
   top: 0;
   right: 0;
-  left: 0;
-  /* Cover the entire top 60% of the video so every top-bar Vimeo
-   * control (heart / watch-later / share / "...") sits behind the
-   * blocker. Cross-origin sandboxing prevents us from injecting CSS
-   * into Vimeo's iframe to actually `display: none` those buttons,
-   * so we settle for blocking clicks on them. The bottom playbar
-   * (play/pause/scrub/fullscreen) remains visible and tappable. */
-  width: 100%;
-  height: 60%;
-  background: rgba(255, 0, 0, 0.30); /* TEMP DEBUG TINT — verify deploy */
+  /* Vimeo renders heart / watch-later / share / "..." in the top-right
+   * corner of the player. Cross-origin sandboxing prevents injecting
+   * CSS into the iframe to display:none them, so we mask that corner
+   * with an opaque box matching the player's dark frame. The mask is
+   * narrow (28% × 50%) so most of the video stays visible while every
+   * Vimeo top-bar icon sits behind a solid block. */
+  width: 28%;
+  height: 50%;
+  background: #000000;
   pointer-events: auto;
   z-index: 999;
+  border-top-right-radius: 16px;
 }
 
 /* ── Preview card (Kotlin :322–364) ─────────────────────────────── */
