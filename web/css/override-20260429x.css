@@ -181,9 +181,9 @@
  * compute the width correctly so the pill is centered with 24px on
  * each side. */
 .lj-continue {
-  height: clamp(64px, 11vw, 80px) !important;
-  min-height: clamp(64px, 11vw, 80px) !important;
-  font-size: clamp(20px, 5vw, 24px) !important;
+  height: clamp(76px, 13vw, 96px) !important;
+  min-height: clamp(76px, 13vw, 96px) !important;
+  font-size: clamp(22px, 5.5vw, 28px) !important;
   font-weight: 700 !important;
   bottom: calc(24px + env(safe-area-inset-bottom)) !important;
   left: 24px !important;
@@ -193,7 +193,7 @@
   width: auto !important;
   min-width: 0 !important;
   max-width: none !important;
-  border-radius: clamp(32px, 5.5vw, 40px) !important;
+  border-radius: clamp(38px, 6.5vw, 48px) !important;
   box-sizing: border-box !important;
 }
 
@@ -248,8 +248,8 @@
 /* Quiz */
 .lj-quiz__counter { font-size: clamp(19px, 4.2vw, 35px) !important; }
 .lj-quiz__question-text { font-size: clamp(23px, 5.4vw, 43px) !important; line-height: 1.4 !important; }
-.lj-quiz__option { min-height: clamp(64px, 10.5vw, 76px) !important; padding: 12px 18px !important; font-size: clamp(18px, 4.5vw, 22px) !important; border-radius: clamp(28px, 4.5vw, 32px) !important; }
-.lj-quiz__option-label { font-size: clamp(18px, 4.5vw, 22px) !important; }
+.lj-quiz__option { min-height: clamp(72px, 12.5vw, 88px) !important; padding: 14px 20px !important; font-size: clamp(20px, 5vw, 26px) !important; border-radius: clamp(34px, 5.5vw, 40px) !important; }
+.lj-quiz__option-label { font-size: clamp(20px, 5vw, 26px) !important; }
 .lj-quiz__feedback { font-size: clamp(20px, 4.8vw, 37px) !important; }
 .lj-quiz__hint { padding: clamp(17px, 4.2vw, 35px) !important; font-size: clamp(19px, 4.2vw, 35px) !important; }
 
@@ -264,9 +264,9 @@
  * Generic buttons
  * ────────────────────────────────────────────────────────── */
 
-.btn, .btn--block { font-size: clamp(20px, 5vw, 24px) !important; padding: 16px 24px !important; border-radius: clamp(32px, 5.5vw, 40px) !important; min-height: clamp(64px, 11vw, 80px) !important; }
-.btn--small { min-height: clamp(48px, 8vw, 56px) !important; padding: 0 20px !important; font-size: clamp(16px, 4vw, 18px) !important; border-radius: clamp(24px, 4vw, 28px) !important; }
-.btn--option { min-height: clamp(64px, 10.5vw, 76px) !important; padding: 0 22px !important; font-size: clamp(18px, 4.5vw, 22px) !important; border-radius: clamp(28px, 4.5vw, 32px) !important; }
+.btn, .btn--block { font-size: clamp(22px, 5.5vw, 28px) !important; padding: 18px 26px !important; border-radius: clamp(38px, 6.5vw, 48px) !important; min-height: clamp(76px, 13vw, 96px) !important; }
+.btn--small { min-height: clamp(52px, 9vw, 60px) !important; padding: 0 22px !important; font-size: clamp(17px, 4.2vw, 20px) !important; border-radius: clamp(26px, 4.5vw, 30px) !important; }
+.btn--option { min-height: clamp(72px, 12.5vw, 88px) !important; padding: 0 24px !important; font-size: clamp(20px, 5vw, 26px) !important; border-radius: clamp(34px, 5.5vw, 40px) !important; }
 
 /* ──────────────────────────────────────────────────────────
  * APPENDED 2026-04-29 — Practice + Quiz button layout to match APK.
@@ -284,12 +284,12 @@
 }
 .lj-practice__btn {
   flex: 1 1 0 !important;
-  height: clamp(60px, 10vw, 72px) !important;
-  font-size: clamp(18px, 4.5vw, 22px) !important;
+  height: clamp(68px, 12vw, 84px) !important;
+  font-size: clamp(20px, 5vw, 26px) !important;
   font-weight: 700 !important;
-  border-radius: clamp(30px, 5vw, 36px) !important;
+  border-radius: clamp(34px, 6vw, 42px) !important;
   border-width: 2px !important;
-  padding: 0 16px !important;
+  padding: 0 18px !important;
 }
 
 /* Quiz option row — speaker (44dp) sits beside the option button */
@@ -310,10 +310,10 @@
 
 /* Quiz Check / Next at the bottom (full-width pills, matches lj-continue) */
 .lj-quiz__check, .lj-quiz__next {
-  height: clamp(64px, 11vw, 80px) !important;
-  font-size: clamp(20px, 5vw, 24px) !important;
+  height: clamp(76px, 13vw, 96px) !important;
+  font-size: clamp(22px, 5.5vw, 28px) !important;
   font-weight: 700 !important;
-  border-radius: clamp(32px, 5.5vw, 40px) !important;
+  border-radius: clamp(38px, 6.5vw, 48px) !important;
   width: 100% !important;
   margin-top: 12px !important;
 }
