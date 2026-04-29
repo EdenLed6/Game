@@ -377,33 +377,44 @@
   padding: 0 18px !important;
 }
 
-/* Options are now standalone .lj-quiz__option buttons — no row wrapper,
- * no speaker, single tap selects + plays. Spacing between options. */
-.lj-quiz__options .lj-quiz__option {
+/* Quiz option row — speaker button beside the option button (restored).
+ * Per user clarification, only the QUESTION loses its speaker. Options
+ * keep their speakers + their original single-tap-to-select behavior. */
+.lj-quiz__option-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: clamp(8px, 2.5vw, 18px) !important;
   margin-bottom: clamp(8px, 2vw, 14px) !important;
 }
+.lj-quiz__option-row .lj-quiz__option { flex: 1 1 0 !important; }
+.lj-quiz__option-row .lj-speaker,
+.lj-quiz__option-row .lj-quiz__option-speaker {
+  width: clamp(72px, 12vw, 90px) !important;
+  height: clamp(72px, 12vw, 90px) !important;
+  flex: 0 0 auto !important;
+  border-radius: 50% !important;
+}
 
-/* Question card: when it has speakable Japanese, the whole card is
- * the tap target (per user: "not on a speaker button, but on the
- * question itself"). Show pointer cursor + a small ▶ marker so the
- * user knows it's tappable. */
-.lj-quiz__question-card--clickable {
+/* Question text only — the TEXT itself is the tap target (per user:
+ * "click on the word to play sound"). The card around it is NOT
+ * clickable. Tactile feedback via opacity, small "🔊" hint via ::after. */
+.lj-quiz__question-text--clickable {
   cursor: pointer !important;
   -webkit-tap-highlight-color: transparent !important;
-  transition: transform 0.12s ease, opacity 0.12s ease !important;
+  transition: opacity 0.12s ease !important;
 }
-.lj-quiz__question-card--clickable:active {
-  transform: scale(0.985) !important;
-  opacity: 0.92 !important;
+.lj-quiz__question-text--clickable:active {
+  opacity: 0.65 !important;
 }
-.lj-quiz__question-card--clickable:focus-visible {
+.lj-quiz__question-text--clickable:focus-visible {
   outline: 2px solid var(--color-primary, #C0362A) !important;
-  outline-offset: 2px !important;
+  outline-offset: 4px !important;
+  border-radius: 4px !important;
 }
-.lj-quiz__question-card--clickable .lj-quiz__question-text::after {
+.lj-quiz__question-text--clickable::after {
   content: " 🔊" !important;
   font-size: 0.85em !important;
-  opacity: 0.65 !important;
+  opacity: 0.6 !important;
   margin-inline-start: 6px !important;
   vertical-align: middle !important;
 }

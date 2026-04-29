@@ -125,30 +125,32 @@ export function Quiz({ hostEl, lesson, journey, ctx }) {
       { class: "lj-quiz__question-row" },
       questionText,
     );
-    // Per user request: tap anywhere on the question card to hear it
-    // (no separate speaker button). Only enabled when the question has
-    // speakable non-Hebrew content — extractRomaji returns "" otherwise.
+    // Per user request: only the question card has its speaker button
+    // removed. The question TEXT itself becomes the tap target (click
+    // the word to hear it). Options below keep their speakers + their
+    // original click-to-select behavior. Only enabled when the question
+    // has speakable non-Hebrew content.
     const questionRomaji = extractRomaji(q.question || "");
-    const questionCard = el(
-      "div",
-      { class: "lj-card lj-quiz__question-card" },
-      questionRow,
-    );
     if (questionRomaji.length > 0) {
-      questionCard.classList.add("lj-quiz__question-card--clickable");
-      questionCard.setAttribute("role", "button");
-      questionCard.setAttribute("tabindex", "0");
-      questionCard.setAttribute("aria-label", "השמע את השאלה");
-      questionCard.addEventListener("click", () => {
+      questionText.classList.add("lj-quiz__question-text--clickable");
+      questionText.setAttribute("role", "button");
+      questionText.setAttribute("tabindex", "0");
+      questionText.setAttribute("aria-label", "השמע את השאלה");
+      questionText.addEventListener("click", () => {
         speak(questionRomaji);
       });
-      questionCard.addEventListener("keydown", (ev) => {
+      questionText.addEventListener("keydown", (ev) => {
         if (ev.key === "Enter" || ev.key === " ") {
           ev.preventDefault();
           speak(questionRomaji);
         }
       });
     }
+    const questionCard = el(
+      "div",
+      { class: "lj-card lj-quiz__question-card" },
+      questionRow,
+    );
 
     // ── Feedback label (Kotlin :1131–1141 — invisible until checked) ──
     const feedbackLabel = el(
@@ -185,8 +187,6 @@ export function Quiz({ hostEl, lesson, journey, ctx }) {
         el("span", { class: "lj-quiz__option-label" }, text),
       );
 
-      const optRomaji = extractRomaji(text);
-
       btn.addEventListener("click", () => {
         if (answered) return;
         selectedIndex = idx;
@@ -204,18 +204,42 @@ export function Quiz({ hostEl, lesson, journey, ctx }) {
           b.classList.add(i === idx ? "bg-option-selected" : "bg-option-default");
         });
         checkBtn.disabled = false;
-        // Per user request: a single tap on the option also plays its
-        // pronunciation when the option contains speakable Japanese.
-        // Selection + audio happen together — no separate speaker
-        // button. Hebrew-only options (no extractRomaji result) just
-        // select silently.
-        if (optRomaji.length > 0) {
-          speak(optRomaji);
-        }
       });
 
+      // Long-press to speak the option (mirrors Kotlin :1223–1225). Optional
+      // QoL — single-tap is reserved for selecting.
+      const optRomaji = extractRomaji(text);
+      if (optRomaji.length > 0) {
+        let lpTimer = null;
+        const startLP = () => {
+          lpTimer = setTimeout(() => {
+            lpTimer = null;
+            speak(optRomaji);
+          }, 500);
+        };
+        const cancelLP = () => {
+          if (lpTimer) { clearTimeout(lpTimer); lpTimer = null; }
+        };
+        btn.addEventListener("pointerdown", startLP);
+        btn.addEventListener("pointerup", cancelLP);
+        btn.addEventListener("pointerleave", cancelLP);
+        btn.addEventListener("pointercancel", cancelLP);
+      }
+
       optionButtons.push(btn);
-      optionsWrap.appendChild(btn);
+
+      const row = el("div", { class: "lj-quiz__option-row" }, btn);
+      // Kotlin :1244 — speaker button is only rendered when the option text
+      // has any non-Hebrew speakable content.
+      if (optRomaji.length > 0) {
+        row.appendChild(
+          speakerButton(optRomaji, {
+            large: false,
+            ariaLabel: "השמע אפשרות",
+          }),
+        );
+      }
+      optionsWrap.appendChild(row);
     });
 
     // ── Check button (Kotlin :1249–1290) ──
