@@ -1,0 +1,246 @@
+/* override-20260429e.css — exact 1:1 dp/sp port from the APK source.
+ *
+ * Every value in this file is taken verbatim from
+ * `.ui-source/app/src/main/java/com/nihongo/beginner/LessonJourneyActivity.kt`
+ * `.ui-source/app/src/main/res/layout/item_lesson_node.xml`
+ * `.ui-source/app/src/main/res/layout/item_unit_header.xml`
+ * `.ui-source/app/src/main/res/layout/fragment_learn.xml`
+ *
+ * 1 dp ≡ 1 CSS px. 1 sp font ≡ 1 px font. Every rule uses `!important`
+ * so it wins over anything earlier. Loaded LAST in index.html.
+ */
+
+/* ──────────────────────────────────────────────────────────
+ * LEARN TAB — fragment_learn.xml
+ * ────────────────────────────────────────────────────────── */
+
+/* Header: 96dp tall, 20dp horizontal padding */
+.learn-header {
+  flex: 0 0 144px !important;
+  height: 144px !important;
+  padding: 0 30px !important;
+  gap: 0 !important;
+}
+.learn-header__title {
+  font-size: 36px !important;
+  font-weight: 700 !important;
+  color: #FFFFFF !important;
+}
+.learn-header__chips { gap: 12px !important; }
+.learn-header .bg-stats-chip {
+  height: 48px !important;
+  padding: 0 15px !important;
+  font-size: 21px !important;
+  font-weight: 700 !important;
+  border-radius: 1498px !important;
+}
+.learn-header .bg-stats-chip .chip-emoji { font-size: 21px !important; }
+.learn-header .bg-stats-chip .chip-count {
+  font-size: 21px !important;
+  font-weight: 700 !important;
+  margin-inline-start: 6px !important;
+  color: #FFFFFF !important;
+}
+
+/* Path RecyclerView: paddingTop 8dp, paddingBottom 24dp */
+.learn-path {
+  padding-top: 12px !important;
+  padding-bottom: calc(36px + env(safe-area-inset-bottom)) !important;
+}
+
+/* item_unit_header.xml */
+.unit-header {
+  width: calc(100% - 48px) !important;
+  margin: 12px 24px !important;
+  border-radius: 24px !important;
+  padding: 24px 30px !important;
+  box-shadow: 0 6px 9px rgba(0, 0, 0, 0.18) !important;
+}
+.unit-header__emoji {
+  font-size: 60px !important;
+  margin-inline-end: 24px !important;
+}
+.unit-header__title { font-size: 27px !important; font-weight: 700 !important; color: #FFFFFF !important; }
+.unit-header__subtitle { font-size: 20px !important; color: #B3FFFFFF !important; margin-top: 3px !important; }
+
+/* item_lesson_node.xml + LessonPathAdapter zigzag (60dp) */
+.lesson-node__circle { width: 132px !important; height: 132px !important; }
+.lesson-node__emoji { font-size: 54px !important; line-height: 1 !important; }
+.lesson-node__badge { width: 42px !important; height: 42px !important; bottom: 6px !important; inset-inline-end: 6px !important; }
+.lesson-node__badge img { width: 42px !important; height: 42px !important; }
+.lesson-node__badge--lock { width: 36px !important; height: 36px !important; }
+.lesson-node__badge--lock img { width: 21px !important; height: 21px !important; }
+.lesson-node__label { margin-top: 9px !important; }
+.lesson-node__title { font-size: 20px !important; font-weight: 700 !important; max-width: 240px !important; }
+.lesson-node__number { font-size: 16px !important; margin-top: 1px !important; }
+.lesson-node__connector { width: 4px !important; height: 30px !important; }
+.lesson-node { --node-shift: 90px !important; }
+.learn-path__list { padding: 0 !important; }
+
+/* ──────────────────────────────────────────────────────────
+ * LESSON JOURNEY SHELL — activity_lesson_journey.xml
+ * ────────────────────────────────────────────────────────── */
+/* Toolbar: 56dp; back: 44dp; progress 6dp track; title 16sp white bold;
+ * btnContinue: 56dp height, margin 20/20/12/20 */
+.lj-progress { height: 9px !important; margin-top: 66px !important; }
+.lj-toolbar { height: 84px !important; padding: 0 12px !important; }
+.lj-back { width: 66px !important; height: 66px !important; }
+.lj-back img { width: 36px !important; height: 36px !important; }
+.lj-title { font-size: 24px !important; font-weight: 700 !important; }
+.lj-toolbar__spacer { width: 66px !important; height: 66px !important; }
+.lj-continue {
+  height: 84px !important;
+  font-size: 24px !important;
+  bottom: calc(30px + env(safe-area-inset-bottom)) !important;
+  left: 30px !important;
+  right: 30px !important;
+  border-radius: 42px !important;
+}
+
+/* ──────────────────────────────────────────────────────────
+ * INTRO STEP — Kotlin :247–367
+ * setPadding(20, 0, 20, 20)
+ * btnContinue ph: 48dp
+ * emoji 80f, title 28f topMargin 16, subtitle 16f topMargin 8
+ * empty space 20dp; preview card radius 20dp stroke 1dp pad 20/20/20/20
+ *   preview title 14f bottomMargin 12; preview bullets 14f bottomMargin 6
+ * video card: radius 16dp elevation 4f, height 210dp
+ * ────────────────────────────────────────────────────────── */
+.lj-step--intro { padding: 0 30px 30px 30px !important; gap: 0 !important; align-items: stretch !important; text-align: center !important; }
+.lj-intro__emoji { font-size: 120px !important; margin-top: 30px !important; }
+.lj-intro__title { font-size: 42px !important; margin-top: 24px !important; }
+.lj-intro__subtitle { font-size: 24px !important; margin-top: 12px !important; }
+.lj-intro__video { height: 315px !important; border-radius: 24px !important; margin-top: 30px !important; box-shadow: 0 6px 15px rgba(0,0,0,0.18) !important; }
+.lj-intro__preview { padding: 30px !important; border-radius: 30px !important; margin-top: 30px !important; }
+.lj-intro__preview-title { font-size: 21px !important; margin-bottom: 18px !important; }
+.lj-intro__preview-item { font-size: 21px !important; margin-bottom: 9px !important; }
+
+/* ──────────────────────────────────────────────────────────
+ * TEACH STEP — Kotlin :511–574 + buildGrammarBlock :673–723 +
+ *               buildExampleRow :725–761 + sectionLabel :576–585
+ * setPadding(16, 12, 16, 24)
+ * Section label: 14f, topMargin 14, bottomMargin 8
+ * Grammar card: radius 16dp stroke 1dp elevation 2f pad 18/18/18/18
+ *   title 18f bottomMargin 12; body 16f
+ *   pattern block: radius 10dp pad 14/12/14/12 textSize 15f topMargin 14
+ * Example row: pad 6/4/6/4 bottomMargin 12
+ *   romaji 17f; japanese 14f marginEnd?; hebrew 16f topMargin 2
+ * Card stroke = cardStroke color, every grammar bottomMargin 10
+ * ────────────────────────────────────────────────────────── */
+.lj-step--teach { padding: 18px 24px 36px 24px !important; gap: 0 !important; }
+.lj-section { font-size: 21px !important; margin-top: 21px !important; margin-bottom: 12px !important; gap: 9px !important; }
+.lj-section__bar { width: 6px !important; height: 21px !important; }
+.lj-teach-grammar { padding: 27px !important; border-radius: 24px !important; margin-bottom: 15px !important; }
+.lj-teach-grammar .lj-card__title { font-size: 27px !important; margin-bottom: 18px !important; font-weight: 700 !important; }
+.lj-teach-grammar .lj-card__body { font-size: 24px !important; line-height: 1.55 !important; }
+.lj-grammar-pattern { font-size: 22px !important; padding: 18px 21px !important; border-radius: 15px !important; margin-top: 21px !important; }
+.lj-teach-example { padding: 6px 9px !important; margin-bottom: 18px !important; }
+.lj-example-romaji { font-size: 26px !important; }
+.lj-example-japanese { font-size: 21px !important; }
+.lj-card-hebrew { font-size: 24px !important; margin-top: 3px !important; padding: 9px 18px !important; }
+
+/* ──────────────────────────────────────────────────────────
+ * VOCAB STEP — Kotlin :459–509 + buildVocabRow :587–671
+ * setPadding(16, 12, 16, 24)
+ * Card: radius 16dp stroke 1dp elevation 2f bottomMargin 10
+ * Inner pad 14/14/10/14
+ * Emoji box: 72×72 marginEnd 16 cornerRadius 16
+ * Japanese: 34f? actually this is vocab subtitle.
+ *   Looking again: japanese 17f, romaji 14f, hebrew 17f topMargin 3
+ * Speaker btn: 48×48 marginStart 8 cornerRadius 24 stroke 2dp
+ * ────────────────────────────────────────────────────────── */
+.lj-step--vocab { padding: 18px 24px 36px 24px !important; gap: 0 !important; }
+.lj-vocab__section { font-size: 21px !important; margin-top: 21px !important; margin-bottom: 12px !important; }
+.lj-vocab__cards { gap: 0 !important; }
+.lj-vocab__card { padding: 21px 21px 21px 15px !important; border-radius: 24px !important; margin-bottom: 15px !important; }
+.lj-vocab__row { gap: 0 !important; }
+.lj-vocab__emoji-box { width: 108px !important; height: 108px !important; border-radius: 24px !important; margin-inline-end: 24px !important; }
+.lj-vocab__emoji { font-size: 51px !important; }
+.lj-vocab__jp { font-size: 26px !important; font-weight: 700 !important; }
+.lj-vocab__romaji { font-size: 21px !important; }
+.lj-vocab__hebrew { font-size: 26px !important; margin-top: 4px !important; font-weight: 700 !important; }
+.lj-vocab__speaker { width: 72px !important; height: 72px !important; margin-inline-start: 12px !important; border-radius: 36px !important; border-width: 3px !important; }
+
+/* ──────────────────────────────────────────────────────────
+ * PRACTICE STEP — Kotlin :767–1032
+ * setPadding(20, 16, 20, 24)
+ * Counter: 13f bottomMargin 6
+ * Label: 15f bottomMargin 14
+ * Prompt card: radius 20dp stroke 1dp elev 0 bottomMargin 20
+ *   prompt text 26f, padding 20/24/20/24
+ * Input field: radius 12dp stroke 1dp pad 16/14/16/14 textSize 15f
+ *   bottomMargin 14
+ * Answer reveal card: radius 16dp stroke 1dp elev 0 bottomMargin 14
+ *   pad 16/16/16/16 answer text 20f
+ *   answerSub 14f topMargin 6
+ *   speaker 48×48 topMargin 10 cornerRadius 24 stroke 2
+ * Buttons: btnCheck textSize 15f stroke 2 cornerRadius 14
+ *   btnPeek textSize 15f stroke 1 cornerRadius 14
+ * ────────────────────────────────────────────────────────── */
+.lj-step--practice { padding: 24px 30px 36px 30px !important; gap: 0 !important; }
+.lj-practice__counter { font-size: 20px !important; margin-bottom: 9px !important; }
+.lj-practice__label { font-size: 22px !important; margin-bottom: 21px !important; font-weight: 700 !important; }
+.lj-practice__prompt { padding: 36px 30px !important; border-radius: 30px !important; margin-bottom: 30px !important; }
+.lj-practice__prompt-text { font-size: 39px !important; font-weight: 700 !important; }
+.lj-practice__input { padding: 21px 24px !important; font-size: 22px !important; border-radius: 18px !important; min-height: 120px !important; margin-bottom: 21px !important; }
+.lj-practice__answer { padding: 24px !important; border-radius: 24px !important; margin-bottom: 21px !important; }
+.lj-practice__answer-text { font-size: 30px !important; font-weight: 700 !important; }
+.lj-practice__answer-sub { font-size: 21px !important; margin-top: 9px !important; }
+.lj-practice__speaker { width: 72px !important; height: 72px !important; margin-top: 15px !important; border-radius: 36px !important; border-width: 3px !important; }
+.lj-practice__btn-row .lj-practice__btn { font-size: 22px !important; border-radius: 21px !important; }
+
+/* ──────────────────────────────────────────────────────────
+ * QUIZ STEP — Kotlin :1041–1314
+ * setPadding(20, 20, 20, 20)
+ * Counter: 13f bottomMargin 16
+ * Question card: radius 20dp stroke 1dp elev 0 bottomMargin 20
+ *   pad 24/20/24/20 textSize 18f marginEnd 12
+ *   speaker 44×44 cornerRadius 22 stroke 2 iconSize 20
+ * Hint card: radius 12dp elev 0 bottomMargin 12 pad 12/14/12/14
+ *   hint icon textSize 18f marginEnd 10; hint text 14f
+ * Option button: textSize 15f stroke 2 cornerRadius 16 pad 0/20/0/20
+ *   minHeight 58dp bottomMargin 10
+ * Option speaker: 44×44 marginStart 8 cornerRadius 22 stroke 2 iconSize 20
+ * Check / Next buttons: cornerRadius 14 topMargin 8 bottomMargin 8
+ * ────────────────────────────────────────────────────────── */
+.lj-step--quiz { padding: 30px !important; gap: 0 !important; }
+.lj-quiz__counter { font-size: 20px !important; margin-bottom: 24px !important; }
+.lj-quiz__question-card { padding: 30px 36px !important; border-radius: 30px !important; margin-bottom: 30px !important; }
+.lj-quiz__question-text { font-size: 27px !important; line-height: 1.4 !important; }
+.lj-quiz__hint { padding: 18px 21px !important; border-radius: 18px !important; margin-bottom: 18px !important; }
+.lj-quiz__hint-icon { font-size: 27px !important; margin-inline-end: 15px !important; }
+.lj-quiz__hint-text { font-size: 21px !important; }
+.lj-quiz__option { min-height: 87px !important; padding: 0 30px !important; font-size: 22px !important; border-radius: 24px !important; margin-bottom: 15px !important; border-width: 3px !important; }
+.lj-quiz__option-label { font-size: 22px !important; }
+.lj-quiz__check, .lj-quiz__next { font-size: 22px !important; border-radius: 21px !important; }
+
+/* ──────────────────────────────────────────────────────────
+ * COMPLETE STEP — Kotlin :1404–1491
+ * setPadding(20, 48, 20, 20)
+ * Emoji 80f bottomMargin 16
+ * Title 28f bottomMargin 8
+ * Subtitle (no specific size; falls under 18f area)
+ * XP card cornerRadius 14
+ * ────────────────────────────────────────────────────────── */
+.lj-step--complete { padding: 72px 30px 30px 30px !important; align-items: center !important; text-align: center !important; }
+.lj-complete__emoji { font-size: 120px !important; margin-bottom: 24px !important; }
+.lj-complete__title { font-size: 42px !important; margin-bottom: 12px !important; }
+.lj-complete__subtitle { font-size: 27px !important; margin-bottom: 18px !important; }
+.lj-complete__xp-card { border-radius: 21px !important; padding: 24px 36px !important; }
+.lj-complete__xp-text { font-size: 36px !important; font-weight: 700 !important; }
+
+/* ──────────────────────────────────────────────────────────
+ * QUIZ FAIL/RETRY card — Kotlin :1316–1397
+ * setPadding(32, 48, 32, 48)
+ * emoji 64f bottomMargin 16
+ * score 48f bottomMargin 8
+ * percent 18f bottomMargin 12
+ * hint 15f bottomMargin 32
+ * btn cornerRadius 14
+ * ────────────────────────────────────────────────────────── */
+.lj-quiz__retry { padding: 72px 48px !important; text-align: center !important; }
+.lj-quiz__retry-emoji { font-size: 96px !important; margin-bottom: 24px !important; }
+.lj-quiz__retry-score { font-size: 72px !important; margin-bottom: 12px !important; font-weight: 700 !important; }
+.lj-quiz__retry-percent { font-size: 27px !important; margin-bottom: 18px !important; }
+.lj-quiz__retry-hint { font-size: 22px !important; margin-bottom: 48px !important; }
+.lj-quiz__retry-btn { border-radius: 21px !important; }
