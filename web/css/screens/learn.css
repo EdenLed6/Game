@@ -163,8 +163,8 @@
 /* Circle frame */
 .lesson-node__circle {
   position: relative;
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -172,7 +172,7 @@
 }
 
 .lesson-node__emoji {
-  font-size: 64px;
+  font-size: 84px;
   line-height: 1;
   /* Center using flex alignment of the parent */
 }
@@ -230,21 +230,21 @@
 }
 
 .lesson-node__title {
-  font-size: 20px;
+  font-size: 26px;
   font-weight: 700;
   color: var(--color-on-surface);
   line-height: 1.2;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 240px;
+  max-width: 320px;
 }
 
 .lesson-node__number {
-  font-size: 16px;
+  font-size: 21px;
   color: var(--color-on-surface-muted);
   line-height: 1.2;
-  margin-top: 3px;
+  margin-top: 4px;
 }
 
 .lesson-node--locked .lesson-node__title {
