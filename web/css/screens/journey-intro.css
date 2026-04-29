@@ -88,8 +88,13 @@
   position: absolute;
   top: 0;
   right: 0;
-  width: 56px;
-  height: 56px;
+  /* Vimeo's "..." overflow menu sits inset from the corner — a 56×56 box
+   * on the corner alone isn't enough. Cover ~50% of the width and the
+   * top 64px so the menu (and any future top-right control Vimeo adds)
+   * is fully blocked. The Vimeo play button is centered and the scrubber
+   * is along the bottom, both untouched. */
+  width: 50%;
+  height: 64px;
   background: transparent;
   pointer-events: auto;
   z-index: 10;

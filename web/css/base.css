@@ -13,18 +13,6 @@ html, body {
   overflow: hidden;
 }
 
-/* Scale the whole UI proportionally on screens larger than a phone, so the
- * layout feels right on tablets, foldables, and the desktop. The base
- * design targets a ~360–414px phone viewport; on bigger screens we zoom
- * everything (fonts, cards, padding, icons) by the same factor so the
- * content stays sized to the screen rather than looking tiny in a
- * phone-sized column. */
-@media (min-width: 540px)  { html { zoom: 1.20; } }
-@media (min-width: 700px)  { html { zoom: 1.45; } }
-@media (min-width: 900px)  { html { zoom: 1.70; } }
-@media (min-width: 1100px) { html { zoom: 2.00; } }
-@media (min-width: 1400px) { html { zoom: 2.40; } }
-
 html {
   /* match Android's adjustResize behavior */
   height: 100%;
