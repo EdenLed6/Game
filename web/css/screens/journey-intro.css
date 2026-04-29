@@ -88,12 +88,14 @@
   position: absolute;
   top: 0;
   right: 0;
-  /* Cover the entire top strip of the video — Vimeo's overflow menu sits
-   * up there and earlier corner-only overlays missed it. 70px is taller
-   * than every Vimeo top-bar build but well above the centered play
-   * button (vertical center) and the bottom scrubber. */
+  /* Vimeo lays out top-right controls inset from the corner. Earlier
+   * 56×56 / 50% × 64px / 100% × 70px overlays kept missing the "..."
+   * and Share button on different player builds. Cover the full top
+   * 35% of the video card — well above the centered Vimeo play button
+   * and bottom scrubber, but big enough to swallow every top-bar
+   * control regardless of where Vimeo decides to put them. */
   width: 100%;
-  height: 70px;
+  height: 35%;
   background: transparent;
   pointer-events: auto;
   z-index: 10;
