@@ -100,19 +100,28 @@
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   background: transparent;
+  /* Reserve bottom space so the fixed continue button doesn't cover the
+   * step's last item. 56px button + 12px top margin + 20px bottom margin
+   * + safe-area inset for the iOS home bar. */
+  padding-bottom: calc(56px + 32px + env(safe-area-inset-bottom));
 }
 
-/* ── Bottom continue button ───────────────────────────────────── */
+/* ── Bottom continue button — pinned to the viewport bottom ──── */
 
 .lj-continue {
-  margin: 12px 20px 20px 20px;
+  position: fixed;
+  left: 20px;
+  right: 20px;
+  bottom: calc(20px + env(safe-area-inset-bottom));
   height: 56px;
-  flex-shrink: 0;
+  z-index: 50;
 }
 .lj-continue[disabled] {
   opacity: 0.55;
   cursor: not-allowed;
 }
+.lj-continue[hidden],
+.lj-continue[style*="display: none"] { display: none; }
 
 /* ── Stub fallback ─────────────────────────────────────────────── */
 

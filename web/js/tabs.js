@@ -37,6 +37,9 @@ export function setBottomNavVisible(host, visible) {
   // Also hide the divider when the nav is hidden so the screen is truly full-bleed
   const divider = document.querySelector(".bottom-nav-divider");
   if (divider) divider.classList.toggle("is-hidden", !visible);
+  // Toggle the body class that reserves bottom padding under .screen-host
+  // so a tab's last item isn't hidden behind the fixed bar.
+  document.body.classList.toggle("with-bottom-nav", !!visible);
 }
 
 export function setActiveTab(host, tabId) {
