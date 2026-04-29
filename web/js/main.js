@@ -66,6 +66,29 @@ function showError(host, message) {
     } catch {}
   }
 
+  // PWA stale-CSS detector: if any <link rel="stylesheet"> in the cached
+  // index.html points to a file that no longer exists on the server (404),
+  // the cached HTML is stale and we force a hard reload from network.
+  // After a deploy that renames override-*.css the PWA can boot with the
+  // old href cached; this triggers exactly once and brings it back up to
+  // date without the user having to reinstall.
+  try {
+    const links = Array.from(document.querySelectorAll('link[rel="stylesheet"]'));
+    const checks = await Promise.all(
+      links.map((l) =>
+        fetch(l.href, { method: "HEAD", cache: "no-store" })
+          .then((r) => r.ok)
+          .catch(() => true), // network errors don't trigger reload
+      ),
+    );
+    if (checks.some((ok) => ok === false)) {
+      const u = new URL(location.href);
+      u.searchParams.set("_t", String(Date.now()));
+      location.replace(u.toString());
+      return;
+    }
+  } catch {}
+
   // Lock zoom — the meta viewport already says user-scalable=no but some
   // Android browsers (Samsung Internet, sometimes Chrome) ignore that flag
   // for accessibility. Block the pinch + double-tap gestures at the JS
