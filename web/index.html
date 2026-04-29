@@ -33,6 +33,11 @@
   <link rel="stylesheet" href="css/screens/journey-practice.css?v=20260428b" />
   <link rel="stylesheet" href="css/screens/journey-quiz.css?v=20260428b" />
   <link rel="stylesheet" href="css/screens/journey-complete.css?v=20260428b" />
+
+  <!-- Emergency override sheet — fresh path, no cache history. Loaded last
+       so its rules win. Will be folded back into the regular sheets once
+       the size complaint is resolved. -->
+  <link rel="stylesheet" href="css/override-20260428b.css" />
 </head>
 <body>
 
@@ -45,9 +50,6 @@
        see it, the GitHub Pages workflow isn't deploying our changes at all
        and we need to debug the pipeline rather than the styles. Will be
        removed once the size issue is resolved. -->
-  <div style="background:#FF00AA;color:#fff;text-align:center;font-size:20px;font-weight:700;padding:12px;letter-spacing:0.5px;">
-    BUILD v20260428b — IF YOU SEE THIS, THE DEPLOY IS LIVE
-  </div>
 
   <!-- Fragment container — current screen mounts here -->
   <main id="screen-host" class="screen-host" role="main"></main>
