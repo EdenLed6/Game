@@ -68,23 +68,42 @@ body {
   flex-direction: column;
 }
 
+/* Bottom nav + divider are pinned to the viewport bottom with position:fixed
+ * so they're guaranteed to be visible regardless of how tall .screen-host's
+ * content thinks it is. The screen-host gets bottom padding to clear them. */
 .bottom-nav-divider {
-  flex: 0 0 var(--dim-bottom-rule);
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--dim-bottom-nav-height) + env(safe-area-inset-bottom));
+  height: var(--dim-bottom-rule);
   background: var(--color-bottom-rule);
+  z-index: var(--z-bottom-nav);
 }
 
 .bottom-nav {
-  flex: 0 0 var(--dim-bottom-nav-height);
-  height: var(--dim-bottom-nav-height);
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(var(--dim-bottom-nav-height) + env(safe-area-inset-bottom));
   display: flex;
   align-items: stretch;
   justify-content: space-evenly;
-  background: transparent;       /* watercolor underlay shows through */
+  background: var(--color-background, #FDF5F4);
   z-index: var(--z-bottom-nav);
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-.bottom-nav.is-hidden { display: none; }
+.bottom-nav.is-hidden,
+.bottom-nav-divider.is-hidden { display: none; }
+
+/* When the bottom nav is visible, every full-screen tab needs to reserve
+ * space for it so its last item isn't hidden behind the fixed bar. The
+ * .with-bottom-nav class is added/removed by tabs.js as routes change. */
+body.with-bottom-nav .screen-host {
+  padding-bottom: calc(var(--dim-bottom-nav-height) + var(--dim-bottom-rule) + env(safe-area-inset-bottom));
+}
 
 .bottom-nav__btn {
   flex: 1 1 0;
