@@ -39,6 +39,16 @@
   <!-- A02820 copyright bar — exact line from activity_main.xml -->
   <div class="copyright-bar">© קימורה בית הספר לשפה היפנית</div>
 
+  <!-- TEMPORARY DEPLOY-VERIFY BANNER. If the user can see this magenta strip
+       below the copyright bar, the latest build IS reaching her phone and
+       the size complaint is purely a CSS-tuning question. If she doesn't
+       see it, the GitHub Pages workflow isn't deploying our changes at all
+       and we need to debug the pipeline rather than the styles. Will be
+       removed once the size issue is resolved. -->
+  <div style="background:#FF00AA;color:#fff;text-align:center;font-size:20px;font-weight:700;padding:12px;letter-spacing:0.5px;">
+    BUILD v20260428b — IF YOU SEE THIS, THE DEPLOY IS LIVE
+  </div>
+
   <!-- Fragment container — current screen mounts here -->
   <main id="screen-host" class="screen-host" role="main"></main>
 
