@@ -110,6 +110,93 @@ export function Intro({ hostEl, lesson, journey }) {
     );
     children.push(videoCard);
 
+    // Bigger custom control row UNDER the iframe — does not hide
+    // Vimeo's native controls, just adds large tappable Play/Pause +
+    // Fullscreen buttons that drive the player via Vimeo's Player.js
+    // SDK. SDK is loaded once on demand. Free to use, no Vimeo plan
+    // required.
+    const playBtn = el(
+      "button",
+      {
+        type: "button",
+        class: "lj-intro__big-play",
+        "aria-label": "נגן / השהה",
+      },
+      el("span", { class: "lj-intro__big-play-icon", "aria-hidden": "true" }, "▶"),
+      el("span", { class: "lj-intro__big-play-label" }, "נגן"),
+    );
+    const fullscreenBtn = el(
+      "button",
+      {
+        type: "button",
+        class: "lj-intro__big-fs",
+        "aria-label": "מסך מלא",
+      },
+      el("span", { class: "lj-intro__big-fs-icon", "aria-hidden": "true" }, "⛶"),
+      el("span", { class: "lj-intro__big-fs-label" }, "מסך מלא"),
+    );
+    const controls = el(
+      "div",
+      { class: "lj-intro__video-controls" },
+      playBtn,
+      fullscreenBtn,
+    );
+    children.push(controls);
+
+    // Lazy-load Vimeo Player.js once. The SDK exposes window.Vimeo.Player
+    // which we instantiate against our iframe. play/pause toggles state,
+    // requestFullscreen() drives the iframe fullscreen.
+    const SDK_URL = "https://player.vimeo.com/api/player.js";
+    function ensureSdk() {
+      if (window.Vimeo && window.Vimeo.Player) return Promise.resolve();
+      return new Promise((resolve, reject) => {
+        const existing = document.querySelector(`script[src="${SDK_URL}"]`);
+        if (existing) {
+          existing.addEventListener("load", () => resolve());
+          existing.addEventListener("error", reject);
+          return;
+        }
+        const s = document.createElement("script");
+        s.src = SDK_URL;
+        s.async = true;
+        s.onload = () => resolve();
+        s.onerror = reject;
+        document.head.appendChild(s);
+      });
+    }
+
+    let player = null;
+    let isPlaying = false;
+    ensureSdk().then(() => {
+      try {
+        player = new window.Vimeo.Player(iframe);
+        player.on("play", () => {
+          isPlaying = true;
+          playBtn.querySelector(".lj-intro__big-play-icon").textContent = "⏸";
+          playBtn.querySelector(".lj-intro__big-play-label").textContent = "השהה";
+        });
+        player.on("pause", () => {
+          isPlaying = false;
+          playBtn.querySelector(".lj-intro__big-play-icon").textContent = "▶";
+          playBtn.querySelector(".lj-intro__big-play-label").textContent = "נגן";
+        });
+        player.on("ended", () => {
+          isPlaying = false;
+          playBtn.querySelector(".lj-intro__big-play-icon").textContent = "▶";
+          playBtn.querySelector(".lj-intro__big-play-label").textContent = "נגן";
+        });
+      } catch (_) { /* SDK loaded but player init failed — buttons noop */ }
+    }).catch(() => { /* SDK failed to load — buttons noop */ });
+
+    playBtn.addEventListener("click", () => {
+      if (!player) return;
+      if (isPlaying) player.pause(); else player.play();
+    });
+    fullscreenBtn.addEventListener("click", () => {
+      if (!player) return;
+      try { player.requestFullscreen(); } catch (_) { /* ignore */ }
+    });
+
     // Stop playback before the next step renders. lesson-journey.js calls
     // every registered disposer in flushDisposers() before tearing down
     // the step host, which is exactly when we want to clear the iframe.
