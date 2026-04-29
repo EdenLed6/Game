@@ -234,30 +234,20 @@
 .lj-intro__emoji { font-size: clamp(80px, 19.2vw, 202px) !important; }
 .lj-intro__title { font-size: clamp(35px, 7.8vw, 72px) !important; }
 .lj-intro__subtitle { font-size: clamp(22px, 4.8vw, 41px) !important; }
-/* Video container + iframe scale-up trick:
- * - container: overflow:hidden + relative so an oversized iframe child clips
- * - iframe: 115% × 115% of container, anchored bottom-left
- * Result:
- *   • Vimeo's top-right icons (heart / clock / share / "...") get pushed
- *     above and to the right of the visible area and clip away — we can't
- *     remove them via URL params (that requires Vimeo Pro), but we can
- *     visually clip them.
- *   • The iframe's bottom edge stays anchored at the container bottom, so
- *     the play / scrub / time / fullscreen controls are visible AND
- *     rendered at +15% size — the bottom bar feels meatier and easier to
- *     tap. */
+/* Video — clean iframe at 100% × 100%, no scaling, no clipping. The
+ * scale-up cropped video content; clip-path cropped video content; both
+ * are unacceptable trade-offs. Without Vimeo Pro (server-side disable
+ * of the share suite) or self-hosted video files, the corner icons
+ * have to stay. */
 .lj-intro__video {
-  height: clamp(260px, 56vw, 580px) !important;
+  height: clamp(230px, 52.8vw, 547px) !important;
   border-radius: clamp(20px, 4.8vw, 41px) !important;
-  overflow: hidden !important;
   position: relative !important;
 }
 .lj-intro__video-iframe {
-  position: absolute !important;
-  bottom: 0 !important;
-  left: 0 !important;
-  width: 115% !important;
-  height: 115% !important;
+  position: static !important;
+  width: 100% !important;
+  height: 100% !important;
   border: 0 !important;
 }
 .lj-intro__preview-title { font-size: clamp(22px, 4.8vw, 41px) !important; }
