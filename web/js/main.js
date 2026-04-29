@@ -128,24 +128,41 @@ function showError(host, message) {
   // user clicks. iOS Safari does not fire this event — we detect iOS
   // and instead show inline instructions ("Share → Add to Home Screen").
   (function setupPwaInstall() {
+    const installBar = document.getElementById("pwa-install-bar");
     const installBtn = document.getElementById("pwa-install-btn");
-    if (!installBtn) return;
+    const dismissBtn = document.getElementById("pwa-install-dismiss");
+    if (!installBar || !installBtn) return;
+
     const isStandalone = window.matchMedia("(display-mode: standalone)").matches
       || window.navigator.standalone === true;
-    if (isStandalone) return; // already installed → never show
+    if (isStandalone) {
+      // We're inside the installed PWA — record it so the regular
+      // browser tab the user might open later also hides the banner.
+      try { localStorage.setItem("kimura-pwa-installed", "1"); } catch {}
+      return;
+    }
+
+    // If a previous launch (here or in the PWA) already recorded that
+    // the user installed, don't show the banner at all. The user can
+    // re-show it by clearing site data; that's fine.
+    let dismissedOrInstalled = false;
+    try {
+      dismissedOrInstalled =
+        localStorage.getItem("kimura-pwa-installed") === "1" ||
+        localStorage.getItem("kimura-pwa-dismissed") === "1";
+    } catch {}
+    if (dismissedOrInstalled) return;
 
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     let deferredPrompt = null;
 
-    // Always reveal the button for non-PWA visitors. We can't rely on
-    // `beforeinstallprompt` to gate visibility because that event only
-    // fires when a service worker is registered, and we unregister all
-    // service workers on boot (to avoid stale-cache problems). Without
-    // an SW the event never fires → button never shows → user can't
-    // discover the install option. By showing it unconditionally and
-    // providing fallback instructions on click, we guarantee a usable
-    // install path on every browser.
-    installBtn.hidden = false;
+    // Show the banner for non-PWA visitors. We can't rely on
+    // `beforeinstallprompt` to gate visibility because that event
+    // requires browser-specific heuristics that may not have triggered
+    // yet. By showing it unconditionally and falling back to manual
+    // instructions on click when no prompt is available, we guarantee
+    // a usable install path.
+    installBar.hidden = false;
 
     window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();
@@ -158,13 +175,14 @@ function showError(host, message) {
         try {
           const { outcome } = await deferredPrompt.userChoice;
           deferredPrompt = null;
-          if (outcome === "accepted") installBtn.hidden = true;
-        } catch (_) { /* user dismissed — keep button visible */ }
+          if (outcome === "accepted") {
+            try { localStorage.setItem("kimura-pwa-installed", "1"); } catch {}
+            installBar.hidden = true;
+          }
+        } catch (_) { /* user dismissed — keep banner visible */ }
         return;
       }
-      // No native prompt available → guide the user manually. iOS
-      // Safari and many Android browsers (Firefox, in-app webviews)
-      // never fire beforeinstallprompt; the menu path always works.
+      // No native prompt available → guide the user manually.
       if (isIOS) {
         alert(
           "כדי להתקין את האפליקציה:\n" +
@@ -182,8 +200,19 @@ function showError(host, message) {
       }
     });
 
+    if (dismissBtn) {
+      dismissBtn.addEventListener("click", () => {
+        try { localStorage.setItem("kimura-pwa-dismissed", "1"); } catch {}
+        installBar.hidden = true;
+      });
+    }
+
+    // Catches installs that happen via the browser's own menu (the
+    // user adding to home screen without using our button). The event
+    // fires once the install completes; we record the flag and hide.
     window.addEventListener("appinstalled", () => {
-      installBtn.hidden = true;
+      try { localStorage.setItem("kimura-pwa-installed", "1"); } catch {}
+      installBar.hidden = true;
       deferredPrompt = null;
     });
   })();
