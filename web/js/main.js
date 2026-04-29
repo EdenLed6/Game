@@ -103,6 +103,63 @@ function showError(host, message) {
     }
   } catch {}
 
+  // PWA install button — only visible in a regular web browser, hidden
+  // automatically inside the installed PWA via @media (display-mode:
+  // standalone) in CSS.
+  //
+  // On Chrome / Edge / Samsung Internet on Android the browser fires
+  // `beforeinstallprompt` once it decides the site is installable. We
+  // capture the event, show our button, and replay the prompt when the
+  // user clicks. iOS Safari does not fire this event — we detect iOS
+  // and instead show inline instructions ("Share → Add to Home Screen").
+  (function setupPwaInstall() {
+    const installBtn = document.getElementById("pwa-install-btn");
+    if (!installBtn) return;
+    const isStandalone = window.matchMedia("(display-mode: standalone)").matches
+      || window.navigator.standalone === true;
+    if (isStandalone) return; // already installed → never show
+
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    let deferredPrompt = null;
+
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.hidden = false;
+    });
+
+    if (isIOS) {
+      // Safari iOS has no install prompt API; show the button so the
+      // user gets guided instructions on tap.
+      installBtn.hidden = false;
+    }
+
+    installBtn.addEventListener("click", async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        deferredPrompt = null;
+        if (outcome === "accepted") installBtn.hidden = true;
+        return;
+      }
+      if (isIOS) {
+        // The native iOS Share Sheet has the "Add to Home Screen"
+        // option — direct the user there. RTL Hebrew copy.
+        alert(
+          "כדי להתקין את האפליקציה:\n" +
+          "1. לחצו על כפתור השיתוף בתחתית הדפדפן\n" +
+          "2. גללו ובחרו “הוסף למסך הבית”\n" +
+          "3. לחצו “הוסף”"
+        );
+      }
+    });
+
+    window.addEventListener("appinstalled", () => {
+      installBtn.hidden = true;
+      deferredPrompt = null;
+    });
+  })();
+
   // Lock zoom — the meta viewport already says user-scalable=no but some
   // Android browsers (Samsung Internet, sometimes Chrome) ignore that flag
   // for accessibility. Block the pinch + double-tap gestures at the JS

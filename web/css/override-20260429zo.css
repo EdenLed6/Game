@@ -72,6 +72,38 @@
   padding: clamp(2px, 0.8vw, 8px) 0 !important;
 }
 
+/* PWA install button — sits right below the copyright bar in the web,
+ * fully hidden inside the installed PWA. The standalone media query is
+ * the source of truth for "are we running as a PWA?" so no JS needed
+ * to keep the button hidden post-install. */
+.pwa-install-btn {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(8px, 2vw, 12px) !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: clamp(10px, 2.6vw, 16px) clamp(16px, 4vw, 24px) !important;
+  background: linear-gradient(180deg, var(--color-primary, #C0362A), var(--color-primary-dark, #8A1F16)) !important;
+  color: #fff !important;
+  font-size: clamp(15px, 4vw, 20px) !important;
+  font-weight: 700 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: transparent !important;
+  text-decoration: none !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.18) !important;
+}
+.pwa-install-btn:active { opacity: 0.9 !important; }
+.pwa-install-btn[hidden] { display: none !important; }
+.pwa-install-btn__icon { font-size: 1.15em !important; line-height: 1 !important; }
+
+/* Hide entirely when running as the installed PWA. */
+@media (display-mode: standalone) {
+  .pwa-install-btn { display: none !important; }
+}
+
 .bottom-nav__btn img {
   width: clamp(48px, 13vw, 120px) !important;
   height: clamp(48px, 13vw, 120px) !important;
