@@ -131,7 +131,17 @@ function showError(host, message) {
     const installBtn = document.getElementById("pwa-install-btn");
     if (!installBtn) return;
 
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const ua = navigator.userAgent;
+    // iPadOS 13+ reports the desktop Safari UA but exposes >1 touch
+    // points on the Mac platform — use both signals.
+    const isIOS = /iPad|iPhone|iPod/.test(ua)
+      || (ua.includes("Mac") && navigator.maxTouchPoints > 1);
+    // Non-Safari iOS browsers all run on WebKit but cannot install
+    // PWAs — their UA strings carry distinct identifiers.
+    const isIOSChrome = /CriOS/.test(ua);
+    const isIOSFirefox = /FxiOS/.test(ua);
+    const isIOSEdge = /EdgiOS/.test(ua);
+    const isIOSNonSafari = isIOS && (isIOSChrome || isIOSFirefox || isIOSEdge);
 
     // The earliest `beforeinstallprompt` may have fired before this
     // script ran — the inline <head> script captures it into
@@ -152,21 +162,36 @@ function showError(host, message) {
     });
 
     function showManualInstructions() {
+      if (isIOSNonSafari) {
+        // Chrome / Firefox / Edge on iOS can't install PWAs — Apple
+        // doesn't expose the API to non-WebKit-Safari browsers.
+        alert(
+          "באייפון אפשר להתקין את האפליקציה רק דרך Safari.\n\n" +
+          "כדי להתקין:\n" +
+          "1. פתחו את האתר ב־Safari\n" +
+          "2. לחצו על כפתור השיתוף בתחתית הדפדפן\n" +
+          "3. גללו ובחרו “הוסף למסך הבית”\n" +
+          "4. לחצו “הוסף”"
+        );
+        return;
+      }
       if (isIOS) {
+        // iOS Safari — manual share-sheet flow.
         alert(
           "כדי להתקין את האפליקציה:\n" +
-          "1. לחצו על כפתור השיתוף בתחתית הדפדפן\n" +
+          "1. לחצו על כפתור השיתוף ⬆ בתחתית הדפדפן\n" +
           "2. גללו ובחרו “הוסף למסך הבית”\n" +
           "3. לחצו “הוסף”"
         );
-      } else {
-        alert(
-          "כדי להתקין את האפליקציה:\n" +
-          "1. לחצו על תפריט הדפדפן (⋮ בפינה)\n" +
-          "2. בחרו “התקן אפליקציה” או “הוסף למסך הבית”\n" +
-          "3. אשרו את ההתקנה"
-        );
+        return;
       }
+      // Android / desktop fallback.
+      alert(
+        "כדי להתקין את האפליקציה:\n" +
+        "1. לחצו על תפריט הדפדפן (⋮ בפינה)\n" +
+        "2. בחרו “התקן אפליקציה” או “הוסף למסך הבית”\n" +
+        "3. אשרו את ההתקנה"
+      );
     }
 
     // If no prompt is currently buffered when the user clicks (common
@@ -188,8 +213,6 @@ function showError(host, message) {
           resolve(e);
         };
         window.addEventListener("beforeinstallprompt", onPrompt);
-        // Force the SW registration to refresh — sometimes nudges
-        // Chrome's installability heuristics post-uninstall.
         if ("serviceWorker" in navigator) {
           try {
             const reg = await navigator.serviceWorker.getRegistration();
@@ -206,21 +229,21 @@ function showError(host, message) {
     }
 
     installBtn.addEventListener("click", async () => {
-      let prompt = getPrompt();
-      if (!prompt) {
-        // Try once to recover a fresh prompt event before falling back
-        // to manual instructions.
-        prompt = await waitForPrompt(1500);
-      }
-      if (prompt) {
-        try {
-          prompt.prompt();
-          await prompt.userChoice;
-        } catch (_) { /* user dismissed — ok */ }
-        // The prompt object is one-shot; clear so a future
-        // beforeinstallprompt (e.g. after uninstall) replaces it.
-        setPrompt(null);
-        return;
+      // On iOS, `beforeinstallprompt` is never fired — Apple doesn't
+      // ship the API. Skip the 1.5s wait and go straight to the
+      // platform-specific instructions so the user gets immediate
+      // feedback.
+      if (!isIOS) {
+        let prompt = getPrompt();
+        if (!prompt) prompt = await waitForPrompt(1500);
+        if (prompt) {
+          try {
+            prompt.prompt();
+            await prompt.userChoice;
+          } catch (_) { /* user dismissed — ok */ }
+          setPrompt(null);
+          return;
+        }
       }
       showManualInstructions();
     });
