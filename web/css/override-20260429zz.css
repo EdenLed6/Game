@@ -460,74 +460,22 @@
 }
 
 /* ──────────────────────────────────────────────────────────
- * ADAPTIVE LAYOUT — make the app feel phone-shaped on every
- * screen size, from a 320px iPhone SE up to a 1920px desktop.
+ * ADAPTIVE LAYOUT
  *
- * Mobile (≤ 599px): body fills the viewport, fixed elements span
- * its full width. This is the default; nothing changes.
+ * The clamp(min, vw, max) sizing already handles the spread from
+ * iPhone SE (320px) to laptop (1440px) on its own. Earlier versions
+ * (zw / zy) added a "centered phone column on big screens" with
+ * dark frames around — but the user's phone reports a CSS viewport
+ * wide enough to trigger ANY width-based media query we tried, so
+ * the framing kept appearing on her actual phone. Removing the
+ * centered-column block entirely. The app fills the viewport at
+ * any size, scales sizes via clamp(). On a desktop monitor it'll
+ * span wider than ideal, but it won't break anything and — most
+ * importantly — phones never get framed.
  *
- * Tablet / desktop (≥ 600px): body capped at 600px wide and
- * centered. The HTML root behind it shows a dark "frame" so the
- * app sits in the middle like a phone mockup. Fixed-position
- * elements (bottom nav, divider, lj-continue button) get inset
- * via `max(0, calc(50vw - 300px))` so they stay aligned with the
- * centered body — which means on phones the math evaluates to
- * 0 (full width) and on tablets/desktop to half the gutter
- * automatically.
- *
- * No horizontal scroll on tiny phones — everything inside uses
- * box-sizing border-box already, plus we hard-cap the body at
- * 100vw on small screens.
- *
- * Landscape phones: tighten the lj-continue bottom inset since
- * the safe area is smaller.
+ * Landscape and tiny-phone tweaks below stay; they don't depend on
+ * the centered column.
  * ────────────────────────────────────────────────────────── */
-
-/* Centered "phone column" only on real desktops / large tablets WITH
- * a mouse pointer. The previous zw rule used a plain
- * `@media (min-width: 600px)` — but the user's phone reports a CSS
- * viewport > 600px (some Samsung/Xiaomi devices do), so it triggered
- * the centered layout on a phone and produced dark frames around
- * the app.
- *
- * The pointer/hover guards are the standard CSS way to detect
- * mouse-driven UAs. Touch-only phones — even those with wide CSS
- * viewports — fail the `(any-hover: hover) and (any-pointer: fine)`
- * check and never enter this block. The `min-width: 1024px` branch
- * keeps coverage for laptop/desktop browsers without trying to be
- * clever. */
-@media (min-width: 1024px),
-       (min-width: 768px) and (any-hover: hover) and (any-pointer: fine) {
-  html {
-    /* Dark frame visible on wide screens around the centered app */
-    background: #1a0a05 !important;
-  }
-  body {
-    max-width: 600px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    min-height: 100vh !important;
-    position: relative !important;
-    box-shadow: 0 0 60px rgba(0, 0, 0, 0.4) !important;
-  }
-
-  /* Fixed-position elements get left/right insets equal to the
-   * viewport-side gutter so they align with the centered 600px
-   * body. */
-  #bottom-nav,
-  .bottom-nav-divider {
-    left: max(0px, calc(50vw - 300px)) !important;
-    right: max(0px, calc(50vw - 300px)) !important;
-    width: auto !important;
-  }
-  .lj-continue {
-    left: max(24px, calc(50vw - 300px + 24px)) !important;
-    right: max(24px, calc(50vw - 300px + 24px)) !important;
-    inset-inline-start: max(24px, calc(50vw - 300px + 24px)) !important;
-    inset-inline-end: max(24px, calc(50vw - 300px + 24px)) !important;
-    width: auto !important;
-  }
-}
 
 /* Landscape phones (short height, wide aspect) — tighten the
  * lj-continue's bottom inset so it doesn't eat too much of the
