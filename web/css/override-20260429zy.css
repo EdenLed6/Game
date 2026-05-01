@@ -483,15 +483,21 @@
  * the safe area is smaller.
  * ────────────────────────────────────────────────────────── */
 
-html, body {
-  /* Defensive — never let the page exceed the viewport width.
-   * Prevents a stray fixed element from creating a horizontal
-   * scrollbar on tiny phones (320×500 etc.). */
-  max-width: 100vw !important;
-  overflow-x: hidden !important;
-}
-
-@media (min-width: 600px) {
+/* Centered "phone column" only on real desktops / large tablets WITH
+ * a mouse pointer. The previous zw rule used a plain
+ * `@media (min-width: 600px)` — but the user's phone reports a CSS
+ * viewport > 600px (some Samsung/Xiaomi devices do), so it triggered
+ * the centered layout on a phone and produced dark frames around
+ * the app.
+ *
+ * The pointer/hover guards are the standard CSS way to detect
+ * mouse-driven UAs. Touch-only phones — even those with wide CSS
+ * viewports — fail the `(any-hover: hover) and (any-pointer: fine)`
+ * check and never enter this block. The `min-width: 1024px` branch
+ * keeps coverage for laptop/desktop browsers without trying to be
+ * clever. */
+@media (min-width: 1024px),
+       (min-width: 768px) and (any-hover: hover) and (any-pointer: fine) {
   html {
     /* Dark frame visible on wide screens around the centered app */
     background: #1a0a05 !important;
@@ -505,11 +511,9 @@ html, body {
     box-shadow: 0 0 60px rgba(0, 0, 0, 0.4) !important;
   }
 
-  /* Fixed-position elements keep being viewport-fixed but get
-   * left/right insets equal to the viewport-side gutter so they
-   * align with the centered 600px body. The max(0, ...) collapses
-   * to 0 on phones (already handled above) and to (vw-600)/2 on
-   * wide screens. */
+  /* Fixed-position elements get left/right insets equal to the
+   * viewport-side gutter so they align with the centered 600px
+   * body. */
   #bottom-nav,
   .bottom-nav-divider {
     left: max(0px, calc(50vw - 300px)) !important;
@@ -517,17 +521,12 @@ html, body {
     width: auto !important;
   }
   .lj-continue {
-    /* Keep the 24px breathing room INSIDE the centered column */
     left: max(24px, calc(50vw - 300px + 24px)) !important;
     right: max(24px, calc(50vw - 300px + 24px)) !important;
     inset-inline-start: max(24px, calc(50vw - 300px + 24px)) !important;
     inset-inline-end: max(24px, calc(50vw - 300px + 24px)) !important;
     width: auto !important;
   }
-
-  /* Edge-to-edge video card cancels the .lj-step padding via
-   * negative margin. On the centered column the math is the same
-   * (negative margin = column padding), no change needed. */
 }
 
 /* Landscape phones (short height, wide aspect) — tighten the
