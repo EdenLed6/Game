@@ -515,15 +515,28 @@
   }
 }
 
-/* The base .bottom-nav is set to `background: transparent` so the
- * page's bg_japanese.png watercolor shows through. That looks great
- * when nothing is scrolled behind the nav, but in practice tabs that
- * scroll (Learn especially) end up rendering lesson nodes through the
- * nav — content is visible behind the icons. Fix: give the nav an
- * opaque washi-cream background that matches the page surface so
- * content can't bleed through. The 1px top border keeps the visual
- * separation the divider was already providing. */
+/* Bottom nav stays fully transparent — user wants the bg_japanese
+ * watercolor (mountains / pagoda / cherry blossoms) visible through
+ * the icons. The body's background-image is `background-attachment:
+ * fixed`, so it stays in place even while the screen scrolls — a
+ * transparent nav always shows the watercolor scene.
+ *
+ * The previous "opaque cream" attempt was rejected ("now I only see
+ * beige") and reverted. To stop SCROLLED CONTENT from bleeding into
+ * the nav region (the original complaint), bump the screen-host's
+ * reserved bottom padding so the scroll never reaches the nav area
+ * in the first place. */
 .bottom-nav {
-  background: var(--color-surface, #F2E8D5) !important;
-  border-top: 1px solid rgba(120, 80, 60, 0.10) !important;
+  background: transparent !important;
+  border-top: 0 !important;
+}
+body.with-bottom-nav .screen-host {
+  /* Generous padding so the last item in any scrollable tab clears
+   * the nav with room to spare. */
+  padding-bottom: calc(
+    var(--dim-bottom-nav-height, 110px)
+    + var(--dim-bottom-rule, 2px)
+    + env(safe-area-inset-bottom, 0px)
+    + 24px
+  ) !important;
 }
