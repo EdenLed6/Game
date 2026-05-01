@@ -515,28 +515,10 @@
   }
 }
 
-/* Bottom nav stays fully transparent — user wants the bg_japanese
- * watercolor (mountains / pagoda / cherry blossoms) visible through
- * the icons. The body's background-image is `background-attachment:
- * fixed`, so it stays in place even while the screen scrolls — a
- * transparent nav always shows the watercolor scene.
- *
- * The previous "opaque cream" attempt was rejected ("now I only see
- * beige") and reverted. To stop SCROLLED CONTENT from bleeding into
- * the nav region (the original complaint), bump the screen-host's
- * reserved bottom padding so the scroll never reaches the nav area
- * in the first place. */
-.bottom-nav {
-  background: transparent !important;
-  border-top: 0 !important;
-}
-body.with-bottom-nav .screen-host {
-  /* Generous padding so the last item in any scrollable tab clears
-   * the nav with room to spare. */
-  padding-bottom: calc(
-    var(--dim-bottom-nav-height, 110px)
-    + var(--dim-bottom-rule, 2px)
-    + env(safe-area-inset-bottom, 0px)
-    + 24px
-  ) !important;
-}
+/* Bottom nav + screen-host overrides removed — falling back to the
+ * untouched base.css rules so web and PWA render identically (the
+ * various nav experiments — opaque cream, extra padding, centered
+ * column — caused divergence between the two). Whatever base.css
+ * defines is now the source of truth: transparent nav,
+ * background-attachment: fixed body bg, default screen-host
+ * padding-bottom that already accounts for nav height + safe area. */
