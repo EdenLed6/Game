@@ -522,3 +522,53 @@
  * defines is now the source of truth: transparent nav,
  * background-attachment: fixed body bg, default screen-host
  * padding-bottom that already accounts for nav height + safe area. */
+
+/* ──────────────────────────────────────────────────────────
+ * Japanese text wrapping — prevent per-character breaking.
+ *
+ * CSS default for Japanese / Chinese / Korean (CJK) is to break
+ * between any two characters, because there are no spaces in those
+ * languages. On narrow containers — or when the user has system
+ * font-scaling cranked up — the result is a single word like
+ * ビンテージ wrapping vertically as ビ ン テ ー ジ down a column,
+ * which is broken-looking.
+ *
+ * `word-break: keep-all` tells the browser to treat CJK characters
+ * the same as Latin words: keep the run together unless there's a
+ * natural break (whitespace). Combined with `overflow-wrap: normal`,
+ * the entire Japanese word stays on one line; if it doesn't fit,
+ * it overflows the container instead of breaking — much better
+ * than per-character stacking. `min-width: 0` on flex children
+ * lets the parent's flex layout actually allow the text to take
+ * the width it needs without being squeezed by neighbors.
+ *
+ * Applied to every place we render Japanese: vocab card title,
+ * teach example, practice prompt, complete-screen Japanese, and the
+ * generic .dir-ltr utility used for inline Japanese fragments. */
+.lj-vocab__jp,
+.lj-example-japanese,
+.lj-practice__prompt-text,
+.lj-practice__answer-text,
+.lj-quiz__question-text,
+.lj-quiz__option-label,
+.dir-ltr {
+  word-break: keep-all !important;
+  overflow-wrap: normal !important;
+  -webkit-line-break: strict !important;
+}
+
+/* Vocab row was using flex with the speaker, text and emoji as
+ * siblings. Default flex children don't shrink below their content
+ * size, so when system font-scaling enlarges everything, the text
+ * column gets squeezed. min-width:0 on the text column lets the
+ * row redistribute width naturally. */
+.lj-vocab__row > * {
+  min-width: 0;
+}
+.lj-vocab__row {
+  /* Allow the row to wrap onto two lines (speaker on top, text+emoji
+   * below) when the cumulative width exceeds the card. This is
+   * specifically for the system-font-enlarged case — at default
+   * font scale the row stays on one line. */
+  flex-wrap: wrap !important;
+}
