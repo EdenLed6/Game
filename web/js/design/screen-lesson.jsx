@@ -624,6 +624,20 @@ function DonePhase({ lesson, score, total, onBack, onRetry }) {
   const grade = pct >= 90 ? "優" : pct >= 80 ? "良" : pct >= 60 ? "可" : "再";
   const xp = passed ? (score*15 + 30) : 0;
 
+  // Persist progress on pass — exactly once per render of this phase.
+  // The store de-dupes lesson completion (Set semantics), so re-mounting
+  // is safe; XP is added once per mount, which matches the user's intent
+  // (pass quiz → bank XP, retry → no extra XP since DonePhase remounts
+  // only on a fresh successful pass after onRetry).
+  ueL(() => {
+    if (!passed || !window.KimuraStore) return;
+    try {
+      window.KimuraStore.markLessonCompleted(lesson.id);
+      window.KimuraStore.addXP(xp);
+      window.KimuraStore.recordActivity();
+    } catch (e) { /* localStorage quota / private mode — silent */ }
+  }, [passed, lesson && lesson.id]);
+
   return (
     <div style={{ display:"flex", flexDirection:"column", height:"100%", alignItems:"center", textAlign:"center", padding:"10px 0" }}>
       <div style={{
