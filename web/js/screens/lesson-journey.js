@@ -117,55 +117,85 @@ export function LessonJourney({ host, ctx, params }) {
     }
   }
 
-  // ───── Build outer DOM (mirrors activity_lesson_journey.xml) ─────
+  // ───── Build outer DOM (design's LessonScreen shell) ─────
+  //
+  // Mirrors the design's screen-lesson.jsx top-level structure:
+  //
+  //   .kimura-screen.lesson-journey-screen.screen-enter
+  //     header.top-band                ← red header w/ bg_header texture
+  //       .top-band__inner
+  //         .top-band__row             ← back / title+subtitle / home
+  //         .lj-progress (progressbar) ← hidden on intro/complete
+  //       .gold-line                   ← gold accent strip
+  //     .kimura-content                ← step content scrolls here
+  //     button.lj-continue.btn.btn-primary  ← persistent CTA at bottom
 
-  // Header (HeaderLinearLayout port) — cherry-blossom red banner with the
-  // gold progress bar at the top, then a 56dp toolbar row with back arrow,
-  // centered step title, and a balancing 44dp spacer.
   const progressFill = el("div", { class: "lj-progress__fill" });
-  const titleEl = el("h1", { class: "lj-title" }, titleFor(currentStep, lesson));
+  const progressBar = el(
+    "div",
+    {
+      class: "lj-progress",
+      role: "progressbar",
+      "aria-valuemin": 0, "aria-valuemax": 100, "aria-valuenow": 0,
+    },
+    progressFill,
+  );
+
+  const titleEl = el("h1", { class: "top-band__title" }, titleFor(currentStep, lesson));
+  const subtitleEl = el("p", { class: "top-band__subtitle" }, lesson.number || "");
+
   const backBtn = el(
     "button",
     {
       type: "button",
-      class: "lj-back",
+      class: "top-band__icon-btn lj-back",
       "aria-label": "חזור",
       onClick: () => onBack(),
     },
-    el("img", { src: "assets/icons/ic_arrow_back.svg", alt: "" }),
+    el("span", { "aria-hidden": "true" }, "←"),
+  );
+
+  const homeBtn = el(
+    "button",
+    {
+      type: "button",
+      class: "top-band__icon-btn lj-home",
+      "aria-label": "חזרה לדף הבית",
+      onClick: () => router.go("#/learn"),
+    },
+    el("span", { "aria-hidden": "true" }, "✕"),
   );
 
   const headerEl = el(
     "header",
-    { class: "lj-header" },
+    { class: "top-band lj-top-band" },
     el(
       "div",
-      { class: "lj-progress", role: "progressbar",
-        "aria-valuemin": 0, "aria-valuemax": 100, "aria-valuenow": 0 },
-      progressFill,
+      { class: "top-band__inner" },
+      el(
+        "div",
+        { class: "top-band__row" },
+        el("div", { class: "top-band__slot" }, backBtn),
+        el("div", { class: "top-band__title-wrap" }, titleEl, subtitleEl),
+        el("div", { class: "top-band__slot" }, homeBtn),
+      ),
+      progressBar,
     ),
-    el(
-      "div",
-      { class: "lj-toolbar" },
-      backBtn,
-      titleEl,
-      el("div", { class: "lj-toolbar__spacer", "aria-hidden": "true" }),
-    ),
+    el("div", { class: "gold-line", "aria-hidden": "true" }),
   );
 
-  // Step host — the FrameLayout where each step's content lives.
-  const hostEl = el("div", { class: "lj-step-host" });
+  // Step host — the .kimura-content where each step renders.
+  const hostEl = el("div", { class: "kimura-content lj-step-host" });
 
-  // Bottom continue button — mirrors btnContinue in the XML. Its label and
-  // visibility are owned by the journey shell; the QUIZ step hides it
-  // entirely (LessonJourneyActivity.kt:130–131, :1047) because the quiz
-  // owns its own check/next buttons.
+  // Bottom continue button — the QUIZ step hides this entirely
+  // (LessonJourneyActivity.kt:1047) since the quiz owns its own
+  // check/next buttons.
   const continueLabel = el("span", { class: "lj-continue__label" }, "המשך");
   const continueBtn = el(
     "button",
     {
       type: "button",
-      class: "lj-continue btn btn--block",
+      class: "btn btn-primary lj-continue",
       onClick: () => onContinue(),
     },
     continueLabel,
@@ -173,7 +203,7 @@ export function LessonJourney({ host, ctx, params }) {
 
   const root = el(
     "div",
-    { class: "screen lesson-journey" },
+    { class: "kimura-screen lesson-journey-screen lesson-journey screen-enter" },
     headerEl,
     hostEl,
     continueBtn,
@@ -217,11 +247,23 @@ export function LessonJourney({ host, ctx, params }) {
     flushDisposers();
     currentStep = step;
 
-    // Update header
+    // Update header — title, subtitle (number for intro, phase for others),
+    // progress bar (hidden on intro/complete).
     titleEl.textContent = titleFor(step, lesson);
+    if (step === "intro") {
+      subtitleEl.textContent = lesson.number || "";
+      progressBar.style.visibility = "hidden";
+    } else if (step === "complete") {
+      subtitleEl.textContent = lesson.title || "";
+      progressBar.style.visibility = "hidden";
+    } else {
+      subtitleEl.textContent = (lesson.number || "") +
+        (lesson.subtitle ? " · " + lesson.subtitle : "");
+      progressBar.style.visibility = "visible";
+    }
     const pct = PROGRESS[step] ?? 0;
     progressFill.style.width = pct + "%";
-    headerEl.querySelector(".lj-progress").setAttribute("aria-valuenow", String(pct));
+    progressBar.setAttribute("aria-valuenow", String(pct));
 
     // Continue button defaults — the QUIZ step overrides these by calling
     // journey.setContinueVisible(false) in its renderer.
