@@ -1,42 +1,37 @@
-// intro.js — Step 1 of LessonJourney.
+// intro.js — Step 1 of the Lesson Journey (port of design's IntroPhase).
 //
-// 1:1 port of LessonJourneyActivity.showIntro() (Kotlin :247–367) and the
-// associated buildVideoCard() helper (:369–448).
+// 1:1 visual port of design_handoff_kimura_redesign/screen-lesson.jsx
+// IntroPhase. The journey shell owns the top band (with title +
+// subtitle + back/home + progress); this step renders the body:
 //
-// The journey shell owns the header, progress bar, step title, back arrow
-// and the bottom continue button. This step renders only the body content
-// into the host element it receives:
+//   ┌─ .card.intro-card (centered text, padded) ─────────┐
+//   │ .hanko (top-leading, rotated -8deg)                │
+//   │ "{lesson.number}" (red-deep tag, 11px)             │
+//   │ <h1>{lesson.title}</h1>  (Frank Ruhl Libre 30px)   │
+//   │ <div>{lesson.subtitle}</div>  (Cormorant italic)   │
+//   │ <div class="jp" lesson.glyph>   (red-deep 80px)    │
+//   └────────────────────────────────────────────────────┘
 //
-//   ┌─────────────────────────────────────┐
-//   │   [emoji 80sp]                      │
-//   │   Lesson title (28sp bold, primary) │
-//   │   Lesson subtitle (16sp muted)      │
-//   │   ┌─ video card (210dp tall) ────┐  │  ← only if lesson.videoUrl
-//   │   │ <iframe src=…?autoplay=0…>   │  │
-//   │   │ [56×56 overflow blocker]     │  │
-//   │   └──────────────────────────────┘  │
-//   │   ┌─ preview .lj-card ───────────┐  │  ← only if vocab.length > 0
-//   │   │ "בשיעור זה תלמד:"            │  │
-//   │   │ • japanese = hebrew × 3      │  │
-//   │   └──────────────────────────────┘  │
-//   └─────────────────────────────────────┘
+//   "בשיעור הזה" tag-row + .intro-sections list:
+//     ▸ סרטון פתיחה  (1)              (only if videoUrl)
+//     ▸ דקדוק        (N)
+//     ▸ מילים        (N)
+//     ▸ דוגמאות      (N)
+//     ▸ תרגול        (N)
+//     ▸ מבחן         (N)
+//   Each row is a cream-2 card with a small tinted icon-circle.
 //
-// Bottom continue button label: "התחל ✨" (Kotlin :248). Tapping it calls
-// journey.advance() which goes to TEACH.
+//   The lesson video (if any) is rendered AFTER the sections list as a
+//   16/10 black-bg iframe — preserves the existing behavior so users
+//   still see the Vimeo embed without a separate "video" phase.
+//
+//   Bottom continue button label: "התחל שיעור ←"
 
 import { el } from "../../dom.js";
 
-// Build the verbatim Vimeo URL with the same query params the Android
-// WebView used (LessonJourneyActivity.kt:443). We accept the URL as-is
-// and only append the params; if the host already has a query string the
-// `?` is replaced with `&` so we never produce an invalid URL.
 function buildEmbedUrl(rawUrl) {
   const params = "autoplay=0&title=0&byline=0&portrait=0&share=0&pip=0&vimeo_logo=0";
   try {
-    // Mirror the Android code which simply appends "?…". The vast majority
-    // of lessons use https://player.vimeo.com/video/<id> with no existing
-    // query string, but guard against the edge case anyway so a malformed
-    // entry can't throw and crash the step.
     if (typeof rawUrl !== "string" || rawUrl.length === 0) return "";
     const sep = rawUrl.includes("?") ? "&" : "?";
     return rawUrl + sep + params;
@@ -45,43 +40,83 @@ function buildEmbedUrl(rawUrl) {
   }
 }
 
+// Section row inside the "בשיעור הזה" list — small icon circle + label
+// + count, on a cream-2 card surface with a 1px cream-3 border.
+function sectionRow({ icon, label, count }) {
+  return el("div", { class: "intro-sections__row" },
+    el("div", { class: "intro-sections__icon", "aria-hidden": "true" }, icon),
+    el("div", { class: "intro-sections__label" }, label),
+    el("div", { class: "intro-sections__count" }, String(count)),
+  );
+}
+
 export function Intro({ hostEl, lesson, journey }) {
-  // Per Kotlin :248 — the bottom continue button reads "התחל ✨" on INTRO.
-  // The shell resets the label to "המשך" before calling each step renderer
-  // (lesson-journey.js :230), so we have to set it every time we mount.
-  if (journey && typeof journey.setContinueLabel === "function") {
-    journey.setContinueLabel("התחל ✨");
+  // Bottom continue label per the design — "התחל שיעור ←"
+  journey.setContinueLabel("התחל שיעור ←");
+
+  const sections = [];
+  if (lesson.videoUrl) {
+    sections.push({ icon: "▶", label: "סרטון פתיחה", count: 1 });
+  }
+  if (lesson.grammarPoints && lesson.grammarPoints.length > 0) {
+    sections.push({ icon: "📖", label: "דקדוק", count: lesson.grammarPoints.length });
+  }
+  if (lesson.vocabulary && lesson.vocabulary.length > 0) {
+    sections.push({ icon: "✨", label: "מילים", count: lesson.vocabulary.length });
+  }
+  if (lesson.examples && lesson.examples.length > 0) {
+    sections.push({ icon: "📄", label: "דוגמאות", count: lesson.examples.length });
+  }
+  if (lesson.practiceCards && lesson.practiceCards.length > 0) {
+    sections.push({ icon: "🔄", label: "תרגול", count: lesson.practiceCards.length });
+  }
+  if (lesson.exercises && lesson.exercises.length > 0) {
+    sections.push({ icon: "🏆", label: "מבחן", count: lesson.exercises.length });
   }
 
-  // Children we'll append to the step root, in order.
-  const children = [];
-
-  // ── Emoji (Kotlin :273–281) ──
-  children.push(
-    el("div", { class: "lj-intro__emoji", "aria-hidden": "true" }, lesson.emoji || ""),
+  // ── Hanko card ─────────────────────────────────────────────
+  const hanko = el(
+    "div",
+    {
+      class: "hanko intro-card__hanko",
+      "aria-hidden": "true",
+    },
+    lesson.glyph || (lesson.emoji || "?"),
   );
 
-  // ── Title (Kotlin :283–294) ──
-  children.push(
-    el("h2", { class: "lj-intro__title" }, lesson.title || ""),
+  const heroCard = el(
+    "div",
+    { class: "card intro-card" },
+    hanko,
+    el("div", { class: "intro-card__number" }, (lesson.number || "").toUpperCase()),
+    el("h1", { class: "intro-card__title" }, lesson.title || ""),
+    el("div", { class: "intro-card__subtitle" }, lesson.subtitle || ""),
+    el(
+      "div",
+      { class: "intro-card__big-glyph jp", "aria-hidden": "true" },
+      lesson.glyph || lesson.emoji || "",
+    ),
   );
 
-  // ── Subtitle (Kotlin :296–306) ──
-  if (lesson.subtitle) {
-    children.push(
-      el("p", { class: "lj-intro__subtitle" }, lesson.subtitle),
-    );
-  }
+  // ── Sections list ──────────────────────────────────────────
+  const sectionsBlock = el(
+    "section",
+    { class: "intro-sections" },
+    el("div", { class: "intro-sections__heading" }, "בשיעור הזה"),
+    el(
+      "div",
+      { class: "intro-sections__list" },
+      ...sections.map(sectionRow),
+    ),
+  );
 
-  // ── Video card (Kotlin :308–314 + buildVideoCard :369–448) ──
-  // Black background, 16dp radius, full-width, 210dp tall. Only shown when
-  // the lesson has a videoUrl. Cleared on dispose so playback stops when
-  // the user advances to TEACH.
+  // ── Optional Vimeo video card ─────────────────────────────
   const videoUrl = typeof lesson.videoUrl === "string" ? lesson.videoUrl : "";
+  let videoCard = null;
   if (videoUrl.length > 0) {
     const embedSrc = buildEmbedUrl(videoUrl);
     const iframe = el("iframe", {
-      class: "lj-intro__video-iframe",
+      class: "intro-video__iframe",
       src: embedSrc,
       frameborder: "0",
       allow: "autoplay; fullscreen; picture-in-picture",
@@ -90,116 +125,8 @@ export function Intro({ hostEl, lesson, journey }) {
       loading: "lazy",
       referrerpolicy: "no-referrer-when-downgrade",
     });
-
-    // Top-right 56×56 transparent overlay that swallows clicks on the
-    // corner where Vimeo renders its overflow ("...") menu. The Android
-    // app injected JS to hide that button via WebView.evaluateJavascript;
-    // browsers block cross-origin script injection so we instead block
-    // the click region from the parent frame (the iframe still receives
-    // pointer events everywhere else).
-    const overlay = el("div", {
-      class: "lj-intro__video-overlay",
-      "aria-hidden": "true",
-    });
-
-    const videoCard = el(
-      "div",
-      { class: "lj-intro__video" },
-      iframe,
-      overlay,
-    );
-    children.push(videoCard);
-
-    // Bigger custom control row UNDER the iframe — does not hide
-    // Vimeo's native controls, just adds large tappable Play/Pause +
-    // Fullscreen buttons that drive the player via Vimeo's Player.js
-    // SDK. SDK is loaded once on demand. Free to use, no Vimeo plan
-    // required.
-    const playBtn = el(
-      "button",
-      {
-        type: "button",
-        class: "lj-intro__big-play",
-        "aria-label": "נגן / השהה",
-      },
-      el("span", { class: "lj-intro__big-play-icon", "aria-hidden": "true" }, "▶"),
-      el("span", { class: "lj-intro__big-play-label" }, "נגן"),
-    );
-    const fullscreenBtn = el(
-      "button",
-      {
-        type: "button",
-        class: "lj-intro__big-fs",
-        "aria-label": "מסך מלא",
-      },
-      el("span", { class: "lj-intro__big-fs-icon", "aria-hidden": "true" }, "⛶"),
-      el("span", { class: "lj-intro__big-fs-label" }, "מסך מלא"),
-    );
-    const controls = el(
-      "div",
-      { class: "lj-intro__video-controls" },
-      playBtn,
-      fullscreenBtn,
-    );
-    children.push(controls);
-
-    // Lazy-load Vimeo Player.js once. The SDK exposes window.Vimeo.Player
-    // which we instantiate against our iframe. play/pause toggles state,
-    // requestFullscreen() drives the iframe fullscreen.
-    const SDK_URL = "https://player.vimeo.com/api/player.js";
-    function ensureSdk() {
-      if (window.Vimeo && window.Vimeo.Player) return Promise.resolve();
-      return new Promise((resolve, reject) => {
-        const existing = document.querySelector(`script[src="${SDK_URL}"]`);
-        if (existing) {
-          existing.addEventListener("load", () => resolve());
-          existing.addEventListener("error", reject);
-          return;
-        }
-        const s = document.createElement("script");
-        s.src = SDK_URL;
-        s.async = true;
-        s.onload = () => resolve();
-        s.onerror = reject;
-        document.head.appendChild(s);
-      });
-    }
-
-    let player = null;
-    let isPlaying = false;
-    ensureSdk().then(() => {
-      try {
-        player = new window.Vimeo.Player(iframe);
-        player.on("play", () => {
-          isPlaying = true;
-          playBtn.querySelector(".lj-intro__big-play-icon").textContent = "⏸";
-          playBtn.querySelector(".lj-intro__big-play-label").textContent = "השהה";
-        });
-        player.on("pause", () => {
-          isPlaying = false;
-          playBtn.querySelector(".lj-intro__big-play-icon").textContent = "▶";
-          playBtn.querySelector(".lj-intro__big-play-label").textContent = "נגן";
-        });
-        player.on("ended", () => {
-          isPlaying = false;
-          playBtn.querySelector(".lj-intro__big-play-icon").textContent = "▶";
-          playBtn.querySelector(".lj-intro__big-play-label").textContent = "נגן";
-        });
-      } catch (_) { /* SDK loaded but player init failed — buttons noop */ }
-    }).catch(() => { /* SDK failed to load — buttons noop */ });
-
-    playBtn.addEventListener("click", () => {
-      if (!player) return;
-      if (isPlaying) player.pause(); else player.play();
-    });
-    fullscreenBtn.addEventListener("click", () => {
-      if (!player) return;
-      try { player.requestFullscreen(); } catch (_) { /* ignore */ }
-    });
-
-    // Stop playback before the next step renders. lesson-journey.js calls
-    // every registered disposer in flushDisposers() before tearing down
-    // the step host, which is exactly when we want to clear the iframe.
+    videoCard = el("div", { class: "intro-video" }, iframe);
+    // Stop playback before the next step renders.
     if (journey && typeof journey.onDispose === "function") {
       journey.onDispose(() => {
         try { iframe.src = ""; } catch (_) { /* ignore */ }
@@ -207,40 +134,14 @@ export function Intro({ hostEl, lesson, journey }) {
     }
   }
 
-  // ── Preview card (Kotlin :316–364) ──
-  // "בשיעור זה תלמד:" + first 3 vocab items as "japanese = hebrew" bullets.
-  // Hidden entirely when the lesson has no vocabulary.
-  const vocab = Array.isArray(lesson.vocabulary) ? lesson.vocabulary : [];
-  const preview = vocab.slice(0, 3);
-  if (preview.length > 0) {
-    const list = el(
-      "ul",
-      { class: "lj-intro__preview-list" },
-      ...preview.map((item) =>
-        el(
-          "li",
-          { class: "lj-intro__preview-item" },
-          // Japanese stays in its native script (RTL page, but the JP+
-          // Hebrew "=" line reads naturally inside the RTL flow). Render
-          // the whole row as plain text — no LTR island needed because
-          // both halves are short and the "=" is balanced punctuation.
-          `${item.japanese || ""} = ${item.hebrew || ""}`,
-        ),
-      ),
-    );
-
-    children.push(
-      el(
-        "section",
-        { class: "lj-card lj-intro__preview" },
-        el("h3", { class: "lj-intro__preview-title" }, "בשיעור זה תלמד:"),
-        list,
-      ),
-    );
-  }
-
-  // Mount everything as a single .lj-step block.
+  // ── Mount ──────────────────────────────────────────────────
   hostEl.appendChild(
-    el("div", { class: "lj-step lj-step--intro" }, ...children),
+    el(
+      "div",
+      { class: "lj-step lj-step--intro intro-phase" },
+      heroCard,
+      sectionsBlock,
+      videoCard,
+    ),
   );
 }

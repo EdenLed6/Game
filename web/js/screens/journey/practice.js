@@ -1,307 +1,329 @@
-// practice.js — Step 4 of LessonJourney.
+// practice.js — Step 4 of LessonJourney (port of design's PracticePhase).
 //
-// 1:1 port of LessonJourneyActivity.showPracticeCard() (Kotlin :767–1032)
-// and normalizeAnswer() (Kotlin :1034).
+// Layout (per design_handoff_kimura_redesign/screen-lesson.jsx):
 //
-// The journey shell owns the header, progress bar, step title, back arrow
-// and the bottom continue button. This step renders only the body content
-// into the host element it receives:
+//   ┌─ .card.practice-card  (with shake on wrong) ───────────────┐
+//   │ "{promptLabel} · {idx+1}/{N}" tag (red-deep, 10px)          │
+//   │ ┌─ centered prompt area ────────────────────────────────┐   │
+//   │ │ {prompt} (Frank Ruhl Libre 24px, 700)                 │   │
+//   │ │ [optional: 🔊 audio button below the prompt]          │   │
+//   │ └───────────────────────────────────────────────────────┘   │
+//   │  (Either input + check/peek buttons OR a feedback card)     │
+//   │ <input class="practice-input" placeholder=cardHint>          │
+//   │ "או הקליטו את התשובה:"  [🎤 mic button]                     │
+//   │ (on submit/peek)                                            │
+//   │   green correct card OR cream reveal card with audio        │
+//   │   OR shake + "לא מדויק — נסו שוב או הציצו בתשובה"          │
+//   └─────────────────────────────────────────────────────────────┘
 //
-//   ┌──────────────────────────────────────────┐
-//   │            X / N (counter)               │
-//   │         מה תגידו? (instruction)          │
-//   │   ┌─────── prompt card ───────┐          │
-//   │   │  card.prompt (26sp bold)  │          │
-//   │   └───────────────────────────┘          │
-//   │   <textarea placeholder=inputHint, 3 rows>│
-//   │   [feedback line — hidden by default]    │
-//   │   ┌─── answer reveal card ────┐          │
-//   │   │  answer (20sp bold red)   │ (hidden) │
-//   │   │  answerSub (16sp muted)   │          │
-//   │   │  [44dp 🔊 button]         │          │
-//   │   └───────────────────────────┘          │
-//   │   [בדוק ✓]   [גלה 👁]                    │
-//   └──────────────────────────────────────────┘
-//
-// One practice card at a time. The bottom continue button reads "הבא" until
-// the last card, then "לחידון →". CONTINUE moves to the next card if more
-// remain (intercepted via journey.onContinueOverride); on the last card it
-// returns false so the shell's nextOf() advances to QUIZ.
-//
-// The PRACTICE step keeps `practiceIndex` in module-scope state. The shell's
-// back arrow on PRACTICE rewinds out of the step entirely (to VOCAB or TEACH
-// depending on whether the lesson has vocab) — see lesson-journey.js
-// onBack() and Kotlin :214–222.
+// The journey shell's continue button is hidden during this phase; the
+// practice card has its own action buttons (Check / Peek / Next).
 
 import { el } from "../../dom.js";
 import { speak } from "../../speaker.js";
 
-// ─────────────────────────────────────────────────────────────
-// normalizeAnswer — port of Kotlin :1034
-//   s.trim().lowercase()
-//    .trimEnd('.', '?', '!', '。', '？')
-//    .replace("\\s+".toRegex(), " ")
-// ─────────────────────────────────────────────────────────────
-function normalizeAnswer(s) {
-  if (s == null) return "";
-  return String(s)
-    .trim()
-    .toLowerCase()
-    .replace(/[.?!。？]+$/, "")
-    .replace(/\s+/g, " ");
+const CACHE = new Map(); // lessonId → { idx, val, verdict }
+
+function normalize(s) {
+  return (s || "").trim().toLowerCase().replace(/[\s\-_.,!?]/g, "");
 }
 
-// Per-step state. We keep this in module scope so re-entering the step
-// (e.g. after the back arrow) starts fresh — the shell's `goto()` calls
-// the renderer once per entry and we reset on first render.
-let practiceIndex = 0;
+function audioBtn(text, sizePx) {
+  return el(
+    "button",
+    {
+      type: "button",
+      class: "btn-icon audio-pulse practice-card__audio",
+      style: { width: sizePx + "px", height: sizePx + "px",
+               flex: "0 0 auto" },
+      "aria-label": "השמע",
+      onClick: (e) => {
+        e.stopPropagation();
+        const t = e.currentTarget;
+        t.classList.add("playing");
+        speak(text);
+        setTimeout(() => t.classList.remove("playing"), 1100);
+      },
+    },
+    el("span", { "aria-hidden": "true" }, "🔊"),
+  );
+}
 
-export function Practice({ hostEl, lesson, journey, preserveState }) {
-  const cards = Array.isArray(lesson.practiceCards) ? lesson.practiceCards : [];
-  const total = cards.length;
+export function Practice({ hostEl, lesson, journey }) {
+  journey.setContinueVisible(false);
 
-  // The shell already skips PRACTICE when total === 0 via nextOf(); guard
-  // anyway so a deep-link to #/lesson/:id/practice on a vocab-only lesson
-  // doesn't blow up.
-  if (total === 0) {
-    journey.advance();
+  const list = Array.isArray(lesson.practiceCards) ? lesson.practiceCards : [];
+  if (list.length === 0) {
+    hostEl.appendChild(el("p", { class: "lj-step--stub" }, "אין כרטיסי תרגול."));
     return;
   }
 
-  // Reset on a fresh entry into the step. `preserveState` is true only for
-  // shell-initiated re-renders (rerender()), which we don't use here. Any
-  // top-level entry (goto from VOCAB/TEACH or back from QUIZ) resets to
-  // the first card to mirror the Kotlin behavior — Kotlin's onBack from
-  // QUIZ at :223 sets quizIndex/quizScore back to 0 but leaves practiceIndex
-  // intact. The simplest faithful port is to leave practiceIndex sticky
-  // across navigations within the lifetime of the screen but clamp it.
-  if (!preserveState) {
-    if (practiceIndex >= total || practiceIndex < 0) practiceIndex = 0;
+  const cached = CACHE.get(lesson.id) || { idx: 0, val: "", verdict: null };
+  let idx = cached.idx >= list.length ? 0 : cached.idx;
+  let val = cached.val || "";
+  let verdict = cached.verdict; // "correct" | "wrong" | "reveal" | null
+  let recError = null;
+  let recognition = null;
+  let recording = false;
+  let shakeKey = 0;
+
+  const persist = () => CACHE.set(lesson.id, { idx, val, verdict });
+
+  function rebuild() {
+    persist();
+    hostEl.innerHTML = "";
+    hostEl.appendChild(buildPhase());
   }
 
-  // Render the current card. Re-renders happen when CONTINUE moves to the
-  // next card without leaving the step.
-  function render() {
-    const card = cards[practiceIndex];
-    const isLast = practiceIndex >= total - 1;
+  function submit(textArg) {
+    const text = textArg != null ? textArg : val;
+    if (!text.trim()) return;
+    const card = list[idx];
+    const ok = normalize(text) === normalize(card.answer);
+    verdict = ok ? "correct" : "wrong";
+    if (!ok) shakeKey += 1;
+    rebuild();
+  }
 
-    // ── Bottom continue button (Kotlin :775–776) ──
-    journey.setContinueLabel(isLast ? "לחידון →" : "הבא");
-    journey.setContinueEnabled(false);
+  function reveal() {
+    verdict = "reveal";
+    rebuild();
+  }
 
-    // CONTINUE handler: if more cards remain, advance the index and re-render
-    // (return true to swallow the shell's default advance). On the last card,
-    // return false so the shell's nextOf() takes us to QUIZ.
-    journey.onContinueOverride = () => {
-      if (practiceIndex < total - 1) {
-        practiceIndex++;
-        render();
-        return true;
-      }
-      return false;
-    };
+  function nextCard() {
+    if (idx >= list.length - 1) {
+      CACHE.delete(lesson.id);
+      journey.advance();
+      return;
+    }
+    idx += 1;
+    val = "";
+    verdict = null;
+    recError = null;
+    rebuild();
+  }
 
-    // ── Counter (Kotlin :795–804) ──
-    const counterEl = el(
-      "p",
-      { class: "lj-counter lj-practice__counter" },
-      `${practiceIndex + 1} / ${total}`,
-    );
+  function startRecording() {
+    recError = null;
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) {
+      recError = "הקלטת קול אינה נתמכת בדפדפן הזה. נסו דפדפן אחר.";
+      rebuild();
+      return;
+    }
+    try {
+      recognition = new SR();
+      recognition.lang = "ja-JP";
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 3;
+      recognition.onresult = (ev) => {
+        const card = list[idx];
+        const alts = [];
+        for (let i = 0; i < ev.results[0].length; i++) {
+          alts.push(ev.results[0][i].transcript);
+        }
+        let pick = alts[0];
+        for (const a of alts) {
+          if (normalize(a) === normalize(card.answer)) { pick = a; break; }
+        }
+        val = pick;
+        recording = false;
+        recognition = null;
+        setTimeout(() => submit(pick), 200);
+      };
+      recognition.onerror = (ev) => {
+        recError = ev && ev.error === "not-allowed"
+          ? "אין הרשאת מיקרופון."
+          : "ההקלטה נכשלה — נסו שוב.";
+        recording = false;
+        recognition = null;
+        rebuild();
+      };
+      recognition.onend = () => {
+        recording = false;
+      };
+      recording = true;
+      rebuild();
+      recognition.start();
+    } catch (e) {
+      recError = "לא ניתן להתחיל הקלטה.";
+      recording = false;
+      recognition = null;
+      rebuild();
+    }
+  }
 
-    // ── Instruction label (Kotlin :807–817) ──
-    const labelEl = el(
-      "p",
-      { class: "lj-practice__label" },
-      card.promptLabel || "",
-    );
+  function stopRecording() {
+    if (recognition) { try { recognition.stop(); } catch (_) {} }
+    recording = false;
+    recognition = null;
+    rebuild();
+  }
 
-    // ── Prompt card (Kotlin :820–840) ──
-    const promptCard = el(
+  // Cleanup on phase teardown
+  if (typeof journey.onDispose === "function") {
+    journey.onDispose(() => {
+      if (recognition) { try { recognition.abort(); } catch (_) {} }
+    });
+  }
+
+  function buildPhase() {
+    const card = list[idx];
+    const cardCls = ["card", "practice-card"];
+    if (shakeKey % 2 === 1) cardCls.push("shake");
+
+    const container = el(
       "div",
-      { class: "lj-card lj-practice__prompt" },
-      el("p", { class: "lj-practice__prompt-text" }, card.prompt || ""),
+      { class: "lj-step lj-step--practice practice-phase" },
     );
 
-    // ── Input field (Kotlin :843–865) ──
-    // <textarea> with 3 rows, native auto-direction so Hebrew/Japanese input
-    // both render correctly. The accessible label is the instruction text.
-    const inputId = `lj-practice-input-${lesson.id}-${practiceIndex}`;
-    const srLabel = el(
-      "label",
-      { class: "lj-practice__sr-label", for: inputId },
-      card.promptLabel || "תשובה",
-    );
-    const inputEl = el("textarea", {
-      id: inputId,
-      class: "lj-practice__input",
-      rows: 3,
-      dir: "auto",
-      placeholder: card.inputHint || "כתבו את התשובה...",
-      autocapitalize: "sentences",
-      autocomplete: "off",
-      spellcheck: "false",
-    });
-
-    // ── Feedback line (Kotlin :868–878) ──
-    const feedbackEl = el("p", {
-      class: "lj-practice__feedback",
-      hidden: true,
-    });
-
-    // ── Answer reveal card (Kotlin :881–943) ──
-    const answerTextEl = el(
-      "p",
-      { class: "lj-practice__answer-text" },
-      card.answer || "",
+    const cardEl = el(
+      "div",
+      { class: cardCls.join(" ") },
+      el("div", { class: "practice-card__tag" },
+         (card.promptLabel || "תרגול") + " · " + (idx + 1) + "/" + list.length),
+      el(
+        "div",
+        { class: "practice-card__prompt-wrap" },
+        el("div", { class: "practice-card__prompt" }, card.prompt || ""),
+        card.audioText ? audioBtn(card.audioText, 38) : null,
+      ),
     );
 
-    const answerInner = [answerTextEl];
-    if (card.answerSub && String(card.answerSub).trim().length > 0) {
-      answerInner.push(
-        el("p", { class: "lj-practice__answer-sub", dir: "auto" }, card.answerSub),
+    if (verdict === "correct" || verdict === "reveal") {
+      // Reveal card with answer + audio
+      const revealCls = ["practice-card__reveal"];
+      revealCls.push(verdict === "correct"
+        ? "practice-card__reveal--correct"
+        : "practice-card__reveal--peek");
+
+      cardEl.appendChild(
+        el(
+          "div",
+          { class: revealCls.join(" ") },
+          el(
+            "div",
+            { class: "practice-card__reveal-text" },
+            el("div", { class: "practice-card__reveal-tag" }, "תשובה"),
+            el("div", { class: "practice-card__reveal-answer" }, card.answer || ""),
+            card.answerSub
+              ? el("div", { class: "practice-card__reveal-sub" }, card.answerSub)
+              : null,
+          ),
+          card.audioText || card.answer
+            ? audioBtn(card.audioText || card.answer, 36)
+            : null,
+        ),
+      );
+    } else {
+      // Input + voice + buttons
+      cardEl.appendChild(
+        el("input", {
+          class: "practice-input",
+          type: "text",
+          dir: "auto",
+          autofocus: "autofocus",
+          value: val,
+          placeholder: card.inputHint || "תשובה...",
+          onInput: (e) => { val = e.target.value; persist(); },
+          onKeyDown: (e) => { if (e.key === "Enter") submit(); },
+        }),
+      );
+
+      const recBtnStyle = {
+        width: "42px",
+        height: "42px",
+        borderRadius: "50%",
+        border: "0",
+        cursor: "pointer",
+        background: recording ? "#C84B3A" : "var(--c-red)",
+        color: "#fff",
+        display: "grid",
+        placeItems: "center",
+        boxShadow: recording
+          ? "0 0 0 6px color-mix(in oklab, #C84B3A 24%, transparent)"
+          : "0 4px 10px -3px var(--c-red-deep)",
+        animation: recording ? "rec-pulse 1.2s ease-in-out infinite" : "none",
+      };
+      cardEl.appendChild(
+        el(
+          "div",
+          { class: "practice-card__rec-row" },
+          el("div", { class: "practice-card__rec-hint" }, "או הקליטו את התשובה:"),
+          el(
+            "button",
+            {
+              type: "button",
+              class: "practice-card__rec-btn",
+              "aria-label": recording ? "עצור הקלטה" : "הקלט תשובה",
+              onClick: recording ? stopRecording : startRecording,
+              style: recBtnStyle,
+            },
+            el("span", { "aria-hidden": "true",
+                         style: { fontSize: "18px" } }, "🎤"),
+          ),
+        ),
+      );
+      if (recError) {
+        cardEl.appendChild(
+          el("div", { class: "practice-card__rec-error" }, recError),
+        );
+      }
+    }
+
+    if (verdict === "wrong") {
+      cardEl.appendChild(
+        el("div", { class: "practice-card__wrong" },
+          "לא מדויק — נסו שוב או הציצו בתשובה"),
       );
     }
-    const hasAudio = typeof card.audioText === "string" && card.audioText.trim().length > 0;
-    if (hasAudio) {
-      // Make the answer text itself click-to-speak as well (Kotlin :905–909).
-      answerTextEl.classList.add("lj-practice__answer-text--clickable");
-      answerTextEl.setAttribute("role", "button");
-      answerTextEl.setAttribute("tabindex", "0");
-      answerTextEl.addEventListener("click", () => speak(card.audioText));
-      answerTextEl.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          speak(card.audioText);
-        }
-      });
 
-      // 44dp circular red speaker button (Kotlin :924–941 — the Kotlin code
-      // creates a 48dp button but the spec says 44dp; honor the spec).
-      answerInner.push(
+    container.appendChild(cardEl);
+
+    // Action buttons (below the card)
+    if (verdict === "correct" || verdict === "reveal") {
+      container.appendChild(
         el(
           "button",
           {
             type: "button",
-            class: "lj-speaker lj-practice__speaker",
-            "aria-label": "השמע",
-            onClick: () => speak(card.audioText),
+            class: "btn btn-primary practice-action",
+            onClick: nextCard,
           },
-          el("span", { "aria-hidden": "true" }, "🔊"),
+          idx >= list.length - 1 ? "סיום תרגול ←" : "הבא ←",
+        ),
+      );
+    } else {
+      container.appendChild(
+        el(
+          "div",
+          { class: "practice-actions" },
+          el(
+            "button",
+            {
+              type: "button",
+              class: "btn btn-ghost practice-action practice-action--peek",
+              onClick: reveal,
+            },
+            "הצג תשובה",
+          ),
+          el(
+            "button",
+            {
+              type: "button",
+              class: "btn btn-primary practice-action practice-action--check",
+              disabled: val.trim() ? undefined : "true",
+              onClick: () => submit(),
+            },
+            "בדיקה",
+          ),
         ),
       );
     }
-    const answerCard = el(
-      "div",
-      { class: "lj-card lj-practice__answer", hidden: true },
-      ...answerInner,
-    );
 
-    // ── Reveal logic (Kotlin :945–972) ──
-    // outcome: true = correct, false = wrong, null = peek (no check)
-    function revealAnswer(outcome) {
-      answerCard.hidden = false;
-      // Tint via class — three states match Kotlin :956 / :965 / :969.
-      answerCard.classList.remove(
-        "lj-practice__answer--correct",
-        "lj-practice__answer--wrong",
-        "lj-practice__answer--peek",
-      );
-      if (outcome === true) {
-        answerCard.classList.add("lj-practice__answer--correct");
-        feedbackEl.textContent = "✓ נכון!";
-        feedbackEl.classList.remove("lj-practice__feedback--wrong");
-        feedbackEl.classList.add("lj-practice__feedback--correct");
-        feedbackEl.hidden = false;
-        if (hasAudio) {
-          // Mirror Kotlin's binding.root.post { speaker.speak(card.audioText) }
-          // (:958) — fire on the next tick so the reveal animation has begun.
-          setTimeout(() => speak(card.audioText), 0);
-        }
-      } else if (outcome === false) {
-        answerCard.classList.add("lj-practice__answer--wrong");
-        feedbackEl.textContent = "✗ לא מדויק — התשובה הנכונה:";
-        feedbackEl.classList.remove("lj-practice__feedback--correct");
-        feedbackEl.classList.add("lj-practice__feedback--wrong");
-        feedbackEl.hidden = false;
-      } else {
-        answerCard.classList.add("lj-practice__answer--peek");
-        feedbackEl.hidden = true;
-      }
-      // Enable the bottom continue button (Kotlin :947).
-      journey.setContinueEnabled(true);
-      // Hide the on-screen keyboard on mobile (Kotlin :948–950).
-      try { inputEl.blur(); } catch (_) { /* ignore */ }
-    }
-
-    // ── Buttons row (Kotlin :975–1026) ──
-    const btnCheck = el(
-      "button",
-      {
-        type: "button",
-        class: "btn lj-practice__btn lj-practice__btn--check",
-      },
-      "בדוק ✓",
-    );
-    const btnPeek = el(
-      "button",
-      {
-        type: "button",
-        class: "btn lj-practice__btn lj-practice__btn--peek",
-      },
-      "גלה 👁",
-    );
-
-    btnCheck.addEventListener("click", () => {
-      const correct =
-        normalizeAnswer(inputEl.value) === normalizeAnswer(card.answer || "");
-      revealAnswer(correct);
-      btnCheck.disabled = true;
-      btnPeek.disabled = true;
-    });
-    btnPeek.addEventListener("click", () => {
-      revealAnswer(null);
-      btnCheck.disabled = true;
-      btnPeek.disabled = true;
-    });
-
-    const btnRow = el(
-      "div",
-      { class: "lj-practice__btn-row" },
-      btnCheck,
-      btnPeek,
-    );
-
-    // ── Mount ──
-    hostEl.innerHTML = "";
-    hostEl.appendChild(
-      el(
-        "div",
-        { class: "lj-step lj-step--practice" },
-        counterEl,
-        labelEl,
-        promptCard,
-        srLabel,
-        inputEl,
-        feedbackEl,
-        answerCard,
-        btnRow,
-      ),
-    );
-
-    // Focus the input on mount (Kotlin :1031). Use rAF so the textarea is in
-    // the DOM and visible before we focus — avoids scroll jumps on iOS.
-    requestAnimationFrame(() => {
-      try { inputEl.focus({ preventScroll: false }); } catch (_) { /* ignore */ }
-    });
+    return container;
   }
 
-  // Clear our continue override when the step is torn down so the next
-  // step starts with a clean shell.
-  journey.onDispose && journey.onDispose(() => {
-    if (journey.onContinueOverride) journey.onContinueOverride = null;
-    // Reset the index so re-entering the lesson starts at card 1.
-    practiceIndex = 0;
-  });
-
-  render();
+  hostEl.appendChild(buildPhase());
 }
