@@ -44,7 +44,7 @@
     });
   </script>
 
-  <link rel="stylesheet" href="css/design-styles.css?v=20260503-design2" />
+  <link rel="stylesheet" href="css/design-styles.css?v=20260503-design3" />
 </head>
 <body>
 
@@ -69,15 +69,18 @@
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 
   <!-- Design app — JS+JSX from untitled/project/design_handoff_kimura_redesign/.
-       Loaded in the same order as the design's Kimura.html. -->
-  <script src="js/design/data.js?v=20260503-design2"></script>
-  <script type="text/babel" src="js/design/icons.jsx?v=20260503-design2"></script>
-  <script type="text/babel" src="js/design/shell.jsx?v=20260503-design2"></script>
-  <script type="text/babel" src="js/design/screen-home.jsx?v=20260503-design2"></script>
-  <script type="text/babel" src="js/design/screen-lesson.jsx?v=20260503-design2"></script>
-  <script type="text/babel" src="js/design/screen-profile-media.jsx?v=20260503-design2"></script>
-  <script type="text/babel" src="js/design/tweaks-panel.jsx?v=20260503-design2"></script>
-  <script type="text/babel" src="js/design/app.jsx?v=20260503-design2"></script>
+       Loaded in the same order as the design's Kimura.html, with
+       user-store.js added BEFORE data.js so KIMURA.user + unit state
+       can be hydrated from localStorage at module load. -->
+  <script src="js/design/user-store.js?v=20260503-design3"></script>
+  <script src="js/design/data.js?v=20260503-design3"></script>
+  <script type="text/babel" src="js/design/icons.jsx?v=20260503-design3"></script>
+  <script type="text/babel" src="js/design/shell.jsx?v=20260503-design3"></script>
+  <script type="text/babel" src="js/design/screen-home.jsx?v=20260503-design3"></script>
+  <script type="text/babel" src="js/design/screen-lesson.jsx?v=20260503-design3"></script>
+  <script type="text/babel" src="js/design/screen-profile-media.jsx?v=20260503-design3"></script>
+  <script type="text/babel" src="js/design/tweaks-panel.jsx?v=20260503-design3"></script>
+  <script type="text/babel" src="js/design/app.jsx?v=20260503-design3"></script>
 
   <!-- PWA shell (service worker + install button + iOS detection +
        cache cleanup) -->

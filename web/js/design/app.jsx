@@ -28,35 +28,38 @@ function App() {
 
   const showTabs = view.name === "home";
 
+  // Show TweaksPanel (theme picker) only when the URL includes ?tweaks
+  // — otherwise it's debug UI that shouldn't appear in production.
+  const showTweaks = typeof window !== "undefined" &&
+    window.location.search.indexOf("tweaks") !== -1;
+
   return (
-    <div style={{ display:"flex", justifyContent:"center", alignItems:"center", minHeight:"100vh", padding:"30px 0" }}>
+    <div style={{ display:"flex", flex:"1 1 auto", minHeight:0, width:"100%" }}>
       <PhoneFrame>
         <div style={{ width:"100%", height:"100%", display:"flex", flexDirection:"column", background:"var(--c-cream)" }}>
           <div style={{ flex:1, minHeight:0, position:"relative" }}>
             {body}
           </div>
           {showTabs && <TabBar tab={tab} setTab={setTab}/>}
-          {/* Home indicator */}
-          <div style={{ height:24, background:"var(--c-cream-4)", display:"grid", placeItems:"center", flex:"0 0 auto" }}>
-            <div style={{ width:120, height:4, borderRadius:2, background:"var(--c-ink)", opacity:0.3 }}/>
-          </div>
         </div>
       </PhoneFrame>
 
-      <TweaksPanel title="Tweaks">
-        <TweakSection title="ערכת צבעים">
-          <TweakRadio
-            value={tweaks.theme}
-            onChange={(v)=>setTweak("theme", v)}
-            options={[
-              { value:"default", label:"אדום קרם" },
-              { value:"indigo",  label:"אינדיגו" },
-              { value:"sakura",  label:"סאקורה" },
-              { value:"mono",    label:"מונוכרום" },
-            ]}
-          />
-        </TweakSection>
-      </TweaksPanel>
+      {showTweaks && (
+        <TweaksPanel title="Tweaks">
+          <TweakSection title="ערכת צבעים">
+            <TweakRadio
+              value={tweaks.theme}
+              onChange={(v)=>setTweak("theme", v)}
+              options={[
+                { value:"default", label:"אדום קרם" },
+                { value:"indigo",  label:"אינדיגו" },
+                { value:"sakura",  label:"סאקורה" },
+                { value:"mono",    label:"מונוכרום" },
+              ]}
+            />
+          </TweakSection>
+        </TweaksPanel>
+      )}
     </div>
   );
 }

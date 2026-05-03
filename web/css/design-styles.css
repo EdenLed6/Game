@@ -138,16 +138,28 @@ body {
   flex-direction: column;
   min-height: 100vh;
   min-height: 100dvh;
-  background: #1c1410;
+  margin: 0;
+  /* Cream background — never visible now (the design app fills the
+   * viewport) but a sensible fallback if anything peeks through. */
+  background: var(--c-cream);
 }
 #root {
   flex: 1 1 auto;
   display: flex;
   min-height: 0;
+  width: 100%;
 }
 #root > * {
   flex: 1 1 auto;
   width: 100%;
+  min-height: 0;
+}
+/* The design's PhoneFrame in fullscreen mode renders a 100vw x 100dvh
+ * div as the outer wrapper; make sure it can fill the remaining
+ * viewport (after copyright bar + install button). */
+#root .kimura-screen {
+  width: 100%;
+  height: 100%;
 }
 
 .copyright-bar {

@@ -54,16 +54,9 @@ function PhoneFrame({ children, w=390, h=820 }) {
 }
 
 function computeMode(w, h) {
-  if (typeof window === "undefined") return { scale:1, fullscreen:false };
-  const vw = window.innerWidth;
-  const vh = window.innerHeight;
-  // Below 480px wide, drop the bezel — phone-sized device, just fill
-  if (vw < 480) return { scale:1, fullscreen:true };
-  // Otherwise scale to fit — leave 40px room each side
-  const sw = (vw - 40) / w;
-  const sh = (vh - 40) / h;
-  const scale = Math.min(1, sw, sh);
-  return { scale, fullscreen:false };
+  // Desktop-preview bezel mode was for the prototype only. On a real
+  // device (PWA or web) we always fill the viewport edge-to-edge.
+  return { scale: 1, fullscreen: true };
 }
 
 // ── Status bar (simple) ──
@@ -95,7 +88,10 @@ function StatusBar({ dark=false }) {
 function TopBand({ title, subtitle, onBack, right, big=false, children }) {
   return (
     <div className="top-band" style={{ paddingTop: 0 }}>
-      <StatusBar dark={true}/>
+      {/* Hide the fake "9:41" status bar in standalone PWA (the device
+          shows its own real status bar there). Keep it in regular
+          browser tabs as visual continuity with the design. */}
+      {!(typeof window !== "undefined" && window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) && <StatusBar dark={true}/>}
       <div style={{ padding: big ? "8px 18px 12px" : "6px 18px 10px", position:"relative", zIndex:2 }}>
         <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", minHeight:28 }}>
           <div style={{ width: 32 }}>

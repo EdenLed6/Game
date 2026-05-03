@@ -60,8 +60,11 @@ window.KIMURA_CHAPTERS = [
   }
 ];
 
+// User stats are populated below from KimuraStore (localStorage). This
+// placeholder is overwritten before the React app reads it. We keep
+// `name: ""` so a missing-store edge case still produces a string.
 window.KIMURA = {
-  user: { name:"אדן", nameJp:"エデン", level:4, xp:1240, xpNext:2000, streak:12, hearts:5 },
+  user: { name:"", nameJp:"エデン", level:1, xp:0, xpNext:500, streak:0, hearts:5 },
   units: [
   {
     "id": 1,
@@ -289,6 +292,41 @@ window.KIMURA = {
     { id:5, kind:"music",   title:"שירים יפניים מודרניים",   duration:"פלייליסט", tag:"מוזיקה", glyph:"歌" },
   ],
 };
+
+// ── Wire user + unit state to the persistent store ──
+// At module load time, hydrate window.KIMURA.user from localStorage
+// (via window.KimuraStore which user-store.js installed earlier in
+// the script load order) and recompute each unit.state from real
+// progress instead of the design's hardcoded "completed/current/locked"
+// strings. If KimuraStore isn't available for any reason (load order
+// bug, deleted file), the placeholder values above remain — the app
+// still renders, just with defaults.
+(function hydrateFromStore() {
+  if (!window.KimuraStore) return;
+  var s = window.KimuraStore;
+  var totalLessons = window.KIMURA.units.length;
+  var totalXp = s.getTotalXP();
+  window.KIMURA.user = {
+    name:    s.getProfileName(),
+    nameJp:  "エデン",
+    level:   1 + Math.floor(totalXp / 500),
+    xp:      totalXp % 500,
+    xpNext:  500,
+    streak:  s.getStreak(),
+    hearts:  s.getHearts(),
+  };
+  var completed = s.getCompletedIds();
+  var currentId = s.getCurrentLessonId(totalLessons);
+  window.KIMURA.units = window.KIMURA.units.map(function (u) {
+    var copy = {};
+    for (var k in u) if (Object.prototype.hasOwnProperty.call(u, k)) copy[k] = u[k];
+    copy.state = completed.has(u.id) ? "completed"
+              : (u.id === currentId)  ? "current"
+              : s.isLessonUnlocked(u.id) ? "available"
+              : "locked";
+    return copy;
+  });
+})();
 
 // Helper: get lesson by id
 window.getLesson = (id) => window.KIMURA.lessons.find(l => l.id === id);
