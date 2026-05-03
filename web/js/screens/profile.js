@@ -19,6 +19,7 @@ import {
   getStreak,
   getTotalXP,
   getCompletedCount,
+  getCompletedLessonIds,
   getProfileName,
   setProfileName,
   getProfilePhoto,
@@ -27,21 +28,24 @@ import {
   TOTAL_LESSONS,
 } from "../store.js";
 
-const XP_PER_LEVEL = 500;
+const XP_PER_LEVEL = 2000;
 const RESET_CONFIRM_TEXT = "האם לאפס את כל ההתקדמות שלך? פעולה זו אינה ניתנת לביטול.";
 
 // ────────────────────────────────────────────────────────────
-// Achievements — derived from real progress at render time.
-// Each has a JP "glyph" character that lives in the small red circle.
+// Achievements — exact list from the design's KIMURA.ach,
+// with earned-state computed live from real progress.
 // ────────────────────────────────────────────────────────────
-function buildAchievements({ completed, streak, xp }) {
+function buildAchievements({ completed, streak, completedIds }) {
+  const lesson1Done = completedIds.has(1);
   return [
-    { id: "first",     glyph: "始", name: "צעד ראשון",     earned: completed >= 1  },
-    { id: "five",      glyph: "五", name: "5 שיעורים",     earned: completed >= 5  },
-    { id: "ten",       glyph: "十", name: "10 שיעורים",    earned: completed >= 10 },
-    { id: "streak7",   glyph: "週", name: "שבוע ברצף",     earned: streak    >= 7  },
-    { id: "xp500",     glyph: "百", name: "500 XP",         earned: xp        >= 500 },
-    { id: "complete",  glyph: "全", name: "כל הקורס",      earned: completed >= TOTAL_LESSONS },
+    { id: 1, glyph: "一", name: "צעד ראשון",     earned: completed >= 1 },
+    { id: 2, glyph: "火", name: "12 ימים רצוף",  earned: streak    >= 12 },
+    { id: 3, glyph: "音", name: "אלוף ההגייה",   earned: lesson1Done },
+    // Vocab milestone — ~100 words is roughly 7 lessons of vocabulary.
+    { id: 4, glyph: "百", name: "100 מילים",     earned: completed >= 7 },
+    // Advanced milestone — finished 14 lessons.
+    { id: 5, glyph: "声", name: "מבטא טהור",     earned: completed >= 14 },
+    { id: 6, glyph: "月", name: "50 ימים רצוף",  earned: streak    >= 50 },
   ];
 }
 
@@ -219,35 +223,7 @@ function achievementsSection(achievements) {
   );
 }
 
-// ────────────────────────────────────────────────────────────
-// Weekly activity — 7 vertical bars, today highlighted red.
-// Heights are placeholder (the user's per-day activity isn't
-// tracked yet); displayed LTR so Sunday → Saturday reads naturally.
-// ────────────────────────────────────────────────────────────
-const WEEK_LABELS  = ["א", "ב", "ג", "ד", "ה", "ו", "ש"];
-const WEEK_HEIGHTS = [40, 60, 80, 30, 90, 70, 50];
-
-function weeklyActivitySection() {
-  // Compute today's column (0=Sunday … 6=Saturday). Highlight that
-  // bar with the red gradient instead of the cream gradient.
-  const today = new Date().getDay();
-  return el("section", { class: "weekly-activity" },
-    el("h3", { class: "section-heading" }, "פעילות שבועית"),
-    el("div", { class: "card weekly-activity__card" },
-      el("div", { class: "weekly-activity__bars" },
-        ...WEEK_LABELS.map((label, i) =>
-          el("div", { class: "weekly-activity__col" },
-            el("div", {
-              class: "weekly-activity__bar" + (i === today ? " weekly-activity__bar--today" : ""),
-              style: { height: WEEK_HEIGHTS[i] + "%" },
-            }),
-            el("span", { class: "weekly-activity__day" }, label),
-          )
-        ),
-      ),
-    ),
-  );
-}
+// Weekly activity removed (per user — not needed without per-day tracking).
 
 // ────────────────────────────────────────────────────────────
 // Reset button — at the very bottom, ghost variant.
@@ -275,23 +251,24 @@ export function Profile({ host /*, ctx */ }) {
     const totalXp = getTotalXP();
     const completed = getCompletedCount();
     return {
-      name:       getProfileName(),
-      photo:      getProfilePhoto(),
-      streak:     getStreak(),
-      totalXp:    totalXp,
-      level:      1 + Math.floor(totalXp / XP_PER_LEVEL),
-      xpInLevel:  totalXp % XP_PER_LEVEL,
-      xpForNext:  XP_PER_LEVEL,
-      completed:  completed,
+      name:         getProfileName(),
+      photo:        getProfilePhoto(),
+      streak:       getStreak(),
+      totalXp:      totalXp,
+      level:        1 + Math.floor(totalXp / XP_PER_LEVEL),
+      xpInLevel:    totalXp % XP_PER_LEVEL,
+      xpForNext:    XP_PER_LEVEL,
+      completed:    completed,
+      completedIds: getCompletedLessonIds(),
     };
   }
 
   function render() {
     const state = readState();
     const achievements = buildAchievements({
-      completed: state.completed,
-      streak:    state.streak,
-      xp:        state.totalXp,
+      completed:    state.completed,
+      streak:       state.streak,
+      completedIds: state.completedIds,
     });
     const earnedCount = achievements.filter(a => a.earned).length;
 
@@ -302,7 +279,6 @@ export function Profile({ host /*, ctx */ }) {
           identityCard(state, render),
           bigStatsGrid(state, earnedCount),
           achievementsSection(achievements),
-          weeklyActivitySection(),
           resetButton(render),
         ),
       ),

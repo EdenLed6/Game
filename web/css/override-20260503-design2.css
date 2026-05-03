@@ -3380,3 +3380,139 @@ body > * { position: relative; z-index: 1; }
  * its own action buttons inline (practice / quiz / complete) — to avoid
  * a doubled CTA, hide the shell's continue when those phases are rendered.
  * This is done by the JS via `journey.setContinueVisible(false)`. */
+
+/* ════════════════════════════════════════════════════════════
+ * VIDEO phase (NEW — separate phase per design)
+ * ════════════════════════════════════════════════════════════ */
+.lesson-journey-screen .video-phase {
+  gap: 14px !important;
+  height: 100% !important;
+}
+.lesson-journey-screen .video-frame {
+  position: relative !important;
+  aspect-ratio: 16 / 10 !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  background: #000 !important;
+  box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.4) !important;
+  flex: 0 0 auto !important;
+}
+.lesson-journey-screen .video-frame__iframe {
+  width: 100% !important;
+  height: 100% !important;
+  border: 0 !important;
+  display: block !important;
+}
+.lesson-journey-screen .video-frame__placeholder {
+  width: 100% !important;
+  height: 100% !important;
+  position: relative !important;
+  background: linear-gradient(160deg, var(--c-red-deep), #2a0e0a) !important;
+  display: grid !important;
+  place-items: center !important;
+  cursor: pointer !important;
+  border: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+.lesson-journey-screen .video-frame__bg-glyph {
+  position: absolute !important;
+  inset: 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  color: rgba(255, 255, 255, 0.06) !important;
+  font-size: clamp(140px, 36vw, 200px) !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  font-family: var(--f-jp) !important;
+  pointer-events: none !important;
+}
+.lesson-journey-screen .video-frame__center {
+  position: relative !important;
+  text-align: center !important;
+  color: #fff !important;
+  z-index: 1 !important;
+}
+.lesson-journey-screen .video-frame__play-circle {
+  width: 72px !important;
+  height: 72px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.18) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  backdrop-filter: blur(8px) !important;
+  border: 2px solid rgba(255, 255, 255, 0.4) !important;
+  display: grid !important;
+  place-items: center !important;
+  margin: 0 auto !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+  font-size: 28px !important;
+  color: #fff !important;
+}
+.lesson-journey-screen .video-frame__title {
+  font-family: var(--f-he) !important;
+  font-weight: 700 !important;
+  font-size: clamp(14px, 4vw, 16px) !important;
+  margin-top: 14px !important;
+  color: #fff !important;
+}
+.lesson-journey-screen .video-frame__subtitle {
+  font-family: "Cormorant Garamond", serif !important;
+  font-style: italic !important;
+  font-size: clamp(11px, 3vw, 13px) !important;
+  opacity: 0.75 !important;
+  margin-top: 2px !important;
+}
+.lesson-journey-screen .video-frame__hint {
+  font-size: clamp(9px, 2.6vw, 11px) !important;
+  opacity: 0.6 !important;
+  margin-top: 8px !important;
+  letter-spacing: 0.1em !important;
+  font-family: var(--f-he-sans) !important;
+}
+
+.lesson-journey-screen .video-chips {
+  display: flex !important;
+  gap: 8px !important;
+  flex-wrap: wrap !important;
+  flex: 0 0 auto !important;
+}
+.lesson-journey-screen .video-chip {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  padding: 5px 10px !important;
+  border-radius: 999px !important;
+  background: color-mix(in oklab, var(--c-gold) 14%, transparent) !important;
+  color: var(--c-ink) !important;
+  font-size: clamp(10px, 2.8vw, 11px) !important;
+  font-weight: 600 !important;
+  font-family: var(--f-he-sans) !important;
+}
+.lesson-journey-screen .video-chip__icon {
+  font-size: 11px !important;
+  line-height: 1 !important;
+}
+.lesson-journey-screen .video-help {
+  font-size: clamp(10px, 2.8vw, 11px) !important;
+  color: var(--c-ink-soft) !important;
+  line-height: 1.5 !important;
+  font-family: var(--f-he-sans) !important;
+  flex: 0 0 auto !important;
+}
+.lesson-journey-screen .video-spacer { flex: 1 1 auto !important; }
+.lesson-journey-screen .video-action { width: 100% !important; }
+
+/* Examples phase — its own scrollable list (was bundled in teach) */
+.lesson-journey-screen .examples-phase { gap: 12px !important; }
+.lesson-journey-screen .examples-list {
+  flex: 1 1 auto !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+}
+
+/* Grammar phase — same as the previous teach styling */
+.lesson-journey-screen .grammar-phase { gap: 12px !important; }
