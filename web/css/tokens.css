@@ -1,104 +1,130 @@
 /* ============================================================
  * Kimura — design tokens
- * Ported 1:1 from .ui-source/app/src/main/res/values/colors.xml
- *                 and .ui-source/app/src/main/res/values/dimens.xml
+ * Originally ported from .ui-source/app/src/main/res/values/colors.xml
+ * REPALETTED 2026-05-03 to match the Claude Design Kimura.html
+ * handoff bundle (untitled/project/design_handoff_kimura_redesign).
+ * The brand red shifted slightly cooler/cleaner; the cream warmed
+ * up. Both palettes coexist via direct --c-* aliases used by the
+ * design override CSS plus the existing --color-* tokens used by
+ * base.css and the per-screen sheets.
  * ========================================================== */
 
 :root {
-  /* ---------- Brand red ---------- */
-  --color-primary: #C0362A;
-  --color-primary-dark: #8A1F16;
-  --color-primary-variant: #D94C40;
+  /* ============================================================
+   * Design palette (from Kimura.html handoff styles.css :root)
+   * Use these directly when porting design CSS verbatim.
+   * ========================================================== */
+  --c-red: #B23A2D;
+  --c-red-deep: #8C2A1F;
+  --c-red-soft: #D86A5A;
+  --c-red-darker: #6B1F17;
+  --c-cream: #F5EBDC;
+  --c-cream-2: #EFE2CB;
+  --c-cream-3: #E6D6B8;
+  --c-cream-4: #FBF6EC;
+  --c-ink: #2A1D17;
+  --c-ink-soft: #5A4438;
+  --c-gold: #C99A4B;
+  --c-jade: #6E8B6A;
+  --c-shadow: rgba(60,30,20,0.14);
+  --c-shadow-lg: rgba(60,30,20,0.22);
+  /* Font stacks pulled from the design (Heebo + Frank Ruhl Libre
+   * for Hebrew, Noto Serif/Sans JP for Japanese). */
+  --f-he: "Frank Ruhl Libre", "Heebo", -apple-system, sans-serif;
+  --f-he-sans: "Heebo", "Assistant", -apple-system, sans-serif;
+  --f-jp: "Noto Serif JP", "Noto Sans JP", serif;
+  --f-jp-sans: "Noto Sans JP", sans-serif;
+
+  /* ---------- Brand red (re-aligned to design --c-red) ---------- */
+  --color-primary: #B23A2D;
+  --color-primary-dark: #8C2A1F;
+  --color-primary-variant: #D86A5A;
   --color-on-primary: #FFFFFF;
 
   /* ---------- Gold (gamification) ---------- */
-  --color-secondary: #F59E0B;
-  --color-secondary-dark: #D97706;
-  --color-on-secondary: #1A0800;
+  --color-secondary: #C99A4B;
+  --color-secondary-dark: #A57B36;
+  --color-on-secondary: #2A1D17;
 
-  /* ---------- Surfaces ---------- */
-  --color-surface: #F5E8D5;
-  --color-surface-alt: #FAF0E4;
-  --color-surface-soft: #FDECEA;
-  --color-surface-card: #F5E8D5;
-  --color-surface-washi: #F5E8D5;
-  --color-card-stroke-washi: #D8C4A8;
-  --color-on-surface: #1A0800;
-  --color-on-surface-muted: #7C6A67;
-  --color-background: #FDF5F4;
+  /* ---------- Surfaces (re-aligned to design --c-cream*) ---------- */
+  --color-surface: #F5EBDC;
+  --color-surface-alt: #FBF6EC;
+  --color-surface-soft: #EFE2CB;
+  --color-surface-card: #FBF6EC;
+  --color-surface-washi: #F5EBDC;
+  --color-card-stroke-washi: #E6D6B8;
+  --color-on-surface: #2A1D17;
+  --color-on-surface-muted: #5A4438;
+  --color-background: #F5EBDC;
 
   /* ---------- Accents ---------- */
-  --color-accent-gold: #F59E0B;
-  --color-accent-teal: #0EA5E9;
+  --color-accent-gold: #C99A4B;
+  --color-accent-teal: #6E8B6A;
   --color-accent-purple: #8B5CF6;
-  --color-gold-light: #FEF9EE;
+  --color-gold-light: #FBF6EC;
 
   /* ---------- Dividers ---------- */
-  --color-divider-soft: #EDD8D5;
+  --color-divider-soft: #E6D6B8;
 
   /* ---------- Game states ---------- */
-  --color-correct: #16A34A;
-  --color-correct-light: #DCFCE7;
-  --color-wrong: #DC2626;
-  --color-wrong-light: #FEE2E2;
-  --color-selected: #F97316;
-  --color-selected-stroke: #EA580C;
-  --color-selected-yellow: #F97316;
-  --color-selected-yellow-stroke: #EA580C;
-  --color-matched: #DCFCE7;
+  --color-correct: #6E8B6A;
+  --color-correct-light: #DCEAD0;
+  --color-wrong: #C84B3A;
+  --color-wrong-light: #F8DFD9;
+  --color-selected: #B23A2D;
+  --color-selected-stroke: #8C2A1F;
+  --color-selected-yellow: #C99A4B;
+  --color-selected-yellow-stroke: #A57B36;
+  --color-matched: #DCEAD0;
 
   /* ---------- Misc ---------- */
   --color-white: #FFFFFF;
-  --color-black: #1A0800;
-  --color-hero-gradient-start: #C0362A;
-  --color-hero-gradient-end: #6A1410;
-  --color-card-stroke: #D8C4A8;
-  --color-option-stroke: #D8C4A8;
-  --color-green-stroke: #16A34A;
-  --color-gold-stroke: #F59E0B;
+  --color-black: #2A1D17;
+  --color-hero-gradient-start: #B23A2D;
+  --color-hero-gradient-end: #6B1F17;
+  --color-card-stroke: #E6D6B8;
+  --color-option-stroke: #E6D6B8;
+  --color-green-stroke: #6E8B6A;
+  --color-gold-stroke: #C99A4B;
 
-  /* ---------- App-shell specific (from activity_main.xml) ---------- */
-  --color-copyright-bar: #A02820;
+  /* ---------- App-shell specific ---------- */
+  --color-copyright-bar: #8C2A1F;
   --color-copyright-text: rgba(255, 255, 255, 0.5);
-  --color-bottom-rule: #A02820;
+  --color-bottom-rule: #8C2A1F;
 
-  /* ---------- Bottom-nav text colors (from color/bottom_nav_color.xml) ---------- */
+  /* ---------- Bottom-nav text colors ---------- */
   --color-bottom-nav-active: var(--color-primary);
   --color-bottom-nav-inactive: var(--color-on-surface-muted);
 
-  /* ---------- Stats-chip dark pill (from bg_stats_chip.xml / bg_progress_hero.xml) ---------- */
-  --color-chip-dark: #2A0A08;
+  /* ---------- Stats-chip dark pill ---------- */
+  --color-chip-dark: rgba(0, 0, 0, 0.35);
 
-  /* ---------- Path-node colors (from bg_node_*.xml) ---------- */
-  --color-node-active-fill: #E8DCC8;
+  /* ---------- Path-node colors ---------- */
+  --color-node-active-fill: #E6D6B8;
   --color-node-active-stroke: #C9B89A;
-  --color-node-completed-fill: #C0362A;
-  --color-node-completed-stroke: #8A1F16;
-  --color-node-locked-fill: #D1C4C2;
-  --color-node-locked-stroke: #B0A09E;
+  --color-node-completed-fill: #B23A2D;
+  --color-node-completed-stroke: #8C2A1F;
+  --color-node-locked-fill: #D6CBB8;
+  --color-node-locked-stroke: #B5A9A0;
 
-  /* ---------- Option backgrounds (from bg_option_*.xml) ---------- */
-  --color-option-default-bg: var(--color-surface-washi);
-  --color-option-default-stroke: #E8D5D2;
-  --color-option-selected-bg: #FEF3C7;
-  --color-option-selected-stroke: var(--color-secondary);
-  --color-option-correct-bg: var(--color-correct-light);
+  /* ---------- Option backgrounds ---------- */
+  --color-option-default-bg: var(--color-surface-card);
+  --color-option-default-stroke: #E6D6B8;
+  --color-option-selected-bg: rgba(178, 58, 45, 0.08);
+  --color-option-selected-stroke: var(--color-primary);
+  --color-option-correct-bg: rgba(110, 139, 106, 0.14);
   --color-option-correct-stroke: var(--color-correct);
-  --color-option-wrong-bg: var(--color-wrong-light);
+  --color-option-wrong-bg: rgba(200, 75, 58, 0.10);
   --color-option-wrong-stroke: var(--color-wrong);
 
   /* ---------- Achievement / pill ---------- */
-  --color-achievement-bg: #FEF9EE;
-  --color-achievement-stroke: #F59E0B;
+  --color-achievement-bg: #FBF6EC;
+  --color-achievement-stroke: #C99A4B;
 
   /* ============================================================
-   * Dimensions — ported from values/dimens.xml + key XML literals
-   * 1dp = 1px (web port assumption)
+   * Dimensions — bumped 2.5× from raw dp because the user's CSS
+   * viewport is wider than a normal phone width.
    * ========================================================== */
-  /* All px values are bumped ~2.5× from the raw `dp` numbers in dimens.xml
-   * because the user's CSS viewport is much wider than a normal phone
-   * device-width, so 1dp in Android renders larger than 1px on her browser.
-   * Multipliers picked empirically from user screenshots. */
   --dim-activity-horizontal-margin: 36px;
   --dim-activity-vertical-margin: 36px;
   --dim-card-margin: 18px;
@@ -112,19 +138,19 @@
   --dim-icon-bubble-size: 108px;
   --dim-icon-bubble-size-large: 132px;
 
-  /* ---------- App-shell metrics (from activity_main.xml) ---------- */
+  /* ---------- App-shell metrics ---------- */
   --dim-copyright-bar-text: 16px;
   --dim-copyright-bar-pad-y: 6px;
   --dim-bottom-rule: 4px;
   --dim-bottom-nav-height: 180px;
   --dim-bottom-nav-icon: 124px;
 
-  /* ---------- Header metrics (from fragment_*.xml) ---------- */
+  /* ---------- Header metrics ---------- */
   --dim-header-height: 180px;
   --dim-header-pad-x: 36px;
   --dim-stats-chip-h: 60px;
 
-  /* ---------- Typography sizes (from various layouts) ---------- */
+  /* ---------- Typography sizes ---------- */
   --font-size-display: 72px;
   --font-size-score: 92px;
   --font-size-app-title: 48px;

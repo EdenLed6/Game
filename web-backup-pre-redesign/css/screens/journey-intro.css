@@ -1,0 +1,136 @@
+/* journey-intro.css — INTRO step (Step 1 of LessonJourney).
+ *
+ * Visual port of LessonJourneyActivity.showIntro() (:247–367) and
+ * buildVideoCard() (:369–448). The shell owns the header, progress bar
+ * and bottom continue button; this file styles only the body content.
+ *
+ * The shared .lj-step / .lj-card / fade-in primitives in journey-step.css
+ * cover most of the look — the rules below add the INTRO-only pieces:
+ *   • centered emoji / title / subtitle stack
+ *   • full-width black video card with rounded corners
+ *   • 56×56 top-right overlay that blocks Vimeo's overflow menu
+ *   • bullet list of the first 3 vocab items
+ */
+
+/* The Kotlin layout uses 24dp top padding before the emoji and centers
+ * everything horizontally. .lj-step already handles 16/20/24 padding, so
+ * we just override the alignment for the intro stack. */
+.lj-step--intro {
+  align-items: stretch;
+  text-align: center;
+  padding-top: 24px;
+  gap: 12px;
+}
+
+/* ── Emoji (textSize 80f, Kotlin :275) ─────────────────────────── */
+.lj-intro__emoji {
+  font-size: 72px;
+  line-height: 1;
+  text-align: center;
+  /* Emoji rendering: keep neutral so any system font picks up the glyph. */
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji",
+               sans-serif;
+  margin-top: 8px;
+}
+
+/* ── Title (28sp bold, primary color, Kotlin :286–289) ─────────── */
+.lj-intro__title {
+  margin: 8px 0 0 0;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--color-primary, #C0362A);
+  text-align: center;
+}
+
+/* ── Subtitle (16sp muted, Kotlin :299–301) ─────────────────────── */
+.lj-intro__subtitle {
+  margin: 4px 0 0 0;
+  font-size: 16px;
+  line-height: 1.45;
+  color: var(--color-on-surface-muted, #7C6A67);
+  text-align: center;
+}
+
+/* ── Video card (Kotlin buildVideoCard :369–448) ────────────────── */
+/* MaterialCardView 16dp radius, 4dp elevation, full-width, 210dp tall,
+ * black background. The iframe fills it; the overflow-blocker overlay
+ * sits absolutely in the top-right corner. */
+.lj-intro__video {
+  position: relative;
+  width: 100%;
+  height: 210px;
+  margin-top: 8px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #111111;
+  /* 4dp elevation — soft shadow to match cardElevation = 4f on Android. */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+}
+
+.lj-intro__video-iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #000;
+}
+
+/* 56×56 transparent click-blocker over the corner where Vimeo renders the
+ * "..." overflow menu. The Android app hid that button via JS injection
+ * inside the WebView; cross-origin sandboxing prevents the same trick on
+ * the web, so we cover it from the parent frame instead.
+ *
+ * The control sits in the top-right in both LTR and RTL document flows
+ * (Vimeo's player UI is left-to-right regardless of host direction). We
+ * pin to top/right with logical fallbacks. */
+.lj-intro__video-overlay {
+  /* Hidden — we can't inject CSS into Vimeo's iframe (cross-origin),
+   * and an opaque mask would still leave the share UI reachable in
+   * fullscreen. Real fixes: self-host the video, or enable Vimeo
+   * Pro's Embed Privacy + custom player to suppress share controls
+   * server-side. */
+  display: none;
+}
+
+/* ── Preview card (Kotlin :322–364) ─────────────────────────────── */
+/* Inherits the .lj-card surface/shadow/animation. Override the default
+ * left-aligned spacing and use RTL-friendly bullet rendering. */
+.lj-intro__preview {
+  margin-top: 16px;
+  text-align: start;
+}
+
+.lj-intro__preview-title {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-on-surface, #1A0800);
+  text-align: start;
+}
+
+.lj-intro__preview-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lj-intro__preview-item {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-on-surface, #1A0800);
+  margin: 0 0 6px 0;
+  padding-inline-start: 1em;
+  position: relative;
+  text-align: start;
+}
+.lj-intro__preview-item::before {
+  content: "•";
+  position: absolute;
+  inset-inline-start: 0;
+  color: var(--color-primary, #C0362A);
+  font-weight: 700;
+}
+.lj-intro__preview-item:last-child {
+  margin-bottom: 0;
+}

@@ -1,0 +1,52 @@
+/* journey-complete.css — COMPLETE step (Step 6 of LessonJourney).
+ *
+ * 🎉 emoji + title + subtitle + gold XP badge card. Mirrors the
+ * showComplete() layout in LessonJourneyActivity.kt:1404–1491.
+ */
+
+.lj-step--complete {
+  align-items: center;
+  text-align: center;
+  padding: 32px 20px;
+  gap: 20px;
+}
+
+.lj-complete__emoji {
+  font-size: 80px;
+  line-height: 1;
+  margin-top: 8px;
+}
+
+.lj-complete__title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--color-primary, #C0362A);
+  letter-spacing: 0.01em;
+}
+
+.lj-complete__subtitle {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--on-surface, #1A0800);
+  max-width: 360px;
+}
+
+/* Gold XP badge — colorSecondary fill, 20dp radius, ~32×16 padding,
+ * "+100 XP ⭐" 24sp bold, soft elevation. */
+.lj-complete__xp-card {
+  margin-top: 8px;
+  background: var(--color-secondary, #F59E0B);
+  color: var(--on-secondary, #1A0800);
+  border-radius: 20px;
+  padding: 16px 32px;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35);
+  border: 1px solid var(--gold-stroke, #F59E0B);
+}
+
+.lj-complete__xp-text {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}

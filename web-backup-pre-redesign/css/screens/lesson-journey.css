@@ -1,0 +1,139 @@
+/* lesson-journey.css — shell styles for the LessonJourney screen.
+ *
+ * Mirrors activity_lesson_journey.xml: full-height flex column with
+ * (1) cherry-blossom red header banner containing a 6dp gold/translucent
+ * progress indicator and a 56dp toolbar (back / centered title / spacer),
+ * (2) a content host that fills the remaining height and scrolls,
+ * (3) a sticky red full-width continue button at the bottom (56dp).
+ */
+
+.lesson-journey {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  flex: 1 1 auto;
+  background: transparent; /* the watercolor body bg shows through */
+}
+
+/* ── Header (HeaderLinearLayout port) ─────────────────────────── */
+
+.lj-header {
+  position: relative;
+  background-image: url("../../assets/bg_header.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: var(--color-primary, #C0362A);
+  color: #fff;
+}
+
+/* LinearProgressIndicator — 6dp track #4DFFFFFF, indicator gold. */
+.lj-progress {
+  position: relative;
+  height: 6px;
+  margin-top: 44px; /* paddingTop 44dp from XML */
+  background-color: rgba(255, 255, 255, 0.30); /* #4DFFFFFF */
+  overflow: hidden;
+}
+.lj-progress__fill {
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0;
+  bottom: 0;
+  width: 0%;
+  background-color: var(--color-secondary, #F59E0B);
+  transition: width 250ms ease;
+}
+
+/* 56dp toolbar row — back button (44dp) / centered title / 44dp spacer */
+.lj-toolbar {
+  display: flex;
+  align-items: center;
+  height: 56px;
+  padding: 0 8px; /* paddingStart/End 8dp */
+}
+.lj-back {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 50%;
+  -webkit-tap-highlight-color: transparent;
+}
+.lj-back:active {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+.lj-back img {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1); /* tint white, mirrors app:tint=white */
+}
+/* RTL: ic_arrow_back.svg points left in source; the app's RTL layout
+ * mirrors it automatically. We do the same with a CSS transform. */
+[dir="rtl"] .lj-back img { transform: scaleX(-1); }
+
+.lj-title {
+  flex: 1;
+  margin: 0;
+  text-align: center;
+  font-size: 16px; /* 16sp */
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.01em;
+}
+
+.lj-toolbar__spacer {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+
+/* ── Content host — FrameLayout port; scrolls inside ──────────── */
+
+.lj-step-host {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: transparent;
+  /* Reserve bottom space so the fixed continue button doesn't cover the
+   * step's last item. Button is up to ~64px tall + 16px bottom inset +
+   * safe-area inset for the iOS home bar + 16px breathing room. */
+  padding-bottom: calc(64px + 32px + env(safe-area-inset-bottom));
+}
+
+/* ── Bottom continue button — pinned to the viewport bottom ──── */
+
+.lj-continue {
+  position: fixed;
+  left: 24px;
+  right: 24px;
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  height: 56px;
+  border-radius: 28px;
+  z-index: 50;
+}
+.lj-continue[disabled] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.lj-continue[hidden],
+.lj-continue[style*="display: none"] { display: none; }
+
+/* ── Stub fallback ─────────────────────────────────────────────── */
+
+.lj-step--stub {
+  padding: 24px 20px;
+  text-align: center;
+  color: var(--on-surface-muted, #7C6A67);
+}
+
+.lj-error {
+  padding: 24px 20px;
+  text-align: center;
+  color: var(--wrong-red, #DC2626);
+}

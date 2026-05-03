@@ -1,0 +1,1146 @@
+/* override-20260428b.css — viewport-relative size override.
+ *
+ * The user's phone has a wide CSS viewport so static px values rendered
+ * tiny relative to the screen. Switch every visible size to viewport-
+ * relative units (`vw`) bracketed by `clamp(min, vw, max)` so the UI
+ * automatically scales to whatever viewport width Chrome/PWA gives us
+ * AND matches the APK's proportions on the same device.
+ *
+ * APK proportions sampled from screenshots 019dd6ee-88955 (Media) and
+ * 019dd6ee-88957 (Profile) the user provided.
+ *
+ *   App title (Kimura / מדיה / פרופיל)  ~ 7vw
+ *   Subtitle                            ~ 4vw
+ *   Card title                          ~ 5.5vw
+ *   Body text                           ~ 4.5vw
+ *   Button text                         ~ 5vw
+ *   Bottom nav label                    ~ 3.5vw
+ *   Stat numbers                        ~ 9vw
+ *
+ * Loaded LAST in index.html so its rules override base.css / per-screen
+ * sheets. Every rule uses !important — these are the source of truth.
+ */
+
+/* ──────────────────────────────────────────────────────────
+ * Design tokens — every CSS variable in tokens.css that drives
+ * visible sizes gets a vw / clamp value here.
+ * ────────────────────────────────────────────────────────── */
+
+:root {
+  /* Header / bottom nav / shells */
+  --dim-bottom-nav-height: clamp(96px, 22vw, 200px) !important;
+  --dim-bottom-nav-icon: clamp(60px, 14vw, 130px) !important;
+  --dim-header-height: clamp(120px, 26vw, 240px) !important;
+  --dim-header-pad-x: clamp(16px, 5vw, 40px) !important;
+  --dim-stats-chip-h: clamp(40px, 9vw, 80px) !important;
+  --dim-copyright-bar-text: clamp(11px, 2.6vw, 22px) !important;
+  --dim-copyright-bar-pad-y: clamp(3px, 1vw, 8px) !important;
+  --dim-bottom-rule: 3px !important;
+
+  /* Typography (used via var() in many screen sheets) */
+  --font-size-display: clamp(36px, 9vw, 90px) !important;
+  --font-size-score: clamp(40px, 11vw, 110px) !important;
+  --font-size-app-title: clamp(28px, 7vw, 60px) !important;
+  --font-size-screen-title: clamp(22px, 5.5vw, 46px) !important;
+  --font-size-screen-subtitle: clamp(14px, 3.6vw, 28px) !important;
+  --font-size-card-title: clamp(20px, 5.5vw, 42px) !important;
+  --font-size-stat-num-large: clamp(28px, 7vw, 60px) !important;
+  --font-size-body: clamp(16px, 4.5vw, 34px) !important;
+  --font-size-label: clamp(14px, 3.8vw, 28px) !important;
+  --font-size-caption: clamp(13px, 3.3vw, 24px) !important;
+
+  /* Spacing tokens */
+  --dim-activity-horizontal-margin: clamp(16px, 5vw, 40px) !important;
+  --dim-activity-vertical-margin: clamp(16px, 5vw, 40px) !important;
+  --dim-card-margin: clamp(8px, 2.5vw, 20px) !important;
+  --dim-card-corner-radius: clamp(16px, 4.5vw, 32px) !important;
+  --dim-card-corner-radius-large: clamp(20px, 5.5vw, 40px) !important;
+  --dim-card-corner-radius-small: clamp(12px, 3.5vw, 24px) !important;
+  --dim-button-corner-radius: clamp(20px, 5.5vw, 40px) !important;
+  --dim-hero-padding: clamp(20px, 6vw, 50px) !important;
+  --dim-section-spacing: clamp(16px, 5vw, 40px) !important;
+  --dim-icon-bubble-size: clamp(56px, 14vw, 130px) !important;
+  --dim-icon-bubble-size-large: clamp(72px, 17vw, 160px) !important;
+}
+
+/* ──────────────────────────────────────────────────────────
+ * App shell
+ * ────────────────────────────────────────────────────────── */
+
+.copyright-bar {
+  font-size: clamp(10px, 2.5vw, 18px) !important;
+  padding: clamp(2px, 0.8vw, 8px) 0 !important;
+}
+
+/* PWA install button — full-width red banner under the copyright bar.
+ * Always visible in the regular web (per user: show all the time, no
+ * dismiss). Hidden only inside the installed PWA via display-mode. */
+.pwa-install-btn {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(8px, 2vw, 12px) !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: clamp(10px, 2.6vw, 16px) clamp(16px, 4vw, 24px) !important;
+  background: linear-gradient(180deg, var(--color-primary, #C0362A), var(--color-primary-dark, #8A1F16)) !important;
+  color: #fff !important;
+  font-size: clamp(15px, 4vw, 20px) !important;
+  font-weight: 700 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: transparent !important;
+  text-decoration: none !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.18) !important;
+}
+.pwa-install-btn:active { opacity: 0.9 !important; }
+.pwa-install-btn__icon { font-size: 1.15em !important; line-height: 1 !important; }
+
+/* Hide entirely when running as the installed PWA. */
+@media (display-mode: standalone) {
+  .pwa-install-btn { display: none !important; }
+}
+
+.bottom-nav__btn img {
+  width: clamp(48px, 13vw, 120px) !important;
+  height: clamp(48px, 13vw, 120px) !important;
+}
+.bottom-nav__btn span {
+  font-size: clamp(11px, 3vw, 22px) !important;
+}
+
+/* ──────────────────────────────────────────────────────────
+ * Learn tab
+ * ────────────────────────────────────────────────────────── */
+
+.learn-header {
+  flex: 0 0 clamp(120px, 26vw, 240px) !important;
+  height: clamp(120px, 26vw, 240px) !important;
+  padding: 0 clamp(16px, 5vw, 32px) !important;
+  gap: clamp(8px, 2vw, 16px) !important;
+}
+.learn-header__title { font-size: clamp(24px, 7vw, 56px) !important; }
+.learn-header .bg-stats-chip {
+  padding: clamp(6px, 2vw, 14px) clamp(10px, 3vw, 22px) !important;
+  font-size: clamp(14px, 4vw, 28px) !important;
+  border-radius: clamp(20px, 6vw, 50px) !important;
+}
+.learn-header .bg-stats-chip .chip-emoji { font-size: clamp(14px, 4vw, 28px) !important; }
+.learn-header .bg-stats-chip .chip-count { font-size: clamp(14px, 4vw, 28px) !important; }
+
+.unit-header {
+  padding: clamp(14px, 4.5vw, 30px) clamp(16px, 5vw, 32px) !important;
+  border-radius: clamp(14px, 4vw, 28px) !important;
+  margin: clamp(6px, 2vw, 14px) clamp(12px, 4vw, 28px) !important;
+  gap: clamp(10px, 3vw, 22px) !important;
+}
+.unit-header__emoji { font-size: clamp(28px, 8vw, 64px) !important; }
+.unit-header__title { font-size: clamp(20px, 5.5vw, 42px) !important; }
+.unit-header__subtitle { font-size: clamp(13px, 3.6vw, 26px) !important; margin-top: 4px !important; }
+
+.lesson-node__circle {
+  width: clamp(96px, 24vw, 220px) !important;
+  height: clamp(96px, 24vw, 220px) !important;
+}
+.lesson-node__emoji { font-size: clamp(40px, 10vw, 90px) !important; }
+.lesson-node__title { font-size: clamp(16px, 4.5vw, 34px) !important; max-width: clamp(180px, 50vw, 460px) !important; }
+.lesson-node__number { font-size: clamp(13px, 3.5vw, 26px) !important; margin-top: 4px !important; }
+.lesson-node__connector { height: clamp(20px, 6vw, 50px) !important; width: 4px !important; }
+.lesson-node__badge { width: clamp(28px, 7vw, 56px) !important; height: clamp(28px, 7vw, 56px) !important; }
+.lesson-node__badge img { width: clamp(28px, 7vw, 56px) !important; height: clamp(28px, 7vw, 56px) !important; }
+.lesson-node__badge--lock { width: clamp(22px, 6vw, 44px) !important; height: clamp(22px, 6vw, 44px) !important; }
+.lesson-node__badge--lock img { width: clamp(13px, 3.5vw, 24px) !important; height: clamp(13px, 3.5vw, 24px) !important; }
+.lesson-node { --node-shift: clamp(40px, 11vw, 110px) !important; }
+
+/* ──────────────────────────────────────────────────────────
+ * Media tab
+ * ────────────────────────────────────────────────────────── */
+
+.media-card { margin-bottom: clamp(14px, 4vw, 28px) !important; padding: clamp(16px, 5vw, 32px) !important; border-radius: clamp(16px, 4.5vw, 32px) !important; }
+.media-card__head { gap: clamp(8px, 3vw, 20px) !important; margin-bottom: clamp(10px, 3vw, 20px) !important; }
+.media-card__emoji { font-size: clamp(28px, 8vw, 64px) !important; }
+.media-card__title { font-size: clamp(20px, 5vw, 38px) !important; }
+.media-card__subtitle { font-size: clamp(13px, 3.5vw, 24px) !important; margin-top: 4px !important; }
+.media-card__pdf-list { gap: clamp(8px, 2.5vw, 18px) !important; }
+.media-card__embed { height: clamp(140px, 38vw, 320px) !important; }
+
+/* ──────────────────────────────────────────────────────────
+ * Profile tab
+ * ────────────────────────────────────────────────────────── */
+
+.profile-identity { padding: clamp(16px, 5vw, 32px) !important; gap: clamp(12px, 4vw, 28px) !important; border-radius: clamp(16px, 4.5vw, 32px) !important; }
+.profile-identity__avatar-wrap { width: clamp(60px, 16vw, 140px) !important; height: clamp(60px, 16vw, 140px) !important; }
+.profile-identity__avatar { width: clamp(60px, 16vw, 140px) !important; height: clamp(60px, 16vw, 140px) !important; }
+.profile-identity__name { font-size: clamp(22px, 6vw, 44px) !important; }
+.profile-identity__role { font-size: clamp(14px, 4vw, 28px) !important; }
+.profile-identity__photo-edit { width: clamp(28px, 7vw, 52px) !important; height: clamp(28px, 7vw, 52px) !important; }
+.profile-identity__name-edit { width: clamp(24px, 6vw, 44px) !important; height: clamp(24px, 6vw, 44px) !important; }
+
+.profile-stats { gap: clamp(8px, 3vw, 20px) !important; padding: 0 clamp(16px, 4vw, 28px) !important; }
+.profile-stats__cell { padding: clamp(10px, 3vw, 22px) clamp(8px, 2vw, 14px) !important; border-radius: clamp(12px, 3.5vw, 24px) !important; }
+.profile-stats__icon { width: clamp(50px, 14vw, 120px) !important; height: clamp(50px, 14vw, 120px) !important; }
+.profile-stats__value { font-size: clamp(22px, 6vw, 46px) !important; margin-top: 6px !important; }
+.profile-stats__value--lessons { font-size: clamp(22px, 6vw, 46px) !important; }
+.profile-stats__label { font-size: clamp(12px, 3.2vw, 22px) !important; margin-top: 2px !important; }
+
+.profile-progress { padding: clamp(14px, 4vw, 28px) !important; border-radius: clamp(14px, 4vw, 28px) !important; }
+.profile-progress__row { gap: clamp(8px, 2vw, 14px) !important; margin-bottom: clamp(8px, 2vw, 14px) !important; }
+.profile-progress__label { font-size: clamp(15px, 4.2vw, 30px) !important; }
+.profile-progress__percent { font-size: clamp(15px, 4.2vw, 30px) !important; }
+.profile-progress__bar { height: clamp(8px, 2vw, 14px) !important; border-radius: 6px !important; }
+
+.profile-reset { font-size: clamp(16px, 4.5vw, 32px) !important; padding: clamp(12px, 3.5vw, 24px) !important; border-radius: clamp(16px, 5vw, 36px) !important; min-height: clamp(50px, 14vw, 110px) !important; }
+
+/* ──────────────────────────────────────────────────────────
+ * Lesson Journey shell
+ * ────────────────────────────────────────────────────────── */
+
+.lj-progress { height: clamp(5px, 1.5vw, 10px) !important; margin-top: clamp(28px, 8vw, 60px) !important; }
+.lj-toolbar { height: clamp(48px, 12vw, 90px) !important; padding: 0 clamp(8px, 2vw, 16px) !important; }
+.lj-back { width: clamp(36px, 10vw, 72px) !important; height: clamp(36px, 10vw, 72px) !important; }
+.lj-back img { width: clamp(20px, 5.5vw, 40px) !important; height: clamp(20px, 5.5vw, 40px) !important; }
+.lj-title { font-size: clamp(18px, 5vw, 36px) !important; }
+.lj-toolbar__spacer { width: clamp(36px, 10vw, 72px) !important; height: clamp(36px, 10vw, 72px) !important; }
+/* CRITICAL: .lj-continue carries class "lj-continue btn btn--block" and
+ * .btn--block sets width:100%. With position:fixed + left:24 + right:24
+ * + width:100%, CSS spec says one of left/right is treated as `auto` —
+ * in RTL it's `left`. The button then renders 100vw wide pinned to
+ * right:24px, overflowing the LEFT edge by 24px (= the "cut on the
+ * left" symptom). Forcing `width: auto` makes the left+right pair
+ * compute the width correctly so the pill is centered with 24px on
+ * each side. */
+.lj-continue {
+  height: clamp(76px, 13vw, 96px) !important;
+  min-height: clamp(76px, 13vw, 96px) !important;
+  font-size: clamp(22px, 5.5vw, 28px) !important;
+  font-weight: 700 !important;
+  bottom: calc(24px + env(safe-area-inset-bottom)) !important;
+  left: 24px !important;
+  right: 24px !important;
+  inset-inline-start: 24px !important;
+  inset-inline-end: 24px !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  border-radius: clamp(38px, 6.5vw, 48px) !important;
+  box-sizing: border-box !important;
+}
+
+/* ──────────────────────────────────────────────────────────
+ * Journey step shared
+ * ────────────────────────────────────────────────────────── */
+
+.lj-step { padding: clamp(23px, 6.0vw, 52px) clamp(23px, 6.0vw, 46px) clamp(29px, 7.2vw, 64px) clamp(23px, 6.0vw, 46px) !important; gap: clamp(20px, 4.8vw, 41px) !important; }
+.lj-section { font-size: clamp(26px, 6.0vw, 49px) !important; gap: clamp(12px, 2.4vw, 20px) !important; }
+.lj-section__bar { width: clamp(6px, 1.8vw, 12px) !important; height: clamp(29px, 7.2vw, 58px) !important; }
+.lj-card { padding: clamp(20px, 5.4vw, 41px) !important; border-radius: clamp(23px, 5.4vw, 43px) !important; }
+.lj-card__title { font-size: clamp(23px, 5.4vw, 43px) !important; margin-bottom: clamp(12px, 2.4vw, 20px) !important; }
+.lj-card__body { font-size: clamp(22px, 5.0vw, 41px) !important; line-height: 1.55 !important; }
+.lj-counter { font-size: clamp(19px, 4.2vw, 35px) !important; }
+/* Every speaker button (vocab / practice / quiz) is rendered with a 🔊
+ * emoji as TEXT content, not an SVG icon. So sizing `.lj-speaker svg`
+ * had no effect — what matters is `font-size`. The per-screen sheets
+ * pin font-size: 18px on the speaker variants, which made the glyph
+ * read as a small speck in our 100px circle. Force a big font-size on
+ * every speaker selector so the 🔊 emoji actually fills the button. */
+/* Speakers: circle ~60-76px, emoji 🔊 glyph ~50% of circle (28-36px).
+ * The zc-pass over-corrected the emoji to ~44-56px, making the buttons
+ * read as oversized. Smaller, balanced proportion below. */
+/* Bigger circle (back to zc size) + medium emoji (between zc's 44-56
+ * and zd's 26-34). User confirmed circle was right at ~80-100px but
+ * the 🔊 glyph was too big at 44-56px. Aim for ~36-44px glyph in the
+ * 80-100 circle (≈45% — feels natural). */
+.lj-speaker { width: clamp(72px, 12vw, 90px) !important; height: clamp(72px, 12vw, 90px) !important; color: #fff !important; font-size: clamp(34px, 5.8vw, 42px) !important; line-height: 1 !important; }
+.lj-speaker--lg { width: clamp(80px, 13.5vw, 100px) !important; height: clamp(80px, 13.5vw, 100px) !important; font-size: clamp(38px, 6.4vw, 48px) !important; }
+.lj-speaker svg { width: clamp(34px, 5.8vw, 42px) !important; height: clamp(34px, 5.8vw, 42px) !important; fill: #fff !important; }
+.lj-speaker > span,
+.lj-speaker > * { font-size: inherit !important; line-height: 1 !important; }
+.lj-vocab__speaker { font-size: clamp(38px, 6.4vw, 48px) !important; }
+.lj-practice__speaker { font-size: clamp(34px, 5.8vw, 42px) !important; }
+.lj-quiz__speaker { font-size: clamp(34px, 5.8vw, 42px) !important; }
+
+/* Intro */
+.lj-intro__emoji { font-size: clamp(80px, 19.2vw, 202px) !important; }
+.lj-intro__title { font-size: clamp(35px, 7.8vw, 72px) !important; }
+.lj-intro__subtitle { font-size: clamp(22px, 4.8vw, 41px) !important; }
+/* Video — back to plain, full-size iframe. The CSS scale trick broke
+ * Vimeo's control bar (cross-origin iframe quirks under transform —
+ * the controls disappeared entirely). Without Vimeo Pro or self-hosted
+ * MP4s, the controls stay at Vimeo's default size. Container kept at
+ * the larger zh size so the player still feels big. */
+.lj-intro__video {
+  height: clamp(280px, 56vw, 580px) !important;
+  border-radius: clamp(20px, 4.8vw, 41px) !important;
+  position: relative !important;
+  margin-left: calc(-1 * clamp(16px, 5vw, 32px)) !important;
+  margin-right: calc(-1 * clamp(16px, 5vw, 32px)) !important;
+  width: auto !important;
+}
+.lj-intro__video-iframe {
+  position: static !important;
+  width: 100% !important;
+  height: 100% !important;
+  border: 0 !important;
+}
+/* Custom big control row — Play/Pause + Fullscreen — added BELOW the
+ * iframe by intro.js. Vimeo's native controls remain visible inside
+ * the iframe; these are EXTRA buttons sized for easy tapping. */
+.lj-intro__video-controls {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: clamp(10px, 2.5vw, 16px) !important;
+  margin-top: clamp(10px, 2.5vw, 16px) !important;
+}
+.lj-intro__big-play, .lj-intro__big-fs {
+  flex: 1 1 0 !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(8px, 2vw, 14px) !important;
+  height: clamp(60px, 10vw, 76px) !important;
+  font-size: clamp(18px, 4.5vw, 22px) !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+  background: var(--color-primary, #C0362A) !important;
+  border: 0 !important;
+  border-radius: clamp(30px, 5vw, 38px) !important;
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: transparent !important;
+  padding: 0 clamp(14px, 4vw, 22px) !important;
+}
+.lj-intro__big-play:active, .lj-intro__big-fs:active {
+  opacity: 0.85 !important;
+}
+.lj-intro__big-play-icon, .lj-intro__big-fs-icon {
+  font-size: clamp(20px, 5vw, 26px) !important;
+  line-height: 1 !important;
+}
+.lj-intro__preview-title { font-size: clamp(22px, 4.8vw, 41px) !important; }
+.lj-intro__preview-item { font-size: clamp(20px, 4.8vw, 38px) !important; }
+.lj-intro__video-overlay { height: clamp(72px, 16.8vw, 158px) !important; }
+
+/* Teach */
+.lj-teach-grammar .lj-card__title { font-size: clamp(23px, 5.4vw, 43px) !important; }
+.lj-teach-grammar .lj-card__body { font-size: clamp(22px, 5.0vw, 41px) !important; line-height: 1.55 !important; }
+.lj-grammar-pattern { font-size: clamp(19px, 4.2vw, 35px) !important; padding: clamp(14px, 3.6vw, 29px) !important; }
+.lj-example-romaji { font-size: clamp(24px, 5.8vw, 46px) !important; }
+.lj-example-japanese { font-size: clamp(22px, 5.0vw, 41px) !important; }
+.lj-card-hebrew { font-size: clamp(20px, 4.8vw, 37px) !important; padding: clamp(12px, 2.9vw, 23px) clamp(14px, 3.6vw, 29px) !important; }
+
+/* Vocab */
+/* journey-vocab.css sets `flex: 0 0 72px` on the emoji box, which is
+ * flex-basis: 72px. In flex layout flex-basis wins over `width:
+ * !important`, so the box stays 72px no matter what width we declare.
+ * Force flex to auto + spell out flex-basis so the width clamp takes
+ * effect. */
+.lj-vocab__emoji-box {
+  flex: 0 0 auto !important;
+  flex-basis: auto !important;
+  width: clamp(96px, 16vw, 120px) !important;
+  height: clamp(96px, 16vw, 120px) !important;
+  border-radius: clamp(20px, 4vw, 28px) !important;
+}
+.lj-vocab__emoji { font-size: clamp(56px, 10vw, 76px) !important; line-height: 1 !important; }
+.lj-vocab__jp { font-size: clamp(29px, 6.6vw, 60px) !important; }
+.lj-vocab__romaji { font-size: clamp(19px, 4.2vw, 35px) !important; }
+.lj-vocab__hebrew { font-size: clamp(22px, 4.8vw, 41px) !important; }
+.lj-vocab__speaker { width: clamp(80px, 13.5vw, 100px) !important; height: clamp(80px, 13.5vw, 100px) !important; }
+
+/* More breathing room between vocab cards + bigger internal padding */
+.lj-vocab__cards { gap: clamp(14px, 3.5vw, 22px) !important; }
+.lj-vocab__row { gap: clamp(18px, 4.5vw, 30px) !important; padding: clamp(16px, 4.2vw, 26px) clamp(16px, 4vw, 26px) clamp(16px, 4.2vw, 26px) clamp(12px, 3vw, 20px) !important; }
+
+/* Practice */
+.lj-practice__counter { font-size: clamp(19px, 4.2vw, 35px) !important; }
+.lj-practice__label { font-size: clamp(22px, 5.0vw, 41px) !important; }
+.lj-practice__prompt-text { font-size: clamp(29px, 6.6vw, 60px) !important; }
+.lj-practice__input { font-size: clamp(22px, 5.0vw, 41px) !important; padding: clamp(14px, 3.6vw, 29px) !important; min-height: clamp(115px, 26.4vw, 259px) !important; border-radius: clamp(17px, 4.2vw, 31px) !important; }
+.lj-practice__answer-text { font-size: clamp(24px, 5.8vw, 46px) !important; }
+.lj-practice__answer-sub { font-size: clamp(22px, 4.8vw, 41px) !important; }
+
+/* Quiz */
+.lj-quiz__counter { font-size: clamp(19px, 4.2vw, 35px) !important; }
+.lj-quiz__question-text { font-size: clamp(23px, 5.4vw, 43px) !important; line-height: 1.4 !important; }
+.lj-quiz__option { min-height: clamp(72px, 12.5vw, 88px) !important; padding: 14px 20px !important; font-size: clamp(20px, 5vw, 26px) !important; border-radius: clamp(34px, 5.5vw, 40px) !important; }
+.lj-quiz__option-label { font-size: clamp(20px, 5vw, 26px) !important; }
+.lj-quiz__feedback { font-size: clamp(20px, 4.8vw, 37px) !important; }
+.lj-quiz__hint { padding: clamp(17px, 4.2vw, 35px) !important; font-size: clamp(19px, 4.2vw, 35px) !important; }
+
+/* Complete */
+.lj-complete__emoji { font-size: clamp(80px, 19.2vw, 187px) !important; }
+.lj-complete__title { font-size: clamp(31px, 7.2vw, 66px) !important; }
+.lj-complete__subtitle { font-size: clamp(22px, 4.8vw, 41px) !important; }
+.lj-complete__xp-text { font-size: clamp(29px, 6.6vw, 60px) !important; }
+.lj-complete__xp-card { padding: clamp(20px, 4.8vw, 41px) clamp(29px, 7.2vw, 58px) !important; border-radius: clamp(23px, 6.0vw, 52px) !important; }
+
+/* ──────────────────────────────────────────────────────────
+ * Generic buttons
+ * ────────────────────────────────────────────────────────── */
+
+.btn, .btn--block { font-size: clamp(22px, 5.5vw, 28px) !important; padding: 18px 26px !important; border-radius: clamp(38px, 6.5vw, 48px) !important; min-height: clamp(76px, 13vw, 96px) !important; }
+.btn--small { min-height: clamp(52px, 9vw, 60px) !important; padding: 0 22px !important; font-size: clamp(17px, 4.2vw, 20px) !important; border-radius: clamp(26px, 4.5vw, 30px) !important; }
+.btn--option { min-height: clamp(72px, 12.5vw, 88px) !important; padding: 0 24px !important; font-size: clamp(20px, 5vw, 26px) !important; border-radius: clamp(34px, 5.5vw, 40px) !important; }
+
+/* ──────────────────────────────────────────────────────────
+ * APPENDED 2026-04-29 — Practice + Quiz button layout to match APK.
+ * APK screenshots 88965/88967 show Check+Peek as two equal-width
+ * pill buttons side-by-side; APK 88969 shows Quiz options each as
+ * a wide pill with a separate red round speaker on the leading side.
+ * ────────────────────────────────────────────────────────── */
+
+/* Practice Check / Peek row */
+.lj-practice__btn-row {
+  display: flex !important;
+  gap: clamp(8px, 2.5vw, 18px) !important;
+  margin-top: clamp(4px, 1.5vw, 10px) !important;
+  margin-bottom: clamp(8px, 2vw, 14px) !important;
+}
+.lj-practice__btn {
+  flex: 1 1 0 !important;
+  height: clamp(68px, 12vw, 84px) !important;
+  font-size: clamp(20px, 5vw, 26px) !important;
+  font-weight: 700 !important;
+  border-radius: clamp(34px, 6vw, 42px) !important;
+  border-width: 2px !important;
+  padding: 0 18px !important;
+}
+
+/* Quiz option row — speaker button beside the option button (restored).
+ * Per user clarification, only the QUESTION loses its speaker. Options
+ * keep their speakers + their original single-tap-to-select behavior. */
+.lj-quiz__option-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: clamp(8px, 2.5vw, 18px) !important;
+  margin-bottom: clamp(8px, 2vw, 14px) !important;
+}
+.lj-quiz__option-row .lj-quiz__option { flex: 1 1 0 !important; }
+.lj-quiz__option-row .lj-speaker,
+.lj-quiz__option-row .lj-quiz__option-speaker {
+  width: clamp(72px, 12vw, 90px) !important;
+  height: clamp(72px, 12vw, 90px) !important;
+  flex: 0 0 auto !important;
+  border-radius: 50% !important;
+}
+
+/* Question text only — the TEXT itself is the tap target (per user:
+ * "click on the word to play sound"). The card around it is NOT
+ * clickable. Tactile feedback via opacity, small "🔊" hint via ::after. */
+.lj-quiz__question-text--clickable {
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: transparent !important;
+  transition: opacity 0.12s ease !important;
+}
+.lj-quiz__question-text--clickable:active {
+  opacity: 0.65 !important;
+}
+.lj-quiz__question-text--clickable:focus-visible {
+  outline: 2px solid var(--color-primary, #C0362A) !important;
+  outline-offset: 4px !important;
+  border-radius: 4px !important;
+}
+.lj-quiz__question-text--clickable::after {
+  content: " 🔊" !important;
+  font-size: 0.85em !important;
+  opacity: 0.6 !important;
+  margin-inline-start: 6px !important;
+  vertical-align: middle !important;
+}
+
+/* Quiz Check / Next at the bottom (full-width pills, matches lj-continue) */
+.lj-quiz__check, .lj-quiz__next {
+  height: clamp(76px, 13vw, 96px) !important;
+  font-size: clamp(22px, 5.5vw, 28px) !important;
+  font-weight: 700 !important;
+  border-radius: clamp(38px, 6.5vw, 48px) !important;
+  width: 100% !important;
+  margin-top: 12px !important;
+}
+
+/* ──────────────────────────────────────────────────────────
+ * ADAPTIVE LAYOUT
+ *
+ * The clamp(min, vw, max) sizing already handles the spread from
+ * iPhone SE (320px) to laptop (1440px) on its own. Earlier versions
+ * (zw / zy) added a "centered phone column on big screens" with
+ * dark frames around — but the user's phone reports a CSS viewport
+ * wide enough to trigger ANY width-based media query we tried, so
+ * the framing kept appearing on her actual phone. Removing the
+ * centered-column block entirely. The app fills the viewport at
+ * any size, scales sizes via clamp(). On a desktop monitor it'll
+ * span wider than ideal, but it won't break anything and — most
+ * importantly — phones never get framed.
+ *
+ * Landscape and tiny-phone tweaks below stay; they don't depend on
+ * the centered column.
+ * ────────────────────────────────────────────────────────── */
+
+/* Landscape phones (short height, wide aspect) — tighten the
+ * lj-continue's bottom inset so it doesn't eat too much of the
+ * shorter viewport. */
+@media (max-height: 480px) and (orientation: landscape) {
+  .lj-continue {
+    bottom: calc(8px + env(safe-area-inset-bottom)) !important;
+    height: clamp(48px, 8vh, 60px) !important;
+    min-height: clamp(48px, 8vh, 60px) !important;
+    font-size: clamp(15px, 3.5vh, 18px) !important;
+  }
+  .lj-step {
+    /* Tighter padding so more content fits on a short screen */
+    padding-top: 12px !important;
+    padding-bottom: 80px !important;
+  }
+}
+
+/* Tiny phones (≤ 360px): trim some of the larger maxes so
+ * nothing can spill horizontally. Most clamp mins already
+ * handle this, but a few generous mins (the play/fullscreen
+ * video buttons + speakers) need a tighter cap here. */
+@media (max-width: 360px) {
+  .lj-intro__big-play, .lj-intro__big-fs {
+    height: 56px !important;
+    font-size: 15px !important;
+  }
+  .lj-speaker {
+    width: 64px !important;
+    height: 64px !important;
+    font-size: 30px !important;
+  }
+  .lj-speaker--lg, .lj-vocab__speaker {
+    width: 72px !important;
+    height: 72px !important;
+    font-size: 34px !important;
+  }
+}
+
+/* Bottom nav + screen-host overrides removed — falling back to the
+ * untouched base.css rules so web and PWA render identically (the
+ * various nav experiments — opaque cream, extra padding, centered
+ * column — caused divergence between the two). Whatever base.css
+ * defines is now the source of truth: transparent nav,
+ * background-attachment: fixed body bg, default screen-host
+ * padding-bottom that already accounts for nav height + safe area. */
+
+/* ──────────────────────────────────────────────────────────
+ * Japanese text wrapping — prevent per-character breaking.
+ *
+ * CSS default for Japanese / Chinese / Korean (CJK) is to break
+ * between any two characters, because there are no spaces in those
+ * languages. On narrow containers — or when the user has system
+ * font-scaling cranked up — the result is a single word like
+ * ビンテージ wrapping vertically as ビ ン テ ー ジ down a column,
+ * which is broken-looking.
+ *
+ * `word-break: keep-all` tells the browser to treat CJK characters
+ * the same as Latin words: keep the run together unless there's a
+ * natural break (whitespace). Combined with `overflow-wrap: normal`,
+ * the entire Japanese word stays on one line; if it doesn't fit,
+ * it overflows the container instead of breaking — much better
+ * than per-character stacking. `min-width: 0` on flex children
+ * lets the parent's flex layout actually allow the text to take
+ * the width it needs without being squeezed by neighbors.
+ *
+ * Applied to every place we render Japanese: vocab card title,
+ * teach example, practice prompt, complete-screen Japanese, and the
+ * generic .dir-ltr utility used for inline Japanese fragments. */
+.lj-vocab__jp,
+.lj-example-japanese,
+.lj-practice__prompt-text,
+.lj-practice__answer-text,
+.lj-quiz__question-text,
+.lj-quiz__option-label,
+.dir-ltr {
+  word-break: keep-all !important;
+  overflow-wrap: normal !important;
+  -webkit-line-break: strict !important;
+}
+
+/* Vocab row was using flex with the speaker, text and emoji as
+ * siblings. Default flex children don't shrink below their content
+ * size, so when system font-scaling enlarges everything, the text
+ * column gets squeezed. min-width:0 on the text column lets the
+ * row redistribute width naturally. */
+.lj-vocab__row > * {
+  min-width: 0;
+}
+.lj-vocab__row {
+  /* Allow the row to wrap onto two lines (speaker on top, text+emoji
+   * below) when the cumulative width exceeds the card. This is
+   * specifically for the system-font-enlarged case — at default
+   * font scale the row stays on one line. */
+  flex-wrap: wrap !important;
+}
+
+/* ──────────────────────────────────────────────────────────
+ * From Claude Design "Kimura.html" handoff bundle.
+ *
+ * Two refined visuals brought across:
+ *   1. Typography — Heebo + Frank Ruhl Libre for Hebrew, Noto Serif
+ *      JP / Sans JP for Japanese script. The default OS Hebrew font
+ *      ("system-ui") looked too plain alongside the Asian-inspired
+ *      design language.
+ *   2. Bottom-nav active state — instead of just changing the
+ *      label color (current behavior), the active tab's icon lifts
+ *      2px, scales 1.06×, gets a soft red drop-shadow, with a
+ *      radial red glow behind it; the label gets a thin red→gold
+ *      underline that fades at both ends. Much clearer "this is
+ *      where you are" feel and aligned with the Japanese aesthetic.
+ *
+ * Color palette is left as-is (user is happy with current red/cream
+ * tokens). Lesson-node, video, vocab and quiz visuals also untouched
+ * — the user has iterated on those many times and any sweeping change
+ * would conflict with their preferences. The design's value here is
+ * the typography + active-tab polish.
+ * ────────────────────────────────────────────────────────── */
+
+body, .copyright-bar, .pwa-install-btn, .bottom-nav__btn span,
+.btn, .lj-title, .lj-card__title, .lj-card__body, .lj-counter,
+.lj-step, .lj-section, .lj-intro__title, .lj-intro__subtitle,
+.lj-intro__preview-title, .lj-intro__preview-item,
+.lj-vocab__hebrew, .lj-vocab__romaji,
+.lj-practice__label, .lj-practice__counter, .lj-practice__answer-text,
+.lj-quiz__counter, .lj-quiz__question-text, .lj-quiz__option-label,
+.lj-complete__title, .lj-complete__subtitle,
+.learn-header__title, .unit-header__title, .unit-header__subtitle,
+.lesson-node__title, .lesson-node__number,
+.media-card__title, .media-card__subtitle,
+.profile-identity__name, .profile-identity__role,
+.profile-stats__value, .profile-stats__label,
+.profile-progress__label, .profile-progress__percent {
+  font-family: "Heebo", "Frank Ruhl Libre", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+}
+
+.lj-title, .learn-header__title, .lj-intro__title, .lj-complete__title,
+.profile-identity__name, .lj-vocab__hebrew {
+  font-family: "Frank Ruhl Libre", "Heebo", -apple-system, sans-serif !important;
+}
+
+/* Japanese script — Noto Serif / Sans JP */
+.lj-vocab__jp, .lj-example-japanese, .lj-practice__prompt-text,
+.lj-card-hebrew[lang="ja"], .dir-ltr, .lesson-node__emoji {
+  font-family: "Noto Serif JP", "Noto Sans JP", "Hiragino Mincho ProN",
+               "Yu Mincho", serif !important;
+}
+
+/* ── Bottom-nav active-tab indicator ─────────────────────── */
+
+.bottom-nav__btn {
+  position: relative !important;
+  transition: transform 0.25s cubic-bezier(.4, 0, .2, 1) !important;
+}
+.bottom-nav__btn img {
+  transition: transform 0.25s cubic-bezier(.4, 0, .2, 1),
+              filter 0.25s ease !important;
+  filter: saturate(0.85) brightness(1.02) !important;
+}
+.bottom-nav__btn[aria-current="page"] img {
+  transform: translateY(-2px) scale(1.06) !important;
+  filter: saturate(1.1)
+          drop-shadow(0 4px 8px color-mix(in oklab,
+            var(--color-primary, #C0362A) 40%, transparent)) !important;
+}
+/* Soft red radial glow behind the active icon. Positioned via a
+ * pseudo-element so it can sit underneath without affecting layout. */
+.bottom-nav__btn[aria-current="page"]::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 4px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: clamp(58px, 14vw, 96px) !important;
+  height: clamp(58px, 14vw, 96px) !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at center,
+    color-mix(in oklab, var(--color-primary, #C0362A) 14%, transparent) 0%,
+    transparent 70%) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+}
+/* Thin red→gold underline beneath the active label */
+.bottom-nav__btn[aria-current="page"] span {
+  position: relative !important;
+  font-weight: 800 !important;
+}
+.bottom-nav__btn[aria-current="page"] span::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 50% !important;
+  bottom: -4px !important;
+  transform: translateX(-50%) !important;
+  width: clamp(20px, 5vw, 32px) !important;
+  height: 2px !important;
+  border-radius: 2px !important;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--color-primary, #C0362A) 35%,
+    #C99A4B 50%,
+    var(--color-primary, #C0362A) 65%,
+    transparent 100%) !important;
+}
+
+/* ════════════════════════════════════════════════════════════
+ * Claude Design "Kimura" handoff — comprehensive visual port
+ * Source: untitled/project/design_handoff_kimura_redesign/styles.css
+ *
+ * Ported aspects (the design's prototype is React/HTML; we map every
+ * visual rule onto the existing vanilla-JS web port without changing
+ * the JS structure):
+ *   • Body cream-gradient overlay over bg_japanese.png
+ *   • Top band (red header) — gradient tint + diagonal texture +
+ *     gold line at bottom
+ *   • Path-node — 74px red-gradient circles with cream border, current
+ *     pulse, completed gold check, locked greyscale
+ *   • Card surface — cream-4 fill + inset highlight + soft shadow
+ *   • Buttons — pill primary (red gradient) + ghost
+ *   • Choice (quiz option) — 4 states (default/selected/correct/wrong)
+ *   • Hanko — small red rotated stamp (used decoratively)
+ *   • Animations — pulse-current, ring (audio), shake, screen-enter,
+ *     toast-in
+ * ════════════════════════════════════════════════════════════ */
+
+/* ── Body cream overlay over the watercolor ────────────────── */
+/* The body's bg_japanese.png watercolor stays fixed; over it we lay
+ * a cream gradient that's stronger at the top + bottom and lets the
+ * watercolor scene peek through in the middle. Matches the design's
+ * `.kimura-screen::before` rule. */
+body::before {
+  content: "" !important;
+  position: fixed !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  background: linear-gradient(
+    180deg,
+    var(--c-cream) 0%,
+    color-mix(in oklab, var(--c-cream) 88%, transparent) 40%,
+    color-mix(in oklab, var(--c-cream) 75%, transparent) 75%,
+    color-mix(in oklab, var(--c-cream) 90%, transparent) 100%
+  ) !important;
+  z-index: 0 !important;
+}
+body > * { position: relative; z-index: 1; }
+
+/* ── Top band (header on every fragment) ──────────────────── */
+.learn-header,
+.lj-header,
+.media-header,
+.profile-header {
+  background-color: var(--c-red-deep) !important;
+  background-image: url("../assets/bg_header.png") !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  color: #fff !important;
+  position: relative !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+}
+/* Red gradient tint over the bg_header so text stays legible */
+.learn-header::after,
+.lj-header::after,
+.media-header::after,
+.profile-header::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(
+    180deg,
+    rgba(140, 42, 31, 0.25) 0%,
+    rgba(140, 42, 31, 0.55) 100%
+  ) !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+}
+/* Diagonal texture */
+.learn-header::before,
+.lj-header::before,
+.media-header::before,
+.profile-header::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background:
+    repeating-linear-gradient(135deg,
+      rgba(255, 255, 255, 0.04) 0 2px,
+      transparent 2px 14px),
+    repeating-linear-gradient(45deg,
+      rgba(0, 0, 0, 0.06) 0 1px,
+      transparent 1px 22px) !important;
+  mix-blend-mode: overlay !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+}
+.learn-header > *,
+.lj-header > *,
+.media-header > *,
+.profile-header > * {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* ── Gold line at the bottom of every header ──────────────── */
+.learn-header,
+.lj-header,
+.media-header,
+.profile-header {
+  /* Reserve an extra 4px at the bottom for the gold line. */
+  padding-bottom: max(8px, env(safe-area-inset-top, 0px)) !important;
+}
+.learn-header > .gold-line-injected,
+.lj-header > .gold-line-injected { display: none; }
+.learn-header::after,
+.lj-header::after,
+.media-header::after,
+.profile-header::after {
+  /* The ::after already provides the gradient tint. The gold line is
+   * a separate element — we add it via a wrapper trick below if not
+   * already in the DOM. For now, an inset-bottom gold strip on the
+   * header's ::after-of-::after isn't possible in pure CSS, so we
+   * use box-shadow on the header itself. */
+}
+.learn-header,
+.lj-header,
+.media-header,
+.profile-header {
+  box-shadow:
+    inset 0 -4px 0 0 var(--c-red-darker),
+    inset 0 -3px 0 0 var(--c-gold) !important;
+}
+
+/* ── Path-node (lesson nodes on Learn) ─────────────────────── */
+.lesson-node__circle {
+  background: linear-gradient(180deg, var(--c-red), var(--c-red-deep)) !important;
+  color: #fff !important;
+  border: 4px solid var(--c-cream-4) !important;
+  border-radius: 50% !important;
+  box-shadow:
+    0 8px 20px -10px var(--c-red-deep),
+    0 1px 0 rgba(255, 255, 255, 0.25) inset !important;
+  transition: transform 0.2s ease, box-shadow 0.3s ease !important;
+}
+.lesson-node:hover .lesson-node__circle {
+  transform: translateY(-2px) scale(1.02);
+}
+.lesson-node--locked .lesson-node__circle,
+.lesson-node__circle--locked {
+  background: linear-gradient(180deg,
+    var(--c-cream-3),
+    color-mix(in oklab, var(--c-cream-3) 70%, var(--c-ink) 30%)) !important;
+  color: var(--c-ink-soft) !important;
+  cursor: not-allowed !important;
+  box-shadow:
+    0 4px 10px -6px var(--c-shadow),
+    0 1px 0 rgba(255, 255, 255, 0.3) inset !important;
+}
+/* Glyph (kanji / kana) — large + Noto Serif JP */
+.lesson-node__emoji {
+  font-family: var(--f-jp) !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+}
+/* Completed nodes — gold check badge in bottom-left */
+.lesson-node--completed .lesson-node__circle::after,
+.lesson-node__circle--completed::after {
+  content: "" !important;
+  position: absolute !important;
+  bottom: -4px !important;
+  left: -4px !important;
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 50% !important;
+  background-color: var(--c-gold) !important;
+  border: 3px solid var(--c-cream-4) !important;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='white' d='M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z'/></svg>") !important;
+  background-size: 16px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+/* Current node — pulsing red ring */
+.lesson-node--current .lesson-node__circle,
+.lesson-node__circle--current {
+  animation: pulse-current 2s ease-in-out infinite !important;
+}
+@keyframes pulse-current {
+  0%, 100% {
+    box-shadow:
+      0 8px 18px -8px var(--c-red-deep),
+      0 1px 0 rgba(255, 255, 255, 0.25) inset,
+      0 0 0 0 rgba(178, 58, 45, 0.4);
+  }
+  50% {
+    box-shadow:
+      0 8px 18px -8px var(--c-red-deep),
+      0 1px 0 rgba(255, 255, 255, 0.25) inset,
+      0 0 0 14px rgba(178, 58, 45, 0);
+  }
+}
+
+/* ── Cards (cream-4 surface with subtle inset highlight) ──── */
+.lj-card,
+.media-card,
+.profile-identity,
+.profile-stats__cell,
+.profile-progress {
+  background: var(--c-cream-4) !important;
+  border: 1px solid color-mix(in oklab, var(--c-cream-3) 60%, transparent) !important;
+  border-radius: 22px !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.6) inset,
+    0 8px 18px -12px var(--c-shadow) !important;
+}
+
+/* ── Unit / chapter banner ────────────────────────────────── */
+.unit-header {
+  position: relative !important;
+  background: linear-gradient(135deg, var(--c-red-deep), var(--c-red)) !important;
+  color: #fff !important;
+  border-radius: 16px !important;
+  box-shadow: 0 6px 16px -10px rgba(178, 58, 45, 0.5) !important;
+  overflow: hidden !important;
+}
+/* Decorative 章 kanji as background watermark */
+.unit-header::before {
+  content: "章" !important;
+  position: absolute !important;
+  top: -20px !important;
+  left: -12px !important;
+  font-family: var(--f-jp) !important;
+  font-size: 90px !important;
+  opacity: 0.08 !important;
+  line-height: 1 !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+  pointer-events: none !important;
+}
+.unit-header > * {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* ── Buttons (pill primary + ghost) ────────────────────────── */
+.btn,
+.btn--block,
+.lj-continue,
+.lj-quiz__check,
+.lj-quiz__next,
+.lj-intro__big-play,
+.lj-intro__big-fs {
+  font-family: var(--f-he-sans) !important;
+  font-weight: 700 !important;
+  border-radius: 999px !important;
+  letter-spacing: -0.01em !important;
+  background: linear-gradient(180deg, var(--c-red), var(--c-red-deep)) !important;
+  color: #fff !important;
+  border: 0 !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.18) inset,
+    0 6px 14px -6px var(--c-red-deep) !important;
+  transition: transform 0.12s, box-shadow 0.12s !important;
+}
+.btn:hover,
+.btn--block:hover,
+.lj-continue:hover {
+  transform: translateY(-1px);
+}
+.btn:disabled,
+.lj-continue[disabled],
+.lj-quiz__check[disabled] {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+}
+/* Ghost / outlined variant — practice peek */
+.btn--outlined,
+.btn--outline,
+.lj-practice__btn--peek,
+.lj-practice__btn:not(.lj-practice__btn--check) {
+  background: var(--c-cream-4) !important;
+  color: var(--c-red-deep) !important;
+  border: 1.5px solid color-mix(in oklab, var(--c-red) 30%, transparent) !important;
+  box-shadow: none !important;
+}
+.btn--outlined:hover,
+.lj-practice__btn--peek:hover {
+  background: var(--c-cream-2) !important;
+}
+
+/* ── Choices (quiz options — 4 states) ────────────────────── */
+.lj-quiz__option,
+.btn--option {
+  background: var(--c-cream-4) !important;
+  border: 2px solid var(--c-cream-3) !important;
+  color: var(--c-ink) !important;
+  font-family: var(--f-he-sans) !important;
+  font-weight: 600 !important;
+  text-align: right !important;
+  border-radius: 18px !important;
+  box-shadow: none !important;
+  transition: border-color 0.15s, background 0.15s !important;
+}
+.lj-quiz__option:hover {
+  border-color: var(--c-red-soft) !important;
+}
+/* Selected — red border + faint red wash */
+.lj-quiz__option.bg-option-selected,
+.lj-quiz__option--selected {
+  border-color: var(--c-red) !important;
+  background: color-mix(in oklab, var(--c-red) 8%, var(--c-cream-4)) !important;
+}
+/* Correct — jade border + jade wash */
+.lj-quiz__option.bg-option-correct,
+.lj-quiz__option--correct {
+  border-color: var(--c-jade) !important;
+  background: color-mix(in oklab, var(--c-jade) 14%, var(--c-cream-4)) !important;
+}
+/* Wrong — red-orange border + wash + shake */
+.lj-quiz__option.bg-option-wrong,
+.lj-quiz__option--wrong {
+  border-color: #C84B3A !important;
+  background: color-mix(in oklab, #C84B3A 10%, var(--c-cream-4)) !important;
+  animation: shake 0.35s ease-in-out !important;
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-4px); }
+  40%, 80% { transform: translateX(4px); }
+}
+
+/* ── Practice input (cream surface, red focus) ────────────── */
+.lj-practice__input {
+  background: var(--c-cream-4) !important;
+  border: 2px solid var(--c-cream-3) !important;
+  color: var(--c-ink) !important;
+  border-radius: 12px !important;
+  font-family: var(--f-he-sans) !important;
+  outline: none !important;
+  text-align: center !important;
+  transition: border-color 0.15s, background 0.15s !important;
+}
+.lj-practice__input:focus {
+  border-color: var(--c-red) !important;
+  background: #fff !important;
+}
+
+/* ── Vocab row (dashed bottom-border) ──────────────────────── */
+.lj-vocab__row {
+  background: transparent !important;
+  border-bottom: 1px dashed var(--c-cream-3) !important;
+  transition: background 0.15s !important;
+}
+.lj-vocab__row:hover {
+  background: color-mix(in oklab, var(--c-cream-2) 50%, transparent) !important;
+}
+.lj-vocab__row:last-child {
+  border-bottom: 0 !important;
+}
+
+/* ── Audio pulse (ring around playing speaker) ─────────────── */
+.lj-speaker.is-playing,
+.lj-speaker.audio-pulse.playing {
+  position: relative !important;
+}
+.lj-speaker.is-playing::after,
+.lj-speaker.audio-pulse.playing::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: -4px !important;
+  border-radius: 50% !important;
+  border: 2px solid var(--c-red) !important;
+  animation: ring 1s ease-out infinite !important;
+}
+@keyframes ring {
+  from { transform: scale(0.95); opacity: 1; }
+  to   { transform: scale(1.4); opacity: 0; }
+}
+
+/* ── Hanko (decorative red stamp) — utility class ─────────── */
+.hanko {
+  display: inline-grid !important;
+  place-items: center !important;
+  width: 52px !important;
+  height: 52px !important;
+  background: var(--c-red) !important;
+  color: #fff !important;
+  border-radius: 8px !important;
+  font-family: var(--f-jp) !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  letter-spacing: -2px !important;
+  position: relative !important;
+  transform: rotate(-4deg) !important;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1) !important;
+  flex: 0 0 auto !important;
+}
+.hanko::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 4px !important;
+  border: 2px solid rgba(255, 255, 255, 0.85) !important;
+  border-radius: 4px !important;
+}
+
+/* ── Pill / chip ───────────────────────────────────────────── */
+.pill,
+.lesson-node__pill,
+.unit-header__pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 5px 11px !important;
+  border-radius: 999px !important;
+  background: color-mix(in oklab, var(--c-red) 12%, transparent) !important;
+  color: var(--c-red-deep) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+
+/* ── Progress bar ──────────────────────────────────────────── */
+.lj-progress,
+.profile-progress__bar {
+  background: var(--c-cream-3) !important;
+  border-radius: 999px !important;
+  overflow: hidden !important;
+}
+.lj-progress__fill,
+.profile-progress__fill {
+  background: linear-gradient(90deg, var(--c-red), var(--c-red-soft)) !important;
+  border-radius: 999px !important;
+  transition: width 0.5s cubic-bezier(.4, 0, .2, 1) !important;
+}
+
+/* ── Page title (in headers) ──────────────────────────────── */
+.lj-title,
+.learn-header__title,
+.media-header__title,
+.profile-header__title {
+  font-family: var(--f-he) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
+  color: #fff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* ── Stats chips on Learn header ──────────────────────────── */
+.bg-stats-chip,
+.learn-header .bg-stats-chip {
+  background: rgba(0, 0, 0, 0.35) !important;
+  color: #fff !important;
+  border: 0 !important;
+}
+
+/* ── Screen-enter animation — the design uses a subtle
+ * fade-in. Keep but make it a no-op if reduced-motion is
+ * preferred. */
+@media (prefers-reduced-motion: no-preference) {
+  .screen-host > * {
+    animation: screen-enter 0.3s ease-out;
+  }
+}
+@keyframes screen-enter {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Screen scrollbar hidden (cleaner look) ───────────────── */
+.screen-host::-webkit-scrollbar { width: 0 !important; }
+.lj-step-host::-webkit-scrollbar { width: 0 !important; }
