@@ -572,3 +572,110 @@
    * font scale the row stays on one line. */
   flex-wrap: wrap !important;
 }
+
+/* ──────────────────────────────────────────────────────────
+ * From Claude Design "Kimura.html" handoff bundle.
+ *
+ * Two refined visuals brought across:
+ *   1. Typography — Heebo + Frank Ruhl Libre for Hebrew, Noto Serif
+ *      JP / Sans JP for Japanese script. The default OS Hebrew font
+ *      ("system-ui") looked too plain alongside the Asian-inspired
+ *      design language.
+ *   2. Bottom-nav active state — instead of just changing the
+ *      label color (current behavior), the active tab's icon lifts
+ *      2px, scales 1.06×, gets a soft red drop-shadow, with a
+ *      radial red glow behind it; the label gets a thin red→gold
+ *      underline that fades at both ends. Much clearer "this is
+ *      where you are" feel and aligned with the Japanese aesthetic.
+ *
+ * Color palette is left as-is (user is happy with current red/cream
+ * tokens). Lesson-node, video, vocab and quiz visuals also untouched
+ * — the user has iterated on those many times and any sweeping change
+ * would conflict with their preferences. The design's value here is
+ * the typography + active-tab polish.
+ * ────────────────────────────────────────────────────────── */
+
+body, .copyright-bar, .pwa-install-btn, .bottom-nav__btn span,
+.btn, .lj-title, .lj-card__title, .lj-card__body, .lj-counter,
+.lj-step, .lj-section, .lj-intro__title, .lj-intro__subtitle,
+.lj-intro__preview-title, .lj-intro__preview-item,
+.lj-vocab__hebrew, .lj-vocab__romaji,
+.lj-practice__label, .lj-practice__counter, .lj-practice__answer-text,
+.lj-quiz__counter, .lj-quiz__question-text, .lj-quiz__option-label,
+.lj-complete__title, .lj-complete__subtitle,
+.learn-header__title, .unit-header__title, .unit-header__subtitle,
+.lesson-node__title, .lesson-node__number,
+.media-card__title, .media-card__subtitle,
+.profile-identity__name, .profile-identity__role,
+.profile-stats__value, .profile-stats__label,
+.profile-progress__label, .profile-progress__percent {
+  font-family: "Heebo", "Frank Ruhl Libre", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+}
+
+.lj-title, .learn-header__title, .lj-intro__title, .lj-complete__title,
+.profile-identity__name, .lj-vocab__hebrew {
+  font-family: "Frank Ruhl Libre", "Heebo", -apple-system, sans-serif !important;
+}
+
+/* Japanese script — Noto Serif / Sans JP */
+.lj-vocab__jp, .lj-example-japanese, .lj-practice__prompt-text,
+.lj-card-hebrew[lang="ja"], .dir-ltr, .lesson-node__emoji {
+  font-family: "Noto Serif JP", "Noto Sans JP", "Hiragino Mincho ProN",
+               "Yu Mincho", serif !important;
+}
+
+/* ── Bottom-nav active-tab indicator ─────────────────────── */
+
+.bottom-nav__btn {
+  position: relative !important;
+  transition: transform 0.25s cubic-bezier(.4, 0, .2, 1) !important;
+}
+.bottom-nav__btn img {
+  transition: transform 0.25s cubic-bezier(.4, 0, .2, 1),
+              filter 0.25s ease !important;
+  filter: saturate(0.85) brightness(1.02) !important;
+}
+.bottom-nav__btn[aria-current="page"] img {
+  transform: translateY(-2px) scale(1.06) !important;
+  filter: saturate(1.1)
+          drop-shadow(0 4px 8px color-mix(in oklab,
+            var(--color-primary, #C0362A) 40%, transparent)) !important;
+}
+/* Soft red radial glow behind the active icon. Positioned via a
+ * pseudo-element so it can sit underneath without affecting layout. */
+.bottom-nav__btn[aria-current="page"]::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 4px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: clamp(58px, 14vw, 96px) !important;
+  height: clamp(58px, 14vw, 96px) !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at center,
+    color-mix(in oklab, var(--color-primary, #C0362A) 14%, transparent) 0%,
+    transparent 70%) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+}
+/* Thin red→gold underline beneath the active label */
+.bottom-nav__btn[aria-current="page"] span {
+  position: relative !important;
+  font-weight: 800 !important;
+}
+.bottom-nav__btn[aria-current="page"] span::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 50% !important;
+  bottom: -4px !important;
+  transform: translateX(-50%) !important;
+  width: clamp(20px, 5vw, 32px) !important;
+  height: 2px !important;
+  border-radius: 2px !important;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--color-primary, #C0362A) 35%,
+    #C99A4B 50%,
+    var(--color-primary, #C0362A) 65%,
+    transparent 100%) !important;
+}
