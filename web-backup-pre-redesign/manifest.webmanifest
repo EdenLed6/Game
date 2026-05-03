@@ -1,0 +1,27 @@
+{
+  "name": "Kimura",
+  "short_name": "Kimura",
+  "description": "יפנית למתחילים — קורס שלם ל-17 שיעורים",
+  "lang": "he",
+  "dir": "rtl",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F2E8D5",
+  "theme_color": "#8A1F16",
+  "icons": [
+    {
+      "src": "assets/kimura_logo_red.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/kimura_logo_main.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

@@ -1,0 +1,215 @@
+/* journey-practice.css — PRACTICE step (LessonJourneyActivity.showPracticeCard,
+ * Kotlin :767–1032) specific styling.
+ *
+ * The shared journey-step.css already provides .lj-step, .lj-card, .lj-counter,
+ * .lj-speaker (44dp red round). This sheet adds:
+ *   • prompt card 26sp bold centered with extra vertical padding
+ *   • multi-line textarea with 12dp rounded border
+ *   • answer reveal card with three tint states (correct/wrong/peek)
+ *   • two-column action button row (filled red / outlined red)
+ */
+
+/* ── Step container — center children, tighter gap than the default 16px
+ *    so the counter sits right above the instruction label like in Kotlin. */
+
+.lj-step--practice {
+  gap: 14px;
+  align-items: stretch;
+}
+
+/* ── Counter (Kotlin :795–804, 13sp muted, 6dp bottom margin) ── */
+
+.lj-practice__counter {
+  margin: 0 0 -6px 0; /* tighten to match Kotlin's dp(6) bottomMargin while .lj-step gap takes over */
+}
+
+/* ── Instruction label (Kotlin :807–817, 15sp bold muted, 14dp bottom) ── */
+
+.lj-practice__label {
+  margin: 0;
+  text-align: center;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--color-on-surface-muted, #7C6A67);
+}
+
+/* ── Prompt card (Kotlin :820–840) ──
+ * Extra vertical padding (24dp) and centered 26sp bold body text. The shared
+ * .lj-card already provides surface-alt background + soft shadow. */
+
+.lj-practice__prompt {
+  padding: 24px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lj-practice__prompt-text {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+  color: var(--color-on-surface, #1A0800);
+}
+
+/* ── Input field (Kotlin :843–865) ──
+ * Multi-line textarea, 12dp rounded corners, surface background, 16/14 padding,
+ * 17sp text. dir="auto" lets the browser pick LTR/RTL based on the first
+ * strong character — matches the Android EditText behavior. */
+
+.lj-practice__sr-label {
+  /* Visually hidden accessible label for the textarea. */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.lj-practice__input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px 16px;
+  font-size: 17px;
+  font-family: inherit;
+  line-height: 1.5;
+  color: var(--color-on-surface, #1A0800);
+  background: var(--color-surface, #F5E8D5);
+  border: 1px solid var(--color-card-stroke, #D8C4A8);
+  border-radius: 12px;
+  resize: vertical;
+  min-height: calc(17px * 1.5 * 3 + 28px); /* ~3 rows */
+  transition: border-color 120ms ease;
+}
+.lj-practice__input::placeholder {
+  color: var(--color-on-surface-muted, #7C6A67);
+  opacity: 1;
+}
+.lj-practice__input:focus {
+  outline: none;
+  border-color: var(--color-primary, #C0362A);
+  box-shadow: 0 0 0 2px rgba(192, 54, 42, 0.15);
+}
+
+/* ── Feedback line (Kotlin :868–878, 15sp bold centered) ── */
+
+.lj-practice__feedback {
+  margin: 0;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+}
+.lj-practice__feedback--correct {
+  color: var(--color-correct, #16A34A);
+}
+.lj-practice__feedback--wrong {
+  color: var(--color-wrong, #DC2626);
+}
+
+/* ── Answer reveal card (Kotlin :881–943) ──
+ * Tint depends on outcome: correct=#E8F5E9 (light green), wrong=#FFF3E0
+ * (light orange), peek=neutral surface. */
+
+.lj-practice__answer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 16px;
+  text-align: center;
+}
+.lj-practice__answer[hidden] {
+  display: none;
+}
+.lj-practice__answer--correct {
+  background: #E8F5E9;
+  border-color: rgba(22, 163, 74, 0.25);
+}
+.lj-practice__answer--wrong {
+  background: #FFF3E0;
+  border-color: rgba(220, 38, 38, 0.25);
+}
+.lj-practice__answer--peek {
+  background: var(--color-surface-alt, #FAF0E4);
+}
+
+.lj-practice__answer-text {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-primary, #C0362A);
+  line-height: 1.35;
+  word-break: break-word;
+}
+.lj-practice__answer-text--clickable {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.lj-practice__answer-text--clickable:focus-visible {
+  outline: 2px solid var(--color-primary, #C0362A);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.lj-practice__answer-sub {
+  margin: 0;
+  font-size: 16px;
+  color: var(--color-on-surface-muted, #7C6A67);
+  line-height: 1.4;
+}
+
+.lj-practice__speaker {
+  margin-top: 4px;
+  font-size: 18px;
+}
+
+/* ── Buttons row (Kotlin :975–1026) ──
+ * Two equal-width buttons side-by-side, 8dp gap. Filled red "בדוק ✓",
+ * outlined red "גלה 👁". */
+
+.lj-practice__btn-row {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.lj-practice__btn {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 48px;
+  padding: 0 12px;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 14px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 80ms ease, opacity 120ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.lj-practice__btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+.lj-practice__btn:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.lj-practice__btn--check {
+  background: var(--color-primary, #C0362A);
+  color: var(--color-on-primary, #FFFFFF);
+  border-color: var(--color-primary-dark, #8A1F16);
+}
+
+.lj-practice__btn--peek {
+  background: transparent;
+  color: var(--color-primary, #C0362A);
+  border-color: var(--color-primary, #C0362A);
+  border-width: 1px;
+}

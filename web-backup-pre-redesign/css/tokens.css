@@ -1,0 +1,145 @@
+/* ============================================================
+ * Kimura — design tokens
+ * Ported 1:1 from .ui-source/app/src/main/res/values/colors.xml
+ *                 and .ui-source/app/src/main/res/values/dimens.xml
+ * ========================================================== */
+
+:root {
+  /* ---------- Brand red ---------- */
+  --color-primary: #C0362A;
+  --color-primary-dark: #8A1F16;
+  --color-primary-variant: #D94C40;
+  --color-on-primary: #FFFFFF;
+
+  /* ---------- Gold (gamification) ---------- */
+  --color-secondary: #F59E0B;
+  --color-secondary-dark: #D97706;
+  --color-on-secondary: #1A0800;
+
+  /* ---------- Surfaces ---------- */
+  --color-surface: #F5E8D5;
+  --color-surface-alt: #FAF0E4;
+  --color-surface-soft: #FDECEA;
+  --color-surface-card: #F5E8D5;
+  --color-surface-washi: #F5E8D5;
+  --color-card-stroke-washi: #D8C4A8;
+  --color-on-surface: #1A0800;
+  --color-on-surface-muted: #7C6A67;
+  --color-background: #FDF5F4;
+
+  /* ---------- Accents ---------- */
+  --color-accent-gold: #F59E0B;
+  --color-accent-teal: #0EA5E9;
+  --color-accent-purple: #8B5CF6;
+  --color-gold-light: #FEF9EE;
+
+  /* ---------- Dividers ---------- */
+  --color-divider-soft: #EDD8D5;
+
+  /* ---------- Game states ---------- */
+  --color-correct: #16A34A;
+  --color-correct-light: #DCFCE7;
+  --color-wrong: #DC2626;
+  --color-wrong-light: #FEE2E2;
+  --color-selected: #F97316;
+  --color-selected-stroke: #EA580C;
+  --color-selected-yellow: #F97316;
+  --color-selected-yellow-stroke: #EA580C;
+  --color-matched: #DCFCE7;
+
+  /* ---------- Misc ---------- */
+  --color-white: #FFFFFF;
+  --color-black: #1A0800;
+  --color-hero-gradient-start: #C0362A;
+  --color-hero-gradient-end: #6A1410;
+  --color-card-stroke: #D8C4A8;
+  --color-option-stroke: #D8C4A8;
+  --color-green-stroke: #16A34A;
+  --color-gold-stroke: #F59E0B;
+
+  /* ---------- App-shell specific (from activity_main.xml) ---------- */
+  --color-copyright-bar: #A02820;
+  --color-copyright-text: rgba(255, 255, 255, 0.5);
+  --color-bottom-rule: #A02820;
+
+  /* ---------- Bottom-nav text colors (from color/bottom_nav_color.xml) ---------- */
+  --color-bottom-nav-active: var(--color-primary);
+  --color-bottom-nav-inactive: var(--color-on-surface-muted);
+
+  /* ---------- Stats-chip dark pill (from bg_stats_chip.xml / bg_progress_hero.xml) ---------- */
+  --color-chip-dark: #2A0A08;
+
+  /* ---------- Path-node colors (from bg_node_*.xml) ---------- */
+  --color-node-active-fill: #E8DCC8;
+  --color-node-active-stroke: #C9B89A;
+  --color-node-completed-fill: #C0362A;
+  --color-node-completed-stroke: #8A1F16;
+  --color-node-locked-fill: #D1C4C2;
+  --color-node-locked-stroke: #B0A09E;
+
+  /* ---------- Option backgrounds (from bg_option_*.xml) ---------- */
+  --color-option-default-bg: var(--color-surface-washi);
+  --color-option-default-stroke: #E8D5D2;
+  --color-option-selected-bg: #FEF3C7;
+  --color-option-selected-stroke: var(--color-secondary);
+  --color-option-correct-bg: var(--color-correct-light);
+  --color-option-correct-stroke: var(--color-correct);
+  --color-option-wrong-bg: var(--color-wrong-light);
+  --color-option-wrong-stroke: var(--color-wrong);
+
+  /* ---------- Achievement / pill ---------- */
+  --color-achievement-bg: #FEF9EE;
+  --color-achievement-stroke: #F59E0B;
+
+  /* ============================================================
+   * Dimensions — ported from values/dimens.xml + key XML literals
+   * 1dp = 1px (web port assumption)
+   * ========================================================== */
+  /* All px values are bumped ~2.5× from the raw `dp` numbers in dimens.xml
+   * because the user's CSS viewport is much wider than a normal phone
+   * device-width, so 1dp in Android renders larger than 1px on her browser.
+   * Multipliers picked empirically from user screenshots. */
+  --dim-activity-horizontal-margin: 36px;
+  --dim-activity-vertical-margin: 36px;
+  --dim-card-margin: 18px;
+  --dim-card-elevation: 5px;
+  --dim-card-corner-radius: 28px;
+  --dim-card-corner-radius-large: 36px;
+  --dim-card-corner-radius-small: 20px;
+  --dim-button-corner-radius: 36px;
+  --dim-hero-padding: 40px;
+  --dim-section-spacing: 36px;
+  --dim-icon-bubble-size: 108px;
+  --dim-icon-bubble-size-large: 132px;
+
+  /* ---------- App-shell metrics (from activity_main.xml) ---------- */
+  --dim-copyright-bar-text: 16px;
+  --dim-copyright-bar-pad-y: 6px;
+  --dim-bottom-rule: 4px;
+  --dim-bottom-nav-height: 180px;
+  --dim-bottom-nav-icon: 124px;
+
+  /* ---------- Header metrics (from fragment_*.xml) ---------- */
+  --dim-header-height: 180px;
+  --dim-header-pad-x: 36px;
+  --dim-stats-chip-h: 60px;
+
+  /* ---------- Typography sizes (from various layouts) ---------- */
+  --font-size-display: 72px;
+  --font-size-score: 92px;
+  --font-size-app-title: 48px;
+  --font-size-screen-title: 36px;
+  --font-size-screen-subtitle: 24px;
+  --font-size-card-title: 28px;
+  --font-size-stat-num-large: 48px;
+  --font-size-body: 27px;
+  --font-size-label: 23px;
+  --font-size-caption: 21px;
+
+  /* ---------- Z-index scale ---------- */
+  --z-bg: 0;
+  --z-content: 1;
+  --z-bottom-nav: 5;
+  --z-modal: 50;
+  --z-toast: 100;
+}
