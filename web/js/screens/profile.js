@@ -1,21 +1,18 @@
 // profile.js — Profile tab.
 //
-// Renders the design's ProfileScreen DOM (from
-// design_handoff_kimura_redesign/screen-profile-media.jsx) using
-// vanilla JS via el(). Class names mirror the design's CSS so the
-// override stylesheet applies cleanly:
+// 1:1 port of the design's ProfileScreen
+// (design_handoff_kimura_redesign/screen-profile-media.jsx). Vanilla
+// JS rendering against the existing store. Content blocks (in order):
 //
-//   .kimura-screen.profile-screen.screen-enter
-//     header.top-band                   ← red gradient header
-//       .top-band__inner
-//         .top-band__row                ← title + subtitle
-//       .gold-line                      ← gold accent strip
-//     .kimura-content
-//       .kimura-content__inner
-//         .profile-identity (card)      ← avatar + name + role + edit
-//         .profile-stats (grid 3-up)    ← streak / XP / lessons
-//         .profile-progress             ← course progress bar
-//         button.btn.btn-ghost          ← reset progress
+//   1. Top band: "הפרופיל שלי" + JP subtitle (big variant)
+//   2. Profile card: avatar (clickable to upload) + 📷 badge,
+//      editable name with ✎, "רמה X · תלמיד מתקדם",
+//      XP progress bar + "{xp} / {xpNext} XP"
+//   3. Big-stats grid: streak / XP / achievements-count (3 cards)
+//   4. Achievements section: 3-col grid of 6 achievement cards
+//      (locked variants are dimmed + show a lock icon)
+//   5. Weekly activity section: 7 vertical bars (Sun-Sat),
+//      today's bar highlighted with the red gradient
 
 import { el, mount } from "../dom.js";
 import {
@@ -30,10 +27,28 @@ import {
   TOTAL_LESSONS,
 } from "../store.js";
 
-const ROLE_TEXT          = "לומד יפנית";
+const XP_PER_LEVEL = 500;
 const RESET_CONFIRM_TEXT = "האם לאפס את כל ההתקדמות שלך? פעולה זו אינה ניתנת לביטול.";
 
-// ---------- avatar helpers ----------
+// ────────────────────────────────────────────────────────────
+// Achievements — derived from real progress at render time.
+// Each has a JP "glyph" character that lives in the small red circle.
+// ────────────────────────────────────────────────────────────
+function buildAchievements({ completed, streak, xp }) {
+  return [
+    { id: "first",     glyph: "始", name: "צעד ראשון",     earned: completed >= 1  },
+    { id: "five",      glyph: "五", name: "5 שיעורים",     earned: completed >= 5  },
+    { id: "ten",       glyph: "十", name: "10 שיעורים",    earned: completed >= 10 },
+    { id: "streak7",   glyph: "週", name: "שבוע ברצף",     earned: streak    >= 7  },
+    { id: "xp500",     glyph: "百", name: "500 XP",         earned: xp        >= 500 },
+    { id: "complete",  glyph: "全", name: "כל הקורס",      earned: completed >= TOTAL_LESSONS },
+  ];
+}
+
+// ────────────────────────────────────────────────────────────
+// First letter of name (Latin / Hebrew / Japanese), used inside the
+// avatar circle when there's no uploaded photo.
+// ────────────────────────────────────────────────────────────
 function firstLetter(name) {
   if (!name) return "?";
   for (const ch of name) {
@@ -42,15 +57,10 @@ function firstLetter(name) {
   return "?";
 }
 
-function avatarNode(name, photoDataUrl) {
-  if (photoDataUrl) {
-    return el("div", { class: "profile-identity__avatar" },
-      el("img", { src: photoDataUrl, alt: "", "aria-hidden": "true" }),
-    );
-  }
-  return el("div", { class: "profile-identity__avatar" }, firstLetter(name));
-}
-
+// ────────────────────────────────────────────────────────────
+// Photo picker — opens a hidden <input type=file> and on selection
+// reads the file as a data URL so it can be persisted to localStorage.
+// ────────────────────────────────────────────────────────────
 function pickPhoto(onLoaded) {
   const input = document.createElement("input");
   input.type = "file";
@@ -68,16 +78,18 @@ function pickPhoto(onLoaded) {
   setTimeout(() => input.remove(), 0);
 }
 
-// ---------- DOM builders ----------
-
-function topBand(title, subtitle) {
-  return el("header", { class: "top-band" },
+// ────────────────────────────────────────────────────────────
+// Top band — same shape as Media / Lesson Journey, "big" variant
+// with an italic Japanese subtitle below the Hebrew title.
+// ────────────────────────────────────────────────────────────
+function topBand(title, subtitleJp) {
+  return el("header", { class: "top-band top-band--big" },
     el("div", { class: "top-band__inner" },
       el("div", { class: "top-band__row" },
         el("div", { class: "top-band__slot" }),
         el("div", { class: "top-band__title-wrap" },
           el("h1", { class: "top-band__title" }, title),
-          subtitle ? el("p", { class: "top-band__subtitle" }, subtitle) : null,
+          el("p",  { class: "top-band__subtitle top-band__subtitle--jp" }, subtitleJp),
         ),
         el("div", { class: "top-band__slot" }),
       ),
@@ -86,6 +98,10 @@ function topBand(title, subtitle) {
   );
 }
 
+// ────────────────────────────────────────────────────────────
+// Profile identity card — clickable avatar + 📷 badge + editable
+// name with ✎ + "רמה X · תלמיד מתקדם" + XP progress bar.
+// ────────────────────────────────────────────────────────────
 function identityCard(state, rerender) {
   const onEditName = () => {
     const next = window.prompt("עריכת שם", state.name);
@@ -101,69 +117,141 @@ function identityCard(state, rerender) {
     });
   };
 
+  const xpPct = Math.max(0, Math.min(100,
+    Math.round((state.xpInLevel / state.xpForNext) * 100)));
+
+  // Avatar — image if uploaded, otherwise first letter on red gradient.
+  const avatarInner = state.photo
+    ? null
+    : el("span", { class: "profile-identity__avatar-letter" },
+        firstLetter(state.name));
+  const avatarStyle = state.photo
+    ? { backgroundImage: "url(" + state.photo + ")",
+        backgroundSize: "cover",
+        backgroundPosition: "center" }
+    : {};
+
   return el("section", { class: "card profile-identity" },
-    el("div", { class: "profile-identity__avatar-wrap" },
-      avatarNode(state.name, state.photo),
+    el("div", { class: "profile-identity__row" },
       el("button", {
         type: "button",
-        class: "profile-identity__photo-edit",
-        "aria-label": "החלף תמונת פרופיל",
+        class: "profile-identity__avatar",
+        style: avatarStyle,
         onClick: onEditPhoto,
-      }, "📷"),
-    ),
-    el("div", { class: "profile-identity__text" },
-      el("h2", { class: "profile-identity__name" }, state.name),
-      el("p",  { class: "profile-identity__role" }, ROLE_TEXT),
-    ),
-    el("button", {
-      type: "button",
-      class: "profile-identity__name-edit",
-      "aria-label": "ערוך שם",
-      onClick: onEditName,
-    }, "✎"),
-  );
-}
-
-function statCell({ icon, value, label, kind }) {
-  return el("div", { class: "card profile-stats__cell profile-stats__cell--" + kind },
-    el("div", { class: "profile-stats__icon", "aria-hidden": "true" }, icon),
-    el("div", { class: "profile-stats__value" }, value),
-    el("div", { class: "profile-stats__label" }, label),
-  );
-}
-
-function statsGrid(state) {
-  return el("section", { class: "profile-stats" },
-    statCell({ icon: "🔥", value: String(state.streak),                                   label: "רצף ימים", kind: "streak"   }),
-    statCell({ icon: "⚡", value: String(state.xp),                                       label: "XP",       kind: "xp"       }),
-    statCell({ icon: "📚", value: state.completed + "/" + TOTAL_LESSONS,                  label: "שיעורים",  kind: "lessons"  }),
-  );
-}
-
-function progressCard(state) {
-  const pct = TOTAL_LESSONS > 0
-    ? Math.floor((state.completed * 100) / TOTAL_LESSONS)
-    : 0;
-  return el("section", { class: "card profile-progress" },
-    el("div", { class: "profile-progress__row" },
-      el("h3", { class: "profile-progress__label" }, "התקדמות בקורס"),
-      el("span", { class: "profile-progress__percent" }, pct + "%"),
+        "aria-label": "שנה תמונת פרופיל",
+      },
+        avatarInner,
+        el("span", { class: "profile-identity__camera-badge", "aria-hidden": "true" }, "📷"),
+      ),
+      el("div", { class: "profile-identity__text" },
+        el("button", {
+          type: "button",
+          class: "profile-identity__name-btn",
+          onClick: onEditName,
+        },
+          el("span", { class: "profile-identity__name" }, state.name),
+          el("span", { class: "profile-identity__edit-glyph", "aria-hidden": "true" }, "✎"),
+        ),
+        el("div", { class: "profile-identity__role" },
+          "רמה " + state.level + " · תלמיד מתקדם"),
+      ),
     ),
     el("div", {
-      class: "progress-track profile-progress__bar",
+      class: "progress-track profile-identity__xp-track",
       role: "progressbar",
-      "aria-valuemin": "0",
-      "aria-valuemax": "100",
-      "aria-valuenow": String(pct),
+      "aria-valuemin": "0", "aria-valuemax": "100",
+      "aria-valuenow": String(xpPct),
     },
       el("span", {
-        class: "progress-fill profile-progress__fill",
-        style: { width: pct + "%" },
+        class: "progress-fill profile-identity__xp-fill",
+        style: { width: xpPct + "%" },
       }),
+    ),
+    el("div", { class: "profile-identity__xp-text" },
+      state.xpInLevel + " / " + state.xpForNext + " XP"),
+  );
+}
+
+// ────────────────────────────────────────────────────────────
+// Big stats grid — 3 cards, each: tinted icon + value + label.
+// Tints come from the design (orange / gold / red).
+// ────────────────────────────────────────────────────────────
+function bigStat({ icon, value, label, tint }) {
+  return el("div", { class: "card big-stat" },
+    el("div", { class: "big-stat__icon",
+                style: { color: tint } }, icon),
+    el("div", { class: "big-stat__value" }, String(value)),
+    el("div", { class: "big-stat__label" }, label),
+  );
+}
+
+function bigStatsGrid(state, achievementsEarned) {
+  return el("section", { class: "big-stats-grid" },
+    bigStat({ icon: "🔥", value: state.streak,             label: "ימים רצוף",  tint: "#FFB87A" }),
+    bigStat({ icon: "⚡", value: state.totalXp,            label: "סה\"כ XP",   tint: "#C99A4B" }),
+    bigStat({ icon: "🏆", value: achievementsEarned,       label: "הישגים",     tint: "var(--c-red)" }),
+  );
+}
+
+// ────────────────────────────────────────────────────────────
+// Achievements section — h3 + 3-col grid. Locked items are dimmed
+// to 55% opacity + show a lock icon in the top-leading corner.
+// ────────────────────────────────────────────────────────────
+function achievementCard(a) {
+  const cls = ["card", "achievement"];
+  if (!a.earned) cls.push("achievement--locked");
+  return el("div", { class: cls.join(" ") },
+    el("div", { class: "achievement__circle" },
+      el("span", { class: "achievement__glyph" }, a.glyph),
+    ),
+    el("div", { class: "achievement__name" }, a.name),
+    a.earned ? null
+             : el("span", { class: "achievement__lock", "aria-hidden": "true" }, "🔒"),
+  );
+}
+
+function achievementsSection(achievements) {
+  return el("section", { class: "achievements" },
+    el("h3", { class: "section-heading" }, "הישגים"),
+    el("div", { class: "achievements__grid" },
+      ...achievements.map(achievementCard),
     ),
   );
 }
 
+// ────────────────────────────────────────────────────────────
+// Weekly activity — 7 vertical bars, today highlighted red.
+// Heights are placeholder (the user's per-day activity isn't
+// tracked yet); displayed LTR so Sunday → Saturday reads naturally.
+// ────────────────────────────────────────────────────────────
+const WEEK_LABELS  = ["א", "ב", "ג", "ד", "ה", "ו", "ש"];
+const WEEK_HEIGHTS = [40, 60, 80, 30, 90, 70, 50];
+
+function weeklyActivitySection() {
+  // Compute today's column (0=Sunday … 6=Saturday). Highlight that
+  // bar with the red gradient instead of the cream gradient.
+  const today = new Date().getDay();
+  return el("section", { class: "weekly-activity" },
+    el("h3", { class: "section-heading" }, "פעילות שבועית"),
+    el("div", { class: "card weekly-activity__card" },
+      el("div", { class: "weekly-activity__bars" },
+        ...WEEK_LABELS.map((label, i) =>
+          el("div", { class: "weekly-activity__col" },
+            el("div", {
+              class: "weekly-activity__bar" + (i === today ? " weekly-activity__bar--today" : ""),
+              style: { height: WEEK_HEIGHTS[i] + "%" },
+            }),
+            el("span", { class: "weekly-activity__day" }, label),
+          )
+        ),
+      ),
+    ),
+  );
+}
+
+// ────────────────────────────────────────────────────────────
+// Reset button — at the very bottom, ghost variant.
+// ────────────────────────────────────────────────────────────
 function resetButton(rerender) {
   const onReset = () => {
     if (!window.confirm(RESET_CONFIRM_TEXT)) return;
@@ -177,29 +265,44 @@ function resetButton(rerender) {
   }, "אפס התקדמות");
 }
 
-// ---------- main ----------
+// ────────────────────────────────────────────────────────────
+// Public entry
+// ────────────────────────────────────────────────────────────
 export function Profile({ host /*, ctx */ }) {
   ensureStyle();
 
   function readState() {
+    const totalXp = getTotalXP();
+    const completed = getCompletedCount();
     return {
-      name:      getProfileName(),
-      photo:     getProfilePhoto(),
-      streak:    getStreak(),
-      xp:        getTotalXP(),
-      completed: getCompletedCount(),
+      name:       getProfileName(),
+      photo:      getProfilePhoto(),
+      streak:     getStreak(),
+      totalXp:    totalXp,
+      level:      1 + Math.floor(totalXp / XP_PER_LEVEL),
+      xpInLevel:  totalXp % XP_PER_LEVEL,
+      xpForNext:  XP_PER_LEVEL,
+      completed:  completed,
     };
   }
 
   function render() {
     const state = readState();
+    const achievements = buildAchievements({
+      completed: state.completed,
+      streak:    state.streak,
+      xp:        state.totalXp,
+    });
+    const earnedCount = achievements.filter(a => a.earned).length;
+
     const screen = el("div", { class: "kimura-screen profile-screen screen-enter" },
-      topBand("הפרופיל שלי", "ניהול פרופיל, התקדמות והישגים"),
+      topBand("הפרופיל שלי", "私のプロフィール"),
       el("div", { class: "kimura-content" },
         el("div", { class: "kimura-content__inner" },
           identityCard(state, render),
-          statsGrid(state),
-          progressCard(state),
+          bigStatsGrid(state, earnedCount),
+          achievementsSection(achievements),
+          weeklyActivitySection(),
           resetButton(render),
         ),
       ),
