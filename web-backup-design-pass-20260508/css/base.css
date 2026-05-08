@@ -1,0 +1,299 @@
+/* ============================================================
+ * Kimura — base styles, reset, RTL, app-shell
+ * Mirrors activity_main.xml structure + bg_app.xml watercolor.
+ * ========================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100vw;
+  height: 100%;
+  overflow: hidden;
+  overflow-x: hidden;
+  /* touch-action: pan-y allows vertical scrolling but disables every
+   * pinch / double-tap gesture so the page can't be zoomed or panned
+   * sideways even if the browser ignores meta-viewport user-scalable=no.
+   * touch-action: manipulation alone wasn't enough on Samsung Internet. */
+  touch-action: pan-y;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Re-allow text selection inside text-heavy regions where copy/paste
+ * is genuinely useful (workbook answer textarea, lesson reference
+ * content, etc.). The journey screens are read-only so they keep the
+ * locked behavior. */
+input, textarea, [contenteditable="true"] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* Responsive size bumps for wider phones / foldables / tablets — the base
+ * design targets 360–414 CSS px; on bigger viewports we scale the key
+ * tokens proportionally so the UI doesn't look tiny in a wide canvas.
+ * (Uses the same px-based tokens so flex math stays predictable; no
+ * page-level zoom that could push the bottom nav off-screen.) */
+@media (min-width: 480px) {
+  :root {
+    --dim-bottom-nav-height: 110px;
+    --dim-bottom-nav-icon: 76px;
+    --dim-header-height: 116px;
+    --font-size-app-title: 30px;
+    --font-size-screen-title: 24px;
+    --font-size-screen-subtitle: 14px;
+    --font-size-card-title: 20px;
+    --font-size-stat-num-large: 32px;
+    --font-size-body: 17px;
+    --font-size-label: 15px;
+    --font-size-caption: 14px;
+    --dim-hero-padding: 28px;
+    --dim-icon-bubble-size: 64px;
+    --dim-icon-bubble-size-large: 76px;
+  }
+}
+
+@media (min-width: 640px) {
+  :root {
+    --dim-bottom-nav-height: 130px;
+    --dim-bottom-nav-icon: 92px;
+    --dim-header-height: 136px;
+    --font-size-app-title: 36px;
+    --font-size-screen-title: 28px;
+    --font-size-screen-subtitle: 16px;
+    --font-size-card-title: 22px;
+    --font-size-stat-num-large: 38px;
+    --font-size-body: 19px;
+    --font-size-label: 16px;
+    --font-size-caption: 15px;
+    --dim-hero-padding: 32px;
+    --dim-icon-bubble-size: 72px;
+    --dim-icon-bubble-size-large: 88px;
+  }
+}
+
+html {
+  /* match Android's adjustResize behavior */
+  height: 100%;
+}
+
+body {
+  /* RTL Hebrew is the default direction */
+  direction: rtl;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+               "Noto Sans Hebrew", "Noto Sans JP", Arial, sans-serif;
+  color: var(--color-on-surface);
+  font-size: var(--font-size-body);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+
+  /* bg_japanese.png — sampled watercolor landscape, fixed full-screen */
+  background-color: #F2E8D5;
+  background-image: url("../assets/bg_japanese.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: fixed;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  height: 100dvh;
+}
+
+/* ---------- App shell — matches activity_main.xml line for line ---------- */
+
+.copyright-bar {
+  flex: 0 0 auto;
+  background: var(--color-copyright-bar);
+  color: var(--color-copyright-text);
+  font-size: var(--dim-copyright-bar-text);
+  text-align: center;
+  padding: var(--dim-copyright-bar-pad-y) 0;
+  white-space: nowrap;
+  z-index: var(--z-content);
+  /* The Android bar sits above status-bar-style insets too */
+  padding-top: max(var(--dim-copyright-bar-pad-y), env(safe-area-inset-top));
+}
+
+.screen-host {
+  flex: 1 1 auto;
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Bottom nav + divider are pinned to the viewport bottom with position:fixed
+ * so they're guaranteed to be visible regardless of how tall .screen-host's
+ * content thinks it is. The screen-host gets bottom padding to clear them. */
+.bottom-nav-divider {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--dim-bottom-nav-height) + env(safe-area-inset-bottom));
+  height: var(--dim-bottom-rule);
+  background: var(--color-bottom-rule);
+  z-index: var(--z-bottom-nav);
+}
+
+.bottom-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(var(--dim-bottom-nav-height) + env(safe-area-inset-bottom));
+  display: flex;
+  align-items: stretch;
+  justify-content: space-evenly;
+  /* Fully transparent — the body's bg_japanese.png watercolor shows
+   * through, matching the APK's "transparent nav over Japanese
+   * landscape" look. (We deliberately do NOT use bg_bottom_nav.png
+   * here because that PNG is opaque cream and looks like a solid bar.) */
+  background: transparent;
+  z-index: var(--z-bottom-nav);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.bottom-nav.is-hidden,
+.bottom-nav-divider.is-hidden { display: none; }
+
+/* When the bottom nav is visible, every full-screen tab needs to reserve
+ * space for it so its last item isn't hidden behind the fixed bar. The
+ * .with-bottom-nav class is added/removed by tabs.js as routes change. */
+body.with-bottom-nav .screen-host {
+  padding-bottom: calc(var(--dim-bottom-nav-height) + var(--dim-bottom-rule) + env(safe-area-inset-bottom));
+}
+
+.bottom-nav__btn {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: transparent;
+  border: 0;
+  padding: 0 8px;
+  cursor: pointer;
+  font: inherit;
+  color: var(--color-bottom-nav-inactive);
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.bottom-nav__btn img {
+  width: var(--dim-bottom-nav-icon);
+  height: var(--dim-bottom-nav-icon);
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.bottom-nav__btn span {
+  font-size: var(--font-size-caption);
+  line-height: 1;
+  text-align: center;
+  font-weight: 500;
+}
+
+.bottom-nav__btn[aria-current="page"] {
+  color: var(--color-bottom-nav-active);
+  font-weight: 700;
+}
+
+/* ---------- Generic helpers ---------- */
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
+
+a, button { color: inherit; }
+
+button { font: inherit; }
+
+img { display: block; max-width: 100%; }
+
+/* RTL note: All Hebrew text is RTL by default. We allow LTR islands for
+   Japanese / romaji. */
+.dir-ltr { direction: ltr; unicode-bidi: isolate; }
+
+/* Default screen container — fragments fill the host */
+.screen {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.screen__scroll {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Header (HeaderLinearLayout port) — bg_header.png centerCrop */
+.header {
+  flex: 0 0 var(--dim-header-height);
+  height: var(--dim-header-height);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--dim-header-pad-x);
+  color: #FFFFFF;
+  background-image: url("../assets/bg_header.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  position: relative;
+}
+
+.header--vertical {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 2px;
+}
+
+.header__title {
+  font-size: var(--font-size-app-title);
+  font-weight: 700;
+  margin: 0;
+  flex: 1 1 auto;
+}
+
+.header__screen-title {
+  font-size: var(--font-size-screen-title);
+  font-weight: 700;
+  margin: 0;
+}
+
+.header__subtitle {
+  font-size: var(--font-size-screen-subtitle);
+  margin: 0;
+  opacity: 0.85;
+}
+
+/* Optional bottom-nav watercolor backdrop (bg_bottom_nav.png) */
+.bottom-nav-backdrop {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: calc(var(--dim-bottom-nav-height) + var(--dim-bottom-rule));
+  background-image: url("../assets/bg_bottom_nav.png");
+  background-size: cover;
+  background-position: center center;
+  pointer-events: none;
+  z-index: 0;
+}

@@ -1,0 +1,306 @@
+/* ============================================================
+ * Kimura — Learn screen styles
+ * Ports fragment_learn.xml + item_unit_header.xml + item_lesson_node.xml
+ * + LessonPathAdapter zigzag offset.
+ * ========================================================== */
+
+/* ---------- Screen shell ---------- */
+.learn-screen {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ---------- Header banner (HeaderLinearLayout port) ---------- */
+.learn-header {
+  flex: 0 0 96px;
+  height: 96px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 20px;
+  color: #FFFFFF;
+  background-image: url("../../assets/bg_header.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  position: relative;
+}
+
+.learn-header__title {
+  flex: 1 1 auto;
+  margin: 0;
+  font-size: 24px;        /* matches tvAppTitle 24sp */
+  font-weight: 700;
+  color: #FFFFFF;
+  /* Keep "Kimura" left-aligned visually even in RTL doc */
+  letter-spacing: 0.2px;
+}
+
+.learn-header__chips {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+/* Chip inner spans — base .bg-stats-chip already handles pill height/font.
+ * gap: 4px (base) → marginStart 4dp on count text in XML. */
+.learn-header .bg-stats-chip .chip-emoji {
+  line-height: 1;
+}
+
+.learn-header .bg-stats-chip .chip-count {
+  color: #FFFFFF;
+}
+
+/* ---------- Path scroll container (RecyclerView port) ---------- */
+.learn-path {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding-top: 8px;
+  /* Matches RecyclerView paddingBottom 24dp + bottom-nav clearance */
+  padding-bottom: calc(24px + env(safe-area-inset-bottom));
+}
+
+.learn-path__list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  /* prevent horizontal scrollbar from zigzag translateX */
+  overflow-x: hidden;
+}
+
+/* ---------- Unit header card (item_unit_header.xml) ---------- */
+.unit-header {
+  width: calc(100% - 32px);     /* 16dp marginStart + 16dp marginEnd */
+  margin: 8px 16px;             /* 8dp top + 8dp bottom */
+  border-radius: 16px;
+  padding: 16px 20px;           /* 20dp horiz, 16dp vert */
+  display: flex;
+  align-items: center;
+  gap: 16px;                    /* 16dp marginEnd on emoji */
+  color: #FFFFFF;
+  /* 4dp elevation approximation */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+.unit-header__emoji {
+  font-size: 40px;
+  line-height: 1;
+  flex: 0 0 auto;
+}
+
+.unit-header__text {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.unit-header__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.2;
+}
+
+.unit-header__subtitle {
+  margin-top: 2px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);   /* #B3FFFFFF */
+  line-height: 1.2;
+}
+
+/* ---------- Lesson node (item_lesson_node.xml) ---------- */
+.lesson-node {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  text-align: center;
+  -webkit-tap-highlight-color: transparent;
+  width: 100%;
+  /* JS sets --node-dir to -1 (left) or +1 (right). CSS controls magnitude. */
+  --node-dir: 0;
+  --node-shift: 60px;
+  transform: translateX(calc(var(--node-dir) * var(--node-shift)));
+  transition: transform 0.15s ease;
+}
+
+.lesson-node:active {
+  opacity: 0.85;
+}
+
+/* Bottom connector — solid vertical rule between consecutive nodes
+ * (matches item_lesson_node.xml: View 3dp×20dp, background @color/cardStroke). */
+.lesson-node__connector {
+  width: 4px;
+  height: 32px;
+  background: var(--color-card-stroke);
+  flex: 0 0 auto;
+}
+
+.lesson-node--last .lesson-node__connector {
+  visibility: hidden;
+}
+
+/* Circle frame */
+.lesson-node__circle {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.lesson-node__emoji {
+  font-size: 84px;
+  line-height: 1;
+  /* Center using flex alignment of the parent */
+}
+
+/* Locked nodes: muted emoji */
+.lesson-node--locked .lesson-node__emoji {
+  filter: grayscale(0.6);
+  opacity: 0.65;
+}
+
+/* Completed nodes: emoji over red fill — keep readable */
+.lesson-node--completed .lesson-node__emoji {
+  /* nothing extra; emoji renders on red bg */
+}
+
+/* Overlay badge (bottom-end on circle) */
+.lesson-node__badge {
+  position: absolute;
+  bottom: 4px;
+  inset-inline-end: 4px;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.lesson-node__badge img {
+  width: 38px;
+  height: 38px;
+  display: block;
+}
+
+/* Locked overlay: dark pill behind the lock icon */
+.lesson-node__badge--lock {
+  width: 32px;
+  height: 32px;
+  background: var(--color-node-locked-stroke);
+  border-radius: 50%;
+}
+
+.lesson-node__badge--lock img {
+  width: 18px;
+  height: 18px;
+}
+
+/* Label area below circle */
+.lesson-node__label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 8px;
+  max-width: 200px;
+}
+
+.lesson-node__title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--color-on-surface);
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 320px;
+}
+
+.lesson-node__number {
+  font-size: 21px;
+  color: var(--color-on-surface-muted);
+  line-height: 1.2;
+  margin-top: 4px;
+}
+
+.lesson-node--locked .lesson-node__title {
+  color: var(--color-on-surface-muted);
+}
+
+/* Smaller screens: tighten the zigzag offset to keep nodes fully on-screen */
+@media (max-width: 380px) {
+  .lesson-node { --node-shift: 44px; }
+}
+
+/* Wider phones / foldables / tablets — bump node circle, label text and
+ * zigzag offset so the lesson path doesn't look tiny in a wide canvas. */
+@media (min-width: 480px) {
+  .lesson-node {
+    --node-shift: 90px;
+  }
+  .lesson-node__circle {
+    width: 116px;
+    height: 116px;
+  }
+  .lesson-node__emoji {
+    font-size: 50px;
+  }
+  .lesson-node__title {
+    font-size: 16px;
+  }
+  .lesson-node__number {
+    font-size: 13px;
+  }
+  .lesson-node__connector {
+    height: 28px;
+  }
+}
+
+@media (min-width: 640px) {
+  .lesson-node {
+    --node-shift: 130px;
+  }
+  .lesson-node__circle {
+    width: 144px;
+    height: 144px;
+  }
+  .lesson-node__emoji {
+    font-size: 60px;
+  }
+  .lesson-node__title {
+    font-size: 18px;
+  }
+  .lesson-node__number {
+    font-size: 14px;
+  }
+  .lesson-node__connector {
+    height: 36px;
+  }
+}
+@media (max-width: 320px) {
+  .lesson-node { --node-shift: 32px; }
+}

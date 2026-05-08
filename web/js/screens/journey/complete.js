@@ -1,179 +1,99 @@
-// complete.js — Step 6 of LessonJourney (port of design's DonePhase).
+// complete.js — Step 6 (showComplete, LessonJourneyActivity.kt:1404–1491).
 //
-// Layout (per design_handoff_kimura_redesign/screen-lesson.jsx):
+// Reached only when the QUIZ step finished with a passing score (>= 80%).
+// The fail/retry path is owned by the QUIZ step itself (Kotlin :1325–1397)
+// and never enters this renderer.
 //
-//   ┌─ centered column, full-height ─────────────────────────┐
-//   │ .complete-grade   (130×130 circle, red gradient if      │
-//   │                    passed / muted brown if not)         │
-//   │   .jp 74px = grade kanji                                │
-//   │     優 ≥90% / 良 ≥80% / 可 ≥60% / 再 < 60%               │
-//   │ <h2>שיעור הושלם!</h2>  or  "כמעט שם..."                  │
-//   │ "{lesson.number} · {lesson.title}"                      │
-//   │ ┌─ .complete-stats card (3-up grid) ────────────────┐   │
-//   │ │ +XP   |   ACCURACY   |   GRADE                    │   │
-//   │ └────────────────────────────────────────────────────┘   │
-//   │ "{score} מתוך {total} תשובות נכונות"                    │
-//   │ if !passed: red box "נדרש ציון של 80% לפחות..."         │
-//   │ ┌─ buttons (full-width) ────────────────────────────┐   │
-//   │ │ passed: "חזרה למפת השיעורים"                       │   │
-//   │ │ failed: "🔄 נסו שוב את המבחן" + "יציאה ללא השלמה"  │   │
-//   │ └────────────────────────────────────────────────────┘   │
-//   └────────────────────────────────────────────────────────┘
+// Side effects on entering COMPLETE — mirroring Kotlin onQuizComplete()
+// at LessonJourneyActivity.kt:1316–1325. The QUIZ step is responsible for
+// calling Progress.markLessonCompleted(lesson.id) before transitioning;
+// this renderer adds the XP reward and ticks the daily-activity streak,
+// guarded by a per-lesson `awarded` set so re-entering the step (e.g.
+// the user navigates back and forward) does not double-award.
 //
-// On pass, the journey shell already advanced here (quiz.js calls
-// setQuizComplete(true)). This step records progress + XP + streak.
+// Visual layout (per Kotlin :1404–1491):
+//
+//   ┌────────────────────────────────────────────┐
+//   │              🎉   (80sp emoji)             │
+//   │           כל הכבוד!  (28sp red bold)        │
+//   │  השלמת את השיעור <title>!  (16sp on-surf)  │
+//   │       ┌──────────────────────┐             │
+//   │       │   +100 XP ⭐ (24sp)  │  gold card   │
+//   │       └──────────────────────┘             │
+//   └────────────────────────────────────────────┘
+//
+// The shell owns the bottom continue button. We set its label to
+// "המשך ללמוד" (Kotlin :1406) and let journey.advance() route to
+// nextOf("complete") = null → router.go("#/learn").
 
 import { el } from "../../dom.js";
-import { markLessonCompleted, addXP, recordActivity } from "../../store.js";
+import { addXP, recordActivity } from "../../store.js";
 
-const PASS = 80;
-
-function gradeFor(pct) {
-  if (pct >= 90) return "優";
-  if (pct >= 80) return "良";
-  if (pct >= 60) return "可";
-  return "再";
-}
-
-function statBox(label, value, icon) {
-  return el(
-    "div",
-    { class: "complete-stat" },
-    el(
-      "div",
-      { class: "complete-stat__row" },
-      el("span", { class: "complete-stat__icon",
-                   "aria-hidden": "true" }, icon),
-      el("span", { class: "complete-stat__value" }, value),
-    ),
-    el("div", { class: "complete-stat__label" }, label),
-  );
-}
+// Module-level guard — keyed by lesson id. Re-entering COMPLETE for the
+// same lesson within a session must not re-award XP or re-tick the streak.
+// recordActivity() is itself same-day idempotent on the streak counter,
+// but we still gate it here so the call happens at most once per lesson
+// per session, matching the Kotlin behaviour of running the side-effects
+// exactly once at the QUIZ→COMPLETE boundary.
+const awarded = new Set();
 
 export function Complete({ hostEl, lesson, journey, ctx }) {
-  // Pull score from quiz state if available; default to 100% (no quiz).
-  const total = Array.isArray(lesson.exercises) ? lesson.exercises.length : 0;
-  // The shell doesn't pass score directly. Read from a quiz cache if
-  // the quiz module set one — otherwise assume passed.
-  const score = (window.__kimuraQuizScore != null) ? window.__kimuraQuizScore : total;
-  const pct = total ? Math.round((score / total) * 100) : 100;
-  const passed = pct >= PASS;
-  const grade = gradeFor(pct);
-  const xp = passed ? (score * 15 + 30) : 0;
-
-  // Persist progress on pass (idempotent — Set semantics).
-  if (passed) {
-    try {
-      markLessonCompleted(lesson.id);
-      addXP(xp);
-      recordActivity();
-    } catch (_) { /* ignore quota / private mode */ }
+  // ── Side effects (Kotlin :1322–1323) ──
+  // Per-lesson guard so going back and forward through the journey within
+  // a single session can't double-award. The persistent storage layer
+  // (store.js → localStorage) is the source of truth across sessions.
+  const lessonKey = Number(lesson.id);
+  if (!awarded.has(lessonKey)) {
+    awarded.add(lessonKey);
+    try { addXP(100); } catch (_) { /* ignore — quota / private mode */ }
+    try { recordActivity(); } catch (_) { /* ignore */ }
   }
 
-  const router = ctx && ctx.router;
-  const onBack = () => { if (router) router.go("#/learn"); };
-
-  // The shell hides its own continue button on this step (we don't
-  // need it — the buttons are inline below).
-  if (typeof journey.setContinueVisible === "function") {
-    journey.setContinueVisible(false);
+  // ── Bottom button label (Kotlin :1406) ──
+  // The shell resets the label to "המשך" before each step renders
+  // (lesson-journey.js :230), so we set it every mount.
+  if (journey && typeof journey.setContinueLabel === "function") {
+    journey.setContinueLabel("המשך ללמוד");
   }
+  // Continue → nextOf("complete") = null → router.go("#/learn")
+  // (lesson-journey.js :250–255). No override needed — the default
+  // onContinue path already does the right thing.
 
-  const circle = el(
-    "div",
-    {
-      class: "complete-grade" + (passed ? " complete-grade--pass" : " complete-grade--fail"),
-    },
-    el("div", { class: "complete-grade__char jp" }, grade),
+  // ── Body content ──
+  const children = [];
+
+  // Celebration emoji (Kotlin :1427–1435 — 80sp)
+  children.push(
+    el("div", { class: "lj-complete__emoji", "aria-hidden": "true" }, "🎉"),
   );
 
-  const statsCard = el(
-    "div",
-    { class: "card complete-stats" },
-    statBox("XP", passed ? "+" + xp : "—", "⚡"),
-    statBox("דיוק", total ? pct + "%" : "—", "🏆"),
-    statBox("ציון", grade, "★"),
+  // "כל הכבוד!" (Kotlin :1438–1448 — 28sp bold, primary red)
+  children.push(
+    el("h2", { class: "lj-complete__title" }, "כל הכבוד!"),
   );
 
-  const correctLine = total > 0
-    ? el("div", { class: "complete-correct" },
-        score + " מתוך " + total + " תשובות נכונות")
-    : null;
+  // "השלמת את השיעור <title>!" (Kotlin :1451–1460 — 16sp on-surface)
+  children.push(
+    el(
+      "p",
+      { class: "lj-complete__subtitle" },
+      `השלמת את השיעור ${lesson.title || ""}!`,
+    ),
+  );
 
-  const failBox = (!passed && total > 0)
-    ? el(
-        "div",
-        { class: "complete-fail" },
-        el("strong", null, "נדרש ציון של " + PASS + "% לפחות "),
-        el("span", null, "כדי לסיים את השיעור."),
-        el("br", null),
-        el("span", null, "חזרו על המבחן ותצליחו!"),
-      )
-    : null;
-
-  // Action buttons — pass = single primary; fail = retry primary + ghost exit.
-  let actions;
-  if (passed) {
-    actions = el(
-      "button",
-      {
-        type: "button",
-        class: "btn btn-primary complete-action",
-        onClick: onBack,
-      },
-      "חזרה למפת השיעורים",
-    );
-  } else {
-    const onRetry = () => {
-      // Reset quiz cache + jump back to quiz phase.
-      window.__kimuraQuizScore = 0;
-      // Re-enter the quiz step by calling the shell's goto via location hash.
-      const lessonId = lesson.id;
-      if (router) router.go("#/lesson/" + lessonId + "/quiz");
-    };
-    actions = el(
-      "div",
-      { class: "complete-actions" },
-      el(
-        "button",
-        {
-          type: "button",
-          class: "btn btn-primary complete-action",
-          onClick: onRetry,
-        },
-        "🔄 נסו שוב את המבחן",
-      ),
-      el(
-        "button",
-        {
-          type: "button",
-          class: "btn btn-ghost complete-action",
-          onClick: onBack,
-        },
-        "יציאה ללא השלמה",
-      ),
-    );
-  }
-
-  hostEl.appendChild(
+  // XP badge card (Kotlin :1463–1487 — colorSecondary #F59E0B fill,
+  // 20dp radius, 1dp gold stroke, 32×16 padding, "+100 XP ⭐" 24sp bold).
+  // Kotlin uses goldStroke (#F59E0B) which equals the fill — effectively
+  // a borderless gold card with a subtle elevation shadow.
+  children.push(
     el(
       "div",
-      { class: "lj-step lj-step--complete complete-phase" },
-      circle,
-      el(
-        "h2",
-        { class: "complete-title" },
-        passed ? "שיעור הושלם!" : "כמעט שם...",
-      ),
-      el(
-        "div",
-        { class: "complete-subtitle" },
-        (lesson.number || "") + " · " + (lesson.title || ""),
-      ),
-      statsCard,
-      correctLine,
-      failBox,
-      actions,
+      { class: "lj-complete__xp-card" },
+      el("span", { class: "lj-complete__xp-text" }, "+100 XP ⭐"),
     ),
+  );
+
+  hostEl.appendChild(
+    el("div", { class: "lj-step lj-step--complete" }, ...children),
   );
 }
