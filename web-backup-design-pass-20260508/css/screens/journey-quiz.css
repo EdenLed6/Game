@@ -1,0 +1,207 @@
+/* journey-quiz.css — QUIZ step (Step 5 of LessonJourney).
+ *
+ * Visual port of LessonJourneyActivity.showQuizQuestion() (:1041–1314)
+ * and the failure retry card in onQuizComplete() (:1326–1397). The shell
+ * owns the header / progress bar; the bottom continue button is hidden
+ * for the entire QUIZ step. The quiz renders its own check / next
+ * controls inside the step host.
+ *
+ * Card primitives (.lj-card / .lj-speaker / .lj-counter) come from
+ * journey-step.css. Option pill backgrounds use the foundation classes
+ * .bg-option-default / .bg-option-selected / .bg-option-correct /
+ * .bg-option-wrong from components.css. The rules below add the
+ * QUIZ-only layout pieces.
+ */
+
+.lj-step--quiz {
+  padding: 16px 20px 24px 20px;
+  gap: 12px;
+}
+
+/* ── Counter (centered, muted, 13sp — Kotlin :1066–1075) ─────── */
+.lj-quiz__counter {
+  margin: 0 0 4px 0;
+  text-align: center;
+}
+
+/* ── Question card (Kotlin :1078–1128) ─────────────────────── */
+/* Use the .lj-card primitive but tighten padding to match 20×24 dp. */
+.lj-quiz__question-card {
+  padding: 20px;
+  margin-bottom: 4px;
+}
+
+.lj-quiz__question-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.lj-quiz__question-text {
+  flex: 1 1 auto;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--color-on-surface, #1A0800);
+  /* RTL flow already provided by the document <html dir="rtl">. */
+}
+
+/* The shared .lj-speaker style covers the round red look. We only need
+ * to nudge spacing in this step. */
+.lj-quiz__speaker {
+  flex: 0 0 auto;
+}
+
+/* ── Feedback label (Kotlin :1131–1141) ─────────────────────── */
+.lj-quiz__feedback {
+  margin: 0;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+  visibility: hidden; /* invisible (not gone) so layout doesn't jump */
+  min-height: 22px;
+}
+.lj-quiz__feedback--correct { color: var(--color-correct, #16A34A); }
+.lj-quiz__feedback--wrong   { color: var(--color-wrong,   #DC2626); }
+
+/* ── Hint card (Kotlin :1144–1176 — blue background, 💡) ───── */
+.lj-quiz__hint {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+  background: #E0F2FE;
+  border-radius: 12px;
+  padding: 12px 14px;
+  color: #1565C0;
+  font-size: 14px;
+  line-height: 1.5;
+  animation: lj-card-slide-up 200ms ease-out;
+}
+.lj-quiz__hint[hidden] { display: none; }
+.lj-quiz__hint-icon { font-size: 18px; line-height: 1; flex: 0 0 auto; }
+.lj-quiz__hint-text { flex: 1 1 auto; }
+
+/* ── Options (Kotlin :1184–1246) ────────────────────────────── */
+.lj-quiz__options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 4px 0 8px 0;
+}
+
+.lj-quiz__option-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+/* The option button itself — sits inside the foundation .bg-option-*
+ * classes for the pill backgrounds. We only set sizing / typography
+ * here; component-level colors come from the foundation classes. */
+.lj-quiz__option {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 58px;
+  padding: 12px 20px;
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--color-on-surface, #1A0800);
+  text-align: start;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  /* The .bg-option-default class supplies background + 1.5dp soft stroke
+   * + 16dp radius; reset the user-agent button stroke so it doesn't
+   * compete. */
+  outline: 0;
+  display: flex;
+  align-items: center;
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.lj-quiz__option:disabled { cursor: default; opacity: 1; }
+.lj-quiz__option:active   { transform: scale(0.99); }
+
+.lj-quiz__option-label {
+  flex: 1 1 auto;
+  /* Romaji / Japanese tokens read LTR even in our RTL doc. The browser's
+   * unicode-bidi defaults handle this; nothing extra to do here. */
+}
+
+/* After-submit color overrides — Kotlin uses solid colors with white
+ * text (R.color.correct_green / R.color.wrong_red). The foundation
+ * classes use lighter backgrounds; layer modifier classes here so the
+ * tinted state matches the Android activity exactly. */
+.lj-quiz__option--correct {
+  background: var(--color-correct, #16A34A) !important;
+  border-color: var(--color-correct, #16A34A) !important;
+  color: #FFFFFF !important;
+}
+.lj-quiz__option--wrong {
+  background: var(--color-wrong, #DC2626) !important;
+  border-color: var(--color-wrong, #DC2626) !important;
+  color: #FFFFFF !important;
+}
+
+/* ── Check / Next buttons ──────────────────────────────────── */
+/* Both inherit .btn .btn--block from components.css (full-width, red,
+ * white text, 14dp radius via --dim-button-corner-radius). We only add
+ * spacing relative to the surrounding rows. */
+.lj-quiz__check,
+.lj-quiz__next {
+  margin-top: 4px;
+}
+.lj-quiz__check[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.lj-quiz__next[hidden] { display: none; }
+
+/* ── Failure retry card (Kotlin :1326–1397) ────────────────── */
+.lj-quiz__retry {
+  align-items: center;
+  text-align: center;
+  padding: 48px 32px;
+  gap: 0;
+}
+
+.lj-quiz__retry-emoji {
+  font-size: 64px;
+  line-height: 1;
+  margin-bottom: 16px;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji",
+               sans-serif;
+}
+
+.lj-quiz__retry-score {
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--color-primary, #C0362A);
+  margin-bottom: 8px;
+  line-height: 1;
+}
+
+.lj-quiz__retry-percent {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-on-surface, #1A0800);
+  margin-bottom: 12px;
+}
+
+.lj-quiz__retry-hint {
+  margin: 0 0 32px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--color-on-surface-muted, #7C6A67);
+}
+
+.lj-quiz__retry-btn {
+  margin-bottom: 12px;
+}
+
+.lj-quiz__retry-back {
+  /* Outlined secondary action — relies on .btn--outlined for colors. */
+}
