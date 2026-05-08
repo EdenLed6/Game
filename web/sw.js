@@ -1,4 +1,7 @@
 // sw.js — minimal pass-through service worker.
+// Version: 20260508-cachekill (bump on every release to trigger
+//          `updatefound` so installed PWAs pick up new code instead of
+//          serving the bytes they had at install time).
 //
 // Exists ONLY so the browser marks the site as installable and fires
 // `beforeinstallprompt`. Without a registered SW, Chrome / Edge /
