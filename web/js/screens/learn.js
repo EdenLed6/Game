@@ -54,8 +54,8 @@ const CHAPTERS = [
   { id: 5, title: "למטיילים",     from: 18, to: 23 },
 ];
 
-// XP per "level" — used to derive the in-level XP for the top progress bar.
-const XP_PER_LEVEL = 500;
+// XP per "level" — matches the design's user.xpNext (2000).
+const XP_PER_LEVEL = 2000;
 
 // First not-completed-yet lesson that's actually unlocked. Sequential
 // unlock: lesson 1 always unlocked; N unlocked if N-1 completed.
@@ -88,7 +88,7 @@ function statChip(icon, value, kind) {
   );
 }
 
-function renderTopBand({ streak, xpInLevel, xpForNext, hearts }) {
+function renderTopBand({ streak, xpInLevel, xpForNext, totalXp }) {
   const xpPct = Math.max(0, Math.min(100,
     xpForNext ? Math.round((xpInLevel / xpForNext) * 100) : 0));
 
@@ -108,8 +108,7 @@ function renderTopBand({ streak, xpInLevel, xpForNext, hearts }) {
       ),
       el("div", { class: "top-band__chips" },
         statChip("🔥", String(streak) + " ימים", "streak"),
-        statChip("⚡", String(getTotalXP()) + " XP", "xp"),
-        statChip("❤️", String(hearts), "hearts"),
+        statChip("⚡", String(totalXp) + " XP", "xp"),
       ),
       el("div", { class: "top-band__xp-track", role: "progressbar",
                   "aria-valuemin": "0", "aria-valuemax": "100",
@@ -277,13 +276,14 @@ export function Learn({ host, ctx }) {
 
   const totalXp = getTotalXP();
   const xpInLevel = totalXp % XP_PER_LEVEL;
+  // (totalXp passed into renderTopBand below for the chip text)
 
   const screen = el("div", { class: "kimura-screen learn-screen screen-enter" },
     renderTopBand({
       streak: getStreak(),
       xpInLevel,
       xpForNext: XP_PER_LEVEL,
-      hearts: 5,
+      totalXp,
     }),
     el("div", { class: "kimura-content" },
       el("div", { class: "kimura-content__inner" },

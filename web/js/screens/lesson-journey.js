@@ -20,59 +20,85 @@
 // `journey.setQuizComplete(passed)` to drive transitions.
 
 import { el, mount } from "../dom.js";
+import { Video }    from "./journey/video.js";
 import { Intro }    from "./journey/intro.js";
-import { Teach }    from "./journey/teach.js";
+import { Grammar }  from "./journey/grammar.js";
 import { Vocab }    from "./journey/vocab.js";
+import { Examples } from "./journey/examples.js";
 import { Practice } from "./journey/practice.js";
 import { Quiz }     from "./journey/quiz.js";
 import { Complete } from "./journey/complete.js";
 
 // ─────────────────────────────────────────────────────────────
-// Step state machine — mirrors the `Step` enum in
-// LessonJourneyActivity.kt:33 and showStep() at :128–158.
+// Step state machine — 8 phases matching the design's
+// screen-lesson.jsx phase enum.
 // ─────────────────────────────────────────────────────────────
 
-const STEPS = ["intro", "teach", "vocab", "practice", "quiz", "complete"];
+const STEPS = [
+  "video", "intro", "grammar", "vocab", "examples",
+  "practice", "quiz", "complete",
+];
 
-// LessonJourneyActivity.kt:133–140 — progress bar % per step
+// Progress percentage per phase. Eight phases evenly spaced from 0 to 100.
 const PROGRESS = {
-  intro:    0,
-  teach:    15,
+  video:    0,
+  intro:    12,
+  grammar:  25,
   vocab:    40,
-  practice: 60,
-  quiz:     80,
+  examples: 55,
+  practice: 70,
+  quiz:     85,
   complete: 100,
 };
 
-// LessonJourneyActivity.kt:142–149 — step title ("intro" uses the lesson title)
+// Per-phase title shown in the top band (intro shows the lesson title).
 function titleFor(step, lesson) {
   switch (step) {
+    case "video":    return "סרטון";
     case "intro":    return lesson.title;
-    case "teach":    return "למד";
+    case "grammar":  return "דקדוק";
     case "vocab":    return "מילים חדשות";
+    case "examples": return "דוגמאות";
     case "practice": return "תרגל";
     case "quiz":     return "חידון";
-    case "complete": return "הושלם! 🎉";
+    case "complete": return "הושלם!";
   }
   return "";
 }
 
-// LessonJourneyActivity.kt:160–191 — the rules that decide which step comes
-// next, including the skip-empty-vocab and skip-empty-practice conditions.
-function nextOf(step, lesson) {
+// Skip-when-empty rules: if a phase has no content, jump past it
+// rather than render an empty page. Mirrors the design's phase-list
+// builder in screen-lesson.jsx:11–22.
+function hasContent(step, lesson) {
   switch (step) {
-    case "intro":
-      return "teach";
-    case "teach":
-      return lesson.vocabulary && lesson.vocabulary.length > 0 ? "vocab" : "practice";
-    case "vocab":
-      return "practice";
-    case "practice":
-      return "quiz";
-    case "quiz":
-      return "complete";
-    case "complete":
-      return null; // finish() — back to Learn
+    case "video":    return !!lesson.videoUrl;
+    case "grammar":  return Array.isArray(lesson.grammarPoints) && lesson.grammarPoints.length > 0;
+    case "vocab":    return Array.isArray(lesson.vocabulary)    && lesson.vocabulary.length > 0;
+    case "examples": return Array.isArray(lesson.examples)      && lesson.examples.length > 0;
+    case "practice": return Array.isArray(lesson.practiceCards) && lesson.practiceCards.length > 0;
+    case "quiz":     return Array.isArray(lesson.exercises)     && lesson.exercises.length > 0;
+    case "intro":    return true;
+    case "complete": return true;
+    default:         return false;
+  }
+}
+
+function nextOf(step, lesson) {
+  const idx = STEPS.indexOf(step);
+  if (idx < 0) return null;
+  for (let i = idx + 1; i < STEPS.length; i++) {
+    const next = STEPS[i];
+    if (hasContent(next, lesson)) return next;
+  }
+  return null; // finish() — back to Learn
+}
+
+function prevOf(step, lesson) {
+  const idx = STEPS.indexOf(step);
+  if (idx <= 0) return null;
+  for (let i = idx - 1; i >= 0; i--) {
+    const prev = STEPS[i];
+    if (hasContent(prev, lesson)) return prev;
   }
   return null;
 }
@@ -82,9 +108,11 @@ function nextOf(step, lesson) {
 // ─────────────────────────────────────────────────────────────
 
 const RENDERERS = {
+  video:    Video,
   intro:    Intro,
-  teach:    Teach,
+  grammar:  Grammar,
   vocab:    Vocab,
+  examples: Examples,
   practice: Practice,
   quiz:     Quiz,
   complete: Complete,
@@ -104,9 +132,16 @@ export function LessonJourney({ host, ctx, params }) {
     return;
   }
 
-  // Resolve initial step from the URL (e.g. #/lesson/3/teach), defaulting to
-  // INTRO if the URL is just #/lesson/:id or names an unknown step.
-  let currentStep = STEPS.includes(params.step) ? params.step : "intro";
+  // Resolve initial step from the URL (e.g. #/lesson/3/grammar). If the
+  // URL doesn't name a step (just #/lesson/:id), start at the FIRST
+  // phase that has content — that's `video` if the lesson has a
+  // videoUrl, otherwise `intro`.
+  let currentStep;
+  if (STEPS.includes(params.step)) {
+    currentStep = params.step;
+  } else {
+    currentStep = hasContent("video", lesson) ? "video" : "intro";
+  }
 
   // Disposer registry — step renderers can register cleanup (e.g. clearing
   // a timer, destroying a video iframe). Called before the next render.
@@ -247,8 +282,8 @@ export function LessonJourney({ host, ctx, params }) {
     flushDisposers();
     currentStep = step;
 
-    // Update header — title, subtitle (number for intro, phase for others),
-    // progress bar (hidden on intro/complete).
+    // Update header — title, subtitle (lesson context), and progress
+    // bar (hidden on intro/complete since they aren't "real" steps).
     titleEl.textContent = titleFor(step, lesson);
     if (step === "intro") {
       subtitleEl.textContent = lesson.number || "";
@@ -257,8 +292,10 @@ export function LessonJourney({ host, ctx, params }) {
       subtitleEl.textContent = lesson.title || "";
       progressBar.style.visibility = "hidden";
     } else {
+      // Other steps (video / grammar / vocab / examples / practice / quiz)
+      // carry the lesson context in the subtitle.
       subtitleEl.textContent = (lesson.number || "") +
-        (lesson.subtitle ? " · " + lesson.subtitle : "");
+        (lesson.title ? " · " + lesson.title : "");
       progressBar.style.visibility = "visible";
     }
     const pct = PROGRESS[step] ?? 0;
@@ -320,15 +357,11 @@ export function LessonJourney({ host, ctx, params }) {
       const handled = journey.onBackOverride();
       if (handled === true) return;
     }
-    // Default: previous step, or back to Learn from INTRO.
-    switch (currentStep) {
-      case "intro":    return router.go("#/learn");
-      case "teach":    return goto("intro");
-      case "vocab":    return goto("teach");
-      case "practice": return goto(lesson.vocabulary && lesson.vocabulary.length > 0 ? "vocab" : "teach");
-      case "quiz":     return goto("practice");
-      case "complete": return router.go("#/learn");
-    }
+    // Complete always exits to Learn (the lesson is finished).
+    if (currentStep === "complete") return router.go("#/learn");
+    const prev = prevOf(currentStep, lesson);
+    if (prev) return goto(prev);
+    return router.go("#/learn");
   }
 
   // First mount
