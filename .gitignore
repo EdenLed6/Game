@@ -9,5 +9,6 @@
 .cxx
 local.properties
 app/build/
-.claude/
+.claude/*
+!.claude/settings.json
 .ui-source/
