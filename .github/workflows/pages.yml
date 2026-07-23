@@ -5,10 +5,10 @@ name: Deploy web to GitHub Pages
 
 on:
   push:
+    # Deploy only from the default branch — pushes to feature branches must
+    # never overwrite the live site or burn Pages deploy quota (~10/hour).
     branches:
-      - main
-      - work
-      - "claude/**"
+      - claude/japanese-learning-app-4p1tP
     paths:
       - "web/**"
       - "scripts/extract_lessons.py"

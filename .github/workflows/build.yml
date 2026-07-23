@@ -2,10 +2,17 @@ name: Building APK
 
 on:
   push:
+    # Build only on the default branch, and only when the Android app
+    # actually changed — not on every push to every feature branch.
     branches:
-      - main
-      - work
-      - "claude/**"
+      - claude/japanese-learning-app-4p1tP
+    paths:
+      - "app/**"
+      - "build.gradle"
+      - "settings.gradle"
+      - "gradle.properties"
+      - "gradle/**"
+      - ".github/workflows/build.yml"
   workflow_dispatch:
 
 concurrency:
